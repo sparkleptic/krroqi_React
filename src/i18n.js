@@ -20,9 +20,6 @@ I18n.locale = 'en';
 /*
     Only allow RTL if we have translations for RTL languages (ie. not fallbacks)
 */
-console.log('====================================');
-console.log(I18n.locale === 'ar' ? true : false);
-console.log('====================================');
 I18nManager.forceRTL(I18n.locale in I18n.translations);
 
 /*
