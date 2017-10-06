@@ -1,10 +1,7 @@
 export default {
-	movies: {
-		details: {},
-		genres: [],
-		list: {},
-		nowPlayingMovies: {},
-		popularMovies: {},
-		searchResults: {}
+	properties: {
+		loading: false,
+		error: false,
+		success: false,
 	}
 };

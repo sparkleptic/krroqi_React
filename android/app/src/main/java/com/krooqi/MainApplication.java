@@ -3,6 +3,7 @@ package com.krooqi;
 
 import com.reactnativenavigation.NavigationApplication;
 import com.facebook.react.ReactApplication;
+import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -12,6 +13,7 @@ import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
 import java.util.List;
+import com.facebook.react.modules.i18nmanager.I18nUtil;
 
 public class MainApplication extends NavigationApplication {
 
@@ -26,11 +28,19 @@ public class MainApplication extends NavigationApplication {
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new ReactNativeRestartPackage(),
             new RNI18nPackage(),
             new VectorIconsPackage()
     );
   }
+  @Override
+  public void onCreate() {
+    super.onCreate();
 
+    // FORCE LTR
+    I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
+    sharedI18nUtilInstance.allowRTL(getApplicationContext(), true);
+  }
   @Override
   public List<ReactPackage> createAdditionalReactPackages() {
     return getPackages();

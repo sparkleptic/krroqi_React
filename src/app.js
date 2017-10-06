@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, I18nManager } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 import { registerScreens } from './screens';
 import { iconsMap, iconsLoaded } from './utils/AppIcons';
+import I18n from './i18n';
 
 
 import configureStore from './store/configureStore';
@@ -22,23 +23,19 @@ const navigatorStyle = {
 	drawUnderTabBar: true
 };
 
+
 class App extends Component {
 	constructor(props) {
 		super(props);
 		iconsLoaded.then(() => {
-			this.startApp();
-		});
-	}
-
-	startApp() {
-		Navigation.startTabBasedApp({
-			tabs: [
+			this.initialTabIndex = 0;
+			this.tabs = [
 				{
-					label: 'Home',
+					label: I18n.t('hello'),
 					screen: 'krooqi.Home',
 					icon: iconsMap['ios-home-outline'],
 					selectedIcon: iconsMap['ios-home'],
-					title: 'Home',
+					title: I18n.t('hello'),
 				},
 				{
 					label: 'Search',
@@ -68,12 +65,24 @@ class App extends Component {
 					selectedIcon: iconsMap['ios-more'],
 					title: 'More',
 				}
-			],
+			]
+			if(I18nManager.isRTL) {
+				this.tabs.reverse();
+				this.initialTabIndex = 4;
+			}
+			this.startApp();
+		});
+	}
+
+	startApp() {
+		Navigation.startTabBasedApp({
+			tabs: this.tabs,
 			tabsStyle: {
 				tabBarBackgroundColor: '#F6F6F6',
 				tabBarButtonColor: '#000000',
 				tabBarSelectedButtonColor: '#f7941e',
 				tabFontFamily: 'BioRhyme-Bold',
+				initialTabIndex: this.initialTabIndex,
 			},
 			appStyle: {
 				navBarTextColor: '#000000',

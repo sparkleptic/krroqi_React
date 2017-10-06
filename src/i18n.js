@@ -15,12 +15,13 @@ I18n.translations = {
 };
 
 I18n.defaultLocale = 'en';
-I18n.locale = 'en';
+I18n.locale = I18nManager.isRTL ? 'ar' : 'en';
 
 /*
     Only allow RTL if we have translations for RTL languages (ie. not fallbacks)
 */
-I18nManager.forceRTL(I18n.locale in I18n.translations);
+I18nManager.allowRTL(true);
+I18nManager.forceRTL(false);
 
 /*
     Set start/end for developer use in non-RTL aware cases,
