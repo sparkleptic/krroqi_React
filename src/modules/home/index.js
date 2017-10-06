@@ -4,12 +4,16 @@ import {
     Text,
     View,
     StyleSheet,
-    NetInfo
+    NetInfo,
+    ActivityIndicator,
+    Dimensions
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as PropertiesActions from '../../Actions/PropertiesAction';
+import HList from './../../components/List';
 
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
@@ -19,49 +23,96 @@ const styles = StyleSheet.create({
     }
 });
 
+const screenHeight = height;
+const screenWidth = width;
+const aspectRation = width / height;
+const latitudeDelta = 0.0922;
+const longitudeDelta = latitudeDelta * aspectRation;
+
 class App extends Component {
     constructor(props) {
         super(props);
-        this._handleConnectivityChange = this._handleConnectivityChange.bind(this);
+        this.state = {
+            initialPosition: {
+                latitude: 0,
+                longitude: 0,
+                latitudeDelta: 0,
+                longitudeDelta: 0,
+            },
+            markerPosition: {
+                latitude: 0,
+                longitude: 0,
+            }
+
+        }
+        this.setLocation = this.setLocation.bind(this);
     }
+
+    watchId: ?number = null
 
     componentWillMount() {
         this.props.actions.propertiesLoad();
     }
-
     componentDidMount() {
-        NetInfo.isConnected.fetch().then().done(() => {
-            NetInfo.isConnected.addEventListener('connectionChange', this._handleConnectivityChange);
+        const dispatchConnected = isConnected => this.props.actions.checkConnection(isConnected);
+        NetInfo.isConnected.fetch().then(isConnected => {
+            this.props.actions.checkConnection(isConnected);
+            NetInfo.isConnected.addEventListener('connectionChange', dispatchConnected);
         });
+
+        // navigator.geolocation.getCurrentPosition((position) => {
+        //     this.setLocation(position);
+        // },
+        //     (error) => alert(JSON.stringify(error)),
+        //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 3000 });
+
+        // this.watchId = navigator.geolocation.watchPosition((position) => {
+        //     this.setLocation(position);
+        // },
+        //     (error) => alert(JSON.stringify(error)),
+        //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 3000 });
     }
 
-    _handleConnectivityChange = (isConnected) => {
-        this.props.actions.checkConnection(isConnected);
-   }
+    // componentWillUnmount() {
+    //     navigator.geolocation.clearWatch(this.watchId);
+    // }
+
+    setLocation(position) {
+        let latitude = parseFloat(position.coords.latitude);
+        let longitude = parseFloat(position.coords.longitude);
+
+        let initialRegion = {
+            latitude,
+            longitude,
+            latitudeDelta,
+            longitudeDelta
+        }
+
+        this.setState({ initialPosition: initialRegion });
+        this.setState({ markerPosition: initialRegion });
+    }
 
     render() {
         return (
-            <View style={styles.container}>
             <View>
-                {
-                    this.props.properties.success && this.props.properties.success.sale.map(value => <Text key={value.ID}>{value.ID}</Text>)
+                {this.props.properties.loading ?
+                    <ActivityIndicator size="large" color="red" /> :
+                    <View>
+                        {this.props.properties.success &&
+                            <HList title="Sale" data={this.props.properties.success.sale} />
+                        }
+                    </View>
                 }
-                </View>
-                <View>
-                {
-                    this.props.connection && <Text>Connected</Text>
-                }
-                </View>
             </View>
         );
     }
 }
 
 App.propTypes = {
-	actions: PropTypes.object.isRequired,
-	properties: PropTypes.object.isRequired,
-	connection: PropTypes.bool.isRequired,
-	navigator: PropTypes.object
+    actions: PropTypes.object.isRequired,
+    properties: PropTypes.object.isRequired,
+    connection: PropTypes.object.isRequired,
+    navigator: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {
