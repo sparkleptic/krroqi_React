@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import {
     Text,
     View,
+    ScrollView,
     StyleSheet,
     NetInfo,
-    ActivityIndicator,
-    Dimensions
+    FlatList
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as PropertiesActions from '../../Actions/PropertiesAction';
-import HList from './../../components/List';
-
-const { width, height } = Dimensions.get('window');
+import HomeCard from './../../components/HomeCard';
 
 const styles = StyleSheet.create({
     container: {
@@ -22,12 +20,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ecf0f1',
     }
 });
-
-const screenHeight = height;
-const screenWidth = width;
-const aspectRation = width / height;
-const latitudeDelta = 0.0922;
-const longitudeDelta = latitudeDelta * aspectRation;
 
 class App extends Component {
     constructor(props) {
@@ -43,12 +35,9 @@ class App extends Component {
                 latitude: 0,
                 longitude: 0,
             }
-
         }
-        this.setLocation = this.setLocation.bind(this);
+        this.onRefresh = this.onRefresh.bind(this);
     }
-
-    watchId: ?number = null
 
     componentWillMount() {
         this.props.actions.propertiesLoad();
@@ -60,49 +49,36 @@ class App extends Component {
             NetInfo.isConnected.addEventListener('connectionChange', dispatchConnected);
         });
 
-        // navigator.geolocation.getCurrentPosition((position) => {
-        //     this.setLocation(position);
-        // },
-        //     (error) => alert(JSON.stringify(error)),
-        //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 3000 });
-
-        // this.watchId = navigator.geolocation.watchPosition((position) => {
-        //     this.setLocation(position);
-        // },
-        //     (error) => alert(JSON.stringify(error)),
-        //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 3000 });
+        this.props.navigator.setStyle({
+            navBarCustomView: 'krooqi.HomeTopBar',
+            navBarComponentAlignment: 'center',
+        });
     }
 
-    // componentWillUnmount() {
-    //     navigator.geolocation.clearWatch(this.watchId);
-    // }
-
-    setLocation(position) {
-        let latitude = parseFloat(position.coords.latitude);
-        let longitude = parseFloat(position.coords.longitude);
-
-        let initialRegion = {
-            latitude,
-            longitude,
-            latitudeDelta,
-            longitudeDelta
-        }
-
-        this.setState({ initialPosition: initialRegion });
-        this.setState({ markerPosition: initialRegion });
+    onRefresh() {
+        this.props.actions.propertiesLoad();
     }
 
     render() {
+        let properties = this.props.properties.success;
+        let arrayData = [];
+        if (properties) {
+            arrayData = Object.keys(properties).map(function (val) {
+                let obj = new Object();
+                obj[val] = properties[val];
+                return obj;
+            });
+        }
         return (
-            <View>
-                {this.props.properties.loading ?
-                    <ActivityIndicator size="large" color="red" /> :
-                    <View>
-                        {this.props.properties.success &&
-                            <HList title="Sale" data={this.props.properties.success.sale} />
-                        }
-                    </View>
-                }
+            <View style={{ flex: 1 }}>
+                <FlatList
+                    data={arrayData}
+                    renderItem={({ item }) => <HomeCard data={item} navigator={this.props.navigator} />}
+                    ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+                    keyExtractor={(item, index) => index}
+                    refreshing={this.props.properties.loading}
+                    onRefresh={this.onRefresh}
+                />
             </View>
         );
     }

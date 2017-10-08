@@ -19,7 +19,9 @@ const icons = {
 	'ios-desktop': [30],
 	'ios-search': [30],
 	'ios-arrow-round-down': [navIconSize],
-	'ios-close': [40]
+	'ios-close': [40],
+	'md-heart': [40],
+	'md-heart-outline': [40]
 };
 
 const iconsMap = {};

@@ -35,7 +35,7 @@ class App extends Component {
 					screen: 'krooqi.Home',
 					icon: iconsMap['ios-home-outline'],
 					selectedIcon: iconsMap['ios-home'],
-					title: I18n.t('hello'),
+					title: '',
 				},
 				{
 					label: 'Search',
@@ -91,6 +91,7 @@ class App extends Component {
 				navBarBackgroundColor: '#f7941e',
 				statusBarColor: '#002b4c',
 				tabFontFamily: 'BioRhyme-Bold',
+				screenBackgroundColor: '#E9EBEE'
 			}
 		});
 	}

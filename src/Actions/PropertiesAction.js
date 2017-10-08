@@ -15,6 +15,18 @@ export function propertiesLoadFail(error) {
     return { type: types.LOAD_PROPERTIES_FAIL, error };
 }
 
+export function propertiesByCategoryLoadRequest() {
+    return { type: types.LOAD_PROPERTIESBYCATEGORY_REQUEST };
+}
+
+export function propertiesByCategoryLoadSuccess(properties) {
+    return { type: types.LOAD_PROPERTIESBYCATEGORY_SUCCESS, properties };
+}
+
+export function propertiesByCategoryLoadFail(error) {
+    return { type: types.LOAD_PROPERTIESBYCATEGORY_FAIL, error };
+}
+
 export function checkConnectionSuccess(isConnected) {
     return { type: types.CHECK_CONNECTION, isConnected };
 }
@@ -29,6 +41,19 @@ export function propertiesLoad() {
         });
     };
 }
+
+
+export function propertiesByCategoryLoad(category) {
+    return (dispatch) => {
+        dispatch(propertiesByCategoryLoadRequest());
+        return axios.get(`${config.PUBLIC_URL}getCategoryProperties/en/${category}`).then((response) => {
+            dispatch(propertiesByCategoryLoadSuccess(response.data));
+        }).catch((error) => {
+            dispatch(propertiesByCategoryLoadFail(error));
+        });
+    };
+}
+
 
 export function checkConnection(isConnected) {
     return (dispatch) => {
