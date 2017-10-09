@@ -3512,6 +3512,10 @@ react-native-i18n@^2.0.6:
   dependencies:
     i18n-js "github:fnando/i18n-js#v3.0.1"
 
+react-native-maps@^0.16.4:
+  version "0.16.4"
+  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.16.4.tgz#c18c3cab8cd0ce05431cd74dac11a39afaa579e4"
+
 react-native-navigation@^1.1.235:
   version "1.1.235"
   resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.235.tgz#53e3dc0eeb2b41b3f8890329550b15d1d5de9ac5"

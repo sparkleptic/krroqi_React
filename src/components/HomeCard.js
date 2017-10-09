@@ -88,7 +88,7 @@ class HomeCard extends Component {
                 <FlatList
                     horizontal
                     renderItem={({ item }) => <PropertyCard property={item} onCardPress={this.pushDetail} />}
-                    SeparatorComponent={() => <View style={{ width: 5 }} />}
+                    ItemSeparatorComponent={ () => <View style={ { width: 10 } } /> }
                     keyExtractor={item => item.ID}
                     data={data[key]}
                 />

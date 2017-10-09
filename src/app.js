@@ -87,9 +87,9 @@ class App extends Component {
 			appStyle: {
 				navBarTextColor: '#000000',
 				tabBarSelectedButtonColor: '#ff505c',
-				navigationBarColor: '#003a66',
+				navigationBarColor: '#000000',
 				navBarBackgroundColor: '#f7941e',
-				statusBarColor: '#002b4c',
+				statusBarColor: '#000000',
 				tabFontFamily: 'BioRhyme-Bold',
 				screenBackgroundColor: '#E9EBEE'
 			}

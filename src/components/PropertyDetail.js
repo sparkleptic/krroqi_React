@@ -6,9 +6,16 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Modal,
+    FlatList,
+    Image,
+    Dimensions
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Carousel from './Carousel';
+
+const { width, height } = Dimensions.get('window');
 
 
 const HEADER_MAX_HEIGHT = 300;
@@ -21,7 +28,9 @@ export default class App extends Component {
 
         this.state = {
             scrollY: new Animated.Value(0),
+            modalVisible: false
         };
+        this.showModal = this.showModal.bind(this);
     }
 
     _renderScrollViewContent() {
@@ -33,8 +42,21 @@ export default class App extends Component {
                         <Text>{i}</Text>
                     </View>
                 ))}
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    style={{ backgroundColor: 'black' }}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => { this.setState({ modalVisible: false }); }}
+                >
+                    <Carousel images={this.props.property.images} closeModel={() => { this.setState({ modalVisible: false }); }} />
+                </Modal>
             </View>
         );
+    }
+
+    showModal() {
+        this.setState({ modalVisible: true });
     }
 
     render() {
@@ -89,16 +111,18 @@ export default class App extends Component {
                         { transform: [{ translateY: headerTranslate }] },
                     ]}
                 >
-                    <Animated.Image
-                        style={[
-                            styles.backgroundImage,
-                            {
-                                opacity: imageOpacity,
-                                transform: [{ translateY: imageTranslate }],
-                            },
-                        ]}
-                        source={{ uri: this.props.property.thumbnail }}
-                    />
+                    <TouchableWithoutFeedback onPress={this.showModal}>
+                        <Animated.Image
+                            style={[
+                                styles.backgroundImage,
+                                {
+                                    opacity: imageOpacity,
+                                    transform: [{ translateY: imageTranslate }],
+                                },
+                            ]}
+                            source={{ uri: this.props.property.thumbnail }}
+                        />
+                    </TouchableWithoutFeedback>
                 </Animated.View>
                 <Animated.View
                     style={[

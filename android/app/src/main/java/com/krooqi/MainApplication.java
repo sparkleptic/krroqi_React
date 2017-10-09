@@ -3,6 +3,7 @@ package com.krooqi;
 
 import com.reactnativenavigation.NavigationApplication;
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.maps.MapsPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends NavigationApplication {
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new MapsPackage(),
             new ReactNativeRestartPackage(),
             new RNI18nPackage(),
             new VectorIconsPackage()

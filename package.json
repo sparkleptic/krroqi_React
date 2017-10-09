@@ -12,6 +12,7 @@
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.48.4",
 		"react-native-i18n": "^2.0.6",
+		"react-native-maps": "^0.16.4",
 		"react-native-navigation": "^1.1.235",
 		"react-native-restart": "^0.0.3",
 		"react-native-vector-icons": "^4.4.0",
