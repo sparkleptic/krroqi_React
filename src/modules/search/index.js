@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions } from 'react-native';
-const { width, height } = Dimensions.get('window');
+import { View, Dimensions, TouchableWithoutFeedback, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import MapView from 'react-native-maps';
 
+const { width, height } = Dimensions.get('window');
 const screenHeight = height;
 const screenWidth = width;
 const aspectRation = width / height;
@@ -30,17 +32,22 @@ class SearchPage extends Component {
     watchId: ?number = null
 
     componentDidMount() {
+
+        this.props.navigator.setStyle({
+            navBarCustomView: 'krooqi.SearchTopBar',
+            navBarComponentAlignment: 'fill',
+        });
+
         navigator.geolocation.getCurrentPosition((position) => {
             this.setLocation(position);
         },
-            (error) => alert(JSON.stringify(error)),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 3000 });
+            (error) => alert('geo' + JSON.stringify(error)),
+            {enableHighAccuracy: false, timeout: 20000, maximumAge: 2000});
 
         this.watchId = navigator.geolocation.watchPosition((position) => {
             this.setLocation(position);
         },
-            (error) => alert(JSON.stringify(error)),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 3000 });
+            (error) => alert(JSON.stringify(error)));
     }
 
     componentWillUnmount() {
@@ -65,8 +72,25 @@ class SearchPage extends Component {
 
     render() {
         return (
-            <View>
-
+            <View style={{ flex: 1 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingTop: 10, paddingBottom: 10, backgroundColor: '#F6F6F6' }}>
+                    <TouchableWithoutFeedback>
+                        <Icon name="md-funnel" size={30} />
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback>
+                        <Icon name="md-options" size={30} />
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback>
+                        <Icon name="md-bookmark" size={30} />
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback>
+                        <Icon name="md-map" size={30} />
+                    </TouchableWithoutFeedback>
+                </View>
+                <MapView
+                    style={{ flex: 1 }}
+                    initialRegion={this.state.initialRegion}
+                />
             </View>
         );
     }

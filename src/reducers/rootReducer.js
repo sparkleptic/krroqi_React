@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 import properties from './properties.reducer';
 import connection from './connection.reducer';
 import propertiesByCategory from './propertiesByCategory.reducer';
+import { reducer as formReducer } from 'redux-form'
 
 const rootReducer = combineReducers({
 	properties,
 	propertiesByCategory,
-	connection
+	connection,
+	form: formReducer
 });
 
 export default rootReducer;
