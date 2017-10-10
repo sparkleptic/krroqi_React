@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -53,6 +52,10 @@
 		EC09ED9F4A804BD1933B4CDF /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DE6C3DE3ACB426D811C1FDF /* libReactNativeNavigation.a */; };
 		F612D9B86C84459E8953C854 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 795BCB63D1094AAB90917961 /* Foundation.ttf */; };
 		FA447F1B18804A5CA7406EE0 /* libRCTRestart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC39B8BF1D794273A9F2D215 /* libRCTRestart.a */; };
+		390481C0BE0C4BDD9353C1F4 /* libRNMobileCenter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0631D9236FF499FA6A1EEC2 /* libRNMobileCenter.a */; };
+		E43DE0CA7B64418B98A630C1 /* MobileCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B309A8BD2084483997E9A17 /* MobileCenter-Config.plist */; };
+		1A444F6211254C81B2D11BB3 /* libRNAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C737C7EDBF4C75AB8C87B6 /* libRNAnalytics.a */; };
+		A540FC0812CD43DC830B6352 /* libRNCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A2CA643D3A41E698E78850 /* libRNCrashes.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -379,6 +382,13 @@
 		FA4224AFC61D4315A4064C25 /* RCTRestart.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTRestart.xcodeproj; path = "../node_modules/react-native-restart/ios/RCTRestart.xcodeproj"; sourceTree = "<group>"; };
 		FB1AB15BA0A245D88BA7954C /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		FC39B8BF1D794273A9F2D215 /* libRCTRestart.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTRestart.a; sourceTree = "<group>"; };
+		07C01E5EA812415F8A6E415E /* RNMobileCenter.xcodeproj */ = {isa = PBXFileReference; name = "RNMobileCenter.xcodeproj"; path = "../node_modules/mobile-center/ios/RNMobileCenter.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		A0631D9236FF499FA6A1EEC2 /* libRNMobileCenter.a */ = {isa = PBXFileReference; name = "libRNMobileCenter.a"; path = "libRNMobileCenter.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		0B309A8BD2084483997E9A17 /* MobileCenter-Config.plist */ = {isa = PBXFileReference; name = "MobileCenter-Config.plist"; path = "krooqi/MobileCenter-Config.plist"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
+		7E62BE8FC57D4B019386D2E3 /* RNAnalytics.xcodeproj */ = {isa = PBXFileReference; name = "RNAnalytics.xcodeproj"; path = "../node_modules/mobile-center-analytics/ios/RNAnalytics.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		B1C737C7EDBF4C75AB8C87B6 /* libRNAnalytics.a */ = {isa = PBXFileReference; name = "libRNAnalytics.a"; path = "libRNAnalytics.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		B6AB4E8BB8FD4F3BAEF81EBB /* RNCrashes.xcodeproj */ = {isa = PBXFileReference; name = "RNCrashes.xcodeproj"; path = "../node_modules/mobile-center-crashes/ios/RNCrashes.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		F2A2CA643D3A41E698E78850 /* libRNCrashes.a */ = {isa = PBXFileReference; name = "libRNCrashes.a"; path = "libRNCrashes.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -412,6 +422,9 @@
 				08E73C53F3FF41FDBAAE502E /* libRNI18n.a in Frameworks */,
 				FA447F1B18804A5CA7406EE0 /* libRCTRestart.a in Frameworks */,
 				E43CBCBFF25D4FF79148FD58 /* libAirMaps.a in Frameworks */,
+				390481C0BE0C4BDD9353C1F4 /* libRNMobileCenter.a in Frameworks */,
+				1A444F6211254C81B2D11BB3 /* libRNAnalytics.a in Frameworks */,
+				A540FC0812CD43DC830B6352 /* libRNCrashes.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,6 +619,9 @@
 				2877FDF1983A4F489AB8ADF6 /* RNI18n.xcodeproj */,
 				FA4224AFC61D4315A4064C25 /* RCTRestart.xcodeproj */,
 				469F6A9EB589479A8CDA621D /* AirMaps.xcodeproj */,
+				07C01E5EA812415F8A6E415E /* RNMobileCenter.xcodeproj */,
+				7E62BE8FC57D4B019386D2E3 /* RNAnalytics.xcodeproj */,
+				B6AB4E8BB8FD4F3BAEF81EBB /* RNCrashes.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -628,6 +644,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				6D7CFB4FFC304A048C4BB456 /* Resources */,
 				99C503051F83A63200B3B716 /* Recovered References */,
+				0B309A8BD2084483997E9A17 /* MobileCenter-Config.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -1187,6 +1204,7 @@
 				796FBDA07C304CA185EE5AAE /* Octicons.ttf in Resources */,
 				973C26B7257849048B724214 /* SimpleLineIcons.ttf in Resources */,
 				878CBC1523344EA6AF4FF915 /* Zocial.ttf in Resources */,
+				E43DE0CA7B64418B98A630C1 /* MobileCenter-Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1317,12 +1335,18 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-restart/ios/RCTRestart/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/mobile-center/ios/RNMobileCenter",
+					"$(SRCROOT)/../node_modules/mobile-center-analytics/ios/RNAnalytics",
+					"$(SRCROOT)/../node_modules/mobile-center-crashes/ios/RNCrashes",
 				);
 				INFOPLIST_FILE = krooqiTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1350,12 +1374,18 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-restart/ios/RCTRestart/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/mobile-center/ios/RNMobileCenter",
+					"$(SRCROOT)/../node_modules/mobile-center-analytics/ios/RNAnalytics",
+					"$(SRCROOT)/../node_modules/mobile-center-crashes/ios/RNCrashes",
 				);
 				INFOPLIST_FILE = krooqiTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1387,6 +1417,9 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-restart/ios/RCTRestart/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/mobile-center/ios/RNMobileCenter",
+					"$(SRCROOT)/../node_modules/mobile-center-analytics/ios/RNAnalytics",
+					"$(SRCROOT)/../node_modules/mobile-center-crashes/ios/RNCrashes",
 				);
 				INFOPLIST_FILE = krooqi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1416,6 +1449,9 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-restart/ios/RCTRestart/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/mobile-center/ios/RNMobileCenter",
+					"$(SRCROOT)/../node_modules/mobile-center-analytics/ios/RNAnalytics",
+					"$(SRCROOT)/../node_modules/mobile-center-crashes/ios/RNCrashes",
 				);
 				INFOPLIST_FILE = krooqi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1449,11 +1485,17 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-restart/ios/RCTRestart/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/mobile-center/ios/RNMobileCenter",
+					"$(SRCROOT)/../node_modules/mobile-center-analytics/ios/RNAnalytics",
+					"$(SRCROOT)/../node_modules/mobile-center-crashes/ios/RNCrashes",
 				);
 				INFOPLIST_FILE = "krooqi-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1491,11 +1533,17 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-restart/ios/RCTRestart/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/mobile-center/ios/RNMobileCenter",
+					"$(SRCROOT)/../node_modules/mobile-center-analytics/ios/RNAnalytics",
+					"$(SRCROOT)/../node_modules/mobile-center-crashes/ios/RNCrashes",
 				);
 				INFOPLIST_FILE = "krooqi-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1534,6 +1582,9 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.krooqi-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1558,6 +1609,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

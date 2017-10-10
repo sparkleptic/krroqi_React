@@ -1,23 +1,16 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Animated,
-  Image,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, Text, View, Animated, Image, Dimensions } from 'react-native';
 
-import MapView from "react-native-maps";
+import MapView from 'react-native-maps';
 
 const Images = [
-  { uri: "https://i.imgur.com/sNam9iJ.jpg" },
-  { uri: "https://i.imgur.com/N7rlQYt.jpg" },
-  { uri: "https://i.imgur.com/UDrH0wm.jpg" },
-  { uri: "https://i.imgur.com/Ka8kNST.jpg" }
-]
+  { uri: 'https://i.imgur.com/sNam9iJ.jpg' },
+  { uri: 'https://i.imgur.com/N7rlQYt.jpg' },
+  { uri: 'https://i.imgur.com/UDrH0wm.jpg' },
+  { uri: 'https://i.imgur.com/Ka8kNST.jpg' },
+];
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
@@ -30,8 +23,8 @@ export default class screens extends Component {
           latitude: 45.524548,
           longitude: -122.6749817,
         },
-        title: "Best Place",
-        description: "This is the best place in Portland",
+        title: 'Best Place',
+        description: 'This is the best place in Portland',
         image: Images[0],
       },
       {
@@ -39,8 +32,8 @@ export default class screens extends Component {
           latitude: 45.524698,
           longitude: -122.6655507,
         },
-        title: "Second Best Place",
-        description: "This is the second best place in Portland",
+        title: 'Second Best Place',
+        description: 'This is the second best place in Portland',
         image: Images[1],
       },
       {
@@ -48,8 +41,8 @@ export default class screens extends Component {
           latitude: 45.5230786,
           longitude: -122.6701034,
         },
-        title: "Third Best Place",
-        description: "This is the third best place in Portland",
+        title: 'Third Best Place',
+        description: 'This is the third best place in Portland',
         image: Images[2],
       },
       {
@@ -57,8 +50,8 @@ export default class screens extends Component {
           latitude: 45.521016,
           longitude: -122.6561917,
         },
-        title: "Fourth Best Place",
-        description: "This is the fourth best place in Portland",
+        title: 'Fourth Best Place',
+        description: 'This is the fourth best place in Portland',
         image: Images[3],
       },
     ],
@@ -97,7 +90,7 @@ export default class screens extends Component {
               latitudeDelta: this.state.region.latitudeDelta,
               longitudeDelta: this.state.region.longitudeDelta,
             },
-            350
+            350,
           );
         }
       }, 10);
@@ -106,20 +99,16 @@ export default class screens extends Component {
 
   render() {
     const interpolations = this.state.markers.map((marker, index) => {
-      const inputRange = [
-        (index - 1) * CARD_WIDTH,
-        index * CARD_WIDTH,
-        ((index + 1) * CARD_WIDTH),
-      ];
+      const inputRange = [(index - 1) * CARD_WIDTH, index * CARD_WIDTH, (index + 1) * CARD_WIDTH];
       const scale = this.animation.interpolate({
         inputRange,
         outputRange: [1, 2.5, 1],
-        extrapolate: "clamp",
+        extrapolate: 'clamp',
       });
       const opacity = this.animation.interpolate({
         inputRange,
         outputRange: [0.35, 1, 0.35],
-        extrapolate: "clamp",
+        extrapolate: 'clamp',
       });
       return { scale, opacity };
     });
@@ -127,7 +116,7 @@ export default class screens extends Component {
     return (
       <View style={styles.container}>
         <MapView
-          ref={map => this.map = map}
+          ref={map => (this.map = map)}
           initialRegion={this.state.region}
           style={styles.container}
         >
@@ -167,20 +156,18 @@ export default class screens extends Component {
                 },
               },
             ],
-            { useNativeDriver: true }
+            { useNativeDriver: true },
           )}
           style={styles.scrollView}
           contentContainerStyle={styles.endPadding}
         >
           {this.state.markers.map((marker, index) => (
             <View style={styles.card} key={index}>
-              <Image
-                source={marker.image}
-                style={styles.cardImage}
-                resizeMode="cover"
-              />
+              <Image source={marker.image} style={styles.cardImage} resizeMode="cover" />
               <View style={styles.textContent}>
-                <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
+                <Text numberOfLines={1} style={styles.cardtitle}>
+                  {marker.title}
+                </Text>
                 <Text numberOfLines={1} style={styles.cardDescription}>
                   {marker.description}
                 </Text>
@@ -198,7 +185,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollView: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 30,
     left: 0,
     right: 0,
@@ -210,21 +197,21 @@ const styles = StyleSheet.create({
   card: {
     padding: 10,
     elevation: 2,
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
     marginHorizontal: 10,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowRadius: 5,
     shadowOpacity: 0.3,
     shadowOffset: { x: 2, y: -2 },
     height: CARD_HEIGHT,
     width: CARD_WIDTH,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   cardImage: {
     flex: 3,
-    width: "100%",
-    height: "100%",
-    alignSelf: "center",
+    width: '100%',
+    height: '100%',
+    alignSelf: 'center',
   },
   textContent: {
     flex: 1,
@@ -232,29 +219,29 @@ const styles = StyleSheet.create({
   cardtitle: {
     fontSize: 12,
     marginTop: 5,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   cardDescription: {
     fontSize: 12,
-    color: "#444",
+    color: '#444',
   },
   markerWrap: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   marker: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: "rgba(130,4,150, 0.9)",
+    backgroundColor: 'rgba(130,4,150, 0.9)',
   },
   ring: {
     width: 24,
     height: 24,
     borderRadius: 12,
-    backgroundColor: "rgba(130,4,150, 0.3)",
-    position: "absolute",
+    backgroundColor: 'rgba(130,4,150, 0.3)',
+    position: 'absolute',
     borderWidth: 1,
-    borderColor: "rgba(130,4,150, 0.5)",
+    borderColor: 'rgba(130,4,150, 0.5)',
   },
 });

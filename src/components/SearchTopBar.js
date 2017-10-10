@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Dimensions } from 'react-native';
 import SearchForm from './SearchForm';
 
-const width = Dimensions.get('window').width
+const { width } = Dimensions.get('window');
 
 class SearchTopBar extends Component {
   constructor(props) {
@@ -14,18 +14,16 @@ class SearchTopBar extends Component {
   searchProperty(data) {
     alert(JSON.stringify(data));
   }
-  
+
   render() {
     return (
-      <View style={{ flex: 1}}>
+      <View style={{ flex: 1 }}>
         <SearchForm onSubmit={this.searchProperty} />
       </View>
     );
   }
 }
 
-SearchTopBar.propTypes = {
-
-};
+SearchTopBar.propTypes = {};
 
 export default SearchTopBar;

@@ -10,8 +10,8 @@ import ar from './locales/ar';
 I18n.fallbacks = true;
 
 I18n.translations = {
-    en,
-    ar
+  en,
+  ar,
 };
 
 I18n.defaultLocale = 'en';

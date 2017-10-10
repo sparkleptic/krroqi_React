@@ -3,6 +3,9 @@ package com.krooqi;
 
 import com.reactnativenavigation.NavigationApplication;
 import com.facebook.react.ReactApplication;
+import com.microsoft.azure.mobile.react.crashes.RNCrashesPackage;
+import com.microsoft.azure.mobile.react.analytics.RNAnalyticsPackage;
+import com.microsoft.azure.mobile.react.mobilecenter.RNMobileCenterPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
@@ -29,6 +32,9 @@ public class MainApplication extends NavigationApplication {
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new RNCrashesPackage(MainApplication.this, getResources().getString(R.string.mobileCenterCrashes_whenToSendCrashes)),
+            new RNAnalyticsPackage(MainApplication.this, getResources().getString(R.string.mobileCenterAnalytics_whenToEnableAnalytics)),
+            new RNMobileCenterPackage(MainApplication.this),
             new MapsPackage(),
             new ReactNativeRestartPackage(),
             new RNI18nPackage(),

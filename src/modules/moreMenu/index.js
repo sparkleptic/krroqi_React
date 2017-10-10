@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 
 class MoreMenu extends Component {
-    render() {
-        return (
-            <View>
-                <Text>More Menu page</Text>
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View>
+        <Text>More Menu page</Text>
+      </View>
+    );
+  }
 }
 
-MoreMenu.propTypes = {
-
-};
+MoreMenu.propTypes = {};
 
 export default MoreMenu;

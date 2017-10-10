@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 
 class SavedSearch extends Component {
-    render() {
-        return (
-            <View>
-                <Text>Saved Search Page</Text>
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View>
+        <Text>Saved Search Page</Text>
+      </View>
+    );
+  }
 }
 
-SavedSearch.propTypes = {
-
-};
+SavedSearch.propTypes = {};
 
 export default SavedSearch;
