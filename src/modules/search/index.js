@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { View, Dimensions, TouchableWithoutFeedback, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapView from 'react-native-maps';
 
@@ -15,6 +15,27 @@ class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      search: {
+        searchLabel: '',
+        searchText: '',
+        propertyStatus: '',
+        priceRange: {
+          start: '',
+          end: '',
+        },
+        propertyType: [],
+        rooms: '',
+        baths: '',
+        squreMeterRange: {
+          start: '',
+          end: '',
+        },
+        yearBuilt: {
+          start: '',
+          end: '',
+        },
+        district: '',
+      },
       initialPosition: {
         latitude: 0,
         longitude: 0,
@@ -84,19 +105,22 @@ class SearchPage extends Component {
           }}
         >
           <TouchableWithoutFeedback>
-            <Icon name="md-funnel" size={30} />
+            <View>
+              <Text>Map Results</Text>
+            </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback>
-            <Icon name="md-options" size={30} />
+            <View>
+              <Text>Sort By</Text>
+            </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback>
-            <Icon name="md-bookmark" size={30} />
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback>
-            <Icon name="md-map" size={30} />
+            <View>
+              <Text>Save Search</Text>
+            </View>
           </TouchableWithoutFeedback>
         </View>
-        <MapView style={{ flex: 1 }} initialRegion={this.state.initialRegion} />
+        <MapView style={{ flex: 1 }} initialRegion={this.state.initialPosition} />
       </View>
     );
   }

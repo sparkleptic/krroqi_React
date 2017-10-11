@@ -3,11 +3,14 @@ import React, { Component } from 'react';
 import { View, I18nManager } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
+import Analytics from 'mobile-center-analytics';
 import { registerScreens } from './screens';
 import { iconsMap, iconsLoaded } from './utils/AppIcons';
 import I18n from './i18n';
-
 import configureStore from './store/configureStore';
+// import Mobile Center Analytics at the top of the file.
+
+Analytics.trackEvent('Video clicked', { Category: 'Music', FileName: 'favorite.avi' });
 
 const store = configureStore();
 
@@ -29,18 +32,18 @@ class App extends Component {
       this.initialTabIndex = 0;
       this.tabs = [
         {
-          label: I18n.t('hello'),
-          screen: 'krooqi.Home',
-          icon: iconsMap['ios-home-outline'],
-          selectedIcon: iconsMap['ios-home'],
-          title: '',
-        },
-        {
           label: 'Search',
           screen: 'krooqi.Search',
           icon: iconsMap['ios-search-outline'],
           selectedIcon: iconsMap['ios-search'],
           title: 'Search',
+        },
+        {
+          label: I18n.t('hello'),
+          screen: 'krooqi.Home',
+          icon: iconsMap['ios-home-outline'],
+          selectedIcon: iconsMap['ios-home'],
+          title: '',
         },
         {
           label: 'Favorites',

@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { View, Dimensions } from 'react-native';
+import { View } from 'react-native';
 import SearchForm from './SearchForm';
-
-const { width } = Dimensions.get('window');
 
 class SearchTopBar extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      serchData: '',
+    };
     this.searchProperty = this.searchProperty.bind(this);
   }
 
   searchProperty(data) {
-    alert(JSON.stringify(data));
+    this.setState({ serchData: data });
   }
 
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <SearchForm onSubmit={this.searchProperty} />
+        <SearchForm value={this.state.serchData} onSubmit={this.searchProperty} />
       </View>
     );
   }
