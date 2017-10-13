@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import Textbox from '../inputControls/textbox';
 
 const SearchForm = (props) => {
-  const { handleSubmit } = props;
+  const { handleSubmit, fields: { search } } = props;
   return (
     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
       <Field
@@ -13,6 +13,8 @@ const SearchForm = (props) => {
         component={Textbox}
         placeholder="Type Here..."
         onSubmitEditing={handleSubmit}
+        {...search}
+        autoFocus
       />
       <TouchableOpacity onPress={handleSubmit}>
         <Text
@@ -24,7 +26,7 @@ const SearchForm = (props) => {
             fontSize: 16,
           }}
         >
-          Filter
+          Search
         </Text>
       </TouchableOpacity>
     </View>
@@ -33,6 +35,7 @@ const SearchForm = (props) => {
 
 SearchForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  fields: PropTypes.object.isRequired,
 };
 
 export default reduxForm({

@@ -14,6 +14,18 @@ export function propertiesLoadFail(error) {
   return { type: types.LOAD_PROPERTIES_FAIL, error };
 }
 
+export function filteredPropertiesLoadRequest() {
+  return { type: types.LOAD_FILTEREDPROPERTIES_REQUEST };
+}
+
+export function filteredPropertiesLoadSuccess(properties) {
+  return { type: types.LOAD_FILTEREDPROPERTIES_SUCCESS, properties };
+}
+
+export function filteredPropertiesLoadFail(error) {
+  return { type: types.LOAD_FILTEREDPROPERTIES_FAIL, error };
+}
+
 export function propertiesByCategoryLoadRequest() {
   return { type: types.LOAD_PROPERTIESBYCATEGORY_REQUEST };
 }
@@ -54,6 +66,20 @@ export function propertiesByCategoryLoad(category) {
       })
       .catch((error) => {
         dispatch(propertiesByCategoryLoadFail(error));
+      });
+  };
+}
+
+export function filteredPropertiesLoad(search) {
+  return (dispatch) => {
+    dispatch(filteredPropertiesLoadRequest());
+    return axios
+      .get(`${config.PUBLIC_URL}get30Properties/en`)
+      .then((response) => {
+        dispatch(filteredPropertiesLoadSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(filteredPropertiesLoadFail(error));
       });
   };
 }
