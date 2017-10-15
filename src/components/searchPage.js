@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 
 class searchPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: props.search,
+      search: '',
     };
   }
 
@@ -16,13 +16,14 @@ class searchPage extends Component {
     return (
       <View style={{ flex: 1 }}>
         <Text>Near Me</Text>
+        <Text>{this.state.search}</Text>
       </View>
     );
   }
 }
 
-searchPage.propTypes = {
-  search: PropTypes.object.isRequired,
-};
+// searchPage.propTypes = {
+//   search: PropTypes.object.isRequired,
+// };
 
 export default searchPage;

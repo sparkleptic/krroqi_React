@@ -1,26 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container, ButtonText } from './../common/commonStyle';
-import RowButton from './../inputControls/rowButton';
+import SegmentedControlTab from 'react-native-segmented-control-tab';
+import { View } from 'react-native';
+import { backgroundColor } from './../constants/config';
 
 class filterPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       search: props.search,
+      selectedIndex: 0,
     };
-    this.onSelectValue = this.onSelectValue.bind(this);
+    this.handleIndexChange = this.handleIndexChange.bind(this);
   }
 
-  onSelectValue(e, value) {
-    alert(value);
-  }
+  handleIndexChange = (index) => {
+    this.setState({
+      ...this.state,
+      selectedIndex: index,
+    });
+  };
 
   render() {
     return (
-      <Container>
-        <RowButton value="Any" options={['Any', '1+', '2+']} onChange={this.onSelectValue} />
-      </Container>
+      <View>
+        <SegmentedControlTab
+          tabStyle={{ borderColor: backgroundColor }}
+          activeTabStyle={{ backgroundColor }}
+          tabTextStyle={{ color: backgroundColor }}
+          values={['Any', '1+', '2+']}
+          selectedIndex={this.state.selectedIndex}
+          onTabPress={this.handleIndexChange}
+        />
+      </View>
     );
   }
 }

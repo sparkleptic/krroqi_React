@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as PropertiesAction from '../Actions/PropertiesAction';
+import { backgroundColor } from '../constants/config';
 
 class SearchFormPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: props.searchText,
+      searchText: '',
     };
     this.onChnageText = this.onChnageText.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
@@ -18,6 +22,7 @@ class SearchFormPage extends Component {
   }
 
   submitSearch() {
+    this.props.actions.filteredPropertiesLoad(this.state.searchText);
     Navigation.dismissModal({
       animationType: 'slide-down',
     });
@@ -27,21 +32,26 @@ class SearchFormPage extends Component {
     return (
       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
         <TextInput
-          style={{ flex: 1 }}
+          style={{
+            flex: 1,
+            color: backgroundColor,
+            marginLeft: 10,
+            marginRight: 10,
+          }}
           placeholder="Type Here..."
           value={this.state.searchText}
           onChange={this.onChnageText}
           onSubmitEditing={this.submitSearch}
+          underlineColorAndroid={backgroundColor}
+          selectionColor={backgroundColor}
           autoFocus
         />
         <TouchableOpacity onPress={this.submitSearch}>
           <Text
             style={{
-              color: 'white',
-              paddingLeft: 10,
-              paddingRight: 10,
+              color: backgroundColor,
               fontWeight: '400',
-              fontSize: 16,
+              fontSize: 14,
             }}
           >
             Search
@@ -53,7 +63,15 @@ class SearchFormPage extends Component {
 }
 
 SearchFormPage.propTypes = {
-  searchText: PropTypes.string.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
-export default SearchFormPage;
+// const mapStateToProps = state => ({
+//   searchResult: state.searchResult,
+// });
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(PropertiesAction, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(SearchFormPage);

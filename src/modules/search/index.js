@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, TouchableWithoutFeedback, Text } from 'react-native';
+import { View, Dimensions, TouchableWithoutFeedback, Text, Modal } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapView from 'react-native-maps';
@@ -9,12 +9,24 @@ import { MapHeaderText } from './../../common/commonStyle';
 
 import * as PropertiesActions from './../../Actions/PropertiesAction';
 
+import SaveSearchModal from '../../components/saveSearchModal';
+
 const { width, height } = Dimensions.get('window');
 // const screenHeight = height;
 // const screenWidth = width;
 const aspectRation = width / height;
 const latitudeDelta = 0.922;
 const longitudeDelta = latitudeDelta * aspectRation;
+
+const sortData = [
+  'Relevance',
+  'Newest',
+  'Price(Low to High)',
+  'Price(High to Low)',
+  'Sq.m(Low to High)',
+  'Sq.m(High to Low)',
+  '# of Rooms',
+];
 
 class SearchPage extends Component {
   constructor(props) {
@@ -26,13 +38,21 @@ class SearchPage extends Component {
         latitudeDelta,
         longitudeDelta,
       },
-      markerPosition: {
-        latitude: 0,
-        longitude: 0,
-      },
+      search: {},
+      defaultSearchLabel: 'yagnesh',
+      selectedValue: 'Relevance',
+      modalVisible: false,
     };
     this.watchId = null;
     this.setLocation = this.setLocation.bind(this);
+    this.showLightBox = this.showLightBox.bind(this);
+    this.sortProperties = this.sortProperties.bind(this);
+    this.sortData = this.sortData.bind(this);
+    this.dismissNotifiction = this.dismissNotifiction.bind(this);
+    this.openSaveSearch = this.openSaveSearch.bind(this);
+    this.closeSaveSearch = this.closeSaveSearch.bind(this);
+    this.onSaveSearch = this.onSaveSearch.bind(this);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentWillMount() {
@@ -44,12 +64,6 @@ class SearchPage extends Component {
       navBarCustomView: 'krooqi.SearchTopBar',
       navBarComponentAlignment: 'fill',
     });
-
-    this.props.navigator.setStyle({
-      tabBarHidden: true,
-      topBarElevationShadowEnabled: true,
-    });
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setLocation(position);
@@ -70,6 +84,18 @@ class SearchPage extends Component {
     navigator.geolocation.clearWatch(this.watchId);
   }
 
+  onNavigatorEvent(event) {
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'filter') {
+        this.showFilterPage();
+      }
+    }
+  }
+
+  onSaveSearch(data) {
+    this.setState({ defaultSearchLabel: data, modalVisible: false });
+  }
+
   setLocation(position) {
     const latitude = parseFloat(position.coords.latitude);
     const longitude = parseFloat(position.coords.longitude);
@@ -81,8 +107,71 @@ class SearchPage extends Component {
       longitudeDelta,
     };
 
-    // this.setState({ initialPosition: initialRegion });
-    // this.setState({ markerPosition: initialRegion });
+    this.setState({ initialPosition: initialRegion });
+  }
+
+  closeSaveSearch() {
+    this.setState({ modalVisible: false });
+  }
+
+  openSaveSearch() {
+    this.setState({ modalVisible: true });
+  }
+
+  showFilterPage() {
+    this.props.navigator.showModal({
+      screen: 'krooqi.FilterPage',
+      title: 'Filter Page',
+      passProps: {
+        search: this.state.search,
+      },
+      navigatorButtons: {
+        leftButtons: [
+          {
+            title: 'Cancel',
+            id: 'cancel',
+            showAsAction: 'ifRoom',
+            buttonColor: 'white',
+            buttonFontSize: 14,
+            buttonFontWeight: '600',
+          },
+        ],
+      },
+    });
+  }
+
+  sortProperties() {
+    this.props.navigator.showLightBox({
+      screen: 'krooqi.Search.SortModal',
+      passProps: {
+        selectedValue: this.state.selectedValue,
+        onSelect: this.sortData,
+        sortData,
+      },
+      style: {
+        backgroundBlur: 'dark',
+        tapBackgroundToDismiss: true,
+      },
+    });
+  }
+
+  sortData(data) {
+    this.setState({ selectedValue: data });
+    this.props.navigator.dismissLightBox();
+  }
+
+  showLightBox() {
+    this.props.navigator.showInAppNotification({
+      screen: 'krooqi.MapDetail',
+      passProps: {},
+      position: 'bottom',
+      autoDismissTimerSec: 10,
+      dismissWithSwipe: true,
+    });
+  }
+
+  dismissNotifiction() {
+    this.props.navigator.dismissInAppNotification();
   }
 
   render() {
@@ -103,18 +192,17 @@ class SearchPage extends Component {
               <MapHeaderText>{I18n.t('list_results').toUpperCase()}</MapHeaderText>
             </View>
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={this.sortProperties}>
             <View>
               <MapHeaderText>{I18n.t('sort_result').toUpperCase()}</MapHeaderText>
             </View>
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={this.openSaveSearch}>
             <View>
               <MapHeaderText>{I18n.t('save_search').toUpperCase()}</MapHeaderText>
             </View>
           </TouchableWithoutFeedback>
         </View>
-
         <MapView style={{ flex: 1 }} region={this.state.initialPosition}>
           {filteredProperties.success &&
             filteredProperties.success.map(marker => (
@@ -137,20 +225,18 @@ class SearchPage extends Component {
               </MapView.Marker>
             ))}
         </MapView>
-        <View
-          style={{
-            flex: 2,
-            height: 100,
-            width: '100%',
-            backgroundColor: 'red',
-            zIndex: 1000,
-            position: 'absolute',
-            bottom: -40,
-            left: 0,
-          }}
+        <Modal
+          animationType="slide"
+          transparent
+          visible={this.state.modalVisible}
+          onRequestClose={() => null}
         >
-          <Text>Hello</Text>
-        </View>
+          <SaveSearchModal
+            defaultSearchLabel={this.state.defaultSearchLabel}
+            onSaveSearch={this.onSaveSearch}
+            onCancel={this.closeSaveSearch}
+          />
+        </Modal>
       </View>
     );
   }

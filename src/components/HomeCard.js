@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropertyCard from './PropertyCard';
 import * as PropertiesActions from './../Actions/PropertiesAction';
+import { backgroundColor } from './../constants/config';
 
 const H1 = styled.Text`
   font-size: 18px;
@@ -21,7 +22,7 @@ const Divider = styled.View`
 `;
 
 const ButtonText = styled.Text`
-  color: #f7941e;
+  color: ${backgroundColor};
   text-align: center;
   font-size: 16px;
   font-weight: 500;

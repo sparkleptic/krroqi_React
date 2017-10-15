@@ -8,6 +8,7 @@ import { registerScreens } from './screens';
 import { iconsMap, iconsLoaded } from './utils/AppIcons';
 import I18n from './i18n';
 import configureStore from './store/configureStore';
+import { backgroundColor } from './constants/config';
 // import Mobile Center Analytics at the top of the file.
 
 Analytics.trackEvent('Video clicked', { Category: 'Music', FileName: 'favorite.avi' });
@@ -37,6 +38,18 @@ class App extends Component {
           icon: iconsMap['ios-search-outline'],
           selectedIcon: iconsMap['ios-search'],
           title: 'Search',
+          navigatorButtons: {
+            rightButtons: [
+              {
+                title: 'Filter',
+                id: 'filter',
+                showAsAction: 'ifRoom',
+                buttonColor: 'white',
+                buttonFontSize: 14,
+                buttonFontWeight: '600',
+              },
+            ],
+          },
         },
         {
           label: I18n.t('hello'),
@@ -81,18 +94,19 @@ class App extends Component {
       tabsStyle: {
         tabBarBackgroundColor: '#F6F6F6',
         tabBarButtonColor: '#000000',
-        tabBarSelectedButtonColor: '#f7941e',
+        tabBarSelectedButtonColor: backgroundColor,
         tabFontFamily: 'BioRhyme-Bold',
         initialTabIndex: this.initialTabIndex,
       },
       appStyle: {
         navBarTextColor: '#000000',
-        tabBarSelectedButtonColor: '#f7941e',
+        tabBarSelectedButtonColor: backgroundColor,
         navigationBarColor: '#000000',
-        navBarBackgroundColor: '#f7941e',
+        navBarBackgroundColor: backgroundColor,
         statusBarColor: '#000000',
         tabFontFamily: 'BioRhyme-Bold',
         screenBackgroundColor: '#E9EBEE',
+        tabBarTranslucent: false,
       },
     });
   }

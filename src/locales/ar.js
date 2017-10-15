@@ -6,4 +6,5 @@ export default {
   list_results: 'مرحبا',
   sort_result: 'مرحبا',
   save_search: 'مرحبا',
+  search_placeholder: 'Search city, state or zip',
 };

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Animated,
   Platform,
@@ -8,18 +9,70 @@ import {
   View,
   TouchableWithoutFeedback,
   Modal,
-  Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Carousel from './Carousel';
+import { backgroundColor } from './../constants/config';
 
-const { width, height } = Dimensions.get('window');
+// const { width, height } = Dimensions.get('window');
 
 const HEADER_MAX_HEIGHT = 300;
 const HEADER_MIN_HEIGHT = 60;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
-export default class App extends Component {
+const styles = StyleSheet.create({
+  fill: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+  },
+  header: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor,
+    overflow: 'hidden',
+    height: HEADER_MAX_HEIGHT,
+  },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    width: null,
+    height: HEADER_MAX_HEIGHT,
+    resizeMode: 'cover',
+  },
+  bar: {
+    backgroundColor: 'transparent',
+    marginTop: 28,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+  title: {
+    color: 'white',
+    fontSize: 18,
+  },
+  scrollViewContent: {
+    marginTop: HEADER_MAX_HEIGHT,
+  },
+  row: {
+    height: 40,
+    margin: 16,
+    backgroundColor: '#D3D3D3',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -30,7 +83,11 @@ export default class App extends Component {
     this.showModal = this.showModal.bind(this);
   }
 
-  _renderScrollViewContent() {
+  showModal() {
+    this.setState({ modalVisible: true });
+  }
+
+  renderScrollViewContent() {
     const data = Array.from({ length: 30 });
     return (
       <View style={styles.scrollViewContent}>
@@ -57,10 +114,6 @@ export default class App extends Component {
         </Modal>
       </View>
     );
-  }
-
-  showModal() {
-    this.setState({ modalVisible: true });
   }
 
   render() {
@@ -103,7 +156,7 @@ export default class App extends Component {
             { useNativeDriver: true },
           )}
         >
-          {this._renderScrollViewContent()}
+          {this.renderScrollViewContent()}
         </Animated.ScrollView>
         <Animated.View style={[styles.header, { transform: [{ translateY: headerTranslate }] }]}>
           <TouchableWithoutFeedback onPress={this.showModal}>
@@ -165,54 +218,9 @@ export default class App extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  fill: {
-    flex: 1,
-  },
-  content: {
-    flex: 1,
-  },
-  header: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#f7941e',
-    overflow: 'hidden',
-    height: HEADER_MAX_HEIGHT,
-  },
-  backgroundImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    width: null,
-    height: HEADER_MAX_HEIGHT,
-    resizeMode: 'cover',
-  },
-  bar: {
-    backgroundColor: 'transparent',
-    marginTop: 28,
-    height: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-  },
-  title: {
-    color: 'white',
-    fontSize: 18,
-  },
-  scrollViewContent: {
-    marginTop: HEADER_MAX_HEIGHT,
-  },
-  row: {
-    height: 40,
-    margin: 16,
-    backgroundColor: '#D3D3D3',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+App.propTypes = {
+  property: PropTypes.object.isRequired,
+  closeModel: PropTypes.func.isRequired,
+};
+
+export default App;

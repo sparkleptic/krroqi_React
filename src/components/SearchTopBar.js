@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { View, TextInput, TouchableOpacity, Text } from 'react-native';
+// import PropTypes from 'prop-types';
+import { View, TextInput } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import { backgroundColor } from '../constants/config';
 
 class searchHeader extends Component {
   constructor(props) {
@@ -34,7 +35,6 @@ class searchHeader extends Component {
     };
 
     this.openSaerchPage = this.openSaerchPage.bind(this);
-    this.openFilterPage = this.openFilterPage.bind(this);
   }
 
   openSaerchPage(event) {
@@ -46,23 +46,23 @@ class searchHeader extends Component {
       navigatorStyle: {
         navBarCustomView: 'krooqi.SearchFormPage',
         navBarComponentAlignment: 'fill',
-        navBarCustomViewInitialProps: {
-          searchText: this.state.search.searchText,
-        },
+        navBarBackgroundColor: 'white',
       },
       passProps: {
         search: this.state.search,
         onSubmit: this.onSearchSubmit,
       },
-    });
-  }
-
-  openFilterPage() {
-    Navigation.showModal({
-      screen: 'krooqi.FilterPage',
-      title: 'Filter Page',
-      passProps: {
-        search: this.state.search,
+      navigatorButtons: {
+        leftButtons: [
+          {
+            title: 'Cancel',
+            id: 'cancel',
+            showAsAction: 'ifRoom',
+            buttonColor: backgroundColor,
+            buttonFontSize: 14,
+            buttonFontWeight: '600',
+          },
+        ],
       },
     });
   }
@@ -72,26 +72,15 @@ class searchHeader extends Component {
       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
         <TextInput
           value={this.state.search.searchText}
-          style={{ flex: 1 }}
-          placeholder="Type Here..."
+          style={{ flex: 1, color: 'white' }}
+          placeholder="Search city, state or zip"
           onFocus={this.openSaerchPage}
+          underlineColorAndroid="white"
+          selectionColor="white"
           ref={(input) => {
             this.textInput = input;
           }}
         />
-        <TouchableOpacity onPress={this.openFilterPage}>
-          <Text
-            style={{
-              color: 'white',
-              paddingLeft: 10,
-              paddingRight: 10,
-              fontWeight: '400',
-              fontSize: 16,
-            }}
-          >
-            Filter
-          </Text>
-        </TouchableOpacity>
       </View>
     );
   }
