@@ -12,8 +12,6 @@ import * as PropertiesActions from './../../Actions/PropertiesAction';
 import SaveSearchModal from '../../components/saveSearchModal';
 
 const { width, height } = Dimensions.get('window');
-// const screenHeight = height;
-// const screenWidth = width;
 const aspectRation = width / height;
 const latitudeDelta = 0.922;
 const longitudeDelta = latitudeDelta * aspectRation;
@@ -129,7 +127,7 @@ class SearchPage extends Component {
         leftButtons: [
           {
             title: 'Cancel',
-            id: 'cancel',
+            id: 'close_filter_modal',
             showAsAction: 'ifRoom',
             buttonColor: 'white',
             buttonFontSize: 14,

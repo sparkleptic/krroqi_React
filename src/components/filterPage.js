@@ -12,6 +12,17 @@ class filterPage extends Component {
       selectedIndex: 0,
     };
     this.handleIndexChange = this.handleIndexChange.bind(this);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'close_filter_modal') {
+        this.props.navigator.dismissModal({
+          animationType: 'slide-down',
+        });
+      }
+    }
   }
 
   handleIndexChange = (index) => {
@@ -39,6 +50,7 @@ class filterPage extends Component {
 
 filterPage.propTypes = {
   search: PropTypes.object.isRequired,
+  navigator: PropTypes.object.isRequired,
 };
 
 export default filterPage;
