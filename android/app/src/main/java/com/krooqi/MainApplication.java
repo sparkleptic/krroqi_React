@@ -23,6 +23,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
+import android.content.Intent;
+import com.reactnativenavigation.controllers.ActivityCallbacks;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +51,6 @@ public class MainApplication extends NavigationApplication {
             new MainReactPackage(),
             new FBSDKPackage(mCallbackManager),
             new BlurViewPackage(),
-            new BlurViewPackage(),
             new Interactable(),
             new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
             new RNCrashesPackage(MainApplication.this, getResources().getString(R.string.mobileCenterCrashes_whenToSendCrashes)),
@@ -64,6 +65,12 @@ public class MainApplication extends NavigationApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    setActivityCallbacks(new ActivityCallbacks() {
+      @Override
+      public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+      }
+    });
     FacebookSdk.sdkInitialize(getApplicationContext());
     // FORCE LTR
     I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();

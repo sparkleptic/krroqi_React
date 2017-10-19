@@ -18,16 +18,14 @@ class SavedSearch extends Component {
   }
 
   loginFacebook(error, result) {
+    alert('login completec');
     if (error) {
-      this.setState({ message: result.error });
-      console.log(`login has error: ${result.error}`);
+      this.setState({ message: result.error.toString() });
     } else if (result.isCancelled) {
       this.setState({ message: 'canceled' });
-      console.log('login is cancelled.');
     } else {
       AccessToken.getCurrentAccessToken().then((data) => {
-        this.setState({ message: 'logged In', loginSuccess: true });
-        console.log(data.accessToken.toString());
+        this.setState({ message: data.accessToken.toString(), loginSuccess: true });
       });
     }
   }
