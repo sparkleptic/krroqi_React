@@ -39,10 +39,6 @@ class SortModal extends Component {
     this.selectValue = this.selectValue.bind(this);
   }
 
-  componentWillUnmount() {
-    this.props.navigator.dismissLightBox();
-  }
-
   selectValue(data) {
     this.props.onSelect(data);
   }
@@ -97,14 +93,12 @@ class SortModal extends Component {
 SortModal.propTypes = {
   sortData: PropTypes.array,
   selectedValue: PropTypes.string,
-  navigator: PropTypes.object,
   onSelect: PropTypes.func,
 };
 
 SortModal.defaultProps = {
   sortData: [],
   selectedValue: '',
-  navigator: {},
   onSelect: null,
 };
 

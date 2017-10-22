@@ -46,17 +46,6 @@ class SearchFormPage extends Component {
           selectionColor={backgroundColor}
           autoFocus
         />
-        <TouchableOpacity onPress={this.submitSearch}>
-          <Text
-            style={{
-              color: backgroundColor,
-              fontWeight: '400',
-              fontSize: 14,
-            }}
-          >
-            Search
-          </Text>
-        </TouchableOpacity>
       </View>
     );
   }

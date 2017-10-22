@@ -57,7 +57,15 @@ class searchHeader extends Component {
           {
             title: 'Cancel',
             id: 'cancel',
-            showAsAction: 'ifRoom',
+            buttonColor: backgroundColor,
+            buttonFontSize: 14,
+            buttonFontWeight: '600',
+          },
+        ],
+        rightButtons: [
+          {
+            title: 'Search',
+            id: 'search',
             buttonColor: backgroundColor,
             buttonFontSize: 14,
             buttonFontWeight: '600',

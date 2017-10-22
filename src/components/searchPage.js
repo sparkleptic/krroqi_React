@@ -8,9 +8,23 @@ class searchPage extends Component {
     this.state = {
       search: '',
     };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  componentDidMount() {}
+  onNavigatorEvent(event) {
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'cancel') {
+        this.props.navigator.dismissModal({
+          animationType: 'slide-down',
+        });
+      }
+      if (event.id === 'search') {
+        this.props.navigator.dismissModal({
+          animationType: 'slide-down',
+        });
+      }
+    }
+  }
 
   render() {
     return (

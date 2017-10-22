@@ -4419,6 +4419,12 @@ react-native-fbsdk@^0.6.3:
     pump "^1.0.2"
     xcode "^0.9.3"
 
+react-native-flip-card@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/react-native-flip-card/-/react-native-flip-card-3.5.2.tgz#6563f4a6d95b999c21e82deec9b2f502175847d6"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-i18n@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-2.0.6.tgz#474a3ad79aac34965b2eb7148cf2703398efb406"
@@ -4433,9 +4439,9 @@ react-native-maps@^0.16.4:
   version "0.16.4"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.16.4.tgz#c18c3cab8cd0ce05431cd74dac11a39afaa579e4"
 
-react-native-navigation@^1.1.236:
-  version "1.1.236"
-  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.236.tgz#4babbfee14d9f865186f763248ffa54da68ad7fd"
+react-native-navigation@^1.1.246:
+  version "1.1.246"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.246.tgz#c51d3379c38716a96d083ea4f96c4d49ae81a9aa"
   dependencies:
     lodash "4.x.x"
 

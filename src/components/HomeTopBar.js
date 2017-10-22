@@ -8,13 +8,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    width: 140,
   },
 });
 
 const HomeTopBar = () => (
   <View style={styles.container}>
-    <Image style={{ height: 40, width: 140 }} resizeMode="contain" source={logoImage} />
+    <Image style={{ height: 30, width: 140 }} resizeMode="contain" source={logoImage} />
   </View>
 );
 

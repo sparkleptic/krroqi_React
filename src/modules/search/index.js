@@ -4,6 +4,7 @@ import { View, Dimensions, TouchableWithoutFeedback, Text, Modal } from 'react-n
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapView from 'react-native-maps';
+import FlipCard from 'react-native-flip-card';
 import I18n from './../../i18n';
 import { MapHeaderText } from './../../common/commonStyle';
 
@@ -40,12 +41,13 @@ class SearchPage extends Component {
       defaultSearchLabel: 'yagnesh',
       selectedValue: 'Relevance',
       modalVisible: false,
+      flip: false,
     };
     this.watchId = null;
     this.setLocation = this.setLocation.bind(this);
     this.showLightBox = this.showLightBox.bind(this);
     this.sortProperties = this.sortProperties.bind(this);
-    this.sortData = this.sortData.bind(this);
+    this.selectSortData = this.selectSortData.bind(this);
     this.dismissNotifiction = this.dismissNotifiction.bind(this);
     this.openSaveSearch = this.openSaveSearch.bind(this);
     this.closeSaveSearch = this.closeSaveSearch.bind(this);
@@ -127,8 +129,16 @@ class SearchPage extends Component {
         leftButtons: [
           {
             title: 'Cancel',
-            id: 'close_filter_modal',
-            showAsAction: 'ifRoom',
+            id: 'cancel',
+            buttonColor: 'white',
+            buttonFontSize: 14,
+            buttonFontWeight: '600',
+          },
+        ],
+        rightButtons: [
+          {
+            title: 'Apply',
+            id: 'apply',
             buttonColor: 'white',
             buttonFontSize: 14,
             buttonFontWeight: '600',
@@ -143,7 +153,7 @@ class SearchPage extends Component {
       screen: 'krooqi.Search.SortModal',
       passProps: {
         selectedValue: this.state.selectedValue,
-        onSelect: this.sortData,
+        onSelect: this.selectSortData,
         sortData,
       },
       style: {
@@ -153,9 +163,9 @@ class SearchPage extends Component {
     });
   }
 
-  sortData(data) {
-    this.setState({ selectedValue: data });
+  selectSortData(data) {
     this.props.navigator.dismissLightBox();
+    this.setState({ selectedValue: data });
   }
 
   showLightBox() {
@@ -185,7 +195,11 @@ class SearchPage extends Component {
             backgroundColor: '#F6F6F6',
           }}
         >
-          <TouchableWithoutFeedback onPress={this.showLightBox}>
+          <TouchableWithoutFeedback
+            onPress={() => {
+              this.setState({ flip: !this.state.flip });
+            }}
+          >
             <View>
               <MapHeaderText>{I18n.t('list_results').toUpperCase()}</MapHeaderText>
             </View>
@@ -201,28 +215,68 @@ class SearchPage extends Component {
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <MapView style={{ flex: 1 }} region={this.state.initialPosition}>
-          {filteredProperties.success &&
-            filteredProperties.success.map(marker => (
-              <MapView.Marker
-                key={marker.ID}
-                coordinate={{
-                  latitude: parseFloat(marker.lat),
-                  longitude: parseFloat(marker.lng),
-                }}
-                title={marker.post_title}
-                description={marker.post_content}
-              >
-                <Text
-                  style={{
-                    fontWeight: 'bold',
-                  }}
-                >
-                  X
-                </Text>
-              </MapView.Marker>
-            ))}
-        </MapView>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#F5FCFF',
+          }}
+        >
+          <FlipCard
+            flip={this.state.flip}
+            friction={8}
+            perspective={1000}
+            flipHorizontal
+            flipVertical={false}
+            clickable={false}
+            useNativeDriver
+            style={{
+              width,
+              borderWidth: 0,
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+              }}
+            >
+              <MapView style={{ flex: 1 }} region={this.state.initialPosition}>
+                {filteredProperties.success &&
+                  filteredProperties.success.map(marker => (
+                    <MapView.Marker
+                      key={marker.ID}
+                      coordinate={{
+                        latitude: parseFloat(marker.lat),
+                        longitude: parseFloat(marker.lng),
+                      }}
+                      title={marker.post_title}
+                      description={marker.post_content}
+                    >
+                      <Text
+                        style={{
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        X
+                      </Text>
+                    </MapView.Marker>
+                  ))}
+              </MapView>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: '#f1c40f',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Text>The Back</Text>
+            </View>
+          </FlipCard>
+        </View>
+
         <Modal
           animationType="slide"
           transparent
