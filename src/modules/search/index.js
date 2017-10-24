@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, TouchableWithoutFeedback, Text, Modal } from 'react-native';
+import { View, Dimensions, TouchableWithoutFeedback, Text, FlatList } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapView from 'react-native-maps';
@@ -10,7 +10,7 @@ import { MapHeaderText } from './../../common/commonStyle';
 
 import * as PropertiesActions from './../../Actions/PropertiesAction';
 
-import SaveSearchModal from '../../components/saveSearchModal';
+import PropertyCard from '../../components/PropertyCard';
 
 const { width, height } = Dimensions.get('window');
 const aspectRation = width / height;
@@ -40,7 +40,6 @@ class SearchPage extends Component {
       search: {},
       defaultSearchLabel: 'yagnesh',
       selectedValue: 'Relevance',
-      modalVisible: false,
       flip: false,
     };
     this.watchId = null;
@@ -52,6 +51,9 @@ class SearchPage extends Component {
     this.openSaveSearch = this.openSaveSearch.bind(this);
     this.closeSaveSearch = this.closeSaveSearch.bind(this);
     this.onSaveSearch = this.onSaveSearch.bind(this);
+    this.onRefresh = this.onRefresh.bind(this);
+    this.pushDetail = this.pushDetail.bind(this);
+    this.closeModel = this.closeModel.bind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -93,7 +95,12 @@ class SearchPage extends Component {
   }
 
   onSaveSearch(data) {
-    this.setState({ defaultSearchLabel: data, modalVisible: false });
+    this.props.navigator.dismissLightBox();
+    this.setState({ defaultSearchLabel: data });
+  }
+
+  onRefresh() {
+    this.props.actions.filteredPropertiesLoad();
   }
 
   setLocation(position) {
@@ -111,11 +118,21 @@ class SearchPage extends Component {
   }
 
   closeSaveSearch() {
-    this.setState({ modalVisible: false });
+    this.props.navigator.dismissLightBox();
   }
 
   openSaveSearch() {
-    this.setState({ modalVisible: true });
+    this.props.navigator.showLightBox({
+      screen: 'krooqi.Search.SaveSearchModal',
+      passProps: {
+        defaultSearchLabel: this.state.defaultSearchLabel,
+        onSaveSearch: this.onSaveSearch,
+        onCancel: this.closeSaveSearch,
+      },
+      style: {
+        backgroundBlur: 'dark',
+      },
+    });
   }
 
   showFilterPage() {
@@ -130,15 +147,6 @@ class SearchPage extends Component {
           {
             title: 'Cancel',
             id: 'cancel',
-            buttonColor: 'white',
-            buttonFontSize: 14,
-            buttonFontWeight: '600',
-          },
-        ],
-        rightButtons: [
-          {
-            title: 'Apply',
-            id: 'apply',
             buttonColor: 'white',
             buttonFontSize: 14,
             buttonFontWeight: '600',
@@ -182,8 +190,30 @@ class SearchPage extends Component {
     this.props.navigator.dismissInAppNotification();
   }
 
+  pushDetail(property) {
+    this.props.navigator.showModal({
+      screen: 'krooqi.PropertyDetail',
+      title: '',
+      animated: true,
+      navigatorStyle: {
+        navBarHidden: true,
+      },
+      passProps: {
+        property,
+        closeModel: this.closeModel,
+      },
+    });
+  }
+
+  closeModel() {
+    this.props.navigator.dismissModal({
+      animationType: 'slide-down', // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
+    });
+  }
+
   render() {
     const { filteredProperties } = this.props;
+    const { flip } = this.state;
     return (
       <View style={{ flex: 1 }}>
         <View
@@ -201,7 +231,9 @@ class SearchPage extends Component {
             }}
           >
             <View>
-              <MapHeaderText>{I18n.t('list_results').toUpperCase()}</MapHeaderText>
+              <MapHeaderText>
+                {flip ? I18n.t('list_results').toUpperCase() : I18n.t('map_results').toUpperCase()}
+              </MapHeaderText>
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={this.sortProperties}>
@@ -267,28 +299,23 @@ class SearchPage extends Component {
             <View
               style={{
                 flex: 1,
-                backgroundColor: '#f1c40f',
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
             >
-              <Text>The Back</Text>
+              <FlatList
+                data={filteredProperties.success}
+                renderItem={({ item }) => (
+                  <PropertyCard property={item} onCardPress={this.pushDetail} fullWidth />
+                )}
+                ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+                keyExtractor={(item, index) => index}
+                refreshing={filteredProperties.loading}
+                onRefresh={this.onRefresh}
+              />
             </View>
           </FlipCard>
         </View>
-
-        <Modal
-          animationType="slide"
-          transparent
-          visible={this.state.modalVisible}
-          onRequestClose={() => null}
-        >
-          <SaveSearchModal
-            defaultSearchLabel={this.state.defaultSearchLabel}
-            onSaveSearch={this.onSaveSearch}
-            onCancel={this.closeSaveSearch}
-          />
-        </Modal>
       </View>
     );
   }

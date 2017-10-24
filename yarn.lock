@@ -4391,12 +4391,6 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-blur@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-blur/-/react-native-blur-3.2.0.tgz#7a27d66c995e994611041a191b94ec290a7d99fb"
-  dependencies:
-    prop-types "^15.5.10"
-
 react-native-code-push@^5.1.3-beta:
   version "5.1.3-beta"
   resolved "https://registry.yarnpkg.com/react-native-code-push/-/react-native-code-push-5.1.3-beta.tgz#2c8a2be7f519df8f369841d79076af7ecd66d328"
@@ -4430,10 +4424,6 @@ react-native-i18n@^2.0.6:
   resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-2.0.6.tgz#474a3ad79aac34965b2eb7148cf2703398efb406"
   dependencies:
     i18n-js "github:fnando/i18n-js#v3.0.1"
-
-react-native-interactable@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/react-native-interactable/-/react-native-interactable-0.1.3.tgz#900a3a403f20e8e32d84b3a0c160a8f71c7380d2"
 
 react-native-maps@^0.16.4:
   version "0.16.4"

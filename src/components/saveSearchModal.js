@@ -7,24 +7,31 @@ import {
   Dimensions,
   TextInput,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView,
 } from 'react-native';
+import { Navigation } from 'react-native-navigation';
 // import Icon from 'react-native-vector-icons/Ionicons';
 import { backgroundColor } from '../constants/config';
 
+const { height, width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
+    height,
+    width,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fill: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  subContainer: {
+    justifyContent: 'center',
+    backgroundColor: '#ffffff',
     width: Dimensions.get('window').width * 0.7,
     height: Dimensions.get('window').width * 0.3,
-    backgroundColor: '#ffffff',
     borderRadius: 5,
     padding: 16,
-  },
-  title: {
-    fontSize: 17,
-    fontWeight: '700',
-  },
-  content: {
-    marginTop: 8,
   },
 });
 
@@ -48,15 +55,11 @@ class SaveSearchModal extends Component {
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <View style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <TouchableWithoutFeedback style={styles.fill} onPress={() => Navigation.dismissLightBox()}>
+          <View style={styles.fill} />
+        </TouchableWithoutFeedback>
+        <View style={styles.subContainer}>
           <Text>Enter Search Name</Text>
           <TextInput
             style={{
@@ -68,7 +71,6 @@ class SaveSearchModal extends Component {
             onSubmitEditing={this.onSave}
             underlineColorAndroid={backgroundColor}
             selectionColor={backgroundColor}
-            autoFocus
           />
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
             <TouchableWithoutFeedback onPress={this.onCancel}>
@@ -83,15 +85,21 @@ class SaveSearchModal extends Component {
             </TouchableWithoutFeedback>
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
 
 SaveSearchModal.propTypes = {
-  defaultSearchLabel: PropTypes.string.isRequired,
-  onSaveSearch: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
+  defaultSearchLabel: PropTypes.string,
+  onSaveSearch: PropTypes.func,
+  onCancel: PropTypes.func,
+};
+
+SaveSearchModal.defaultProps = {
+  defaultSearchLabel: '',
+  onSaveSearch: null,
+  onCancel: null,
 };
 
 export default SaveSearchModal;

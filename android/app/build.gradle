@@ -141,8 +141,6 @@ android {
 
 dependencies {
     compile project(':react-native-fbsdk')
-    compile project(':react-native-blur')
-    compile project(':react-native-interactable')
     compile project(':react-native-code-push')
     compile project(':mobile-center-crashes')
     compile project(':mobile-center-analytics')

@@ -5,8 +5,6 @@ import com.reactnativenavigation.NavigationApplication;
 import com.facebook.react.ReactApplication;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.cmcewen.blurview.BlurViewPackage;
-import com.cmcewen.blurview.BlurViewPackage;
-import com.wix.interactable.Interactable;
 import com.microsoft.codepush.react.CodePush;
 import com.microsoft.azure.mobile.react.crashes.RNCrashesPackage;
 import com.microsoft.azure.mobile.react.analytics.RNAnalyticsPackage;
@@ -50,8 +48,6 @@ public class MainApplication extends NavigationApplication {
     return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
             new FBSDKPackage(mCallbackManager),
-            new BlurViewPackage(),
-            new Interactable(),
             new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
             new RNCrashesPackage(MainApplication.this, getResources().getString(R.string.mobileCenterCrashes_whenToSendCrashes)),
             new RNAnalyticsPackage(MainApplication.this, getResources().getString(R.string.mobileCenterAnalytics_whenToEnableAnalytics)),
