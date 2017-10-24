@@ -4,7 +4,6 @@ package com.krooqi;
 import com.reactnativenavigation.NavigationApplication;
 import com.facebook.react.ReactApplication;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.cmcewen.blurview.BlurViewPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.microsoft.azure.mobile.react.crashes.RNCrashesPackage;
 import com.microsoft.azure.mobile.react.analytics.RNAnalyticsPackage;
