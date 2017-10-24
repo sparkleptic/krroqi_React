@@ -232,7 +232,7 @@ class SearchPage extends Component {
           >
             <View>
               <MapHeaderText>
-                {flip ? I18n.t('list_results').toUpperCase() : I18n.t('map_results').toUpperCase()}
+                {flip ? I18n.t('map_results').toUpperCase() : I18n.t('list_results').toUpperCase()}
               </MapHeaderText>
             </View>
           </TouchableWithoutFeedback>
