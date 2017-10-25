@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, TouchableWithoutFeedback, Text, FlatList } from 'react-native';
+import { View, Dimensions, TouchableWithoutFeedback, FlatList } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
@@ -40,22 +40,22 @@ class SearchPage extends Component {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
-      error: '',
       search: {},
-      defaultSearchLabel: 'yagnesh',
+      defaultSearchLabel: '',
       selectedValue: 'Relevance',
       flip: false,
     };
     this.showLightBox = this.showLightBox.bind(this);
     this.sortProperties = this.sortProperties.bind(this);
     this.selectSortData = this.selectSortData.bind(this);
-    this.dismissNotifiction = this.dismissNotifiction.bind(this);
+    this.dismissNotification = this.dismissNotification.bind(this);
     this.openSaveSearch = this.openSaveSearch.bind(this);
     this.closeSaveSearch = this.closeSaveSearch.bind(this);
     this.onSaveSearch = this.onSaveSearch.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
     this.pushDetail = this.pushDetail.bind(this);
     this.closeModel = this.closeModel.bind(this);
+    this.onErrorNotification = this.onErrorNotification.bind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -80,7 +80,9 @@ class SearchPage extends Component {
           },
         });
       },
-      error => this.setState({ error: error.message }),
+      (error) => {
+        this.onErrorNotification(error.message);
+      },
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
   }
@@ -100,6 +102,17 @@ class SearchPage extends Component {
 
   onRefresh() {
     this.props.actions.filteredPropertiesLoad();
+  }
+
+  onErrorNotification(error) {
+    this.props.navigator.showInAppNotification({
+      screen: 'krooqi.ErrorNotification',
+      passProps: {
+        title: 'Error',
+        content: error,
+      },
+      dismissWithSwipe: true,
+    });
   }
 
   closeSaveSearch() {
@@ -171,7 +184,7 @@ class SearchPage extends Component {
     });
   }
 
-  dismissNotifiction() {
+  dismissNotification() {
     this.props.navigator.dismissInAppNotification();
   }
 
@@ -264,7 +277,7 @@ class SearchPage extends Component {
                 region={this.state.region}
                 onRegionChange={region => this.setState({ region })}
                 onRegionChangeComplete={region => this.setState({ region })}
-                onPress={this.dismissNotifiction}
+                onPress={this.dismissNotification}
               >
                 {filteredProperties.success &&
                   filteredProperties.success.map(marker => (
@@ -280,28 +293,6 @@ class SearchPage extends Component {
                     </MapView.Marker>
                   ))}
               </MapView>
-              {/* <MapView style={{ flex: 1 }} region={this.state.initialPosition}>
-                {filteredProperties.success &&
-                  filteredProperties.success.map(marker => (
-                    <MapView.Marker
-                      key={marker.ID}
-                      coordinate={{
-                        latitude: parseFloat(marker.lat),
-                        longitude: parseFloat(marker.lng),
-                      }}
-                      title={marker.post_title}
-                      description={marker.post_content}
-                    >
-                      <Text
-                        style={{
-                          fontWeight: 'bold',
-                        }}
-                      >
-                        X
-                      </Text>
-                    </MapView.Marker>
-                  ))}
-              </MapView> */}
             </View>
             <View
               style={{

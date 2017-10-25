@@ -16,6 +16,7 @@ import FilterPage from './components/filterPage';
 import MapDetail from './components/MapDetail';
 import SortModal from './components/sortModal';
 import SaveSearchModal from './components/saveSearchModal';
+import ErrorNotification from './components/errorNotification';
 
 export function registerScreens(store, Provider) {
   Navigation.registerComponent('krooqi.Home', () => Home, store, Provider);
@@ -38,4 +39,10 @@ export function registerScreens(store, Provider) {
   Navigation.registerComponent('krooqi.Favorites', () => Favorites, store, Provider);
   Navigation.registerComponent('krooqi.SavedSearch', () => SavedSearch, store, Provider);
   Navigation.registerComponent('krooqi.MoreMenu', () => MoreMenu, store, Provider);
+  Navigation.registerComponent(
+    'krooqi.ErrorNotification',
+    () => ErrorNotification,
+    store,
+    Provider,
+  );
 }

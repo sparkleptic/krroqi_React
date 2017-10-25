@@ -8,5 +8,8 @@
   "javascript.format.enable": false,
   "prettier.eslintIntegration": true,
   "todohighlight.isEnable": true,
-  "editor.multiCursorModifier": "ctrlCmd"
+  "editor.multiCursorModifier": "ctrlCmd",
+  "cSpell.words": [
+    "krooqi"
+  ]
 }

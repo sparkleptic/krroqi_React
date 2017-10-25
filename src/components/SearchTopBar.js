@@ -10,7 +10,7 @@ class searchHeader extends Component {
     this.state = {
       search: {
         searchLabel: '',
-        searchText: 'Yagnesh',
+        searchText: '',
         propertyStatus: {
           term_id: '',
           name: '',
@@ -22,7 +22,7 @@ class searchHeader extends Component {
         propertyType: [],
         rooms: '',
         baths: '',
-        squreMeterRange: {
+        squareMeterRange: {
           start: '',
           end: '',
         },
@@ -34,10 +34,10 @@ class searchHeader extends Component {
       },
     };
 
-    this.openSaerchPage = this.openSaerchPage.bind(this);
+    this.openSearchPage = this.openSearchPage.bind(this);
   }
 
-  openSaerchPage(event) {
+  openSearchPage(event) {
     event.stopPropagation();
     this.textInput.blur();
     Navigation.showModal({
@@ -82,7 +82,8 @@ class searchHeader extends Component {
           value={this.state.search.searchText}
           style={{ flex: 1, color: 'white' }}
           placeholder="Search city, state or zip"
-          onFocus={this.openSaerchPage}
+          placeholderTextColor="white"
+          onFocus={this.openSearchPage}
           underlineColorAndroid="white"
           selectionColor="white"
           ref={(input) => {

@@ -45,8 +45,10 @@ class SortModal extends Component {
 
   render() {
     const { selectedValue, sortData } = this.state;
+    let height = 40 + sortData.length * 40;
+    height = height > 320 ? 320 : height;
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { height }]}>
         <Text
           style={{
             color: backgroundColor,
@@ -63,8 +65,7 @@ class SortModal extends Component {
                   flex: 1,
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  paddingTop: 8,
-                  paddingBottom: 8,
+                  padding: 8,
                 }}
               >
                 <Text>{data}</Text>

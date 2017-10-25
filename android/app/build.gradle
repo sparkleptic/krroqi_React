@@ -92,7 +92,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.3.1'
+    buildToolsVersion '25.0.0'
 
     dexOptions {
         preDexLibraries = false
