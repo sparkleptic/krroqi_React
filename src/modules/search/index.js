@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Dimensions, TouchableWithoutFeedback, Text, FlatList } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import FlipCard from 'react-native-flip-card';
 import I18n from './../../i18n';
 import { MapHeaderText } from './../../common/commonStyle';
@@ -11,11 +11,14 @@ import { MapHeaderText } from './../../common/commonStyle';
 import * as PropertiesActions from './../../Actions/PropertiesAction';
 
 import PropertyCard from '../../components/PropertyCard';
+import PriceMarker from '../../components/PriceMarker';
 
 const { width, height } = Dimensions.get('window');
-const aspectRation = width / height;
-const latitudeDelta = 0.922;
-const longitudeDelta = latitudeDelta * aspectRation;
+const ASPECT_RATIO = width / height;
+const LATITUDE = 0;
+const LONGITUDE = 0;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const sortData = [
   'Relevance',
@@ -31,19 +34,18 @@ class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialPosition: {
-        latitude: 28.3994993,
-        longitude: 36.57154549999996,
-        latitudeDelta,
-        longitudeDelta,
+      region: {
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
       },
+      error: '',
       search: {},
       defaultSearchLabel: 'yagnesh',
       selectedValue: 'Relevance',
       flip: false,
     };
-    this.watchId = null;
-    this.setLocation = this.setLocation.bind(this);
     this.showLightBox = this.showLightBox.bind(this);
     this.sortProperties = this.sortProperties.bind(this);
     this.selectSortData = this.selectSortData.bind(this);
@@ -66,24 +68,21 @@ class SearchPage extends Component {
       navBarCustomView: 'krooqi.SearchTopBar',
       navBarComponentAlignment: 'fill',
     });
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        this.setLocation(position);
+        this.setState({
+          region: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          },
+        });
       },
-      error => alert(`geo${JSON.stringify(error)}`),
-      { enableHighAccuracy: false, timeout: 20000, maximumAge: 2000 },
+      error => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-
-    this.watchId = navigator.geolocation.watchPosition(
-      (position) => {
-        this.setLocation(position);
-      },
-      error => alert(JSON.stringify(error)),
-    );
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchId);
   }
 
   onNavigatorEvent(event) {
@@ -101,20 +100,6 @@ class SearchPage extends Component {
 
   onRefresh() {
     this.props.actions.filteredPropertiesLoad();
-  }
-
-  setLocation(position) {
-    const latitude = parseFloat(position.coords.latitude);
-    const longitude = parseFloat(position.coords.longitude);
-
-    const initialRegion = {
-      latitude,
-      longitude,
-      latitudeDelta,
-      longitudeDelta,
-    };
-
-    this.setState({ initialPosition: initialRegion });
   }
 
   closeSaveSearch() {
@@ -273,7 +258,29 @@ class SearchPage extends Component {
                 flex: 1,
               }}
             >
-              <MapView style={{ flex: 1 }} region={this.state.initialPosition}>
+              <MapView
+                provider={PROVIDER_GOOGLE}
+                style={{ flex: 1 }}
+                region={this.state.region}
+                onRegionChange={region => this.setState({ region })}
+                onRegionChangeComplete={region => this.setState({ region })}
+                onPress={this.dismissNotifiction}
+              >
+                {filteredProperties.success &&
+                  filteredProperties.success.map(marker => (
+                    <MapView.Marker
+                      key={marker.ID}
+                      coordinate={{
+                        latitude: parseFloat(marker.lat),
+                        longitude: parseFloat(marker.lng),
+                      }}
+                      onPress={this.showLightBox}
+                    >
+                      <PriceMarker amount={parseInt(marker.eprice, 10)} />
+                    </MapView.Marker>
+                  ))}
+              </MapView>
+              {/* <MapView style={{ flex: 1 }} region={this.state.initialPosition}>
                 {filteredProperties.success &&
                   filteredProperties.success.map(marker => (
                     <MapView.Marker
@@ -294,7 +301,7 @@ class SearchPage extends Component {
                       </Text>
                     </MapView.Marker>
                   ))}
-              </MapView>
+              </MapView> */}
             </View>
             <View
               style={{

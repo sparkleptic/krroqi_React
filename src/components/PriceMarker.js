@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, Animated } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -55,19 +55,13 @@ const styles = StyleSheet.create({
 });
 
 const PriceMarker = ({ amount, selected, style }) => {
-  const background = selected.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['#FF5A5F', '#4da2ab'],
-  });
+  const background = '#FF5A5F';
 
-  const border = selected.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['#D23F44', '#007a87'],
-  });
+  const border = '#D23F44';
 
   return (
-    <Animated.View style={[styles.container, style]}>
-      <Animated.View
+    <View style={[styles.container, style]}>
+      <View
         style={[
           styles.bubble,
           {
@@ -78,19 +72,15 @@ const PriceMarker = ({ amount, selected, style }) => {
       >
         <Text style={styles.dollar}>$</Text>
         <Text style={styles.amount}>{amount}</Text>
-      </Animated.View>
-      <Animated.View style={[styles.arrowBorder, { borderTopColor: border }]} />
-      <Animated.View style={[styles.arrow, { borderTopColor: background }]} />
-    </Animated.View>
+      </View>
+      <View style={[styles.arrowBorder, { borderTopColor: border }]} />
+      <View style={[styles.arrow, { borderTopColor: background }]} />
+    </View>
   );
 };
 
 PriceMarker.propTypes = {
   amount: PropTypes.number.isRequired,
-  selected: PropTypes.object.isRequired,
-  style: PropTypes.object,
 };
-
-PriceMarker.defaultProps = { style: {} };
 
 export default PriceMarker;

@@ -1,0 +1,12 @@
+{
+  "team.showWelcomeMessage": false,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "editor.formatOnSave": true,
+  "javascript.validate.enable": false,
+  "flow.useNPMPackagedFlow": true,
+  "javascript.format.enable": false,
+  "prettier.eslintIntegration": true,
+  "todohighlight.isEnable": true,
+  "editor.multiCursorModifier": "ctrlCmd"
+}
