@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, TouchableWithoutFeedback, FlatList } from 'react-native';
+import { View, Dimensions, TouchableWithoutFeedback, FlatList, Platform } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
@@ -69,6 +69,15 @@ class SearchPage extends Component {
       navBarComponentAlignment: 'fill',
     });
 
+    let navigatorOptions = {};
+    if (Platform.OS === 'android' && Platform.Version === 23) {
+      navigatorOptions = {
+        enableHighAccuracy: false,
+        timeout: 10000,
+        maximumAge: 0,
+      };
+    }
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({
@@ -83,7 +92,7 @@ class SearchPage extends Component {
       (error) => {
         this.onErrorNotification(error.message);
       },
-      { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 },
+      navigatorOptions,
     );
   }
 
