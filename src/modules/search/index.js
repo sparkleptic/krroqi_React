@@ -44,6 +44,7 @@ class SearchPage extends Component {
       defaultSearchLabel: '',
       selectedValue: 'Relevance',
       flip: false,
+      openProperty: '',
     };
     this.showLightBox = this.showLightBox.bind(this);
     this.sortProperties = this.sortProperties.bind(this);
@@ -184,18 +185,23 @@ class SearchPage extends Component {
   }
 
   showLightBox(property) {
-    this.props.navigator.showInAppNotification({
-      screen: 'krooqi.MapDetail',
-      passProps: {
-        property,
-      },
-      position: 'bottom',
-      autoDismissTimerSec: 10,
-      dismissWithSwipe: true,
-    });
+    if (this.state.openProperty !== property.ID) {
+      this.props.navigator.showInAppNotification({
+        screen: 'krooqi.MapDetail',
+        passProps: {
+          property,
+          onDismissNotification: this.dismissNotification,
+        },
+        position: 'bottom',
+        autoDismissTimerSec: 10,
+        dismissWithSwipe: true,
+      });
+      this.setState({ openProperty: property.ID });
+    }
   }
 
   dismissNotification() {
+    this.setState({ openProperty: '' });
     this.props.navigator.dismissInAppNotification();
   }
 

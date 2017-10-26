@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, Dimensions, Platform, TouchableWithoutFeedback } from 'react-native';
+import { View, Dimensions, Platform, TouchableWithoutFeedback } from 'react-native';
 import ProgressiveImage from './ProgressiveImage';
 
 const imagePlaceholder = require('../images/house_placeholder.png');
@@ -24,6 +24,7 @@ class MapDetail extends Component {
   }
 
   componentWillUnmount() {
+    this.props.onDismissNotification();
     if (Platform.OS === 'android') {
       this.props.navigator.toggleTabs({
         to: 'shown', // required, 'hidden' = hide tab bar, 'shown' = show tab bar
@@ -80,6 +81,7 @@ class MapDetail extends Component {
 
 MapDetail.propTypes = {
   property: PropTypes.object.isRequired,
+  onDismissNotification: PropTypes.func.isRequired,
 };
 
 export default MapDetail;
