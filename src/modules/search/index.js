@@ -83,7 +83,7 @@ class SearchPage extends Component {
       (error) => {
         this.onErrorNotification(error.message);
       },
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+      { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 },
     );
   }
 
