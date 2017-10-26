@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderTopColor: '#D23F44',
     alignSelf: 'center',
-    marginTop: -0.5,
+    marginTop: 0,
   },
   selectedBubble: {
     backgroundColor: '#4da2ab',

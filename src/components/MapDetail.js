@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, Dimensions, Platform } from 'react-native';
+import { View, Text, Dimensions, Platform, TouchableWithoutFeedback } from 'react-native';
+import ProgressiveImage from './ProgressiveImage';
+
+const imagePlaceholder = require('../images/house_placeholder.png');
 
 const { width } = Dimensions.get('window');
 
 class MapDetail extends Component {
   constructor(props) {
     super(props);
+    this.openPropertyDetail = this.openPropertyDetail.bind(this);
+    this.closeModel = this.closeModel.bind(this);
   }
 
   componentDidMount() {
@@ -27,24 +32,54 @@ class MapDetail extends Component {
     }
   }
 
+  openPropertyDetail() {
+    this.props.navigator.showModal({
+      screen: 'krooqi.PropertyDetail',
+      title: '',
+      animated: true,
+      navigatorStyle: {
+        navBarHidden: true,
+      },
+      passProps: {
+        property: this.props.property,
+        closeModel: this.closeModel,
+      },
+    });
+  }
+
+  closeModel() {
+    this.props.navigator.dismissModal({
+      animationType: 'slide-down', // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
+    });
+  }
+
   render() {
+    const { property } = this.props;
     return (
       <View
         style={{
-          height: 200,
+          height: 250,
           width,
           justifyContent: 'flex-end',
-          backgroundColor: 'red',
+          backgroundColor: 'white',
         }}
       >
-        <View>
-          <Text>Hello</Text>
-        </View>
+        <TouchableWithoutFeedback onPress={this.openPropertyDetail}>
+          <View style={{ flex: 1 }}>
+            <ProgressiveImage
+              source={{ uri: property.thumbnail }}
+              thumbnail={imagePlaceholder}
+              style={{ width, height: 140 }}
+            />
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     );
   }
 }
 
-MapDetail.propTypes = {};
+MapDetail.propTypes = {
+  property: PropTypes.object.isRequired,
+};
 
 export default MapDetail;

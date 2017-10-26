@@ -183,10 +183,12 @@ class SearchPage extends Component {
     this.setState({ selectedValue: data });
   }
 
-  showLightBox() {
+  showLightBox(property) {
     this.props.navigator.showInAppNotification({
       screen: 'krooqi.MapDetail',
-      passProps: {},
+      passProps: {
+        property,
+      },
       position: 'bottom',
       autoDismissTimerSec: 10,
       dismissWithSwipe: true,
@@ -296,7 +298,7 @@ class SearchPage extends Component {
                         latitude: parseFloat(marker.lat),
                         longitude: parseFloat(marker.lng),
                       }}
-                      onPress={this.showLightBox}
+                      onPress={() => this.showLightBox(marker)}
                     >
                       <PriceMarker amount={parseInt(marker.eprice, 10)} />
                     </MapView.Marker>
