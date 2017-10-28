@@ -4,8 +4,8 @@ import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as PropertiesAction from '../Actions/PropertiesAction';
-import { backgroundColor } from '../constants/config';
+import * as PropertiesAction from '../../Actions/PropertiesAction';
+import { backgroundColor } from '../../constants/config';
 
 class SearchFormPage extends Component {
   constructor(props) {

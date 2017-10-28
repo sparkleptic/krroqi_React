@@ -1,23 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    height: 100,
-    backgroundColor: '#ff505c',
-    padding: 16,
-    margin: 10,
-  },
-  title: {
-    fontSize: 18,
-    textAlign: 'center',
-  },
-  content: {
-    textAlign: 'center',
-    marginTop: 10,
-  },
-});
+import styles from './styles';
 
 const ErrorNotification = ({ title, content }) => (
   <View style={styles.container}>

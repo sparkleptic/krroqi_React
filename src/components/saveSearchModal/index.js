@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 // import Icon from 'react-native-vector-icons/Ionicons';
-import { backgroundColor } from '../constants/config';
+import { backgroundColor } from '../../constants/config';
 
 const { height, width } = Dimensions.get('window');
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
-import Textbox from '../inputControls/textbox';
+import Textbox from '../../inputControls/textbox';
 
 const SearchForm = (props) => {
   const { handleSubmit, fields: { search } } = props;

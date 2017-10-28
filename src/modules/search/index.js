@@ -73,7 +73,7 @@ class SearchPage extends Component {
     let navigatorOptions = {};
     if (Platform.OS === 'android' && Platform.Version === 23) {
       navigatorOptions = {
-        enableHighAccuracy: false,
+        enableHighAccuracy: true,
         timeout: 10000,
         maximumAge: 0,
       };

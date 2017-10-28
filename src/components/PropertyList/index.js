@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { View, FlatList, Text } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import PropertyCard from './PropertyCard';
-import * as PropertiesActions from './../Actions/PropertiesAction';
+import PropertyCard from '../PropertyCard';
+import * as PropertiesActions from '../../Actions/PropertiesAction';
 
 class PropertyList extends Component {
   constructor(props) {

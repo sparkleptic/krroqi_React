@@ -11,8 +11,8 @@ import {
   Modal,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Carousel from './Carousel';
-import { backgroundColor } from './../constants/config';
+import Carousel from '../Carousel';
+import { backgroundColor } from '../../constants/config';
 
 // const { width, height } = Dimensions.get('window');
 

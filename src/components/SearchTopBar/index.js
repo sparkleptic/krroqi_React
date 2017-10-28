@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { View, TextInput } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import { backgroundColor } from '../constants/config';
+import { backgroundColor } from '../../constants/config';
 
 class searchHeader extends Component {
   constructor(props) {

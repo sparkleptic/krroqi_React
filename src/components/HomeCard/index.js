@@ -4,9 +4,9 @@ import { View, FlatList, TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components/native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import PropertyCard from './PropertyCard';
-import * as PropertiesActions from './../Actions/PropertiesAction';
-import { backgroundColor } from './../constants/config';
+import PropertyCard from '../PropertyCard';
+import * as PropertiesActions from '../../Actions/PropertiesAction';
+import { backgroundColor } from '../../constants/config';
 
 const H1 = styled.Text`
   font-size: 18px;
@@ -85,6 +85,9 @@ class HomeCard extends Component {
         <H1>{title}</H1>
         <FlatList
           horizontal
+          scrollEventThrottle={1}
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={260}
           renderItem={({ item }) => <PropertyCard property={item} onCardPress={this.pushDetail} />}
           ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
           keyExtractor={item => item.ID}

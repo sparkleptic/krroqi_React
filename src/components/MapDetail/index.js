@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Dimensions, Platform, TouchableWithoutFeedback } from 'react-native';
-import ProgressiveImage from './ProgressiveImage';
+import ProgressiveImage from '../ProgressiveImage';
+import PropertyCard from '../PropertyCard';
 
-const imagePlaceholder = require('../images/house_placeholder.png');
+const imagePlaceholder = require('../../images/house_placeholder.png');
 
 const { width } = Dimensions.get('window');
 
@@ -57,24 +58,12 @@ class MapDetail extends Component {
   render() {
     const { property } = this.props;
     return (
-      <View
-        style={{
-          height: 250,
-          width,
-          justifyContent: 'flex-end',
-          backgroundColor: 'white',
-        }}
-      >
-        <TouchableWithoutFeedback onPress={this.openPropertyDetail}>
-          <View style={{ flex: 1 }}>
-            <ProgressiveImage
-              source={{ uri: property.thumbnail }}
-              thumbnail={imagePlaceholder}
-              style={{ width, height: 140 }}
-            />
-          </View>
-        </TouchableWithoutFeedback>
-      </View>
+      <PropertyCard
+        containerStyle={{ justifyContent: 'flex-end' }}
+        property={property}
+        onCardPress={this.openPropertyDetail}
+        fullWidth
+      />
     );
   }
 }

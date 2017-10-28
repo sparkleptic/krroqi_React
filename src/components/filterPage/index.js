@@ -13,8 +13,8 @@ import {
   Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { backgroundColor } from './../constants/config';
-import MultiSelect from '../inputControls/MultiSelect';
+import { backgroundColor } from '../../constants/config';
+import MultiSelect from '../../inputControls/MultiSelect';
 
 const { width } = Dimensions.get('window');
 

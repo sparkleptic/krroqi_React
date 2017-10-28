@@ -10,7 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { backgroundColor } from '../constants/config';
+import { backgroundColor } from '../../constants/config';
 
 const styles = StyleSheet.create({
   container: {

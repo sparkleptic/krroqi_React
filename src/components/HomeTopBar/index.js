@@ -2,7 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import { View, Image, StyleSheet } from 'react-native';
 
-const logoImage = require('./../images/KR-Logo.png');
+const logoImage = require('../../images/KR-Logo.png');
 
 const styles = StyleSheet.create({
   container: {

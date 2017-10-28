@@ -1,22 +1,25 @@
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Animated,
   Text,
   View,
-  StyleSheet,
   Image,
   Dimensions,
   ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native';
 
+import styles from './styles';
+
 const deviceWidth = Dimensions.get('window').width;
 const FIXED_BAR_WIDTH = 280;
 const BAR_SPACE = 10;
 
-export default class App extends Component {
+class Carousel extends Component {
   numItems = this.props.images.length;
-  itemWidth = FIXED_BAR_WIDTH / this.numItems - (this.numItems - 1) * BAR_SPACE;
+  itemWidth = FIXED_BAR_WIDTH / this.numItems - (this.numItems - 1) * BAR_SPACE; // eslint-disable-line
   animVal = new Animated.Value(0);
 
   render() {
@@ -88,33 +91,9 @@ export default class App extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  closeContainer: {
-    position: 'absolute',
-    zIndex: 2,
-    top: 40,
-  },
-  barContainer: {
-    position: 'absolute',
-    zIndex: 2,
-    bottom: 40,
-    flexDirection: 'row',
-  },
-  track: {
-    backgroundColor: '#ccc',
-    overflow: 'hidden',
-    height: 2,
-  },
-  bar: {
-    backgroundColor: '#5294d6',
-    height: 2,
-    position: 'absolute',
-    left: 0,
-    top: 0,
-  },
-});
+Carousel.propTypes = {
+  images: PropTypes.array.isRequired,
+  closeModel: PropTypes.func.isRequired,
+};
+
+export default Carousel;
