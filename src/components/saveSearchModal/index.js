@@ -69,8 +69,6 @@ class SaveSearchModal extends Component {
             value={this.state.saveSearchText}
             onChangeText={saveSearchText => this.setState({ saveSearchText })}
             onSubmitEditing={this.onSave}
-            underlineColorAndroid={backgroundColor}
-            selectionColor={backgroundColor}
           />
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
             <TouchableWithoutFeedback onPress={this.onCancel}>

@@ -38,8 +38,6 @@ class SearchFormPage extends Component {
           value={this.state.searchText}
           onChangeText={searchText => this.setState({ searchText })}
           onSubmitEditing={this.submitSearch}
-          underlineColorAndroid={backgroundColor}
-          selectionColor={backgroundColor}
           autoFocus
         />
         <TouchableWithoutFeedback onPress={this.submitSearch}>
