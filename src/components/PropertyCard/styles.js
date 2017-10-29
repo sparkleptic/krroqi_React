@@ -59,6 +59,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
   },
+  iconStyle: {
+    height: 30,
+    width: 30,
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
 });
 
 export default styles;

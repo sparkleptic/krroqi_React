@@ -12,7 +12,6 @@ class MultiSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      multiSelectData: props.multiSelectData,
       selectedValues: props.selectedValues,
     };
     this.showLightBox = this.showLightBox.bind(this);
@@ -20,13 +19,18 @@ class MultiSelect extends Component {
     this.selectValues = this.selectValues.bind(this);
   }
 
-  showLightBox(e) {
-    e.preventDefault();
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selectedValues: nextProps.selectedValues,
+    });
+  }
+
+  showLightBox() {
     Navigation.showLightBox({
       screen: 'krooqi.MultiSelectLightBox',
       passProps: {
-        multiSelectData: this.state.multiSelectData,
-        selectedValues: this.state.selectedValues,
+        multiSelectData: this.props.multiSelectData,
+        selectedValues: this.props.selectedValues,
         onSet: this.selectValues,
         onCancel: this.hideLightBox,
       },
@@ -42,7 +46,9 @@ class MultiSelect extends Component {
   }
 
   selectValues(selectedValues) {
-    this.setState({ selectedValues });
+    // alert(JSON.stringify(selectedValues));
+    // this.setState({ selectedValues });
+    this.props.onSelect(selectedValues);
     this.hideLightBox();
   }
 
@@ -62,7 +68,7 @@ class MultiSelect extends Component {
                 color: backgroundColor,
               }}
             >
-              {selectedValues.join(', ')}
+              {selectedValues.map(data => data.value).join(', ')}
             </Text>
             <Icon
               style={{
@@ -85,6 +91,7 @@ class MultiSelect extends Component {
 MultiSelect.propTypes = {
   multiSelectData: PropTypes.array.isRequired,
   selectedValues: PropTypes.array.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default MultiSelect;

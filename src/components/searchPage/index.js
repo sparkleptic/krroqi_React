@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
+import PropTypes from 'prop-types';
+import { View, Text, Platform, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class searchPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      search: '',
-    };
+    this.searchNearby = this.searchNearby.bind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -18,26 +17,37 @@ class searchPage extends Component {
           animationType: 'slide-down',
         });
       }
-      if (event.id === 'search') {
-        this.props.navigator.dismissModal({
-          animationType: 'slide-down',
-        });
-      }
     }
+  }
+
+  searchNearby() {
+    alert('search nearby');
   }
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Text>Near Me</Text>
-        <Text>{this.state.search}</Text>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <TouchableOpacity onPress={this.searchNearby}>
+          <View style={{ flexDirection: 'row', padding: 12 }}>
+            <Icon
+              name={Platform.OS === 'ios' ? 'ios-locate-outline' : 'md-locate'}
+              size={30}
+              color="gray"
+            />
+            <Text style={{ fontSize: 18, paddingLeft: 30 }}>Nearby</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
 }
 
-// searchPage.propTypes = {
-//   search: PropTypes.object.isRequired,
-// };
+searchPage.propTypes = {
+  navigator: PropTypes.object,
+};
+
+searchPage.defaultProp = {
+  navigator: {},
+};
 
 export default searchPage;

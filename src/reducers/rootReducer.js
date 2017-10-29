@@ -6,6 +6,7 @@ import propertiesByCategory from './propertiesByCategory.reducer';
 import filteredProperties from './filteredProperties.reducer';
 import propertyStatus from './propertyStatus.reducer';
 import propertyTypes from './propertyTypes.reducer';
+import search from './search.reducer';
 
 const rootReducer = combineReducers({
   properties,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   connection,
   propertyStatus,
   propertyTypes,
+  search,
   form: formReducer,
 });
 

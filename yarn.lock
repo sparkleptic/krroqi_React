@@ -3319,6 +3319,10 @@ jsx-ast-utils@^2.0.0:
   dependencies:
     array-includes "^3.0.3"
 
+kdbush@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/kdbush/-/kdbush-1.0.1.tgz#3cbd03e9dead9c0f6f66ccdb96450e5cecc640e0"
+
 kind-of@^3.0.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -3740,9 +3744,9 @@ mobile-center@0.10.0, mobile-center@^0.10.0:
   dependencies:
     mobile-center-link-scripts "0.10.0"
 
-moment@^2.18.1:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
+moment@^2.19.1:
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
 
 morgan@~1.6.1:
   version "1.6.1"
@@ -4429,9 +4433,9 @@ react-native-maps@^0.16.4:
   version "0.16.4"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.16.4.tgz#c18c3cab8cd0ce05431cd74dac11a39afaa579e4"
 
-react-native-navigation@^1.1.246:
-  version "1.1.246"
-  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.246.tgz#c51d3379c38716a96d083ea4f96c4d49ae81a9aa"
+react-native-navigation@^1.1.253:
+  version "1.1.253"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.253.tgz#a6ec7b141d5ccf32e7d5a49cac73f2d36a86dc9c"
   dependencies:
     lodash "4.x.x"
 
@@ -5274,6 +5278,12 @@ superagent@^1.7.2:
     qs "2.3.3"
     readable-stream "1.0.27-1"
     reduce-component "1.0.1"
+
+supercluster@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/supercluster/-/supercluster-3.0.1.tgz#e32c043659d442c150f674ebbaac5f5bdcf394e0"
+  dependencies:
+    kdbush "^1.0.1"
 
 supports-color@^2.0.0:
   version "2.0.0"

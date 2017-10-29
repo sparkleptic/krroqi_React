@@ -44,7 +44,7 @@ class App extends Component {
 
     this.props.navigator.setStyle({
       navBarCustomView: 'krooqi.HomeTopBar',
-      navBarComponentAlignment: 'center',
+      navBarComponentAlignment: 'fill',
     });
   }
 

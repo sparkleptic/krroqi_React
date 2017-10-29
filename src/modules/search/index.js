@@ -11,7 +11,7 @@ import { MapHeaderText } from './../../common/commonStyle';
 import * as PropertiesActions from './../../Actions/PropertiesAction';
 
 import PropertyCard from '../../components/PropertyCard';
-import PriceMarker from '../../components/PriceMarker';
+import MarkerImg from '../../images/KR-pin.png';
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -40,7 +40,6 @@ class SearchPage extends Component {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
-      search: {},
       defaultSearchLabel: '',
       selectedValue: 'Relevance',
       flip: false,
@@ -62,6 +61,8 @@ class SearchPage extends Component {
 
   componentWillMount() {
     this.props.actions.filteredPropertiesLoad();
+    this.props.actions.propertyTypesLoad();
+    this.props.actions.propertyStatusLoad();
   }
 
   componentDidMount() {
@@ -144,11 +145,14 @@ class SearchPage extends Component {
   }
 
   showFilterPage() {
+    const { search, propertyStatus, propertyTypes } = this.props;
     this.props.navigator.showModal({
       screen: 'krooqi.FilterPage',
       title: 'Filter Page',
       passProps: {
-        search: this.state.search,
+        search,
+        propertyStatus,
+        propertyTypes,
       },
       navigatorButtons: {
         leftButtons: [
@@ -242,6 +246,7 @@ class SearchPage extends Component {
         >
           <TouchableWithoutFeedback
             onPress={() => {
+              this.dismissNotification();
               this.setState({ flip: !this.state.flip });
             }}
           >
@@ -304,10 +309,9 @@ class SearchPage extends Component {
                         latitude: parseFloat(marker.lat),
                         longitude: parseFloat(marker.lng),
                       }}
+                      image={MarkerImg}
                       onPress={() => this.showLightBox(marker)}
-                    >
-                      <PriceMarker amount={parseInt(marker.eprice, 10)} />
-                    </MapView.Marker>
+                    />
                   ))}
               </MapView>
             </View>
@@ -339,12 +343,23 @@ class SearchPage extends Component {
 SearchPage.propTypes = {
   navigator: PropTypes.object.isRequired,
   filteredProperties: PropTypes.object.isRequired,
+  search: PropTypes.object.isRequired,
+  propertyStatus: PropTypes.array.isRequired,
+  propertyTypes: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  filteredProperties: state.filteredProperties,
-});
+const mapStateToProps = (state) => {
+  let ps = state.propertyStatus.success || [];
+  const pt = state.propertyTypes.success || [];
+  ps = ps.filter(item => item.term_id === 33 || item.term_id === 34 || item.term_id === 108);
+  return {
+    filteredProperties: state.filteredProperties,
+    search: state.search,
+    propertyStatus: ps,
+    propertyTypes: pt,
+  };
+};
 
 function mapDispatchToProps(dispatch) {
   return {

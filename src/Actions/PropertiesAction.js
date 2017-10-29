@@ -15,31 +15,59 @@ export function propertiesLoadFail(error) {
 }
 
 export function filteredPropertiesLoadRequest() {
-  return { type: types.LOAD_FILTEREDPROPERTIES_REQUEST };
+  return { type: types.LOAD_FILTERED_PROPERTIES_REQUEST };
 }
 
 export function filteredPropertiesLoadSuccess(properties) {
-  return { type: types.LOAD_FILTEREDPROPERTIES_SUCCESS, properties };
+  return { type: types.LOAD_FILTERED_PROPERTIES_SUCCESS, properties };
 }
 
 export function filteredPropertiesLoadFail(error) {
-  return { type: types.LOAD_FILTEREDPROPERTIES_FAIL, error };
+  return { type: types.LOAD_FILTERED_PROPERTIES_FAIL, error };
 }
 
 export function propertiesByCategoryLoadRequest() {
-  return { type: types.LOAD_PROPERTIESBYCATEGORY_REQUEST };
+  return { type: types.LOAD_PROPERTIES_CATEGORY_REQUEST };
 }
 
 export function propertiesByCategoryLoadSuccess(properties) {
-  return { type: types.LOAD_PROPERTIESBYCATEGORY_SUCCESS, properties };
+  return { type: types.LOAD_PROPERTIES_CATEGORY_SUCCESS, properties };
 }
 
 export function propertiesByCategoryLoadFail(error) {
-  return { type: types.LOAD_PROPERTIESBYCATEGORY_FAIL, error };
+  return { type: types.LOAD_PROPERTIES_CATEGORY_FAIL, error };
+}
+
+export function propertyStatusLoadRequest() {
+  return { type: types.LOAD_PROPERTY_STATUS_REQUEST };
+}
+
+export function propertyStatusLoadSuccess(properties) {
+  return { type: types.LOAD_PROPERTY_STATUS_SUCCESS, properties };
+}
+
+export function propertyStatusLoadFail(error) {
+  return { type: types.LOAD_PROPERTY_STATUS_FAIL, error };
+}
+
+export function propertyTypesLoadRequest() {
+  return { type: types.LOAD_PROPERTY_TYPES_REQUEST };
+}
+
+export function propertyTypesLoadSuccess(properties) {
+  return { type: types.LOAD_PROPERTY_TYPES_SUCCESS, properties };
+}
+
+export function propertyTypesLoadFail(error) {
+  return { type: types.LOAD_PROPERTY_TYPES_FAIL, error };
 }
 
 export function checkConnectionSuccess(isConnected) {
   return { type: types.CHECK_CONNECTION, isConnected };
+}
+
+export function searchChange(search) {
+  return { type: types.SEARCH_CHANGE, search };
 }
 
 export function propertiesLoad() {
@@ -70,6 +98,34 @@ export function propertiesByCategoryLoad(category) {
   };
 }
 
+export function propertyStatusLoad() {
+  return (dispatch) => {
+    dispatch(propertyStatusLoadRequest());
+    return axios
+      .get(`${config.PUBLIC_URL}getStatuses`)
+      .then((response) => {
+        dispatch(propertyStatusLoadSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(propertyStatusLoadFail(error));
+      });
+  };
+}
+
+export function propertyTypesLoad() {
+  return (dispatch) => {
+    dispatch(propertyTypesLoadRequest());
+    return axios
+      .get(`${config.PUBLIC_URL}getTypes`)
+      .then((response) => {
+        dispatch(propertyTypesLoadSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(propertyTypesLoadFail(error));
+      });
+  };
+}
+
 export function filteredPropertiesLoad(search) {
   return (dispatch) => {
     dispatch(filteredPropertiesLoadRequest());
@@ -77,6 +133,7 @@ export function filteredPropertiesLoad(search) {
       .get(`${config.PUBLIC_URL}get30Properties/en`)
       .then((response) => {
         dispatch(filteredPropertiesLoadSuccess(response.data));
+        dispatch(searchChange(search));
       })
       .catch((error) => {
         dispatch(filteredPropertiesLoadFail(error));

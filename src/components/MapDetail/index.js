@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, Platform, TouchableWithoutFeedback } from 'react-native';
-import ProgressiveImage from '../ProgressiveImage';
+import { Platform } from 'react-native';
 import PropertyCard from '../PropertyCard';
-
-const imagePlaceholder = require('../../images/house_placeholder.png');
-
-const { width } = Dimensions.get('window');
 
 class MapDetail extends Component {
   constructor(props) {
@@ -18,8 +13,8 @@ class MapDetail extends Component {
   componentDidMount() {
     if (Platform.OS === 'android') {
       this.props.navigator.toggleTabs({
-        to: 'hidden', // required, 'hidden' = hide tab bar, 'shown' = show tab bar
-        animated: true, // does the toggle have transition animation or does it happen immediately (optional)
+        to: 'hidden',
+        animated: true,
       });
     }
   }
@@ -28,8 +23,8 @@ class MapDetail extends Component {
     this.props.onDismissNotification();
     if (Platform.OS === 'android') {
       this.props.navigator.toggleTabs({
-        to: 'shown', // required, 'hidden' = hide tab bar, 'shown' = show tab bar
-        animated: true, // does the toggle have transition animation or does it happen immediately (optional)
+        to: 'shown',
+        animated: true,
       });
     }
   }
@@ -71,6 +66,11 @@ class MapDetail extends Component {
 MapDetail.propTypes = {
   property: PropTypes.object.isRequired,
   onDismissNotification: PropTypes.func.isRequired,
+  navigator: PropTypes.object,
+};
+
+MapDetail.defaultProps = {
+  navigator: {},
 };
 
 export default MapDetail;

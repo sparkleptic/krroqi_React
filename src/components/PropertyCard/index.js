@@ -57,13 +57,7 @@ const PropertyCard = ({
         </View>
       </TouchableWithoutFeedback>
       <Icon
-        style={{
-          height: 30,
-          width: 30,
-          position: 'absolute',
-          top: 10,
-          right: 10,
-        }}
+        style={styles.iconStyle}
         name={Platform.OS === 'ios' ? 'ios-heart' : 'md-heart'}
         size={30}
         color="red"
@@ -81,6 +75,7 @@ PropertyCard.propTypes = {
 
 PropertyCard.defaultProps = {
   fullWidth: false,
+  containerStyle: {},
 };
 
 export default PropertyCard;

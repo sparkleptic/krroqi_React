@@ -8,26 +8,31 @@ import {
   Picker,
   TextInput,
   KeyboardAvoidingView,
-  Dimensions,
+
   TouchableOpacity,
   Platform,
 } from 'react-native';
+import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { backgroundColor } from '../../constants/config';
+import { backgroundColor, minArea, maxArea, minPrice, maxPrice } from '../../constants/config';
 import MultiSelect from '../../inputControls/MultiSelect';
-
-const { width } = Dimensions.get('window');
+import I18n from '../../i18n';
+import styles from './styles';
 
 class filterPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       search: props.search,
+      propertyStatus: props.propertyStatus,
+      propertyTypes: props.propertyTypes,
       selectedIndex: 0,
       language: 'java',
       showAll: false,
     };
     this.handleIndexChange = this.handleIndexChange.bind(this);
+    this.selectPropertyType = this.selectPropertyType.bind(this);
+    this.selectPropertyStatus = this.selectPropertyStatus.bind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -53,74 +58,100 @@ class filterPage extends Component {
     });
   };
 
+  selectPropertyType(value) {
+    const { search } = this.state;
+    const newVal = { ...search, propertyType: value };
+    this.setState({ search: newVal });
+  }
+
+  selectPropertyStatus(index) {
+    let termId = 0;
+    if (index === 0) {
+      termId = 33;
+    } else if (index === 1) {
+      termId = 34;
+    } else {
+      termId = 108;
+    }
+    const { search } = this.state;
+    const newVal = { ...search, propertyStatus: termId };
+    this.setState({ search: newVal });
+  }
+
   render() {
+    const { propertyTypes } = this.props;
+    const { search } = this.state;
+    const pl = propertyTypes.map(item => ({
+      key: item.term_id,
+      value: item.name,
+    }));
+    let statusSelectedIndex = 0;
+    if (search.propertyStatus === 34) {
+      statusSelectedIndex = 1;
+    }
+    if (search.propertyStatus === 108) {
+      statusSelectedIndex = 2;
+    }
+    const years = Array(100).fill().map((_, i) => moment().year() - i);
     return (
-      <View style={{ flex: 1, justifyContent: 'space-around', backgroundColor: 'white' }}>
-        <ScrollView style={{ flex: 1 }}>
-          <KeyboardAvoidingView style={{ flex: 1, margin: 10 }} behavior="padding">
-            <View style={{ marginBottom: 10, marginTop: 10 }}>
+      <View style={styles.container}>
+        <ScrollView style={styles.flex}>
+          <KeyboardAvoidingView style={styles.flex} behavior="padding">
+            <View style={styles.margin}>
               <SegmentedControlTab
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
                 tabTextStyle={{ color: backgroundColor }}
-                values={['For Sale', 'For Rent', 'Development']}
-                selectedIndex={this.state.selectedIndex}
-                onTabPress={this.handleIndexChange}
+                values={['For Rent', 'For Sale', 'Development']}
+                selectedIndex={statusSelectedIndex}
+                onTabPress={this.selectPropertyStatus}
               />
             </View>
-            <View style={{ marginBottom: 10, marginTop: 10 }}>
+            <View style={styles.margin}>
               <Text>Price Range</Text>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <View style={{ width: width / 2 - 15 }}>
+              <View style={styles.rowSpaceBetween}>
+                <View style={styles.halfWidth}>
                   <Picker
                     mode="dropdown"
                     selectedValue={this.state.language}
-                    onValueChange={(itemValue, itemIndex) => this.setState({ language: itemValue })}
+                    onValueChange={itemValue => this.setState({ language: itemValue })}
                   >
-                    <Picker.Item label="Any" value="any" />
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
+                    <Picker.Item label="Min Price" />
+                    {minPrice.map(item => (
+                      <Picker.Item key={item} value={`${item}`} label={`${I18n.toNumber(item, { precision: 0 })} SAR`} />
+                    ))}
                   </Picker>
                   <View
-                    style={{
-                      borderBottomColor: 'gray',
-                      borderBottomWidth: 1,
-                      position: 'absolute',
-                      bottom: 10,
-                      left: 0,
-                      width: '100%',
-                    }}
+                    style={styles.divider}
                   />
                 </View>
-                <View style={{ width: width / 2 - 15 }}>
+                <View style={styles.halfWidth}>
                   <Picker
                     mode="dropdown"
                     selectedValue={this.state.language}
-                    onValueChange={(itemValue, itemIndex) => this.setState({ language: itemValue })}
+                    onValueChange={itemValue => this.setState({ language: itemValue })}
                   >
-                    <Picker.Item label="Any" value="any" />
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
+                    <Picker.Item label="Max Price" />
+                    {maxPrice.map(item => (
+                      <Picker.Item key={item} value={`${item}`} label={`${I18n.toNumber(item, { precision: 0 })} SAR`} />
+                    ))}
                   </Picker>
                   <View
-                    style={{
-                      borderBottomColor: 'gray',
-                      borderBottomWidth: 1,
-                      position: 'absolute',
-                      bottom: 10,
-                      left: 0,
-                      width: '100%',
-                    }}
+                    style={styles.divider}
                   />
                 </View>
               </View>
             </View>
-            <View style={{ marginBottom: 10, marginTop: 10 }}>
-              <Text style={{ marginBottom: 10 }}>Property Type</Text>
-              <MultiSelect multiSelectData={['Villa', 'Apartment']} selectedValues={[]} />
+            <View style={styles.margin}>
+              <Text style={styles.margin}>Property Type</Text>
+              <MultiSelect
+                multiSelectData={pl}
+                selectedValues={search.propertyType}
+                onSelect={this.selectPropertyType}
+              />
             </View>
-            <View style={{ marginBottom: 10, marginTop: 10 }}>
-              <Text style={{ marginBottom: 10 }}>Rooms</Text>
+            <View style={styles.margin}>
+              <Text style={styles.margin}>Rooms</Text>
               <SegmentedControlTab
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
@@ -130,8 +161,8 @@ class filterPage extends Component {
                 onTabPress={this.handleIndexChange}
               />
             </View>
-            <View style={{ marginBottom: 10, marginTop: 10 }}>
-              <Text style={{ marginBottom: 10 }}>Baths</Text>
+            <View style={styles.margin}>
+              <Text style={styles.margin}>Baths</Text>
               <SegmentedControlTab
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
@@ -141,133 +172,97 @@ class filterPage extends Component {
                 onTabPress={this.handleIndexChange}
               />
             </View>
-            <View style={{ marginBottom: 10, marginTop: 10 }}>
+            <View style={styles.margin}>
               <Text>Square Meter Range</Text>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <View style={{ width: width / 2 - 15 }}>
+              <View style={styles.rowSpaceBetween}>
+                <View style={styles.halfWidth}>
                   <Picker
                     mode="dropdown"
                     selectedValue={this.state.language}
-                    onValueChange={(itemValue, itemIndex) => this.setState({ language: itemValue })}
+                    onValueChange={itemValue => this.setState({ language: itemValue })}
                   >
-                    <Picker.Item label="Any" value="any" />
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
+                    <Picker.Item label="Min Area" />
+                    {minArea.map(item => (
+                      <Picker.Item key={item} value={`${item}`} label={`${I18n.toNumber(item, { precision: 0 })} Sq m`} />
+                    ))}
                   </Picker>
                   <View
-                    style={{
-                      borderBottomColor: 'gray',
-                      borderBottomWidth: 1,
-                      position: 'absolute',
-                      bottom: 10,
-                      left: 0,
-                      width: '100%',
-                    }}
+                    style={styles.divider}
                   />
                 </View>
-                <View style={{ width: width / 2 - 15 }}>
+                <View style={styles.halfWidth}>
                   <Picker
                     mode="dropdown"
                     selectedValue={this.state.language}
-                    onValueChange={(itemValue, itemIndex) => this.setState({ language: itemValue })}
+                    onValueChange={itemValue => this.setState({ language: itemValue })}
                   >
-                    <Picker.Item label="Any" value="any" />
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
+                    <Picker.Item label="Max Area" />
+                    {maxArea.map(item => (
+                      <Picker.Item key={item} value={`${item}`} label={`${I18n.toNumber(item, { precision: 0 })} Sq m`} />
+                    ))}
                   </Picker>
                   <View
-                    style={{
-                      borderBottomColor: 'gray',
-                      borderBottomWidth: 1,
-                      position: 'absolute',
-                      bottom: 10,
-                      left: 0,
-                      width: '100%',
-                    }}
+                    style={styles.divider}
                   />
                 </View>
               </View>
             </View>
             {this.state.showAll && (
               <View>
-                <View style={{ marginBottom: 10, marginTop: 10 }}>
+                <View style={styles.margin}>
                   <Text>Year Built</Text>
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <View style={{ width: width / 2 - 15 }}>
+                  <View style={styles.rowSpaceBetween}>
+                    <View style={styles.halfWidth}>
                       <Picker
                         mode="dropdown"
                         selectedValue={this.state.language}
-                        onValueChange={(itemValue, itemIndex) =>
+                        onValueChange={itemValue =>
                           this.setState({ language: itemValue })}
                       >
-                        <Picker.Item label="Any" value="any" />
-                        <Picker.Item label="Java" value="java" />
-                        <Picker.Item label="JavaScript" value="js" />
+                        <Picker.Item label="Min Built Year" />
+                        {years.map(item => (
+                          <Picker.Item key={item} value={`${item}`} label={`${item}`} />
+                        ))}
                       </Picker>
                       <View
-                        style={{
-                          borderBottomColor: 'gray',
-                          borderBottomWidth: 1,
-                          position: 'absolute',
-                          bottom: 10,
-                          left: 0,
-                          width: '100%',
-                        }}
+                        style={styles.divider}
                       />
                     </View>
-                    <View style={{ width: width / 2 - 15 }}>
+                    <View style={styles.halfWidth}>
                       <Picker
                         mode="dropdown"
                         selectedValue={this.state.language}
-                        onValueChange={(itemValue, itemIndex) =>
-                          this.setState({ language: itemValue })}
+                        onValueChange={itemValue => this.setState({ language: itemValue })}
                       >
-                        <Picker.Item label="Any" value="any" />
-                        <Picker.Item label="Java" value="java" />
-                        <Picker.Item label="JavaScript" value="js" />
+                        <Picker.Item label="Max Built Year" />
+                        {years.map(item => (
+                          <Picker.Item key={item} value={`${item}`} label={`${item}`} />
+                        ))}
                       </Picker>
                       <View
-                        style={{
-                          borderBottomColor: 'gray',
-                          borderBottomWidth: 1,
-                          position: 'absolute',
-                          bottom: 10,
-                          left: 0,
-                          width: '100%',
-                        }}
+                        style={styles.divider}
                       />
                     </View>
                   </View>
                 </View>
-                <View style={{ marginBottom: 10, marginTop: 10 }}>
+                <View style={styles.margin}>
                   <Text>District</Text>
                   <TextInput />
                 </View>
               </View>
             )}
             <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: 10,
-              }}
+              style={styles.rowCenter}
             >
               <TouchableOpacity
-                style={{
-                  borderColor: 'gray',
-                  borderWidth: 1,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 100,
-                }}
+                style={styles.buttonStyle}
                 onPress={() =>
                   this.setState({
                     showAll: !this.state.showAll,
                   })}
               >
                 <View>
-                  <Text style={{ padding: 8 }}>
+                  <Text style={styles.padding}>
                     {this.state.showAll ? 'Show Less' : 'Show More'}
                   </Text>
                 </View>
@@ -276,21 +271,7 @@ class filterPage extends Component {
           </KeyboardAvoidingView>
         </ScrollView>
         <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            height: 40,
-            alignItems: 'center',
-            borderWidth: 1,
-            borderRadius: 1,
-            borderColor: '#ddd',
-            borderBottomWidth: 0,
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.8,
-            shadowRadius: 2,
-            elevation: 1,
-          }}
+          style={styles.tabBar}
         >
           <TouchableOpacity>
             <View>
@@ -299,9 +280,7 @@ class filterPage extends Component {
           </TouchableOpacity>
           <TouchableOpacity>
             <View
-              style={{
-                flexDirection: 'row',
-              }}
+              style={{ flexDirection: 'row' }}
             >
               <Icon
                 name={Platform.OS === 'ios' ? 'ios-heart-outline' : 'md-heart-outline'}
@@ -323,6 +302,8 @@ class filterPage extends Component {
 
 filterPage.propTypes = {
   search: PropTypes.object.isRequired,
+  propertyStatus: PropTypes.array.isRequired,
+  propertyTypes: PropTypes.array.isRequired,
   navigator: PropTypes.object.isRequired,
 };
 

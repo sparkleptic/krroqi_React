@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, TouchableWithoutFeedback, Text } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,16 +13,14 @@ class SearchFormPage extends Component {
     this.state = {
       searchText: '',
     };
-    this.onChnageText = this.onChnageText.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
   }
 
-  onChnageText(e) {
-    this.setState({ searchText: e.target.value });
-  }
-
   submitSearch() {
-    this.props.actions.filteredPropertiesLoad(this.state.searchText);
+    this.props.actions.filteredPropertiesLoad({
+      ...this.props.search,
+      searchText: this.state.searchText,
+    });
     Navigation.dismissModal({
       animationType: 'slide-down',
     });
@@ -35,17 +33,29 @@ class SearchFormPage extends Component {
           style={{
             flex: 1,
             color: backgroundColor,
-            marginLeft: 10,
-            marginRight: 10,
           }}
           placeholder="Type Here..."
           value={this.state.searchText}
-          onChange={this.onChnageText}
+          onChangeText={searchText => this.setState({ searchText })}
           onSubmitEditing={this.submitSearch}
           underlineColorAndroid={backgroundColor}
           selectionColor={backgroundColor}
           autoFocus
         />
+        <TouchableWithoutFeedback onPress={this.submitSearch}>
+          <View>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '400',
+                color: backgroundColor,
+                padding: 10,
+              }}
+            >
+              Search
+            </Text>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     );
   }
@@ -53,14 +63,15 @@ class SearchFormPage extends Component {
 
 SearchFormPage.propTypes = {
   actions: PropTypes.object.isRequired,
+  search: PropTypes.object.isRequired,
 };
 
-// const mapStateToProps = state => ({
-//   searchResult: state.searchResult,
-// });
+const mapStateToProps = state => ({
+  search: state.search,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(PropertiesAction, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(SearchFormPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchFormPage);

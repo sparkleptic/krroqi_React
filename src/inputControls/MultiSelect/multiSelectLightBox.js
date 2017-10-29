@@ -7,8 +7,8 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-  CheckBox,
   Platform,
+  CheckBox,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { backgroundColor } from '../../constants/config';
@@ -42,6 +42,12 @@ class MultiSelect extends Component {
     this.onSelectAll = this.onSelectAll.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selectedValues: nextProps.selectedValues,
+    });
+  }
+
   onCancel() {
     this.props.onCancel();
   }
@@ -55,20 +61,21 @@ class MultiSelect extends Component {
   }
 
   selectValue(data) {
+    const { selectedValues } = this.state;
     let newValues = [];
-    if (this.state.selectedValues.includes(data)) {
-      newValues = newValues.filter(item => item !== data);
+    if (selectedValues.find(item => item.key === data.key)) {
+      newValues = selectedValues.filter(item => item.key !== data.key);
     } else {
-      newValues = [...this.state.selectedValues, data];
+      newValues = [...selectedValues, data];
     }
     this.setState({ selectedValues: newValues });
   }
 
   render() {
     const { selectedValues, multiSelectData } = this.state;
-    let scrollHeight = 50 + multiSelectData.length * 50;
-    if (scrollHeight > 400) {
-      scrollHeight = 400;
+    let scrollHeight = 50 + multiSelectData.length * 40;
+    if (scrollHeight > 320) {
+      scrollHeight = 320;
     }
 
     return (
@@ -92,23 +99,11 @@ class MultiSelect extends Component {
               }}
             >
               <Text>All</Text>
-              {!selectedValues.length ? (
-                <Icon
-                  name={Platform.OS === 'ios' ? 'ios-checkbox' : 'md-checkbox'}
-                  color={backgroundColor}
-                  size={24}
-                />
-              ) : (
-                <Icon
-                  name={Platform.OS === 'ios' ? 'ios-square-outline' : 'md-square-outline'}
-                  color={backgroundColor}
-                  size={24}
-                />
-              )}
+              <CheckBox value={selectedValues.length === 0} />
             </View>
           </TouchableOpacity>
           {multiSelectData.map(data => (
-            <TouchableOpacity key={data} onPress={() => this.selectValue(data)}>
+            <TouchableOpacity key={data.key} onPress={() => this.selectValue(data)}>
               <View
                 style={{
                   flex: 1,
@@ -117,20 +112,8 @@ class MultiSelect extends Component {
                   padding: 8,
                 }}
               >
-                <Text>{data}</Text>
-                {selectedValues.includes(data) ? (
-                  <Icon
-                    name={Platform.OS === 'ios' ? 'ios-checkbox' : 'md-checkbox'}
-                    color={backgroundColor}
-                    size={24}
-                  />
-                ) : (
-                  <Icon
-                    name={Platform.OS === 'ios' ? 'ios-square-outline' : 'md-square-outline'}
-                    color={backgroundColor}
-                    size={24}
-                  />
-                )}
+                <Text>{data.value}</Text>
+                <CheckBox value={selectedValues.some(item => item.key === data.key)} />
               </View>
             </TouchableOpacity>
           ))}

@@ -1,37 +1,15 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { View, TextInput } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import { connect } from 'react-redux';
 import { backgroundColor } from '../../constants/config';
 
 class searchHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: {
-        searchLabel: '',
-        searchText: '',
-        propertyStatus: {
-          term_id: '',
-          name: '',
-        },
-        priceRange: {
-          start: '',
-          end: '',
-        },
-        propertyType: [],
-        rooms: '',
-        baths: '',
-        squareMeterRange: {
-          start: '',
-          end: '',
-        },
-        yearBuilt: {
-          start: '',
-          end: '',
-        },
-        district: '',
-      },
+      search: props.search,
     };
 
     this.openSearchPage = this.openSearchPage.bind(this);
@@ -58,17 +36,6 @@ class searchHeader extends Component {
             title: 'Cancel',
             id: 'cancel',
             buttonColor: backgroundColor,
-            buttonFontSize: 14,
-            buttonFontWeight: '600',
-          },
-        ],
-        rightButtons: [
-          {
-            title: 'Search',
-            id: 'search',
-            buttonColor: backgroundColor,
-            buttonFontSize: 14,
-            buttonFontWeight: '600',
           },
         ],
       },
@@ -79,7 +46,7 @@ class searchHeader extends Component {
     return (
       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
         <TextInput
-          value={this.state.search.searchText}
+          value={this.props.search.searchText}
           style={{ flex: 1, color: 'white' }}
           placeholder="Search city, state or zip"
           placeholderTextColor="white"
@@ -95,6 +62,12 @@ class searchHeader extends Component {
   }
 }
 
-searchHeader.propTypes = {};
+searchHeader.propTypes = {
+  search: PropTypes.object.isRequired,
+};
 
-export default searchHeader;
+const mapStateToProps = state => ({
+  search: state.search,
+});
+
+export default connect(mapStateToProps)(searchHeader);
