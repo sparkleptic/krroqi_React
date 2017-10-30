@@ -13,8 +13,8 @@ export default {
       end: '',
     },
     propertyType: [],
-    rooms: '',
-    baths: '',
+    rooms: 0,
+    baths: 0,
     squareMeterRange: {
       start: '',
       end: '',

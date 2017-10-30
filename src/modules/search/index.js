@@ -11,7 +11,7 @@ import { MapHeaderText } from './../../common/commonStyle';
 import * as PropertiesActions from './../../Actions/PropertiesAction';
 
 import PropertyCard from '../../components/PropertyCard';
-import MarkerImg from '../../images/KR-pin.png';
+import MarkerImg from '../../images/highlight-pin-single-family-act.png';
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -55,6 +55,7 @@ class SearchPage extends Component {
     this.onRefresh = this.onRefresh.bind(this);
     this.pushDetail = this.pushDetail.bind(this);
     this.closeModel = this.closeModel.bind(this);
+    this.onFilter = this.onFilter.bind(this);
     this.onErrorNotification = this.onErrorNotification.bind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -153,6 +154,7 @@ class SearchPage extends Component {
         search,
         propertyStatus,
         propertyTypes,
+        onFilter: this.onFilter,
       },
       navigatorButtons: {
         leftButtons: [
@@ -166,6 +168,10 @@ class SearchPage extends Component {
         ],
       },
     });
+  }
+
+  onFilter(search) {
+    this.props.actions.filteredPropertiesLoad(search);
   }
 
   sortProperties() {
