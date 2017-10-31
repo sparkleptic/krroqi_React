@@ -1,6 +1,10 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
+## GoogleMaps
+
+Copyright 2017 Google
+
 ## MobileCenter
 
 Microsoft Mobile Center SDK for iOS

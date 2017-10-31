@@ -303,8 +303,6 @@ class SearchPage extends Component {
                 provider={PROVIDER_GOOGLE}
                 style={{ flex: 1 }}
                 region={this.state.region}
-                onRegionChange={region => this.setState({ region })}
-                onRegionChangeComplete={region => this.setState({ region })}
                 onPress={this.dismissNotification}
               >
                 {filteredProperties.success &&

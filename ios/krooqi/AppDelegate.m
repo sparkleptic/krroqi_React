@@ -12,10 +12,11 @@
 #import <RNCrashes/RNCrashes.h>
 #import <RNAnalytics/RNAnalytics.h>
 #import <RNMobileCenter/RNMobileCenter.h>
-
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <React/RCTI18nUtil.h>
+#import <GoogleMaps/GoogleMaps.h>
 #import "RCCManager.h"
 
 @implementation AppDelegate
@@ -23,12 +24,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
+  
+  [GMSServices provideAPIKey:@"AIzaSyBX6UV7VgQiY7wMFw1eThn8sEgnZXLNjGA"];
 
   [RNCrashes registerWithCrashDelegate: [[RNCrashesDelegateAlwaysSend alloc] init]];  // Initialize Mobile Center crashes
 
   [RNAnalytics registerWithInitiallyEnabled:true];  // Initialize Mobile Center analytics
 
-  [RNMobileCenter register];  // Initialize Mobile Center 
+  [RNMobileCenter register];  // Initialize Mobile Center
+  
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                           didFinishLaunchingWithOptions:launchOptions];
 
   
     #ifdef DEBUG
@@ -42,5 +48,18 @@
   [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation launchOptions:launchOptions];
   return YES;
 }
+  
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+    sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                  openURL:url
+                                                        sourceApplication:sourceApplication
+                                                               annotation:annotation
+                    ];
+    // Add any custom logic here.
+    return handled;
+  }
+  
 
 @end

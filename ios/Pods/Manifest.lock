@@ -1,4 +1,9 @@
 PODS:
+  - GoogleMaps (2.4.0):
+    - GoogleMaps/Maps (= 2.4.0)
+  - GoogleMaps/Base (2.4.0)
+  - GoogleMaps/Maps (2.4.0):
+    - GoogleMaps/Base
   - MobileCenter/Analytics (0.13.0):
     - MobileCenter/Core
   - MobileCenter/Core (0.13.0)
@@ -6,16 +11,25 @@ PODS:
     - MobileCenter/Core
   - RNMobileCenterShared (0.10.0):
     - MobileCenter/Core (~> 0.13.0)
+  - yoga (0.49.3.React)
 
 DEPENDENCIES:
+  - GoogleMaps
   - MobileCenter/Analytics (~> 0.13.0)
   - MobileCenter/Crashes (~> 0.13.0)
   - RNMobileCenterShared (~> 0.10.0)
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga/Yoga.podspec`)
+
+EXTERNAL SOURCES:
+  yoga:
+    :path: ../node_modules/react-native/ReactCommon/yoga/Yoga.podspec
 
 SPEC CHECKSUMS:
+  GoogleMaps: 8436ab5d1c25e36915b2f7416d0c8e3fa2e76c61
   MobileCenter: f531f5d7bc3245cf1abb178022b24d968b467280
   RNMobileCenterShared: d36d0245f9eb9627e60cd20623502906f61a783f
+  yoga: 6e56575501ecea04196f9c9f08b90cf97cd5da24
 
-PODFILE CHECKSUM: 098839b6a9d11c8442737b8fa7f2baf1136e2c0e
+PODFILE CHECKSUM: 7b1415800dc4cbc72e3aef65ed79d1bf8306e4d4
 
 COCOAPODS: 1.3.1

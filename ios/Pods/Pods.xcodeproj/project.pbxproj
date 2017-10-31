@@ -7,55 +7,91 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12A6AF3D87A372090C6874587799C608 /* yoga-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BE83B89FC1C19B82E36246D8122029 /* yoga-dummy.m */; };
+		1BDC6E9A1737DF2CEE7E673EDC40D7BD /* YGEnums.h in Headers */ = {isa = PBXBuildFile; fileRef = 20EBF738C09FAD7690F00AC636285606 /* YGEnums.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22A257878F6836B646CCA0E846666B67 /* Yoga-internal.h in Headers */ = {isa = PBXBuildFile; fileRef = A541110D893066177AD47EDC0947B061 /* Yoga-internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A0822C091360551383AA6710D36467F /* YGNodeList.c in Sources */ = {isa = PBXBuildFile; fileRef = 5294A441C6DEEB4747226A3B2190A78C /* YGNodeList.c */; settings = {COMPILER_FLAGS = "-fno-omit-frame-pointer -fexceptions -Wall -Werror -std=c11 -fPIC -fno-objc-arc"; }; };
+		3BF49F0D67ECADCD667AE6E814B558F4 /* Yoga.h in Headers */ = {isa = PBXBuildFile; fileRef = F8ACA92229E6B45C34EDF177365669F1 /* Yoga.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		516F505AF723275B414E2A6FAA5A827D /* Yoga.c in Sources */ = {isa = PBXBuildFile; fileRef = D826B80EA444469A0281CD33CC0A1EE7 /* Yoga.c */; settings = {COMPILER_FLAGS = "-fno-omit-frame-pointer -fexceptions -Wall -Werror -std=c11 -fPIC -fno-objc-arc"; }; };
 		67E9ED0B0A0FAA28DCBFCDE424705B2B /* Pods-krooqi-tvOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A346CC5990B32E8553A3894BE6D4CA0 /* Pods-krooqi-tvOS-dummy.m */; };
 		7EBE65BBFF22C324FB3EFD2895B7E964 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 572DBE63D5360AB71E5F80F979738FD0 /* Foundation.framework */; };
 		9AED79FD113563B3BCA3B4887472710E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 572DBE63D5360AB71E5F80F979738FD0 /* Foundation.framework */; };
+		AB68E0C44E64A52E80092F1A24161659 /* YGMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = A38AC0760D4F2ECC0085FD758663331C /* YGMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B039235FCF77190F1A6BE7606DDC8852 /* Pods-krooqi-tvOSTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4515EB104EEB7696329E28C6C2E3E203 /* Pods-krooqi-tvOSTests-dummy.m */; };
+		B31388093E7A31448E470E20EFE24528 /* YGEnums.c in Sources */ = {isa = PBXBuildFile; fileRef = 60C41262AA52D5A1B0BECFF92A770C5A /* YGEnums.c */; settings = {COMPILER_FLAGS = "-fno-omit-frame-pointer -fexceptions -Wall -Werror -std=c11 -fPIC -fno-objc-arc"; }; };
+		BA90385D23C519F62E923F9141A8EF60 /* Pods-krooqi-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B44EB18183BC988E1769E29D820349 /* Pods-krooqi-dummy.m */; };
+		C7477E54F732B2F813E73323C45AAAD7 /* YGNodeList.h in Headers */ = {isa = PBXBuildFile; fileRef = CFA5A215303DC0D9E92D304ADA828066 /* YGNodeList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CC07E11F00A9CAFDD6F3EC0EAE93B0C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D154F4805B9715F0E6D79B0363CE280 /* Foundation.framework */; };
-		DF267F9A208FE3D0846C2C9E8E78AEDE /* Pods-krooqi-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B44EB18183BC988E1769E29D820349 /* Pods-krooqi-dummy.m */; };
+		CE6AFDDFE5AC202128C190BCE0C44475 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D154F4805B9715F0E6D79B0363CE280 /* Foundation.framework */; };
 		E05226EF1E88E5EBFBB9A99ECF45CE67 /* Pods-krooqiTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F79CF3EC3953B08C8B6461FCF3B5D11 /* Pods-krooqiTests-dummy.m */; };
-		E940F3C5F4640B971D434787C3D25675 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D154F4805B9715F0E6D79B0363CE280 /* Foundation.framework */; };
+		FD13E82017C3DC3A5E630A89EE53C14A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D154F4805B9715F0E6D79B0363CE280 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		FC36EA098255499C98B86FAE4712A1F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D00632735598259FBA16E212A04B40B;
+			remoteInfo = yoga;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		252A692490EE9C7449C8E1AE61A3CDEA /* libPods-krooqi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-krooqi.a"; path = "libPods-krooqi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2788FEC11F8146F7275E65528605A55A /* MobileCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCenter.framework; path = "MobileCenter-SDK-Apple/iOS/MobileCenter.framework"; sourceTree = "<group>"; };
+		0DFD52B25F1F7BFCD754F4A2FD4E5345 /* yoga-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "yoga-prefix.pch"; sourceTree = "<group>"; };
+		20EBF738C09FAD7690F00AC636285606 /* YGEnums.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YGEnums.h; path = yoga/YGEnums.h; sourceTree = "<group>"; };
 		29F760576D5B0984E9F863DD50512692 /* Pods-krooqiTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-krooqiTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		2A75640D28288FFF2B1D683A956B71AC /* Pods-krooqi-tvOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-krooqi-tvOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		2A77BF6C7B272C3189C42BD412948767 /* MobileCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCenter.framework; path = "MobileCenter-SDK-Apple/iOS/MobileCenter.framework"; sourceTree = "<group>"; };
+		2B6B6A1449E20FDE2D40E0B014C8D979 /* RNMobileCenterShared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RNMobileCenterShared.framework; path = RNMobileCenterShared/RNMobileCenterShared.framework; sourceTree = "<group>"; };
 		2D154F4805B9715F0E6D79B0363CE280 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		3A0851516DBE5C5021DE67C7DABD1AF3 /* Pods-krooqiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqiTests.release.xcconfig"; sourceTree = "<group>"; };
 		4515EB104EEB7696329E28C6C2E3E203 /* Pods-krooqi-tvOSTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-krooqi-tvOSTests-dummy.m"; sourceTree = "<group>"; };
+		460B15AA8DF667B0A5469FAF11896F63 /* libPods-krooqi-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-krooqi-tvOS.a"; path = "libPods-krooqi-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		487D46CDD936EF17E094C7D3642E9016 /* Pods-krooqiTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-krooqiTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		5294A441C6DEEB4747226A3B2190A78C /* YGNodeList.c */ = {isa = PBXFileReference; includeInIndex = 1; name = YGNodeList.c; path = yoga/YGNodeList.c; sourceTree = "<group>"; };
 		551B1914A786D44246148E8AE05838B9 /* Pods-krooqi-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqi-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		572DBE63D5360AB71E5F80F979738FD0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS10.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		59C4DD3828CB1ECF3CED8D8C1BE19A34 /* Pods-krooqi-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqi-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		5F3CC92011DCFC33CC8C0B6E2F547B19 /* Pods-krooqiTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-krooqiTests-resources.sh"; sourceTree = "<group>"; };
+		6040C3D80D6670DD94F78B9149693F90 /* libyoga.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libyoga.a; path = libyoga.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60C41262AA52D5A1B0BECFF92A770C5A /* YGEnums.c */ = {isa = PBXFileReference; includeInIndex = 1; name = YGEnums.c; path = yoga/YGEnums.c; sourceTree = "<group>"; };
 		62E8F51F3C2A86F63F2956258EEF2806 /* Pods-krooqi-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-krooqi-resources.sh"; sourceTree = "<group>"; };
 		65558925454F819487F744A1F6C67A50 /* Pods-krooqi-tvOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-krooqi-tvOS-frameworks.sh"; sourceTree = "<group>"; };
-		66A5C8611D2928AA832567A0B56CF62E /* libPods-krooqi-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-krooqi-tvOSTests.a"; path = "libPods-krooqi-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66B44EB18183BC988E1769E29D820349 /* Pods-krooqi-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-krooqi-dummy.m"; sourceTree = "<group>"; };
-		66FDE8BD8CFFF7F9E330AC716F8CCE79 /* RNMobileCenterShared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RNMobileCenterShared.framework; path = RNMobileCenterShared/RNMobileCenterShared.framework; sourceTree = "<group>"; };
 		691640AE61DD4A904D3A5A0932C975A1 /* Pods-krooqi-tvOSTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-krooqi-tvOSTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		6A346CC5990B32E8553A3894BE6D4CA0 /* Pods-krooqi-tvOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-krooqi-tvOS-dummy.m"; sourceTree = "<group>"; };
 		6C09158B5CABE13CFFD82C7528478C03 /* Pods-krooqiTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-krooqiTests-frameworks.sh"; sourceTree = "<group>"; };
+		6C14ABA82FD4E85EBE72FC00BC08114A /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Maps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		6F79CF3EC3953B08C8B6461FCF3B5D11 /* Pods-krooqiTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-krooqiTests-dummy.m"; sourceTree = "<group>"; };
-		71AA7A81D65F6EB2508AA4687C1BF7CD /* libPods-krooqi-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-krooqi-tvOS.a"; path = "libPods-krooqi-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75AD5896B5B819FC1A10C4633F40B404 /* Pods-krooqi-tvOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-krooqi-tvOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		77BFF3F42579B82C2AFC271942F43AC7 /* libPods-krooqiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-krooqiTests.a"; path = "libPods-krooqiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A3A9D9721228A114F405EB58E398032 /* Pods-krooqi-tvOSTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-krooqi-tvOSTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		81BE83B89FC1C19B82E36246D8122029 /* yoga-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "yoga-dummy.m"; sourceTree = "<group>"; };
 		82D6B7B351F50E7B6C86C97A66DBAE6A /* Pods-krooqi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqi.debug.xcconfig"; sourceTree = "<group>"; };
 		857BCA281C2D1EA9A68B46D8901C87B8 /* Pods-krooqi-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqi-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		86486DE0DE55BF8E287FC61C364B7BA6 /* Pods-krooqi-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-krooqi-frameworks.sh"; sourceTree = "<group>"; };
 		8B0C863BAF5C3B5201A6973C30137346 /* Pods-krooqi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqi.release.xcconfig"; sourceTree = "<group>"; };
+		903260FE1DF2184A8990E9F557401BE8 /* yoga.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = yoga.xcconfig; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9B565F68D7FA364246921CB32E72766C /* libPods-krooqiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-krooqiTests.a"; path = "libPods-krooqiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		97E1D30311B688B4F6C273684D72A16A /* GoogleMapsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMapsBase.framework; path = Base/Frameworks/GoogleMapsBase.framework; sourceTree = "<group>"; };
+		9BEE7997F4B53C722607AAAD2BE0462D /* libPods-krooqi-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-krooqi-tvOSTests.a"; path = "libPods-krooqi-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F4AFB255B88DBE7CEB5244C7804ABAE /* GoogleMapsCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMapsCore.framework; path = Maps/Frameworks/GoogleMapsCore.framework; sourceTree = "<group>"; };
+		9F5207E8D79E907E9581AF0A6873FBE8 /* MobileCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCenterCrashes.framework; path = "MobileCenter-SDK-Apple/iOS/MobileCenterCrashes.framework"; sourceTree = "<group>"; };
+		A38AC0760D4F2ECC0085FD758663331C /* YGMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YGMacros.h; path = yoga/YGMacros.h; sourceTree = "<group>"; };
 		A426663105E48D5D5335B9889874D639 /* Pods-krooqi-tvOSTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-krooqi-tvOSTests-frameworks.sh"; sourceTree = "<group>"; };
+		A541110D893066177AD47EDC0947B061 /* Yoga-internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Yoga-internal.h"; path = "yoga/Yoga-internal.h"; sourceTree = "<group>"; };
 		C0C53EF95B477A203339E0A19116B865 /* Pods-krooqi-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-krooqi-acknowledgements.markdown"; sourceTree = "<group>"; };
-		D5C7CDE8B6C81556FECA91ECA2F585C1 /* MobileCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCenterCrashes.framework; path = "MobileCenter-SDK-Apple/iOS/MobileCenterCrashes.framework"; sourceTree = "<group>"; };
+		CA8D6259068A067153509D169DF7B06C /* MobileCenterAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCenterAnalytics.framework; path = "MobileCenter-SDK-Apple/iOS/MobileCenterAnalytics.framework"; sourceTree = "<group>"; };
+		CFA5A215303DC0D9E92D304ADA828066 /* YGNodeList.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YGNodeList.h; path = yoga/YGNodeList.h; sourceTree = "<group>"; };
+		D826B80EA444469A0281CD33CC0A1EE7 /* Yoga.c */ = {isa = PBXFileReference; includeInIndex = 1; name = Yoga.c; path = yoga/Yoga.c; sourceTree = "<group>"; };
+		DF936D53F7307C02C92441F83F7AFC1A /* GoogleMaps.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		E13FBB67F20483D462F11B6AA71C1B5B /* Pods-krooqiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ECE4FA9568B7EA898EA6F53B4098FE4F /* Pods-krooqi-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqi-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		EF375C633A1A5C14A14E7257A4E266BA /* Pods-krooqi-tvOSTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-krooqi-tvOSTests-resources.sh"; sourceTree = "<group>"; };
 		F0FC2B5E3EA12B195F1D96D14CE17F07 /* Pods-krooqi-tvOS-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-krooqi-tvOS-resources.sh"; sourceTree = "<group>"; };
-		F6199D58EB18EAC74C922EDD40097F60 /* MobileCenterAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCenterAnalytics.framework; path = "MobileCenter-SDK-Apple/iOS/MobileCenterAnalytics.framework"; sourceTree = "<group>"; };
+		F41E3CA22E978346CC4938C02A38A623 /* libPods-krooqi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-krooqi.a"; path = "libPods-krooqi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8ACA92229E6B45C34EDF177365669F1 /* Yoga.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Yoga.h; path = yoga/Yoga.h; sourceTree = "<group>"; };
 		FB39BD28CBFF58773EF6973DC195219C /* Pods-krooqi-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-krooqi-acknowledgements.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,6 +101,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC07E11F00A9CAFDD6F3EC0EAE93B0C2 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53A452F0770C9101EAE010DF6C4E5EF6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD13E82017C3DC3A5E630A89EE53C14A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,25 +128,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B02D5B30630CAF0B72F96380E9690F83 /* Frameworks */ = {
+		76379656BFBA595634CEC274415637DD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E940F3C5F4640B971D434787C3D25675 /* Foundation.framework in Frameworks */,
+				CE6AFDDFE5AC202128C190BCE0C44475 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0C8F650681EDBD4EE7B75937B83B734E /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				9532E17AC500601C0B61118C45F8CA53 /* Frameworks */,
-			);
-			name = Core;
-			sourceTree = "<group>";
-		};
 		1075BD5D4F636019BD1DC5AD03E9D702 /* Pods-krooqi-tvOSTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,12 +154,44 @@
 			path = "Target Support Files/Pods-krooqi-tvOSTests";
 			sourceTree = "<group>";
 		};
+		1A6C4177CC5EA428FADCC7EB149C125A /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2E03ADA727AB2A433886658242D9AD44 /* Frameworks */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
 		20F731AE46C73F232AF0C168DC383CF9 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
 				572DBE63D5360AB71E5F80F979738FD0 /* Foundation.framework */,
 			);
 			name = tvOS;
+			sourceTree = "<group>";
+		};
+		2E03ADA727AB2A433886658242D9AD44 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A77BF6C7B272C3189C42BD412948767 /* MobileCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		385694D7E367E570420A7C01BC5833E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9F5207E8D79E907E9581AF0A6873FBE8 /* MobileCenterCrashes.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		469BBC0EB5391683AE7AD5F9A4E0106B /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				FD0C032D912F25B89432C9A87B7FFA43 /* Frameworks */,
+			);
+			name = Analytics;
 			sourceTree = "<group>";
 		};
 		58996781A54EE964D7111D73083A18A5 /* iOS */ = {
@@ -134,56 +202,81 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		64729F3932E7686C42D122B3FA76659C /* Frameworks */ = {
+		5A8E45124E88E5BFBA976F7127BAB064 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				D5C7CDE8B6C81556FECA91ECA2F585C1 /* MobileCenterCrashes.framework */,
+				903260FE1DF2184A8990E9F557401BE8 /* yoga.xcconfig */,
+				81BE83B89FC1C19B82E36246D8122029 /* yoga-dummy.m */,
+				0DFD52B25F1F7BFCD754F4A2FD4E5345 /* yoga-prefix.pch */,
 			);
-			name = Frameworks;
+			name = "Support Files";
+			path = "../../../../ios/Pods/Target Support Files/yoga";
 			sourceTree = "<group>";
 		};
-		7BB62F2734812856D646B1FAE653D67B /* Crashes */ = {
+		5BF284AD228A95316D6B0D64938F160B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				64729F3932E7686C42D122B3FA76659C /* Frameworks */,
+				F41E3CA22E978346CC4938C02A38A623 /* libPods-krooqi.a */,
+				460B15AA8DF667B0A5469FAF11896F63 /* libPods-krooqi-tvOS.a */,
+				9BEE7997F4B53C722607AAAD2BE0462D /* libPods-krooqi-tvOSTests.a */,
+				77BFF3F42579B82C2AFC271942F43AC7 /* libPods-krooqiTests.a */,
+				6040C3D80D6670DD94F78B9149693F90 /* libyoga.a */,
 			);
-			name = Crashes;
+			name = Products;
+			sourceTree = "<group>";
+		};
+		63877A681EEC7C782694C63C099FD23C /* GoogleMaps */ = {
+			isa = PBXGroup;
+			children = (
+				820C777A0C5F098C082FA678C25F06CC /* Base */,
+				D708C5981A55C14E82B42F3224299AFA /* Maps */,
+			);
+			name = GoogleMaps;
+			path = GoogleMaps;
+			sourceTree = "<group>";
+		};
+		730551646433D6AB394183BF9C61B416 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97E1D30311B688B4F6C273684D72A16A /* GoogleMapsBase.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				7ED7F29F81AE374220E75F5CD19CDFB0 /* Development Pods */,
 				A42F72DC1D780481325DD00969B19BB6 /* Frameworks */,
-				BFBE4D750AD608E527628562FD3CE2A3 /* Pods */,
-				CC585F9060BFF33466B8350BD978BCCC /* Products */,
+				C20C43B6DEA29B44E2B3D626E1908A29 /* Pods */,
+				5BF284AD228A95316D6B0D64938F160B /* Products */,
 				F5F54FC537691F397A8F33D4D917B777 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		8105DB5B47CAD8C77F1C062E174212B5 /* Analytics */ = {
+		7E833A78A277816A652F0543E756121D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D4AF3EF24AE5FB6FFCB6E4B61478CB81 /* Frameworks */,
+				DF936D53F7307C02C92441F83F7AFC1A /* GoogleMaps.bundle */,
 			);
-			name = Analytics;
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		92FB20EF272686758C16E3413C088C00 /* RNMobileCenterShared */ = {
+		7ED7F29F81AE374220E75F5CD19CDFB0 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9A83E2945B877C24308F99246FBEFCF4 /* Frameworks */,
+				9E7922EF021E259B264AD694AAE1D749 /* yoga */,
 			);
-			name = RNMobileCenterShared;
-			path = RNMobileCenterShared;
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		9532E17AC500601C0B61118C45F8CA53 /* Frameworks */ = {
+		820C777A0C5F098C082FA678C25F06CC /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				2788FEC11F8146F7275E65528605A55A /* MobileCenter.framework */,
+				730551646433D6AB394183BF9C61B416 /* Frameworks */,
 			);
-			name = Frameworks;
+			name = Base;
 			sourceTree = "<group>";
 		};
 		9822276D17BE0AC7789563E684A27A8F /* Pods-krooqi-tvOS */ = {
@@ -201,12 +294,21 @@
 			path = "Target Support Files/Pods-krooqi-tvOS";
 			sourceTree = "<group>";
 		};
-		9A83E2945B877C24308F99246FBEFCF4 /* Frameworks */ = {
+		9E7922EF021E259B264AD694AAE1D749 /* yoga */ = {
 			isa = PBXGroup;
 			children = (
-				66FDE8BD8CFFF7F9E330AC716F8CCE79 /* RNMobileCenterShared.framework */,
+				60C41262AA52D5A1B0BECFF92A770C5A /* YGEnums.c */,
+				20EBF738C09FAD7690F00AC636285606 /* YGEnums.h */,
+				A38AC0760D4F2ECC0085FD758663331C /* YGMacros.h */,
+				5294A441C6DEEB4747226A3B2190A78C /* YGNodeList.c */,
+				CFA5A215303DC0D9E92D304ADA828066 /* YGNodeList.h */,
+				D826B80EA444469A0281CD33CC0A1EE7 /* Yoga.c */,
+				F8ACA92229E6B45C34EDF177365669F1 /* Yoga.h */,
+				A541110D893066177AD47EDC0947B061 /* Yoga-internal.h */,
+				5A8E45124E88E5BFBA976F7127BAB064 /* Support Files */,
 			);
-			name = Frameworks;
+			name = yoga;
+			path = "../../node_modules/react-native/ReactCommon/yoga";
 			sourceTree = "<group>";
 		};
 		A42F72DC1D780481325DD00969B19BB6 /* Frameworks */ = {
@@ -218,13 +320,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BFBE4D750AD608E527628562FD3CE2A3 /* Pods */ = {
+		ADF573772885EDDF8A30B4693C8E92BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D475BD27B7EA251F3A9187F2B27E749A /* MobileCenter */,
-				92FB20EF272686758C16E3413C088C00 /* RNMobileCenterShared */,
+				6C14ABA82FD4E85EBE72FC00BC08114A /* GoogleMaps.framework */,
+				9F4AFB255B88DBE7CEB5244C7804ABAE /* GoogleMapsCore.framework */,
 			);
-			name = Pods;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C13D9BC9D93E6F38BC6207C5FE2666DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2B6B6A1449E20FDE2D40E0B014C8D979 /* RNMobileCenterShared.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C19B21D9FACEC15783D2DF8B356A1E51 /* Pods-krooqi */ = {
@@ -242,34 +352,32 @@
 			path = "Target Support Files/Pods-krooqi";
 			sourceTree = "<group>";
 		};
-		CC585F9060BFF33466B8350BD978BCCC /* Products */ = {
+		C20C43B6DEA29B44E2B3D626E1908A29 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				252A692490EE9C7449C8E1AE61A3CDEA /* libPods-krooqi.a */,
-				71AA7A81D65F6EB2508AA4687C1BF7CD /* libPods-krooqi-tvOS.a */,
-				66A5C8611D2928AA832567A0B56CF62E /* libPods-krooqi-tvOSTests.a */,
-				9B565F68D7FA364246921CB32E72766C /* libPods-krooqiTests.a */,
+				63877A681EEC7C782694C63C099FD23C /* GoogleMaps */,
+				FD2BD2EB016E142EDAF8B1EF1E8DF7E7 /* MobileCenter */,
+				C4B552FEC0E765D337AB1DD2FED148ED /* RNMobileCenterShared */,
 			);
-			name = Products;
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		D475BD27B7EA251F3A9187F2B27E749A /* MobileCenter */ = {
+		C4B552FEC0E765D337AB1DD2FED148ED /* RNMobileCenterShared */ = {
 			isa = PBXGroup;
 			children = (
-				8105DB5B47CAD8C77F1C062E174212B5 /* Analytics */,
-				0C8F650681EDBD4EE7B75937B83B734E /* Core */,
-				7BB62F2734812856D646B1FAE653D67B /* Crashes */,
+				C13D9BC9D93E6F38BC6207C5FE2666DC /* Frameworks */,
 			);
-			name = MobileCenter;
-			path = MobileCenter;
+			name = RNMobileCenterShared;
+			path = RNMobileCenterShared;
 			sourceTree = "<group>";
 		};
-		D4AF3EF24AE5FB6FFCB6E4B61478CB81 /* Frameworks */ = {
+		D708C5981A55C14E82B42F3224299AFA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				F6199D58EB18EAC74C922EDD40097F60 /* MobileCenterAnalytics.framework */,
+				ADF573772885EDDF8A30B4693C8E92BC /* Frameworks */,
+				7E833A78A277816A652F0543E756121D /* Resources */,
 			);
-			name = Frameworks;
+			name = Maps;
 			sourceTree = "<group>";
 		};
 		F5F54FC537691F397A8F33D4D917B777 /* Targets Support Files */ = {
@@ -298,9 +406,68 @@
 			path = "Target Support Files/Pods-krooqiTests";
 			sourceTree = "<group>";
 		};
+		FBBC1C3DB13782A8E831ECEB43A426E3 /* Crashes */ = {
+			isa = PBXGroup;
+			children = (
+				385694D7E367E570420A7C01BC5833E4 /* Frameworks */,
+			);
+			name = Crashes;
+			sourceTree = "<group>";
+		};
+		FD0C032D912F25B89432C9A87B7FFA43 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CA8D6259068A067153509D169DF7B06C /* MobileCenterAnalytics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FD2BD2EB016E142EDAF8B1EF1E8DF7E7 /* MobileCenter */ = {
+			isa = PBXGroup;
+			children = (
+				469BBC0EB5391683AE7AD5F9A4E0106B /* Analytics */,
+				1A6C4177CC5EA428FADCC7EB149C125A /* Core */,
+				FBBC1C3DB13782A8E831ECEB43A426E3 /* Crashes */,
+			);
+			name = MobileCenter;
+			path = MobileCenter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		DDB5B592A9E6CB28BC299A7AFFD125DB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BDC6E9A1737DF2CEE7E673EDC40D7BD /* YGEnums.h in Headers */,
+				AB68E0C44E64A52E80092F1A24161659 /* YGMacros.h in Headers */,
+				C7477E54F732B2F813E73323C45AAAD7 /* YGNodeList.h in Headers */,
+				22A257878F6836B646CCA0E846666B67 /* Yoga-internal.h in Headers */,
+				3BF49F0D67ECADCD667AE6E814B558F4 /* Yoga.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		5D00632735598259FBA16E212A04B40B /* yoga */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EFC2012FBD98D494C03E1B0A2D994643 /* Build configuration list for PBXNativeTarget "yoga" */;
+			buildPhases = (
+				E52D3D7C1925F2AA1138BD73455AF794 /* Sources */,
+				53A452F0770C9101EAE010DF6C4E5EF6 /* Frameworks */,
+				DDB5B592A9E6CB28BC299A7AFFD125DB /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = yoga;
+			productName = yoga;
+			productReference = 6040C3D80D6670DD94F78B9149693F90 /* libyoga.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		6B805512D29D3C523F0CF02383A1E6EF /* Pods-krooqi-tvOSTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 878F2CDF1B9D074623AEA8FB5CAC41EB /* Build configuration list for PBXNativeTarget "Pods-krooqi-tvOSTests" */;
@@ -314,7 +481,24 @@
 			);
 			name = "Pods-krooqi-tvOSTests";
 			productName = "Pods-krooqi-tvOSTests";
-			productReference = 66A5C8611D2928AA832567A0B56CF62E /* libPods-krooqi-tvOSTests.a */;
+			productReference = 9BEE7997F4B53C722607AAAD2BE0462D /* libPods-krooqi-tvOSTests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B4D212A104B558B88B2CE32B183F68CE /* Pods-krooqi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0AE3DF062E76D9A0EF307E1581173424 /* Build configuration list for PBXNativeTarget "Pods-krooqi" */;
+			buildPhases = (
+				296DA0D36959B8AEF5676CC58A5161E3 /* Sources */,
+				76379656BFBA595634CEC274415637DD /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A5B7B4D263FEC9E98A4FE1BCCAFB89A5 /* PBXTargetDependency */,
+			);
+			name = "Pods-krooqi";
+			productName = "Pods-krooqi";
+			productReference = F41E3CA22E978346CC4938C02A38A623 /* libPods-krooqi.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		BE397B51262ABB5745A792A5621149F5 /* Pods-krooqiTests */ = {
@@ -330,23 +514,7 @@
 			);
 			name = "Pods-krooqiTests";
 			productName = "Pods-krooqiTests";
-			productReference = 9B565F68D7FA364246921CB32E72766C /* libPods-krooqiTests.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		E7B9C205FABD96168EBE38FBFDB57E11 /* Pods-krooqi */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0360C56AF00F21472B6A8E60E31CA5D0 /* Build configuration list for PBXNativeTarget "Pods-krooqi" */;
-			buildPhases = (
-				343C81226ADDF409CC683BDBA7D97833 /* Sources */,
-				B02D5B30630CAF0B72F96380E9690F83 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-krooqi";
-			productName = "Pods-krooqi";
-			productReference = 252A692490EE9C7449C8E1AE61A3CDEA /* libPods-krooqi.a */;
+			productReference = 77BFF3F42579B82C2AFC271942F43AC7 /* libPods-krooqiTests.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		ECB284F0529C91D41E1E6CAB86318341 /* Pods-krooqi-tvOS */ = {
@@ -362,7 +530,7 @@
 			);
 			name = "Pods-krooqi-tvOS";
 			productName = "Pods-krooqi-tvOS";
-			productReference = 71AA7A81D65F6EB2508AA4687C1BF7CD /* libPods-krooqi-tvOS.a */;
+			productReference = 460B15AA8DF667B0A5469FAF11896F63 /* libPods-krooqi-tvOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -382,24 +550,25 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = CC585F9060BFF33466B8350BD978BCCC /* Products */;
+			productRefGroup = 5BF284AD228A95316D6B0D64938F160B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E7B9C205FABD96168EBE38FBFDB57E11 /* Pods-krooqi */,
+				B4D212A104B558B88B2CE32B183F68CE /* Pods-krooqi */,
 				ECB284F0529C91D41E1E6CAB86318341 /* Pods-krooqi-tvOS */,
 				6B805512D29D3C523F0CF02383A1E6EF /* Pods-krooqi-tvOSTests */,
 				BE397B51262ABB5745A792A5621149F5 /* Pods-krooqiTests */,
+				5D00632735598259FBA16E212A04B40B /* yoga */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		343C81226ADDF409CC683BDBA7D97833 /* Sources */ = {
+		296DA0D36959B8AEF5676CC58A5161E3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF267F9A208FE3D0846C2C9E8E78AEDE /* Pods-krooqi-dummy.m in Sources */,
+				BA90385D23C519F62E923F9141A8EF60 /* Pods-krooqi-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +588,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E52D3D7C1925F2AA1138BD73455AF794 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B31388093E7A31448E470E20EFE24528 /* YGEnums.c in Sources */,
+				2A0822C091360551383AA6710D36467F /* YGNodeList.c in Sources */,
+				12A6AF3D87A372090C6874587799C608 /* yoga-dummy.m in Sources */,
+				516F505AF723275B414E2A6FAA5A827D /* Yoga.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F122701D04EF32DB95E964F5816BD23C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -428,6 +608,15 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A5B7B4D263FEC9E98A4FE1BCCAFB89A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = yoga;
+			target = 5D00632735598259FBA16E212A04B40B /* yoga */;
+			targetProxy = FC36EA098255499C98B86FAE4712A1F3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		282A9A5183558DD660B7C173E1AD44B6 /* Release */ = {
@@ -507,9 +696,9 @@
 			};
 			name = Release;
 		};
-		74E8BD7070903825B3444CB246607CD3 /* Debug */ = {
+		6F2FFE4154EC0C49744863A1CD49B5BC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 82D6B7B351F50E7B6C86C97A66DBAE6A /* Pods-krooqi.debug.xcconfig */;
+			baseConfigurationReference = 8B0C863BAF5C3B5201A6973C30137346 /* Pods-krooqi.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -523,6 +712,28 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7250B6A9054B41ACC410F080F209B7DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 903260FE1DF2184A8990E9F557401BE8 /* yoga.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/yoga/yoga-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -686,9 +897,31 @@
 			};
 			name = Release;
 		};
-		EEF1779A2A593BD61963EDF4BA4008A9 /* Release */ = {
+		EF2BF8728B42DC4B129E2161C4ABE1CA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8B0C863BAF5C3B5201A6973C30137346 /* Pods-krooqi.release.xcconfig */;
+			baseConfigurationReference = 903260FE1DF2184A8990E9F557401BE8 /* yoga.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/yoga/yoga-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FC8BF9BE3BF20EBDFCC3E7E4E5C9BAB9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 82D6B7B351F50E7B6C86C97A66DBAE6A /* Pods-krooqi.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -703,18 +936,17 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0360C56AF00F21472B6A8E60E31CA5D0 /* Build configuration list for PBXNativeTarget "Pods-krooqi" */ = {
+		0AE3DF062E76D9A0EF307E1581173424 /* Build configuration list for PBXNativeTarget "Pods-krooqi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				74E8BD7070903825B3444CB246607CD3 /* Debug */,
-				EEF1779A2A593BD61963EDF4BA4008A9 /* Release */,
+				FC8BF9BE3BF20EBDFCC3E7E4E5C9BAB9 /* Debug */,
+				6F2FFE4154EC0C49744863A1CD49B5BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -751,6 +983,15 @@
 			buildConfigurations = (
 				9A6C938973F9E3AD69AE4306D15DAC3A /* Debug */,
 				EDAD9DAE0832F5DF492A4DA3ABC3B4D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EFC2012FBD98D494C03E1B0A2D994643 /* Build configuration list for PBXNativeTarget "yoga" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7250B6A9054B41ACC410F080F209B7DB /* Debug */,
+				EF2BF8728B42DC4B129E2161C4ABE1CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
