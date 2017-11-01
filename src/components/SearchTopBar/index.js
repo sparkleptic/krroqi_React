@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { connect } from 'react-redux';
 import { backgroundColor } from '../../constants/config';
+import styles from './styles';
 
 class searchHeader extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class searchHeader extends Component {
       navigatorStyle: {
         navBarCustomView: 'krooqi.SearchFormPage',
         navBarComponentAlignment: 'fill',
-        navBarBackgroundColor: 'white',
+        navBarBackgroundColor: backgroundColor,
       },
       passProps: {
         search: this.state.search,
@@ -35,7 +36,7 @@ class searchHeader extends Component {
           {
             title: 'Cancel',
             id: 'cancel',
-            buttonColor: backgroundColor,
+            buttonColor: 'white',
           },
         ],
       },
@@ -43,11 +44,12 @@ class searchHeader extends Component {
   }
 
   render() {
+    const { OS } = Platform;
     return (
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+      <View style={OS === 'ios' ? styles.iosContainer : styles.container}>
         <TextInput
           value={this.props.search.searchText}
-          style={{ flex: 1, color: 'white' }}
+          style={OS === 'ios' ? styles.iosTextInput : styles.textInput}
           placeholder="Search city, state or zip"
           placeholderTextColor="white"
           onFocus={this.openSearchPage}

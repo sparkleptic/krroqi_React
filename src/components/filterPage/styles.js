@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { backgroundColor } from '../../constants/config';
 
 const halfWidth = Dimensions.get('window').width / 2;
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    height: 40,
+    height: 50,
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 1,
@@ -57,6 +57,20 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 1,
+  },
+  textInput: {
+    ...Platform.select({
+      ios: {
+        borderWidth: 1,
+        borderRadius: 4,
+        borderColor: 'gray',
+        padding: 4,
+      },
+    }),
+  },
+  label: {
+    fontWeight: 'bold',
+    paddingBottom: 10,
   },
 });
 

@@ -18,6 +18,7 @@ import MultiSelect from '../../inputControls/MultiSelect';
 import I18n from '../../i18n';
 import styles from './styles';
 import InitialState from '../../reducers/initialState';
+import Panel from '../Panel';
 
 class filterPage extends Component {
   constructor(props) {
@@ -148,7 +149,6 @@ class filterPage extends Component {
     const newVal = { ...search, propertyType: value };
     this.setState({ search: newVal });
   }
-
   selectPropertyStatus(index) {
     let termId = 0;
     if (index === 0) {
@@ -163,7 +163,122 @@ class filterPage extends Component {
     this.setState({ search: newVal });
   }
 
+  renderArea() {
+    const { search } = this.state;
+    return (
+      <View style={styles.rowSpaceBetween}>
+        <View style={styles.halfWidth}>
+          <Picker
+            mode="dropdown"
+            selectedValue={search.squareMeterRange.start}
+            onValueChange={this.selectMinArea}
+          >
+            <Picker.Item label="Min Area" />
+            {minArea.map(item => (
+              <Picker.Item
+                key={item}
+                value={`${item}`}
+                label={`${I18n.toNumber(item, { precision: 0 })} Sq m`}
+              />
+            ))}
+          </Picker>
+          {Platform.OS !== 'ios' && <View style={styles.divider} />}
+        </View>
+        <View style={styles.halfWidth}>
+          <Picker
+            mode="dropdown"
+            selectedValue={search.squareMeterRange.end}
+            onValueChange={this.selectMaxArea}
+          >
+            <Picker.Item label="Max Area" />
+            {maxArea.map(item => (
+              <Picker.Item
+                key={item}
+                value={`${item}`}
+                label={`${I18n.toNumber(item, { precision: 0 })} Sq m`}
+              />
+            ))}
+          </Picker>
+          {Platform.OS !== 'ios' && <View style={styles.divider} />}
+        </View>
+      </View>
+    );
+  }
+
+  renderPriceRange() {
+    const { search } = this.state;
+    return (
+      <View style={styles.rowSpaceBetween}>
+        <View style={styles.halfWidth}>
+          <Picker
+            mode="dropdown"
+            selectedValue={search.priceRange.start}
+            onValueChange={this.selectMinPrice}
+          >
+            <Picker.Item label="Min Price" />
+            {minPrice.map(item => (
+              <Picker.Item
+                key={item}
+                value={`${item}`}
+                label={`${I18n.toNumber(item, { precision: 0 })} SAR`}
+              />
+            ))}
+          </Picker>
+          {Platform.OS !== 'ios' && <View style={styles.divider} />}
+        </View>
+        <View style={styles.halfWidth}>
+          <Picker
+            mode="dropdown"
+            selectedValue={search.priceRange.end}
+            onValueChange={this.selectMaxPrice}
+          >
+            <Picker.Item label="Max Price" />
+            {maxPrice.map(item => (
+              <Picker.Item
+                key={item}
+                value={`${item}`}
+                label={`${I18n.toNumber(item, { precision: 0 })} SAR`}
+              />
+            ))}
+          </Picker>
+          {Platform.OS !== 'ios' && <View style={styles.divider} />}
+        </View>
+      </View>
+    );
+  }
+
+  renderYearBuilt(years) {
+    const { search } = this.state;
+    return (
+      <View style={styles.rowSpaceBetween}>
+        <View style={styles.halfWidth}>
+          <Picker
+            mode="dropdown"
+            selectedValue={search.yearBuilt.start}
+            onValueChange={this.selectMinYear}
+          >
+            <Picker.Item label="Min Built Year" />
+            {years.map(item => <Picker.Item key={item} value={`${item}`} label={`${item}`} />)}
+          </Picker>
+          {Platform.OS !== 'ios' && <View style={styles.divider} />}
+        </View>
+        <View style={styles.halfWidth}>
+          <Picker
+            mode="dropdown"
+            selectedValue={search.yearBuilt.end}
+            onValueChange={this.selectMaxYear}
+          >
+            <Picker.Item label="Max Built Year" />
+            {years.map(item => <Picker.Item key={item} value={`${item}`} label={`${item}`} />)}
+          </Picker>
+          {Platform.OS !== 'ios' && <View style={styles.divider} />}
+        </View>
+      </View>
+    );
+  }
+
   render() {
+    const { OS } = Platform;
     const { propertyTypes } = this.props;
     const { search } = this.state;
     const pl = propertyTypes.map(item => ({
@@ -194,55 +309,25 @@ class filterPage extends Component {
                 onTabPress={this.selectPropertyStatus}
               />
             </View>
-            <View style={styles.margin}>
-              <Text>Price Range</Text>
-              <View style={styles.rowSpaceBetween}>
-                <View style={styles.halfWidth}>
-                  <Picker
-                    mode="dropdown"
-                    selectedValue={search.priceRange.start}
-                    onValueChange={this.selectMinPrice}
-                  >
-                    <Picker.Item label="Min Price" />
-                    {minPrice.map(item => (
-                      <Picker.Item
-                        key={item}
-                        value={`${item}`}
-                        label={`${I18n.toNumber(item, { precision: 0 })} SAR`}
-                      />
-                    ))}
-                  </Picker>
-                  <View style={styles.divider} />
-                </View>
-                <View style={styles.halfWidth}>
-                  <Picker
-                    mode="dropdown"
-                    selectedValue={search.priceRange.end}
-                    onValueChange={this.selectMaxPrice}
-                  >
-                    <Picker.Item label="Max Price" />
-                    {maxPrice.map(item => (
-                      <Picker.Item
-                        key={item}
-                        value={`${item}`}
-                        label={`${I18n.toNumber(item, { precision: 0 })} SAR`}
-                      />
-                    ))}
-                  </Picker>
-                  <View style={styles.divider} />
-                </View>
+            {OS === 'ios' ? (
+              <Panel title="Price Range" data={search.priceRange}>{this.renderPriceRange()}</Panel>
+            ) : (
+              <View style={styles.margin}>
+                <Text style={styles.label}>Price Range</Text>
+                {this.renderPriceRange()}
               </View>
-            </View>
+            )}
             <View style={styles.margin}>
-              <Text style={styles.margin}>Property Type</Text>
+              <Text style={styles.label}>Property Type</Text>
               <MultiSelect
                 multiSelectData={pl}
                 selectedValues={search.propertyType}
                 onSelect={this.selectPropertyType}
               />
+              {OS === 'ios' && <View style={[styles.divider, { bottom: 0 }]} />}
             </View>
             <View style={styles.margin}>
-              <Text style={styles.margin}>Rooms</Text>
+              <Text style={styles.label}>Rooms</Text>
               <SegmentedControlTab
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
@@ -253,7 +338,7 @@ class filterPage extends Component {
               />
             </View>
             <View style={styles.margin}>
-              <Text style={styles.margin}>Baths</Text>
+              <Text style={styles.label}>Baths</Text>
               <SegmentedControlTab
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
@@ -263,82 +348,31 @@ class filterPage extends Component {
                 onTabPress={this.selectBaths}
               />
             </View>
-            <View style={styles.margin}>
-              <Text>Square Meter Range</Text>
-              <View style={styles.rowSpaceBetween}>
-                <View style={styles.halfWidth}>
-                  <Picker
-                    mode="dropdown"
-                    selectedValue={search.squareMeterRange.start}
-                    onValueChange={this.selectMinArea}
-                  >
-                    <Picker.Item label="Min Area" />
-                    {minArea.map(item => (
-                      <Picker.Item
-                        key={item}
-                        value={`${item}`}
-                        label={`${I18n.toNumber(item, { precision: 0 })} Sq m`}
-                      />
-                    ))}
-                  </Picker>
-                  <View style={styles.divider} />
-                </View>
-                <View style={styles.halfWidth}>
-                  <Picker
-                    mode="dropdown"
-                    selectedValue={search.squareMeterRange.end}
-                    onValueChange={this.selectMaxArea}
-                  >
-                    <Picker.Item label="Max Area" />
-                    {maxArea.map(item => (
-                      <Picker.Item
-                        key={item}
-                        value={`${item}`}
-                        label={`${I18n.toNumber(item, { precision: 0 })} Sq m`}
-                      />
-                    ))}
-                  </Picker>
-                  <View style={styles.divider} />
-                </View>
+            {OS === 'ios' ? (
+              <Panel title="Square Meter Range" data={search.squareMeterRange}>{this.renderArea()}</Panel>
+            ) : (
+              <View style={styles.margin}>
+                <Text style={styles.label}>Square Meter Range</Text>
+                {this.renderArea()}
               </View>
-            </View>
+            )}
+
             {this.state.showAll && (
               <View>
-                <View style={styles.margin}>
-                  <Text>Year Built</Text>
-                  <View style={styles.rowSpaceBetween}>
-                    <View style={styles.halfWidth}>
-                      <Picker
-                        mode="dropdown"
-                        selectedValue={search.yearBuilt.start}
-                        onValueChange={this.selectMinYear}
-                      >
-                        <Picker.Item label="Min Built Year" />
-                        {years.map(item => (
-                          <Picker.Item key={item} value={`${item}`} label={`${item}`} />
-                        ))}
-                      </Picker>
-                      <View style={styles.divider} />
-                    </View>
-                    <View style={styles.halfWidth}>
-                      <Picker
-                        mode="dropdown"
-                        selectedValue={search.yearBuilt.end}
-                        onValueChange={this.selectMaxYear}
-                      >
-                        <Picker.Item label="Max Built Year" />
-                        {years.map(item => (
-                          <Picker.Item key={item} value={`${item}`} label={`${item}`} />
-                        ))}
-                      </Picker>
-                      <View style={styles.divider} />
-                    </View>
+                {OS === 'ios' ? (
+                  <Panel title="Year Built" data={search.yearBuilt}>{this.renderYearBuilt(years)}</Panel>
+                ) : (
+                  <View style={styles.margin}>
+                    <Text style={styles.label}>Year Built</Text>
+                    {this.renderYearBuilt(years)}
                   </View>
-                </View>
+                )}
                 <View style={styles.margin}>
-                  <Text>District</Text>
+                  <Text style={styles.label}>District</Text>
                   <TextInput
+                    style={styles.textInput}
                     value={search.district}
+                    placeholder="District"
                     onChangeText={district => this.setState({ search: { ...search, district } })}
                   />
                 </View>
@@ -364,21 +398,22 @@ class filterPage extends Component {
         <View style={styles.tabBar}>
           <TouchableOpacity onPress={this.resetForm}>
             <View>
-              <Text>Reset</Text>
+              <Text style={styles.label}>Reset</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
             <View style={{ flexDirection: 'row' }}>
               <Icon
+                style={{ marginRight: 10 }}
                 name={Platform.OS === 'ios' ? 'ios-heart-outline' : 'md-heart-outline'}
                 size={20}
               />
-              <Text style={{ marginLeft: 8 }}>Save Search</Text>
+              <Text style={styles.label}>Save Search</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.searchForm}>
             <View>
-              <Text>Search</Text>
+              <Text style={styles.label}>Search</Text>
             </View>
           </TouchableOpacity>
         </View>

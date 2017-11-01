@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PropertiesAction from '../../Actions/PropertiesAction';
 import { backgroundColor } from '../../constants/config';
+import styles from './styles';
 
 class SearchFormPage extends Component {
   constructor(props) {
@@ -28,30 +29,20 @@ class SearchFormPage extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+      <View style={styles.container}>
         <TextInput
-          style={{
-            flex: 1,
-            color: backgroundColor,
-          }}
+          style={styles.textInput}
           placeholder="Type Here..."
           value={this.state.searchText}
           onChangeText={searchText => this.setState({ searchText })}
           onSubmitEditing={this.submitSearch}
+          underlineColorAndroid="white"
+          selectionColor="white"
           autoFocus
         />
         <TouchableWithoutFeedback onPress={this.submitSearch}>
           <View>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '400',
-                color: backgroundColor,
-                padding: 10,
-              }}
-            >
-              Search
-            </Text>
+            <Text style={styles.button}>Search</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>

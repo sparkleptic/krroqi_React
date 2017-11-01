@@ -99,7 +99,19 @@ class MultiSelect extends Component {
               }}
             >
               <Text>All</Text>
-              <CheckBox value={selectedValues.length === 0} />
+              {selectedValues.length === 0 ? (
+                <Icon
+                  name={Platform.OS === 'ios' ? 'ios-checkbox' : 'md-checkbox'}
+                  color={backgroundColor}
+                  size={24}
+                />
+              ) : (
+                <Icon
+                  name={Platform.OS === 'ios' ? 'ios-square-outline' : 'md-square-outline'}
+                  color={backgroundColor}
+                  size={24}
+                />
+              )}
             </View>
           </TouchableOpacity>
           {multiSelectData.map(data => (
@@ -113,7 +125,19 @@ class MultiSelect extends Component {
                 }}
               >
                 <Text>{data.value}</Text>
-                <CheckBox value={selectedValues.some(item => item.key === data.key)} />
+                {selectedValues.some(item => item.key === data.key) ? (
+                  <Icon
+                    name={Platform.OS === 'ios' ? 'ios-checkbox' : 'md-checkbox'}
+                    color={backgroundColor}
+                    size={24}
+                  />
+                ) : (
+                  <Icon
+                    name={Platform.OS === 'ios' ? 'ios-square-outline' : 'md-square-outline'}
+                    color={backgroundColor}
+                    size={24}
+                  />
+                )}
               </View>
             </TouchableOpacity>
           ))}

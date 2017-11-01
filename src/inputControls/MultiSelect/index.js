@@ -78,7 +78,7 @@ class MultiSelect extends Component {
                 borderBottomWidth: 1,
                 height: 28,
               }}
-              name={Platform.OS === 'ios' ? 'ios-list-box' : 'md-list-box'}
+              name={Platform.OS === 'ios' ? 'ios-list-box-outline' : 'md-list-box'}
               size={24}
             />
           </View>

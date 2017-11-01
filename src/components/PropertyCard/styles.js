@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   iconStyle: {
     height: 30,
     width: 30,
+    backgroundColor: 'transparent',
     position: 'absolute',
     top: 10,
     right: 10,
