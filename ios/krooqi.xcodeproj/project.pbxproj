@@ -50,10 +50,6 @@
 		878CBC1523344EA6AF4FF915 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18F9CAA2ED9B4FB48EF5A266 /* Zocial.ttf */; };
 		966168033A1D44BE9B172203 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C1462E09A5145B8A078F788 /* FontAwesome.ttf */; };
 		973C26B7257849048B724214 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B16F62075AB34729B26D0566 /* SimpleLineIcons.ttf */; };
-		991689E01F98AAC8009107E4 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 991689DC1F98AA55009107E4 /* Bolts.framework */; };
-		991689E11F98AACB009107E4 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 991689DE1F98AA55009107E4 /* FBSDKCoreKit.framework */; };
-		991689E21F98AACE009107E4 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 991689DF1F98AA55009107E4 /* FBSDKLoginKit.framework */; };
-		991689E31F98AAD4009107E4 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 991689DD1F98AA55009107E4 /* FBSDKShareKit.framework */; };
 		9926439E1FA8EF56000BC059 /* AIRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 992643791FA8EF56000BC059 /* AIRGMSMarker.m */; };
 		9926439F1FA8EF56000BC059 /* AIRGMSPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = 9926437B1FA8EF56000BC059 /* AIRGMSPolygon.m */; };
 		992643A01FA8EF56000BC059 /* AIRGMSPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 9926437D1FA8EF56000BC059 /* AIRGMSPolyline.m */; };
@@ -77,7 +73,6 @@
 		A540FC0812CD43DC830B6352 /* libRNCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A2CA643D3A41E698E78850 /* libRNCrashes.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B20847A1B2364579961AAD32 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC68CE5B40D4382B9E0548C /* libz.tbd */; };
-		D0CAD7C378CE407CB795C5EF /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE71A586BA142168E705E1C /* libRCTFBSDK.a */; };
 		DBC72127D5C342CEB617DA11 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B80E2D80A447A4B8F1EDC8 /* Entypo.ttf */; };
 		E07F4AD4B64E49319A248FB4 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2BE27DF16CE84F30BD3639B1 /* Feather.ttf */; };
 		E43CBCBFF25D4FF79148FD58 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E875958F5C54889B113E7AA /* libAirMaps.a */; };
@@ -474,10 +469,6 @@
 		89548A3C231BDC222A8F0622 /* libPods-krooqi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-krooqi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89E433E3ECDF409FB149281E /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		9916300D1FAC36CE008A0927 /* krooqi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = krooqi.entitlements; path = krooqi/krooqi.entitlements; sourceTree = "<group>"; };
-		991689DC1F98AA55009107E4 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../../Downloads/FacebookSDKs-iOS-4/Bolts.framework"; sourceTree = "<group>"; };
-		991689DD1F98AA55009107E4 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4/FBSDKShareKit.framework"; sourceTree = "<group>"; };
-		991689DE1F98AA55009107E4 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
-		991689DF1F98AA55009107E4 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		992643781FA8EF56000BC059 /* AIRGMSMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGMSMarker.h; sourceTree = "<group>"; };
 		992643791FA8EF56000BC059 /* AIRGMSMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGMSMarker.m; sourceTree = "<group>"; };
 		9926437A1FA8EF56000BC059 /* AIRGMSPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGMSPolygon.h; sourceTree = "<group>"; };
@@ -552,9 +543,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				991689E31F98AAD4009107E4 /* FBSDKShareKit.framework in Frameworks */,
-				991689E11F98AACB009107E4 /* FBSDKCoreKit.framework in Frameworks */,
-				991689E01F98AAC8009107E4 /* Bolts.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -579,8 +567,6 @@
 				EEFF5235039E453CB3CC9641 /* libCodePush.a in Frameworks */,
 				B20847A1B2364579961AAD32 /* libz.tbd in Frameworks */,
 				2CA2EA445FB6F1E3C74B2460 /* libPods-krooqi.a in Frameworks */,
-				991689E21F98AACE009107E4 /* FBSDKLoginKit.framework in Frameworks */,
-				D0CAD7C378CE407CB795C5EF /* libRCTFBSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,10 +662,6 @@
 				1EC68CE5B40D4382B9E0548C /* libz.tbd */,
 				89548A3C231BDC222A8F0622 /* libPods-krooqi.a */,
 				755BD71F1C82284B646E4B99 /* libPods-krooqi-tvOS.a */,
-				991689DC1F98AA55009107E4 /* Bolts.framework */,
-				991689DE1F98AA55009107E4 /* FBSDKCoreKit.framework */,
-				991689DF1F98AA55009107E4 /* FBSDKLoginKit.framework */,
-				991689DD1F98AA55009107E4 /* FBSDKShareKit.framework */,
 				9A168E87705701C512D26411 /* libPods-krooqi-tvOSTests.a */,
 				D84C8FF6D957527B1782B9C3 /* libPods-krooqiTests.a */,
 			);
@@ -1999,7 +1981,6 @@
 					"$(inherited)",
 					"\"${PODS_ROOT}/MobileCenter/MobileCenter-SDK-Apple/iOS\"",
 					"\"${PODS_ROOT}/RNMobileCenterShared/RNMobileCenterShared\"",
-					"\"$(SRCROOT)/../../../Documents/FacebookSDK\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2044,7 +2025,6 @@
 					"$(inherited)",
 					"\"${PODS_ROOT}/MobileCenter/MobileCenter-SDK-Apple/iOS\"",
 					"\"${PODS_ROOT}/RNMobileCenterShared/RNMobileCenterShared\"",
-					"\"$(SRCROOT)/../../../Documents/FacebookSDK\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
