@@ -306,12 +306,9 @@ class SearchPage extends Component {
               }}
             >
               <MapView
-                provider={PROVIDER_GOOGLE}
                 style={{ flex: 1 }}
                 region={this.state.region}
                 onPress={this.dismissNotification}
-                onRegionChange={region => this.setState({ region })}
-                onRegionChangeComplete={region => this.setState({ region })}
               >
                 {filteredProperties.success &&
                   filteredProperties.success.map(marker => (
