@@ -306,8 +306,9 @@ class SearchPage extends Component {
               }}
             >
               <MapView
+                provider={PROVIDER_GOOGLE}
                 style={{ flex: 1 }}
-                region={this.state.region}
+                initialRegion={this.state.region}
                 onPress={this.dismissNotification}
               >
                 {filteredProperties.success &&
