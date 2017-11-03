@@ -310,6 +310,8 @@ class SearchPage extends Component {
                 style={{ flex: 1 }}
                 region={this.state.region}
                 onPress={this.dismissNotification}
+                onRegionChange={region => this.setState({ region })}
+                onRegionChangeComplete={region => this.setState({ region })}
               >
                 {filteredProperties.success &&
                   filteredProperties.success.map(marker => (
