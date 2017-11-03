@@ -14,7 +14,9 @@
     "Unmount",
     "dropdown",
     "eprice",
-    "krooqi"
+    "fbsdk",
+    "krooqi",
+    "supercluster"
   ],
   "cSpell.language": "en"
 }

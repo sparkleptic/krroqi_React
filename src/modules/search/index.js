@@ -56,6 +56,7 @@ class SearchPage extends Component {
     this.pushDetail = this.pushDetail.bind(this);
     this.closeModel = this.closeModel.bind(this);
     this.onFilter = this.onFilter.bind(this);
+    this.likeProperty = this.likeProperty.bind(this);
     this.onErrorNotification = this.onErrorNotification.bind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -131,6 +132,10 @@ class SearchPage extends Component {
     this.props.navigator.dismissLightBox();
   }
 
+  likeProperty(property) {
+    alert(property.ID);
+  }
+
   openSaveSearch() {
     this.props.navigator.showLightBox({
       screen: 'krooqi.Search.SaveSearchModal',
@@ -201,6 +206,7 @@ class SearchPage extends Component {
         passProps: {
           property,
           onDismissNotification: this.dismissNotification,
+          onLikeProperty: this.likeProperty,
         },
         position: 'bottom',
         autoDismissTimerSec: 10,
@@ -329,7 +335,12 @@ class SearchPage extends Component {
               <FlatList
                 data={filteredProperties.success}
                 renderItem={({ item }) => (
-                  <PropertyCard property={item} onCardPress={this.pushDetail} fullWidth />
+                  <PropertyCard
+                    property={item}
+                    onCardPress={this.pushDetail}
+                    onLikePress={this.likeProperty}
+                    fullWidth
+                  />
                 )}
                 ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
                 keyExtractor={(item, index) => index}

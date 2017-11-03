@@ -11,7 +11,7 @@ const imagePlaceholder = require('../../images/house_placeholder.png');
 const { width } = Dimensions.get('window');
 
 const PropertyCard = ({
-  property, onCardPress, fullWidth, containerStyle,
+  property, onCardPress, fullWidth, containerStyle, onLikePress,
 }) => {
   const propertyType = property.features.find(value => value.taxonomy === 'property_type');
   const propertyLabel = property.features.find(value => value.taxonomy === 'property_label');
@@ -56,12 +56,14 @@ const PropertyCard = ({
           </Text>
         </View>
       </TouchableWithoutFeedback>
-      <Icon
-        style={styles.iconStyle}
-        name={Platform.OS === 'ios' ? 'ios-heart' : 'md-heart'}
-        size={30}
-        color="red"
-      />
+      <TouchableWithoutFeedback onPress={() => onLikePress(property)}>
+        <Icon
+          style={styles.iconStyle}
+          name={Platform.OS === 'ios' ? 'ios-heart' : 'md-heart'}
+          size={30}
+          color="red"
+        />
+      </TouchableWithoutFeedback>
     </View>
   );
 };
@@ -69,6 +71,7 @@ const PropertyCard = ({
 PropertyCard.propTypes = {
   property: PropTypes.object.isRequired,
   onCardPress: PropTypes.func.isRequired,
+  onLikePress: PropTypes.func.isRequired,
   containerStyle: PropTypes.object,
   fullWidth: PropTypes.bool,
 };

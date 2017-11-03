@@ -35,6 +35,7 @@ class HomeCard extends Component {
     this.pushList = this.pushList.bind(this);
     this.pushDetail = this.pushDetail.bind(this);
     this.closeModel = this.closeModel.bind(this);
+    this.likeProperty = this.likeProperty.bind(this);
   }
   pushList(title, category) {
     this.props.actions.propertiesByCategoryLoad(category);
@@ -65,6 +66,10 @@ class HomeCard extends Component {
       animationType: 'slide-down', // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
     });
   }
+
+  likeProperty(property) {
+    alert(property.ID);
+  }
   render() {
     const { data } = this.props;
     const key = Object.keys(data)[0];
@@ -88,7 +93,13 @@ class HomeCard extends Component {
           scrollEventThrottle={1}
           showsHorizontalScrollIndicator={false}
           snapToInterval={260}
-          renderItem={({ item }) => <PropertyCard property={item} onCardPress={this.pushDetail} />}
+          renderItem={({ item }) => (
+            <PropertyCard
+              property={item}
+              onCardPress={this.pushDetail}
+              onLikePress={this.likeProperty}
+            />
+          )}
           ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
           keyExtractor={item => item.ID}
           data={data[key]}

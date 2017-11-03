@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -202,7 +203,7 @@ class App extends Component {
               {Platform.OS === 'ios' ? (
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                   <Icon name="ios-heart-outline" size={30} style={{ marginRight: 20 }} />
-                  <Icon name="ios-share-outline" size={30} />
+                  {/* <Icon name="ios-share-outline" size={30} /> */}
                 </View>
               ) : (
                 <View style={{ flex: 1, flexDirection: 'row' }}>
