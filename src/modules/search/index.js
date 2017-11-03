@@ -320,7 +320,10 @@ class SearchPage extends Component {
                         longitude: parseFloat(marker.lng),
                       }}
                       image={MarkerImg}
-                      onPress={() => this.showLightBox(marker)}
+                      onPress={(e) => {
+                        e.stopPropagation();
+                        this.showLightBox(marker);
+                      }}
                     />
                   ))}
               </MapView>
