@@ -54,6 +54,7 @@
 		991630131FAC6CAE008A0927 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 991630101FAC6CAD008A0927 /* FBSDKCoreKit.framework */; };
 		991630141FAC6CAE008A0927 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 991630111FAC6CAD008A0927 /* FBSDKLoginKit.framework */; };
 		991630151FAC6CAE008A0927 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 991630121FAC6CAE008A0927 /* FBSDKShareKit.framework */; };
+		9921F51C1FADA64600A80F77 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9921F4EE1FADA64600A80F77 /* Bolts.framework */; };
 		9926439E1FA8EF56000BC059 /* AIRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 992643791FA8EF56000BC059 /* AIRGMSMarker.m */; };
 		9926439F1FA8EF56000BC059 /* AIRGMSPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = 9926437B1FA8EF56000BC059 /* AIRGMSPolygon.m */; };
 		992643A01FA8EF56000BC059 /* AIRGMSPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 9926437D1FA8EF56000BC059 /* AIRGMSPolyline.m */; };
@@ -476,6 +477,7 @@
 		991630101FAC6CAD008A0927 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		991630111FAC6CAD008A0927 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		991630121FAC6CAE008A0927 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		9921F4EE1FADA64600A80F77 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		992643781FA8EF56000BC059 /* AIRGMSMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGMSMarker.h; sourceTree = "<group>"; };
 		992643791FA8EF56000BC059 /* AIRGMSMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGMSMarker.m; sourceTree = "<group>"; };
 		9926437A1FA8EF56000BC059 /* AIRGMSPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGMSPolygon.h; sourceTree = "<group>"; };
@@ -559,6 +561,7 @@
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
+				9921F51C1FADA64600A80F77 /* Bolts.framework in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				991630141FAC6CAE008A0927 /* FBSDKLoginKit.framework in Frameworks */,
@@ -670,6 +673,7 @@
 		023F13F551584F078D5E9CA9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9921F4EE1FADA64600A80F77 /* Bolts.framework */,
 				991630121FAC6CAE008A0927 /* FBSDKShareKit.framework */,
 				991630111FAC6CAD008A0927 /* FBSDKLoginKit.framework */,
 				991630101FAC6CAD008A0927 /* FBSDKCoreKit.framework */,
