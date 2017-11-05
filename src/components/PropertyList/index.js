@@ -12,7 +12,6 @@ class PropertyList extends Component {
     this.onRefresh = this.onRefresh.bind(this);
     this.pushDetail = this.pushDetail.bind(this);
     this.closeModel = this.closeModel.bind(this);
-    this.likeProperty = this.likeProperty.bind(this);
   }
 
   onRefresh() {
@@ -40,21 +39,12 @@ class PropertyList extends Component {
     });
   }
 
-  likeProperty(property) {
-    alert(property.ID);
-  }
-
   render() {
     return (
       <FlatList
         data={this.props.propertiesByCategory.success}
         renderItem={({ item }) => (
-          <PropertyCard
-            property={item}
-            onCardPress={this.pushDetail}
-            onLikePress={this.likeProperty}
-            fullWidth
-          />
+          <PropertyCard property={item} onCardPress={this.pushDetail} fullWidth />
         )}
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
         keyExtractor={(item, index) => index}

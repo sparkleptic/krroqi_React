@@ -45,6 +45,11 @@
   [[RCTI18nUtil sharedInstance] allowRTL:YES];
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   self.window.backgroundColor = [UIColor whiteColor];
+  float rd = 234.00/255.00;
+  float gr = 152.00/255.00;
+  float bl = 63.00/255.00;
+  self.window.tintColor = [UIColor colorWithRed:rd green:gr blue:bl alpha:1.0];
+
   [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation launchOptions:launchOptions];
   return YES;
 }

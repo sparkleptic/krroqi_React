@@ -57,7 +57,6 @@ class MapDetail extends Component {
         containerStyle={{ justifyContent: 'flex-end' }}
         property={property}
         onCardPress={this.openPropertyDetail}
-        onLikePress={data => this.props.onLikeProperty(data)}
         fullWidth
       />
     );
@@ -67,7 +66,6 @@ class MapDetail extends Component {
 MapDetail.propTypes = {
   property: PropTypes.object.isRequired,
   onDismissNotification: PropTypes.func.isRequired,
-  onLikeProperty: PropTypes.func.isRequired,
   navigator: PropTypes.object,
 };
 

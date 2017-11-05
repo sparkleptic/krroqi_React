@@ -32,7 +32,7 @@ class SearchFormPage extends Component {
       <View style={styles.container}>
         <TextInput
           style={styles.textInput}
-          placeholder="Type Here..."
+          placeholder="Search..."
           value={this.state.searchText}
           onChangeText={searchText => this.setState({ searchText })}
           onSubmitEditing={this.submitSearch}

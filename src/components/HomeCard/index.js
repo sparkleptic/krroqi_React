@@ -35,7 +35,6 @@ class HomeCard extends Component {
     this.pushList = this.pushList.bind(this);
     this.pushDetail = this.pushDetail.bind(this);
     this.closeModel = this.closeModel.bind(this);
-    this.likeProperty = this.likeProperty.bind(this);
   }
   pushList(title, category) {
     this.props.actions.propertiesByCategoryLoad(category);
@@ -67,9 +66,6 @@ class HomeCard extends Component {
     });
   }
 
-  likeProperty(property) {
-    alert(property.ID);
-  }
   render() {
     const { data } = this.props;
     const key = Object.keys(data)[0];
@@ -93,13 +89,7 @@ class HomeCard extends Component {
           scrollEventThrottle={1}
           showsHorizontalScrollIndicator={false}
           snapToInterval={260}
-          renderItem={({ item }) => (
-            <PropertyCard
-              property={item}
-              onCardPress={this.pushDetail}
-              onLikePress={this.likeProperty}
-            />
-          )}
+          renderItem={({ item }) => <PropertyCard property={item} onCardPress={this.pushDetail} />}
           ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
           keyExtractor={item => item.ID}
           data={data[key]}

@@ -27,9 +27,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     ...Platform.select({
       ios: {
-        borderRadius: 4,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
         borderWidth: 1,
         borderColor: 'gray',
+        borderRadius: 4,
         padding: 4,
       },
     }),
