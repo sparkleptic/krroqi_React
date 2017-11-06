@@ -104,7 +104,7 @@ class App extends Component {
         tabBarSelectedButtonColor: backgroundColor,
         navigationBarColor: '#000000',
         navBarBackgroundColor: backgroundColor,
-        statusBarColor: 'backgroundColor',
+        statusBarColor: backgroundColor,
         tabFontFamily: 'BioRhyme-Bold',
         screenBackgroundColor: '#E9EBEE',
         tabBarTranslucent: false,
