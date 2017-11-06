@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, TouchableWithoutFeedback, FlatList, Platform } from 'react-native';
+import {
+  View,
+  Dimensions,
+  TouchableWithoutFeedback,
+  FlatList,
+  Platform,
+  AsyncStorage,
+} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
@@ -12,6 +19,7 @@ import * as PropertiesActions from './../../Actions/PropertiesAction';
 
 import PropertyCard from '../../components/PropertyCard';
 import MarkerImg from '../../images/highlight-pin-single-family-act.png';
+import initialState from '../../reducers/initialState';
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -64,6 +72,7 @@ class SearchPage extends Component {
     this.props.actions.filteredPropertiesLoad();
     this.props.actions.propertyTypesLoad();
     this.props.actions.propertyStatusLoad();
+    this.props.actions.savedSearchLoad();
   }
 
   componentDidMount() {
@@ -107,9 +116,15 @@ class SearchPage extends Component {
     }
   }
 
-  onSaveSearch(data) {
+  onSaveSearch(searchLabel) {
+    const { savedSearch, search } = this.props;
     this.props.navigator.dismissLightBox();
-    this.setState({ defaultSearchLabel: data });
+    const newSearch = { ...search, searchLabel };
+    let newSavedSearch = savedSearch.success || [];
+    newSavedSearch = [...newSavedSearch, newSearch];
+    AsyncStorage.setItem('savedSearch', JSON.stringify(newSavedSearch), () => {
+      this.props.actions.savedSearchLoad();
+    });
   }
 
   onRefresh() {
@@ -127,22 +142,28 @@ class SearchPage extends Component {
     });
   }
 
+  onFilter(search) {
+    this.props.actions.filteredPropertiesLoad(search);
+  }
+
   closeSaveSearch() {
     this.props.navigator.dismissLightBox();
   }
 
-  openSaveSearch() {
-    this.props.navigator.showLightBox({
-      screen: 'krooqi.Search.SaveSearchModal',
-      passProps: {
-        defaultSearchLabel: this.state.defaultSearchLabel,
-        onSaveSearch: this.onSaveSearch,
-        onCancel: this.closeSaveSearch,
-      },
-      style: {
-        backgroundBlur: 'dark',
-      },
-    });
+  openSaveSearch(isDisabled) {
+    if (!isDisabled) {
+      this.props.navigator.showLightBox({
+        screen: 'krooqi.Search.SaveSearchModal',
+        passProps: {
+          defaultSearchLabel: this.state.defaultSearchLabel,
+          onSaveSearch: this.onSaveSearch,
+          onCancel: this.closeSaveSearch,
+        },
+        style: {
+          backgroundBlur: 'dark',
+        },
+      });
+    }
   }
 
   showFilterPage() {
@@ -168,10 +189,6 @@ class SearchPage extends Component {
         ],
       },
     });
-  }
-
-  onFilter(search) {
-    this.props.actions.filteredPropertiesLoad(search);
   }
 
   sortProperties() {
@@ -237,8 +254,21 @@ class SearchPage extends Component {
   }
 
   render() {
-    const { filteredProperties } = this.props;
+    let disableSaveSearch = false;
+    let saved = false;
+    const { filteredProperties, search, savedSearch } = this.props;
     const { flip } = this.state;
+    const initSearch = JSON.stringify(initialState.search);
+    const savedArray = savedSearch.success || [];
+    if (initSearch === JSON.stringify(search)) {
+      disableSaveSearch = true;
+    }
+    for (let i = 0; i < savedArray.length; i++) {
+      const { searchLabel, ...savedObj } = savedArray[i];
+      if (JSON.stringify(savedObj) === JSON.stringify(search)) {
+        saved = true;
+      }
+    }
     return (
       <View style={{ flex: 1 }}>
         <View
@@ -267,9 +297,11 @@ class SearchPage extends Component {
               <MapHeaderText>{I18n.t('sort_result').toUpperCase()}</MapHeaderText>
             </View>
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this.openSaveSearch}>
+          <TouchableWithoutFeedback onPress={() => this.openSaveSearch(disableSaveSearch || saved)}>
             <View>
-              <MapHeaderText>{I18n.t('save_search').toUpperCase()}</MapHeaderText>
+              <MapHeaderText disable={disableSaveSearch}>
+                {saved ? 'SAVED' : 'SAVE SEARCH'}
+              </MapHeaderText>
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -354,6 +386,7 @@ SearchPage.propTypes = {
   propertyStatus: PropTypes.array.isRequired,
   propertyTypes: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
+  savedSearch: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -362,6 +395,7 @@ const mapStateToProps = (state) => {
   ps = ps.filter(item => item.term_id === 33 || item.term_id === 34 || item.term_id === 108);
   return {
     filteredProperties: state.filteredProperties,
+    savedSearch: state.savedSearch,
     search: state.search,
     propertyStatus: ps,
     propertyTypes: pt,

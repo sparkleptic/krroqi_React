@@ -1,54 +1,69 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { View, FlatList } from 'react-native';
+import SavedSearchCard from '../../components/SavedSearchCard';
+import * as PropertiesActions from './../../Actions/PropertiesAction';
 
-const FBSDK = require('react-native-fbsdk');
-
-const { LoginButton, AccessToken } = FBSDK;
-
-class SavedSearch extends Component {
+class Favorites extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loginSuccess: false,
-      message: '',
-    };
-    this.loginFacebook = this.loginFacebook.bind(this);
-    this.logoutFacebook = this.logoutFacebook.bind(this);
+    this.onRefresh = this.onRefresh.bind(this);
+    this.pushDetail = this.pushDetail.bind(this);
+    this.closeModel = this.closeModel.bind(this);
   }
 
-  loginFacebook(error, result) {
-    alert('login completec');
-    if (error) {
-      this.setState({ message: result.error.toString() });
-    } else if (result.isCancelled) {
-      this.setState({ message: 'canceled' });
-    } else {
-      AccessToken.getCurrentAccessToken().then((data) => {
-        this.setState({ message: data.accessToken.toString(), loginSuccess: true });
-      });
-    }
+  componentWillMount() {
+    this.props.actions.savedSearchLoad();
   }
 
-  logoutFacebook() {
-    this.setState({ message: 'logged out' });
+  onRefresh() {
+    this.props.actions.savedSearchLoad();
+  }
+
+  closeModel() {
+    this.props.navigator.dismissModal({
+      animationType: 'slide-down',
+    });
+  }
+
+  pushDetail(item) {
+    this.props.actions.filteredPropertiesLoad(item);
+    this.props.navigator.switchToTab({
+      tabIndex: 0,
+    });
   }
 
   render() {
+    const { savedSearch } = this.props;
     return (
-      <View>
-        <LoginButton
-          publishPermissions={['publish_actions']}
-          onLoginFinished={this.loginFacebook}
-          onLogoutFinished={this.logoutFacebook}
-        />
-        {this.state.loginSuccess && <Text>Login Success</Text>}
-        <Text>{this.state.message}</Text>
-      </View>
+      <FlatList
+        data={savedSearch.success}
+        renderItem={({ item }) => <SavedSearchCard item={item} onCardPress={this.pushDetail} />}
+        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+        keyExtractor={(item, index) => index}
+        refreshing={savedSearch.loading}
+        onRefresh={this.onRefresh}
+      />
     );
   }
 }
 
-SavedSearch.propTypes = {};
+Favorites.propTypes = {
+  navigator: PropTypes.object.isRequired,
+  savedSearch: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
+};
 
-export default SavedSearch;
+const mapStateToProps = state => ({
+  savedSearch: state.savedSearch,
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(PropertiesActions, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 import * as types from './../constants/actionTypes';
 import * as config from './../constants/config';
 
@@ -68,6 +69,18 @@ export function checkConnectionSuccess(isConnected) {
 
 export function searchChange(search) {
   return { type: types.SEARCH_CHANGE, search };
+}
+
+export function saveSearchRequest() {
+  return { type: types.SAVED_SEARCH_REQUEST };
+}
+
+export function saveSearchSuccess(search) {
+  return { type: types.SAVED_SEARCH_SUCCESS, search };
+}
+
+export function saveSearchFail(error) {
+  return { type: types.SAVED_SEARCH_FAIL, error };
 }
 
 export function propertiesLoad() {
@@ -144,5 +157,19 @@ export function filteredPropertiesLoad(search) {
 export function checkConnection(isConnected) {
   return (dispatch) => {
     dispatch(checkConnectionSuccess(isConnected));
+  };
+}
+
+export function savedSearchLoad() {
+  return (dispatch) => {
+    dispatch(saveSearchRequest());
+    return AsyncStorage.getItem('savedSearch')
+      .then((value) => {
+        const newValue = value || [];
+        dispatch(saveSearchSuccess(JSON.parse(newValue)));
+      })
+      .catch((error) => {
+        dispatch(saveSearchFail(error));
+      });
   };
 }
