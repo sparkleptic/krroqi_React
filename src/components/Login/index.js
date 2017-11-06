@@ -28,7 +28,17 @@ class Login extends Component {
   }
 
   register() {
-    alert('register');
+    Navigation.showModal({
+      screen: 'krooqi.Password',
+      passProps: {
+        label: 'to save a home',
+      },
+      navigatorStyle: {
+        navBarHidden: true,
+        screenBackgroundColor: 'white',
+      },
+      animationType: 'slide-up',
+    });
   }
 
   facebookLogin() {
@@ -98,7 +108,7 @@ class Login extends Component {
           <TextInput
             style={styles.textInput}
             keyboardType="email-address"
-            returnKeyType="go"
+            returnKeyType="send"
             onSubmitEditing={this.register}
             value={this.state.email}
             placeholder="Enter your email"

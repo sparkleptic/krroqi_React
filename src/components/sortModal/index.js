@@ -6,7 +6,7 @@ import {
   Text,
   Dimensions,
   ScrollView,
-  TouchableWithoutFeedback,
+  TouchableHighlight,
   Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -59,7 +59,11 @@ class SortModal extends Component {
         </Text>
         <ScrollView>
           {sortData.map(data => (
-            <TouchableWithoutFeedback key={data} onPress={() => this.selectValue(data)}>
+            <TouchableHighlight
+              key={data}
+              onPress={() => this.selectValue(data)}
+              underlayColor="#f1f1f1"
+            >
               <View
                 style={{
                   flex: 1,
@@ -83,7 +87,7 @@ class SortModal extends Component {
                   />
                 )}
               </View>
-            </TouchableWithoutFeedback>
+            </TouchableHighlight>
           ))}
         </ScrollView>
       </View>
