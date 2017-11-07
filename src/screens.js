@@ -18,6 +18,7 @@ import SortModal from './components/sortModal';
 import SaveSearchModal from './components/saveSearchModal';
 import ErrorNotification from './components/errorNotification';
 import Login from './components/Login';
+import Password from './components/Password';
 
 export function registerScreens(store, Provider) {
   Navigation.registerComponent('krooqi.Home', () => Home, store, Provider);
@@ -47,4 +48,5 @@ export function registerScreens(store, Provider) {
     Provider,
   );
   Navigation.registerComponent('krooqi.Login', () => Login, store, Provider);
+  Navigation.registerComponent('krooqi.Password', () => Password, store, Provider);
 }

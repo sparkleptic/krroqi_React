@@ -5,7 +5,6 @@ export default {
     success: false,
   },
   search: {
-    searchLabel: '',
     searchText: '',
     propertyStatus: 0,
     priceRange: {

@@ -10,4 +10,6 @@ export const Container = styled.View`
   margin: 10px;
 `;
 
-export const MapHeaderText = styled.Text``;
+export const MapHeaderText = styled.Text`
+  color: ${props => (props.disable ? 'gray' : 'black')};
+`;
