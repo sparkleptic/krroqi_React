@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { View, Text, Image, TextInput, Button, TouchableHighlight } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  Button,
+  TouchableHighlight,
+  ActivityIndicator,
+} from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
-import Loading from '../Loading';
 import FacebookLogin from '../FacebookLogin';
 import { backgroundColor } from '../../constants/config';
 import * as AuthAction from '../../Actions/AuthAction';
@@ -39,9 +46,6 @@ class Password extends Component {
     if (nextProps.auth.success) {
       closeModal();
     }
-    if (nextProps.auth.error) {
-      this.setState({ loading: false });
-    }
   }
 
   onFBLoginLoading() {
@@ -58,7 +62,6 @@ class Password extends Component {
 
   register() {
     const { data } = this.state;
-    this.setState({ loading: true });
     if (this.props.userExist) {
       this.props.actions.login(data);
     } else {
@@ -68,14 +71,13 @@ class Password extends Component {
 
   render() {
     const { loading, data } = this.state;
-    const { userExist } = this.props;
+    const { userExist, auth } = this.props;
     return (
       <View>
-        {loading && <Loading inModal />}
         <View style={styles.container}>
           <TouchableHighlight
             style={{ alignSelf: 'flex-end' }}
-            onPress={this.closeModal}
+            onPress={() => closeModal()}
             underlayColor="#f1f1f1"
           >
             <Text style={{ padding: 10, fontSize: 16, fontWeight: '500' }}>Close</Text>
@@ -118,6 +120,12 @@ class Password extends Component {
             <Text style={styles.TCText}>I accept Krooqi's Terms of use and Privacy Policy</Text>
           </View>
         </View>
+        {(loading || auth.success) && (
+          <View style={styles.container}>
+            <ActivityIndicator size="large" color={backgroundColor} />
+            <Text style={{ textAlign: 'center', color: backgroundColor }}>Loading...</Text>
+          </View>
+        )}
       </View>
     );
   }

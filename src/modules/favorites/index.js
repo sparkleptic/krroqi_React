@@ -112,22 +112,57 @@ class Favorites extends Component {
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         {loading && Platform.OS === 'ios' && <Loading />}
         {auth.success ? (
-          <FlatList
-            data={favoriteProperties.success}
-            renderItem={({ item }) => (
-              <PropertyCard
-                property={item}
-                onCardPress={this.pushDetail}
-                onLikePress={this.onLikePress}
-                isFavorite
-                fullWidth
+          <View style={{ flex: 1 }}>
+            {favoriteProperties.success && favoriteProperties.success.length > 0 ? (
+              <FlatList
+                data={favoriteProperties.success}
+                renderItem={({ item }) => (
+                  <PropertyCard
+                    property={item}
+                    onCardPress={this.pushDetail}
+                    onLikePress={this.onLikePress}
+                    isFavorite
+                    fullWidth
+                  />
+                )}
+                ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+                keyExtractor={(item, index) => index}
+                refreshing={favoriteProperties.loading}
+                onRefresh={this.onRefresh}
               />
+            ) : (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  margin: 40,
+                }}
+              >
+                <Text style={{ lineHeight: 30, fontSize: 20 }}>Favorites</Text>
+                <Text
+                  style={{
+                    lineHeight: 25,
+                    fontSize: 16,
+                    color: 'gray',
+                    textAlign: 'center',
+                  }}
+                >
+                  you haven't make any Favorites yet.
+                </Text>
+                <Text
+                  style={{
+                    lineHeight: 25,
+                    fontSize: 16,
+                    color: 'gray',
+                    textAlign: 'center',
+                  }}
+                >
+                  Make Favorites your search criteria for easy access.
+                </Text>
+              </View>
             )}
-            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-            keyExtractor={(item, index) => index}
-            refreshing={favoriteProperties.loading}
-            onRefresh={this.onRefresh}
-          />
+          </View>
         ) : (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text>Please Login to view your Favorite Properties</Text>

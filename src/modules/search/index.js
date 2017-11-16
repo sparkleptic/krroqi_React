@@ -207,18 +207,23 @@ class SearchPage extends Component {
   }
 
   openSaveSearch(isDisabled) {
+    const { auth } = this.props;
     if (!isDisabled) {
-      this.props.navigator.showLightBox({
-        screen: 'krooqi.Search.SaveSearchModal',
-        passProps: {
-          defaultSearchLabel: this.state.defaultSearchLabel,
-          onSaveSearch: this.onSaveSearch,
-          onCancel: this.closeSaveSearch,
-        },
-        style: {
-          backgroundBlur: 'dark',
-        },
-      });
+      if (auth.success) {
+        this.props.navigator.showLightBox({
+          screen: 'krooqi.Search.SaveSearchModal',
+          passProps: {
+            defaultSearchLabel: this.state.defaultSearchLabel,
+            onSaveSearch: this.onSaveSearch,
+            onCancel: this.closeSaveSearch,
+          },
+          style: {
+            backgroundBlur: 'dark',
+          },
+        });
+      } else {
+        this.openLogin();
+      }
     }
   }
 
@@ -343,9 +348,9 @@ class SearchPage extends Component {
           sortProperties={this.sortProperties}
           openSaveSearch={this.openSaveSearch}
           flipView={() => {
-              this.dismissNotification();
-              this.setState({ flip: !this.state.flip });
-            }}
+            this.dismissNotification();
+            this.setState({ flip: !this.state.flip });
+          }}
         />
         <View
           style={{
@@ -355,7 +360,6 @@ class SearchPage extends Component {
             backgroundColor: '#F5FCFF',
           }}
         >
-
           <FlipCard
             flip={this.state.flip}
             friction={8}
@@ -443,7 +447,13 @@ SearchPage.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const loading = state.like.loading || state.auth.loading || state.favorites.loading || state.filteredProperties.loading || state.savedSearch.loading || state.propertyStatus.loading || state.propertyTypes.loading;
+  const loading =
+    state.like.loading ||
+    state.favorites.loading ||
+    state.filteredProperties.loading ||
+    state.savedSearch.loading ||
+    state.propertyStatus.loading ||
+    state.propertyTypes.loading;
   const favorites = state.favorites.success || [];
   let propertyStatus = state.propertyStatus.success || [];
   const propertyTypes = state.propertyTypes.success || [];
