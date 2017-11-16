@@ -1,27 +1,10 @@
+import * as config from '../constants/config';
+
 export default {
-  properties: {
+  common: {
     loading: false,
     error: false,
     success: false,
   },
-  search: {
-    searchText: '',
-    propertyStatus: 0,
-    priceRange: {
-      start: '',
-      end: '',
-    },
-    propertyType: [],
-    rooms: 0,
-    baths: 0,
-    squareMeterRange: {
-      start: '',
-      end: '',
-    },
-    yearBuilt: {
-      start: '',
-      end: '',
-    },
-    district: '',
-  },
+  search: config.search,
 };

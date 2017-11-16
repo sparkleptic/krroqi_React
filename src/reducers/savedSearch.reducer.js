@@ -1,7 +1,7 @@
 import initialState from './initialState';
 import * as types from '../constants/actionTypes';
 
-export default (state = initialState.properties, action) => {
+export default (state = initialState.common, action) => {
   switch (action.type) {
     case types.SAVED_SEARCH_REQUEST:
       return { ...state, loading: true };

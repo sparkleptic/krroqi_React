@@ -13,7 +13,14 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { backgroundColor, minArea, maxArea, minPrice, maxPrice } from '../../constants/config';
+import {
+  backgroundColor,
+  minArea,
+  maxArea,
+  minPrice,
+  maxPrice,
+  propertyStatuses,
+} from '../../constants/config';
 import MultiSelect from '../../inputControls/MultiSelect';
 import I18n from '../../i18n';
 import styles from './styles';
@@ -304,13 +311,15 @@ class filterPage extends Component {
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
                 tabTextStyle={{ color: backgroundColor }}
-                values={['For Rent', 'For Sale', 'Development']}
+                values={propertyStatuses}
                 selectedIndex={statusSelectedIndex}
                 onTabPress={this.selectPropertyStatus}
               />
             </View>
             {OS === 'ios' ? (
-              <Panel title="Price Range" data={search.priceRange}>{this.renderPriceRange()}</Panel>
+              <Panel title="Price Range" data={search.priceRange}>
+                {this.renderPriceRange()}
+              </Panel>
             ) : (
               <View style={styles.margin}>
                 <Text style={styles.label}>Price Range</Text>
@@ -349,7 +358,9 @@ class filterPage extends Component {
               />
             </View>
             {OS === 'ios' ? (
-              <Panel title="Square Meter Range" data={search.squareMeterRange}>{this.renderArea()}</Panel>
+              <Panel title="Square Meter Range" data={search.squareMeterRange}>
+                {this.renderArea()}
+              </Panel>
             ) : (
               <View style={styles.margin}>
                 <Text style={styles.label}>Square Meter Range</Text>
@@ -360,7 +371,9 @@ class filterPage extends Component {
             {this.state.showAll && (
               <View>
                 {OS === 'ios' ? (
-                  <Panel title="Year Built" data={search.yearBuilt}>{this.renderYearBuilt(years)}</Panel>
+                  <Panel title="Year Built" data={search.yearBuilt}>
+                    {this.renderYearBuilt(years)}
+                  </Panel>
                 ) : (
                   <View style={styles.margin}>
                     <Text style={styles.label}>Year Built</Text>

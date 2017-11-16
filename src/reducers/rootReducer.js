@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 import properties from './properties.reducer';
 import connection from './connection.reducer';
 import propertiesByCategory from './propertiesByCategory.reducer';
@@ -8,6 +7,9 @@ import propertyStatus from './propertyStatus.reducer';
 import propertyTypes from './propertyTypes.reducer';
 import search from './search.reducer';
 import savedSearch from './savedSearch.reducer';
+import auth from './auth.reducer';
+import favorites from './favorites.reducer';
+import like from './like.reducer';
 
 const rootReducer = combineReducers({
   properties,
@@ -18,7 +20,9 @@ const rootReducer = combineReducers({
   propertyTypes,
   search,
   savedSearch,
-  form: formReducer,
+  auth,
+  favorites,
+  like,
 });
 
 export default rootReducer;

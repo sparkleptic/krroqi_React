@@ -1,7 +1,7 @@
 import * as types from './../constants/actionTypes';
 import initialState from './initialState';
 
-export default (state = initialState.properties, action) => {
+export default (state = initialState.common, action) => {
   switch (action.type) {
     case types.LOAD_PROPERTIES_CATEGORY_REQUEST:
       return { ...state, loading: true };

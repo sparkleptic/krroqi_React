@@ -27,6 +27,18 @@ export function filteredPropertiesLoadFail(error) {
   return { type: types.LOAD_FILTERED_PROPERTIES_FAIL, error };
 }
 
+export function favoritePropertiesLoadRequest() {
+  return { type: types.LOAD_FAVORITE_PROPERTIES_REQUEST };
+}
+
+export function favoritePropertiesLoadSuccess(properties) {
+  return { type: types.LOAD_FAVORITE_PROPERTIES_SUCCESS, properties };
+}
+
+export function favoritePropertiesLoadFail(error) {
+  return { type: types.LOAD_FAVORITE_PROPERTIES_FAIL, error };
+}
+
 export function propertiesByCategoryLoadRequest() {
   return { type: types.LOAD_PROPERTIES_CATEGORY_REQUEST };
 }
@@ -81,6 +93,18 @@ export function saveSearchSuccess(search) {
 
 export function saveSearchFail(error) {
   return { type: types.SAVED_SEARCH_FAIL, error };
+}
+
+export function likePropertyRequest() {
+  return { type: types.LIKE_PROPERTY_REQUEST };
+}
+
+export function likePropertySuccess(data) {
+  return { type: types.LIKE_PROPERTY_SUCCESS, data };
+}
+
+export function likePropertyFail(error) {
+  return { type: types.LIKE_PROPERTY_FAIL, error };
 }
 
 export function propertiesLoad() {
@@ -146,10 +170,25 @@ export function filteredPropertiesLoad(search) {
       .get(`${config.PUBLIC_URL}get30Properties/en`)
       .then((response) => {
         dispatch(filteredPropertiesLoadSuccess(response.data));
-        dispatch(searchChange(search));
+        const newSearch = search || config.search;
+        dispatch(searchChange(newSearch));
       })
       .catch((error) => {
         dispatch(filteredPropertiesLoadFail(error));
+      });
+  };
+}
+
+export function favoritePropertiesLoad(userId) {
+  return (dispatch) => {
+    dispatch(favoritePropertiesLoadRequest());
+    return axios
+      .get(`${config.PUBLIC_URL}getUserFavouriteProperty/${userId}/en`)
+      .then((response) => {
+        dispatch(favoritePropertiesLoadSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(favoritePropertiesLoadFail(error));
       });
   };
 }
@@ -170,6 +209,20 @@ export function savedSearchLoad() {
       })
       .catch((error) => {
         dispatch(saveSearchFail(error));
+      });
+  };
+}
+
+export function likeProperty(data) {
+  return (dispatch) => {
+    dispatch(likePropertyRequest());
+    return axios
+      .post(`${config.PUBLIC_URL}saveUserFavouriteProperty`, data)
+      .then((response) => {
+        dispatch(likePropertySuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(likePropertyFail(error));
       });
   };
 }

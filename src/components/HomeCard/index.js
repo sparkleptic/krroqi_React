@@ -4,9 +4,11 @@ import { View, FlatList, TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components/native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import PropertyCard from '../PropertyCard';
+import Loading from '../Loading';
 import * as PropertiesActions from '../../Actions/PropertiesAction';
-import { backgroundColor } from '../../constants/config';
+import { backgroundColor, PUBLIC_URL } from '../../constants/config';
 
 const H1 = styled.Text`
   font-size: 18px;
@@ -32,10 +34,63 @@ const ButtonText = styled.Text`
 class HomeCard extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      error: false,
+    };
     this.pushList = this.pushList.bind(this);
     this.pushDetail = this.pushDetail.bind(this);
     this.closeModel = this.closeModel.bind(this);
+    this.onLikePress = this.onLikePress.bind(this);
+    this.openLogin = this.openLogin.bind(this);
   }
+
+  onLikePress(propertyID) {
+    const { auth } = this.props;
+    if (auth.success) {
+      this.props.likeLoad();
+      axios
+        .post(`${PUBLIC_URL}saveUserFavouriteProperty`, {
+          user_id: auth.success.id,
+          property_id: propertyID,
+        })
+        .then((response) => {
+          this.props.likeSuccess(response.data);
+          if (response.data && response.data.success) {
+            this.props.actions.favoritePropertiesLoad(auth.success.id);
+          }
+        })
+        .catch((error) => {
+          this.props.likeError(error);
+        });
+    } else {
+      this.openLogin();
+    }
+  }
+
+  closeModel() {
+    this.props.navigator.dismissModal({
+      animationType: 'slide-down', // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
+    });
+  }
+
+  pushDetail(property) {
+    const { favorites } = this.props;
+    this.props.navigator.showModal({
+      screen: 'krooqi.PropertyDetail',
+      title: '',
+      animated: true,
+      navigatorStyle: {
+        navBarHidden: true,
+      },
+      passProps: {
+        property,
+        isFavorite: favorites.some(x => x.ID === property.ID),
+        closeModel: this.closeModel,
+        onLikePress: this.onLikePress,
+      },
+    });
+  }
+
   pushList(title, category) {
     this.props.actions.propertiesByCategoryLoad(category);
     this.props.navigator.push({
@@ -46,28 +101,23 @@ class HomeCard extends Component {
       },
     });
   }
-  pushDetail(property) {
+
+  openLogin() {
     this.props.navigator.showModal({
-      screen: 'krooqi.PropertyDetail',
-      title: '',
-      animated: true,
+      screen: 'krooqi.Login',
+      passProps: {
+        label: 'to save a home',
+      },
       navigatorStyle: {
         navBarHidden: true,
+        screenBackgroundColor: 'white',
       },
-      passProps: {
-        property,
-        closeModel: this.closeModel,
-      },
-    });
-  }
-  closeModel() {
-    this.props.navigator.dismissModal({
-      animationType: 'slide-down', // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
+      animationType: 'slide-up',
     });
   }
 
   render() {
-    const { data } = this.props;
+    const { data, favorites, loading } = this.props;
     const key = Object.keys(data)[0];
     let title = '';
     if (key === 'sale') {
@@ -83,13 +133,21 @@ class HomeCard extends Component {
     }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
+        {loading && <Loading />}
         <H1>{title}</H1>
         <FlatList
           horizontal
           scrollEventThrottle={1}
           showsHorizontalScrollIndicator={false}
           snapToInterval={260}
-          renderItem={({ item }) => <PropertyCard property={item} onCardPress={this.pushDetail} />}
+          renderItem={({ item }) => (
+            <PropertyCard
+              property={item}
+              isFavorite={favorites.some(x => x.ID === item.ID)}
+              onCardPress={this.pushDetail}
+              onLikePress={this.onLikePress}
+            />
+          )}
           ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
           keyExtractor={item => item.ID}
           data={data[key]}
@@ -109,12 +167,33 @@ HomeCard.propTypes = {
   data: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   navigator: PropTypes.object.isRequired,
+  favorites: PropTypes.array.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const loading = state.like.loading || state.auth.loading || state.favorites.loading;
+  const favorites = state.favorites.success || [];
+  return {
+    favorites,
+    auth: state.auth,
+    loading,
+  };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(PropertiesActions, dispatch),
+    likeLoad: () => {
+      dispatch(PropertiesActions.likePropertyRequest());
+    },
+    likeSuccess: (data) => {
+      dispatch(PropertiesActions.likePropertySuccess(data));
+    },
+    likeError: (error) => {
+      dispatch(PropertiesActions.likePropertyFail(error));
+    },
   };
 }
 
-export default connect(null, mapDispatchToProps)(HomeCard);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeCard);

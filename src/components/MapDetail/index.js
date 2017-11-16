@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Platform } from 'react-native';
 import PropertyCard from '../PropertyCard';
 
@@ -30,6 +31,7 @@ class MapDetail extends Component {
   }
 
   openPropertyDetail() {
+    const { isFavorite, onLikePress, property } = this.props;
     this.props.navigator.showModal({
       screen: 'krooqi.PropertyDetail',
       title: '',
@@ -38,8 +40,10 @@ class MapDetail extends Component {
         navBarHidden: true,
       },
       passProps: {
-        property: this.props.property,
+        isFavorite,
+        property,
         closeModel: this.closeModel,
+        onLikePress,
       },
     });
   }
@@ -51,12 +55,14 @@ class MapDetail extends Component {
   }
 
   render() {
-    const { property } = this.props;
+    const { property, favorites, onLikePress } = this.props;
     return (
       <PropertyCard
         containerStyle={{ justifyContent: 'flex-end' }}
         property={property}
+        isFavorite={favorites.some(x => x.ID === property.ID)}
         onCardPress={this.openPropertyDetail}
+        onLikePress={id => onLikePress(id)}
         fullWidth
       />
     );
@@ -65,12 +71,21 @@ class MapDetail extends Component {
 
 MapDetail.propTypes = {
   property: PropTypes.object.isRequired,
+  favorites: PropTypes.array.isRequired,
   onDismissNotification: PropTypes.func.isRequired,
   navigator: PropTypes.object,
+  onLikePress: PropTypes.func.isRequired,
 };
 
 MapDetail.defaultProps = {
   navigator: {},
 };
 
-export default MapDetail;
+function mapStateToProps(state) {
+  const favorites = state.favorites.success || [];
+  return {
+    favorites,
+  };
+}
+
+export default connect(mapStateToProps)(MapDetail);

@@ -12,14 +12,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import FlipCard from 'react-native-flip-card';
+import axios from 'axios';
 import I18n from './../../i18n';
 import { MapHeaderText } from './../../common/commonStyle';
 
 import * as PropertiesActions from './../../Actions/PropertiesAction';
+import * as AuthActions from '../../Actions/AuthAction';
 
 import PropertyCard from '../../components/PropertyCard';
 import MarkerImg from '../../images/highlight-pin-single-family-act.png';
 import initialState from '../../reducers/initialState';
+import { PUBLIC_URL } from '../../constants/config';
+import Loading from '../../components/Loading';
+import HomeHeaderbar from '../../components/HomeHeaderbar';
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -52,6 +57,8 @@ class SearchPage extends Component {
       selectedValue: 'Relevance',
       flip: false,
       openProperty: '',
+      userData: null,
+      error: false,
     };
     this.showLightBox = this.showLightBox.bind(this);
     this.sortProperties = this.sortProperties.bind(this);
@@ -64,15 +71,18 @@ class SearchPage extends Component {
     this.pushDetail = this.pushDetail.bind(this);
     this.closeModel = this.closeModel.bind(this);
     this.onFilter = this.onFilter.bind(this);
+    this.onLikePress = this.onLikePress.bind(this);
     this.onErrorNotification = this.onErrorNotification.bind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentWillMount() {
+    AsyncStorage.clear();
     this.props.actions.filteredPropertiesLoad();
     this.props.actions.propertyTypesLoad();
     this.props.actions.propertyStatusLoad();
     this.props.actions.savedSearchLoad();
+    this.props.authAction.checkUserExist();
   }
 
   componentDidMount() {
@@ -108,11 +118,43 @@ class SearchPage extends Component {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth && nextProps.auth.success) {
+      if (JSON.stringify(this.state.userData) !== JSON.stringify(nextProps.auth.success)) {
+        this.props.actions.favoritePropertiesLoad(nextProps.auth.success.id);
+      }
+      this.setState({ userData: nextProps.auth.success });
+    }
+  }
+
   onNavigatorEvent(event) {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'filter') {
         this.showFilterPage();
       }
+    }
+  }
+
+  onLikePress(propertyID) {
+    const { auth } = this.props;
+    if (auth.success) {
+      this.props.likeLoad();
+      axios
+        .post(`${PUBLIC_URL}saveUserFavouriteProperty`, {
+          user_id: auth.success.id,
+          property_id: propertyID,
+        })
+        .then((response) => {
+          this.props.likeSuccess(response.data);
+          if (response.data && response.data.success) {
+            this.props.actions.favoritePropertiesLoad(auth.success.id);
+          }
+        })
+        .catch((error) => {
+          this.props.likeError(error);
+        });
+    } else {
+      this.openLogin();
     }
   }
 
@@ -144,6 +186,20 @@ class SearchPage extends Component {
 
   onFilter(search) {
     this.props.actions.filteredPropertiesLoad(search);
+  }
+
+  openLogin() {
+    this.props.navigator.showModal({
+      screen: 'krooqi.Login',
+      passProps: {
+        label: 'to save a home',
+      },
+      navigatorStyle: {
+        navBarHidden: true,
+        screenBackgroundColor: 'white',
+      },
+      animationType: 'slide-up',
+    });
   }
 
   closeSaveSearch() {
@@ -212,15 +268,18 @@ class SearchPage extends Component {
   }
 
   showLightBox(property) {
+    const { favorites } = this.props;
     if (this.state.openProperty !== property.ID) {
       this.props.navigator.showInAppNotification({
         screen: 'krooqi.MapDetail',
         passProps: {
           property,
           onDismissNotification: this.dismissNotification,
+          isFavorite: favorites.some(x => x.ID === property.ID),
+          onLikePress: this.onLikePress,
         },
         position: 'bottom',
-        autoDismissTimerSec: 10,
+        autoDismissTimerSec: 100,
         dismissWithSwipe: true,
       });
       this.setState({ openProperty: property.ID });
@@ -233,6 +292,7 @@ class SearchPage extends Component {
   }
 
   pushDetail(property) {
+    const { favorites } = this.props;
     this.props.navigator.showModal({
       screen: 'krooqi.PropertyDetail',
       title: '',
@@ -242,7 +302,9 @@ class SearchPage extends Component {
       },
       passProps: {
         property,
+        isFavorite: favorites.some(x => x.ID === property.ID),
         closeModel: this.closeModel,
+        onLikePress: this.onLikePress,
       },
     });
   }
@@ -256,7 +318,9 @@ class SearchPage extends Component {
   render() {
     let disableSaveSearch = false;
     let saved = false;
-    const { filteredProperties, search, savedSearch } = this.props;
+    const {
+      filteredProperties, search, savedSearch, favorites, loading,
+    } = this.props;
     const { flip } = this.state;
     const initSearch = JSON.stringify(initialState.search);
     const savedArray = savedSearch.success || [];
@@ -271,40 +335,18 @@ class SearchPage extends Component {
     }
     return (
       <View style={{ flex: 1 }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            paddingTop: 10,
-            paddingBottom: 10,
-            backgroundColor: '#F6F6F6',
-          }}
-        >
-          <TouchableWithoutFeedback
-            onPress={() => {
+        {loading && Platform.OS === 'ios' && <Loading />}
+        <HomeHeaderbar
+          flip={flip}
+          disableSaveSearch={disableSaveSearch}
+          saved={saved}
+          sortProperties={this.sortProperties}
+          openSaveSearch={this.openSaveSearch}
+          flipView={() => {
               this.dismissNotification();
               this.setState({ flip: !this.state.flip });
             }}
-          >
-            <View>
-              <MapHeaderText>
-                {flip ? I18n.t('map_results').toUpperCase() : I18n.t('list_results').toUpperCase()}
-              </MapHeaderText>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this.sortProperties}>
-            <View>
-              <MapHeaderText>{I18n.t('sort_result').toUpperCase()}</MapHeaderText>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => this.openSaveSearch(disableSaveSearch || saved)}>
-            <View>
-              <MapHeaderText disable={disableSaveSearch}>
-                {saved ? 'SAVED' : 'SAVE SEARCH'}
-              </MapHeaderText>
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
+        />
         <View
           style={{
             flex: 1,
@@ -313,6 +355,7 @@ class SearchPage extends Component {
             backgroundColor: '#F5FCFF',
           }}
         >
+
           <FlipCard
             flip={this.state.flip}
             friction={8}
@@ -364,7 +407,13 @@ class SearchPage extends Component {
               <FlatList
                 data={filteredProperties.success}
                 renderItem={({ item }) => (
-                  <PropertyCard property={item} onCardPress={this.pushDetail} fullWidth />
+                  <PropertyCard
+                    property={item}
+                    isFavorite={favorites.some(x => x.ID === item.ID)}
+                    onCardPress={this.pushDetail}
+                    onLikePress={this.onLikePress}
+                    fullWidth
+                  />
                 )}
                 ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
                 keyExtractor={(item, index) => index}
@@ -387,24 +436,44 @@ SearchPage.propTypes = {
   propertyTypes: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
   savedSearch: PropTypes.object.isRequired,
+  authAction: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  favorites: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  let ps = state.propertyStatus.success || [];
-  const pt = state.propertyTypes.success || [];
-  ps = ps.filter(item => item.term_id === 33 || item.term_id === 34 || item.term_id === 108);
+  const loading = state.like.loading || state.auth.loading || state.favorites.loading || state.filteredProperties.loading || state.savedSearch.loading || state.propertyStatus.loading || state.propertyTypes.loading;
+  const favorites = state.favorites.success || [];
+  let propertyStatus = state.propertyStatus.success || [];
+  const propertyTypes = state.propertyTypes.success || [];
+  propertyStatus = propertyStatus.filter(item => item.term_id === 33 || item.term_id === 34 || item.term_id === 108);
   return {
     filteredProperties: state.filteredProperties,
     savedSearch: state.savedSearch,
+    auth: state.auth,
     search: state.search,
-    propertyStatus: ps,
-    propertyTypes: pt,
+    like: state.like,
+    propertyStatus,
+    propertyTypes,
+    favorites,
+    loading,
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(PropertiesActions, dispatch),
+    authAction: bindActionCreators(AuthActions, dispatch),
+    likeLoad: () => {
+      dispatch(PropertiesActions.likePropertyRequest());
+    },
+    likeSuccess: (data) => {
+      dispatch(PropertiesActions.likePropertySuccess(data));
+    },
+    likeError: (error) => {
+      dispatch(PropertiesActions.likePropertyFail(error));
+    },
   };
 }
 

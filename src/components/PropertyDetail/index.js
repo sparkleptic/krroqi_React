@@ -11,8 +11,10 @@ import {
   TouchableWithoutFeedback,
   Modal,
 } from 'react-native';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Carousel from '../Carousel';
+import LikeButton from '../LikeButton';
 import { backgroundColor } from '../../constants/config';
 
 // const { width, height } = Dimensions.get('window');
@@ -146,6 +148,8 @@ class App extends Component {
       extrapolate: 'clamp',
     });
 
+    const { property, favorites, onLikePress } = this.props;
+
     return (
       <View style={styles.fill}>
         <StatusBar translucent barStyle="light-content" backgroundColor="rgba(0, 0, 0, 0.251)" />
@@ -200,17 +204,10 @@ class App extends Component {
             </View>
             <View style={{ flexGrow: 1 }} />
             <View>
-              {Platform.OS === 'ios' ? (
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                  <Icon name="ios-heart-outline" size={30} style={{ marginRight: 20 }} />
-                  {/* <Icon name="ios-share-outline" size={30} /> */}
-                </View>
-              ) : (
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                  <Icon name="md-heart-outline" size={30} style={{ marginRight: 20 }} />
-                  <Icon name="md-share" size={30} />
-                </View>
-              )}
+              <LikeButton
+                onLikePress={() => onLikePress(property.ID)}
+                isFavorite={favorites.some(x => x.ID === property.ID)}
+              />
             </View>
           </View>
         </Animated.View>
@@ -222,6 +219,19 @@ class App extends Component {
 App.propTypes = {
   property: PropTypes.object.isRequired,
   closeModel: PropTypes.func.isRequired,
+  favorites: PropTypes.array.isRequired,
+  onLikePress: PropTypes.func,
 };
 
-export default App;
+App.defaultProps = {
+  onLikePress: () => null,
+};
+
+function mapStateToProps(state) {
+  const favorites = state.favorites.success || [];
+  return {
+    favorites,
+  };
+}
+
+export default connect(mapStateToProps)(App);

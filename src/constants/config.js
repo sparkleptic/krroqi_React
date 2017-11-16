@@ -3,6 +3,12 @@ export const PUBLIC_URL = 'http://krooqi.step-stp.net/api/public/krooqi/';
 export const backgroundColor = '#f7941e';
 export const textColor = 'white';
 
+export const savedSearch = 'savedSearch';
+
+export const USER_DATA = 'USER_DATA';
+
+export const propertyStatuses = ['For Rent', 'For Sale', 'Development'];
+
 export const minArea = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000];
 export const maxArea = [150, 250, 350, 450, 550, 650, 750, 850, 950, 1500, 2500, 3500, 4500, 5500];
 
@@ -47,3 +53,24 @@ export const maxPrice = [
   5000000,
   10000000,
 ];
+
+export const search = {
+  searchText: '',
+  propertyStatus: 0,
+  priceRange: {
+    start: '',
+    end: '',
+  },
+  propertyType: [],
+  rooms: 0,
+  baths: 0,
+  squareMeterRange: {
+    start: '',
+    end: '',
+  },
+  yearBuilt: {
+    start: '',
+    end: '',
+  },
+  district: '',
+};

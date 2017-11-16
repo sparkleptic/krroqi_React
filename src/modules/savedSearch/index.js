@@ -38,14 +38,18 @@ class Favorites extends Component {
   render() {
     const { savedSearch } = this.props;
     return (
-      <FlatList
-        data={savedSearch.success}
-        renderItem={({ item }) => <SavedSearchCard item={item} onCardPress={this.pushDetail} />}
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-        keyExtractor={(item, index) => index}
-        refreshing={savedSearch.loading}
-        onRefresh={this.onRefresh}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          data={savedSearch.success}
+          renderItem={({ item }) => <SavedSearchCard item={item} onCardPress={this.pushDetail} />}
+          ItemSeparatorComponent={() => (
+            <View style={{ borderBottomWidth: 1, borderColor: 'gray' }} />
+          )}
+          keyExtractor={(item, index) => index}
+          refreshing={savedSearch.loading}
+          onRefresh={this.onRefresh}
+        />
+      </View>
     );
   }
 }

@@ -3,22 +3,68 @@ import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import PropertyCard from '../PropertyCard';
+import Loading from '../Loading';
 import * as PropertiesActions from '../../Actions/PropertiesAction';
+import { PUBLIC_URL } from '../../constants/config';
 
 class PropertyList extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      error: false,
+    };
     this.onRefresh = this.onRefresh.bind(this);
     this.pushDetail = this.pushDetail.bind(this);
     this.closeModel = this.closeModel.bind(this);
+    this.onLikePress = this.onLikePress.bind(this);
+    this.openLogin = this.openLogin.bind(this);
+  }
+
+  onLikePress(propertyID) {
+    const { auth } = this.props;
+    if (auth.success) {
+      this.props.likeLoad();
+      axios
+        .post(`${PUBLIC_URL}saveUserFavouriteProperty`, {
+          user_id: auth.success.id,
+          property_id: propertyID,
+        })
+        .then((response) => {
+          this.props.likeSuccess(response.data);
+          if (response.data && response.data.success) {
+            this.props.actions.favoritePropertiesLoad(auth.success.id);
+          }
+        })
+        .catch((error) => {
+          this.props.likeError(error);
+        });
+    } else {
+      this.openLogin();
+    }
   }
 
   onRefresh() {
     this.props.actions.propertiesByCategoryLoad(this.props.category);
   }
 
+  openLogin() {
+    this.props.navigator.showModal({
+      screen: 'krooqi.Login',
+      passProps: {
+        label: 'to save a home',
+      },
+      navigatorStyle: {
+        navBarHidden: true,
+        screenBackgroundColor: 'white',
+      },
+      animationType: 'slide-up',
+    });
+  }
+
   pushDetail(property) {
+    const { favorites } = this.props;
     this.props.navigator.showModal({
       screen: 'krooqi.PropertyDetail',
       title: '',
@@ -28,7 +74,9 @@ class PropertyList extends Component {
       },
       passProps: {
         property,
+        isFavorite: favorites.some(x => x.ID === property.ID),
         closeModel: this.closeModel,
+        onLikePress: this.onLikePress,
       },
     });
   }
@@ -40,17 +88,27 @@ class PropertyList extends Component {
   }
 
   render() {
+    const { favorites, loading } = this.props;
     return (
-      <FlatList
-        data={this.props.propertiesByCategory.success}
-        renderItem={({ item }) => (
-          <PropertyCard property={item} onCardPress={this.pushDetail} fullWidth />
-        )}
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-        keyExtractor={(item, index) => index}
-        refreshing={this.props.propertiesByCategory.loading}
-        onRefresh={this.onRefresh}
-      />
+      <View>
+        {loading && <Loading />}
+        <FlatList
+          data={this.props.propertiesByCategory.success}
+          renderItem={({ item }) => (
+            <PropertyCard
+              property={item}
+              isFavorite={favorites.some(x => x.ID === item.ID)}
+              onCardPress={this.pushDetail}
+              onLikePress={this.onLikePress}
+              fullWidth
+            />
+          )}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+          keyExtractor={(item, index) => index}
+          refreshing={this.props.propertiesByCategory.loading}
+          onRefresh={this.onRefresh}
+        />
+      </View>
     );
   }
 }
@@ -60,17 +118,37 @@ PropertyList.propTypes = {
   navigator: PropTypes.object.isRequired,
   category: PropTypes.string.isRequired,
   propertiesByCategory: PropTypes.object.isRequired,
+  favorites: PropTypes.array.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
+  const loading =
+    state.like.loading ||
+    state.auth.loading ||
+    state.favorites.loading ||
+    state.propertiesByCategory.loading;
+  const favorites = state.favorites.success || [];
   return {
     propertiesByCategory: state.propertiesByCategory,
+    auth: state.auth,
+    favorites,
+    loading,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(PropertiesActions, dispatch),
+    likeLoad: () => {
+      dispatch(PropertiesActions.likePropertyRequest());
+    },
+    likeSuccess: (data) => {
+      dispatch(PropertiesActions.likePropertySuccess(data));
+    },
+    likeError: (error) => {
+      dispatch(PropertiesActions.likePropertyFail(error));
+    },
   };
 }
 
