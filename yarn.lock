@@ -3789,6 +3789,10 @@ mobile-center@0.10.0, mobile-center@^0.10.0:
   dependencies:
     mobile-center-link-scripts "0.10.0"
 
+moment@2.19.0:
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.0.tgz#44f675ef6b944942762581b1c179fb679e599d67"
+
 moment@^2.19.1:
   version "2.19.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
@@ -4479,9 +4483,9 @@ react-native-maps@^0.16.4:
   version "0.16.4"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.16.4.tgz#c18c3cab8cd0ce05431cd74dac11a39afaa579e4"
 
-react-native-navigation@^1.1.253:
-  version "1.1.253"
-  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.253.tgz#a6ec7b141d5ccf32e7d5a49cac73f2d36a86dc9c"
+react-native-navigation@^1.1.280:
+  version "1.1.280"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.280.tgz#05f8f40abd3e1a03800fd728dcca05e8f5c00da8"
   dependencies:
     lodash "4.x.x"
 

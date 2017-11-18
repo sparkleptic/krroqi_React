@@ -10,7 +10,9 @@
     "android-linux":
       "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && react-native run-android"
   },
-  "resolutions": { "moment": "2.19.0" },
+  "resolutions": {
+    "moment": "2.19.0"
+  },
   "dependencies": {
     "axios": "^0.16.2",
     "flow-bin": "^0.56.0",
@@ -26,7 +28,7 @@
     "react-native-flip-card": "^3.5.2",
     "react-native-i18n": "^2.0.6",
     "react-native-maps": "^0.16.4",
-    "react-native-navigation": "^1.1.253",
+    "react-native-navigation": "^1.1.280",
     "react-native-restart": "^0.0.3",
     "react-native-segmented-control-tab": "^3.2.1",
     "react-native-vector-icons": "^4.4.0",

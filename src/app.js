@@ -52,7 +52,7 @@ class App extends Component {
           },
         },
         {
-          label: I18n.t('hello'),
+          label: 'Home',
           screen: 'krooqi.Home',
           icon: iconsMap['ios-home-outline'],
           selectedIcon: iconsMap['ios-home'],

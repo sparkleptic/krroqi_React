@@ -127,12 +127,11 @@ class Login extends Component {
             onChangeText={email => this.setState({ email })}
           />
         </View>
-        <Button
-          onPress={this.register}
-          title="Submit"
-          color={backgroundColor}
-          accessibilityLabel="Submit"
-        />
+        <TouchableHighlight onPress={this.register} underlayColor="gray">
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Submit</Text>
+          </View>
+        </TouchableHighlight>
         <View style={styles.header}>
           <View style={styles.fbLoginView}>
             <Text style={styles.fbLoginText}>Or sign in with</Text>

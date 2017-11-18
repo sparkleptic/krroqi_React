@@ -2,15 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  Button,
-  TouchableHighlight,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, Image, TextInput, TouchableHighlight, ActivityIndicator } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
 import FacebookLogin from '../FacebookLogin';
@@ -102,12 +94,12 @@ class Password extends Component {
               secureTextEntry
             />
           </View>
-          <Button
-            onPress={this.register}
-            title="Submit"
-            color={backgroundColor}
-            accessibilityLabel="Submit"
-          />
+
+          <TouchableHighlight onPress={this.register} underlayColor="gray">
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </View>
+          </TouchableHighlight>
           <View style={styles.header}>
             <View style={styles.fbLoginView}>
               <Text style={styles.fbLoginText}>Or sign in with</Text>

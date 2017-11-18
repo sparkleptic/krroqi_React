@@ -7,14 +7,17 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  Linking,
   View,
   TouchableWithoutFeedback,
   Modal,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Carousel from '../Carousel';
 import LikeButton from '../LikeButton';
+import PropertyContent from '../PropertyContent';
 import { backgroundColor } from '../../constants/config';
 
 // const { width, height } = Dimensions.get('window');
@@ -90,34 +93,21 @@ class App extends Component {
     this.setState({ modalVisible: true });
   }
 
-  renderScrollViewContent() {
-    const data = Array.from({ length: 30 });
-    return (
-      <View style={styles.scrollViewContent}>
-        {data.map((_, i) => (
-          <View key={i} style={styles.row}>
-            <Text>{i}</Text>
-          </View>
-        ))}
-        <Modal
-          animationType="slide"
-          transparent={false}
-          style={{ backgroundColor: 'black' }}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            this.setState({ modalVisible: false });
-          }}
-        >
-          <Carousel
-            images={this.props.property.images}
-            closeModel={() => {
-              this.setState({ modalVisible: false });
-            }}
-          />
-        </Modal>
-      </View>
-    );
-  }
+  openGps = () => {
+    const scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
+    const url = `${scheme}37.484847,-122.148386`;
+    this.openExternalApp(url);
+  };
+
+  openExternalApp = (url) => {
+    Linking.canOpenURL(url).then((supported) => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        Alert.alert('ERROR', `Unable to open: ${url}`, [{ text: 'OK' }]);
+      }
+    });
+  };
 
   render() {
     const headerTranslate = this.state.scrollY.interpolate({
@@ -161,7 +151,7 @@ class App extends Component {
             { useNativeDriver: true },
           )}
         >
-          {this.renderScrollViewContent()}
+          <PropertyContent property={property} />
         </Animated.ScrollView>
         <Animated.View style={[styles.header, { transform: [{ translateY: headerTranslate }] }]}>
           <TouchableWithoutFeedback onPress={this.showModal}>
@@ -211,6 +201,22 @@ class App extends Component {
             </View>
           </View>
         </Animated.View>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          style={{ backgroundColor: 'black' }}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            this.setState({ modalVisible: false });
+          }}
+        >
+          <Carousel
+            images={this.props.property.images}
+            closeModel={() => {
+              this.setState({ modalVisible: false });
+            }}
+          />
+        </Modal>
       </View>
     );
   }

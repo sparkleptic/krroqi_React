@@ -46,19 +46,25 @@ const PropertyCard = ({
             </Text>
 
             <View style={{ flexDirection: 'row' }}>
-              <Text style={styles.subHeader}>Beds: {property.bedroom_num}</Text>
-              <Text style={styles.subHeader}>Baths: {property.bathroom_num}</Text>
-              <Text style={styles.subHeader}>Sq m: {property.area}</Text>
+              {!!property.bedroom_num && (
+                <Text style={styles.subHeader}>Beds: {property.bedroom_num}</Text>
+              )}
+              {!!property.bathroom_num && (
+                <Text style={styles.subHeader}>Baths: {property.bathroom_num}</Text>
+              )}
+              {!!property.area && <Text style={styles.subHeader}>Sq m: {property.area}</Text>}
             </View>
             {propertyType && <Text style={styles.subHeader}>{propertyType.name}</Text>}
           </View>
           <View style={styles.displayTop}>
-            {propertyLabel && <Text style={styles.propertyLabel}>{propertyLabel.name}</Text>}
-            {propertyStatus && <Text style={styles.propertyStatus}>{propertyStatus.name}</Text>}
+            {!!propertyLabel && <Text style={styles.propertyLabel}>{propertyLabel.name}</Text>}
+            {!!propertyStatus && <Text style={styles.propertyStatus}>{propertyStatus.name}</Text>}
           </View>
-          <Text style={styles.priceLabel}>
-            {I18n.toNumber(property.eprice, { precision: 0 })} SAR
-          </Text>
+          {!!property.eprice && (
+            <Text style={styles.priceLabel}>
+              {I18n.toNumber(property.eprice, { precision: 0 })} SAR
+            </Text>
+          )}
         </View>
       </TouchableWithoutFeedback>
       <View style={styles.iconStyle}>

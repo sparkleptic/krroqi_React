@@ -319,6 +319,7 @@ class SearchPage extends Component {
       animationType: 'slide-down', // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
     });
   }
+  
 
   render() {
     let disableSaveSearch = false;
@@ -340,7 +341,7 @@ class SearchPage extends Component {
     }
     return (
       <View style={{ flex: 1 }}>
-        {loading && Platform.OS === 'ios' && <Loading />}
+        {loading && <Loading />}
         <HomeHeaderbar
           flip={flip}
           disableSaveSearch={disableSaveSearch}

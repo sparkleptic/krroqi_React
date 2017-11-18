@@ -20,7 +20,7 @@ class searchHeader extends Component {
     event.stopPropagation();
     this.textInput.blur();
     Navigation.showModal({
-      screen: 'krooqi.SearchPage',
+      screen: 'krooqi.Search.SearchPage',
       title: 'Search Page',
       navigatorStyle: {
         navBarCustomView: 'krooqi.SearchFormPage',

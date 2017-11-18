@@ -26,14 +26,9 @@ export function registerScreens(store, Provider) {
   Navigation.registerComponent('krooqi.PropertyList', () => PropertyList, store, Provider);
   Navigation.registerComponent('krooqi.PropertyDetail', () => PropertyDetail, store, Provider);
   Navigation.registerComponent('krooqi.Search', () => Search, store, Provider);
-  Navigation.registerComponent('krooqi.SearchPage', () => SearchPage, store, Provider);
-  Navigation.registerComponent('krooqi.Search.SortModal', () => SortModal, store, Provider);
-  Navigation.registerComponent(
-    'krooqi.Search.SaveSearchModal',
-    () => SaveSearchModal,
-    store,
-    Provider,
-  );
+  Navigation.registerComponent('krooqi.Search.SearchPage', () => SearchPage);
+  Navigation.registerComponent('krooqi.Search.SortModal', () => SortModal);
+  Navigation.registerComponent('krooqi.SaveSearchModal', () => SaveSearchModal, store, Provider);
   Navigation.registerComponent('krooqi.MapDetail', () => MapDetail, store, Provider);
   Navigation.registerComponent('krooqi.FilterPage', () => FilterPage, store, Provider);
   Navigation.registerComponent('krooqi.SearchTopBar', () => SearchTopBar, store, Provider);
