@@ -5,7 +5,7 @@ import { View, Text } from 'react-native';
 class MoreMenu extends Component {
   render() {
     return (
-      <View>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
         <Text>More Menu</Text>
       </View>
     );

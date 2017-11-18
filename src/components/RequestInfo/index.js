@@ -24,6 +24,7 @@ class RequestInfo extends Component {
     return (
       <View>
         <TextInput
+          style={styles.textInput}
           keyboardType="default"
           returnKeyType="next"
           placeholder="Your Name"
@@ -34,6 +35,7 @@ class RequestInfo extends Component {
           onChangeText={name => this.setState({ name })}
         />
         <TextInput
+          style={styles.textInput}
           keyboardType="email-address"
           returnKeyType="next"
           placeholder="Email"
@@ -45,6 +47,7 @@ class RequestInfo extends Component {
           ref={input => (this.emailInput = input)}
         />
         <TextInput
+          style={styles.textInput}
           keyboardType="phone-pad"
           returnKeyType="next"
           placeholder="Phone"
@@ -56,6 +59,7 @@ class RequestInfo extends Component {
           ref={input => (this.phoneInput = input)}
         />
         <TextInput
+          style={styles.textInput}
           numberOfLines={4}
           keyboardType="default"
           returnKeyType="go"

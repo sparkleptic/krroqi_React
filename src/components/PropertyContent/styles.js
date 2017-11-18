@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     marginTop: HEADER_MAX_HEIGHT,
     backgroundColor: 'white',
+    flex: 1,
   },
   container: {
     margin: 12,

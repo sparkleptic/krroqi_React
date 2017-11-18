@@ -9,6 +9,7 @@ import {
   Text,
   Linking,
   View,
+  KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Modal,
   Alert,
@@ -109,6 +110,18 @@ class App extends Component {
     });
   };
 
+  scrollViewContent = () => (
+    <Animated.ScrollView
+      style={styles.fill}
+      scrollEventThrottle={1}
+      onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }], {
+        useNativeDriver: true,
+      })}
+    >
+      <PropertyContent property={this.props.property} />
+    </Animated.ScrollView>
+  );
+
   render() {
     const headerTranslate = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
@@ -142,17 +155,13 @@ class App extends Component {
 
     return (
       <View style={styles.fill}>
-        <StatusBar translucent barStyle="light-content" backgroundColor="rgba(0, 0, 0, 0.251)" />
-        <Animated.ScrollView
-          style={styles.fill}
-          scrollEventThrottle={1}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
-            { useNativeDriver: true },
-          )}
-        >
-          <PropertyContent property={property} />
-        </Animated.ScrollView>
+        {Platform.OS === 'ios' ? (
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+            {this.scrollViewContent()}
+          </KeyboardAvoidingView>
+        ) : (
+          this.scrollViewContent()
+        )}
         <Animated.View style={[styles.header, { transform: [{ translateY: headerTranslate }] }]}>
           <TouchableWithoutFeedback onPress={this.showModal}>
             <Animated.Image
