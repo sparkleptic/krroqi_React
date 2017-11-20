@@ -16,7 +16,6 @@ const AgentDetail = ({ agent }) => {
       .catch(err => console.error('An error occurred', err));
   };
   const number = '+918690090417';
-  const message = `Hi ${agent.display_name}, I saw your profile on krooqi and wanted to see if you could help me`;
   return (
     <View style={{ flex: 1, margin: 10 }}>
       <View style={{ flex: 1 }}>
@@ -40,10 +39,7 @@ const AgentDetail = ({ agent }) => {
         </View>
       </View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <TouchableHighlight
-          onPress={() => openURL(`sms:${number}?body=${message}`)}
-          underlayColor="white"
-        >
+        <TouchableHighlight onPress={() => openURL(`sms:${number}`)} underlayColor="white">
           <Text>Send A Message</Text>
         </TouchableHighlight>
         <TouchableHighlight onPress={() => openURL(`tel:${number}`)} underlayColor="white">

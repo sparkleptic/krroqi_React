@@ -118,8 +118,8 @@ class SearchPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth && nextProps.auth.success) {
-      if (JSON.stringify(this.state.userData) !== JSON.stringify(nextProps.auth.success)) {
+    if (nextProps.auth) {
+      if (nextProps.auth.success && JSON.stringify(this.state.userData) !== JSON.stringify(nextProps.auth.success)) {
         this.props.actions.favoritePropertiesLoad(nextProps.auth.success.id);
       }
       this.setState({ userData: nextProps.auth.success });

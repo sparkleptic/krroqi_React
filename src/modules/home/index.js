@@ -1,34 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, ScrollView, StyleSheet, NetInfo, FlatList } from 'react-native';
+import { View, NetInfo, FlatList } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as PropertiesActions from '../../Actions/PropertiesAction';
 import HomeCard from './../../components/HomeCard';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 0,
-    backgroundColor: '#ecf0f1',
-  },
-});
-
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      initialPosition: {
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-      },
-      markerPosition: {
-        latitude: 0,
-        longitude: 0,
-      },
-    };
     this.onRefresh = this.onRefresh.bind(this);
   }
 
@@ -80,11 +60,10 @@ class App extends Component {
 App.propTypes = {
   actions: PropTypes.object.isRequired,
   properties: PropTypes.object.isRequired,
-  connection: PropTypes.object.isRequired,
-  navigator: PropTypes.object,
+  navigator: PropTypes.object.isRequired,
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     properties: state.properties,
     connection: state.connection,
