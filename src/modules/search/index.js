@@ -77,7 +77,7 @@ class SearchPage extends Component {
   }
 
   componentWillMount() {
-    AsyncStorage.clear();
+    // AsyncStorage.clear();
     this.props.actions.filteredPropertiesLoad();
     this.props.actions.propertyTypesLoad();
     this.props.actions.propertyStatusLoad();
@@ -456,8 +456,8 @@ const mapStateToProps = (state) => {
     state.propertyStatus.loading ||
     state.propertyTypes.loading;
   const favorites = state.favorites.success || [];
-  let propertyStatus = state.propertyStatus.success || [];
-  const propertyTypes = state.propertyTypes.success || [];
+  // let propertyStatus = state.propertyStatus.success || [];
+  // const propertyTypes = state.propertyTypes.success || [];
   propertyStatus = propertyStatus.filter(item => item.term_id === 33 || item.term_id === 34 || item.term_id === 108);
   return {
     filteredProperties: state.filteredProperties,

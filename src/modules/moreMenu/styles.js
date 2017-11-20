@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderColor: 'gray',
   },
-  rightView: { flex: 1, alignItems: 'center', padding: 20 },
+  rightView: { flex: 1, padding: 20 },
   button: {
     borderRadius: 4,
     borderWidth: 1,

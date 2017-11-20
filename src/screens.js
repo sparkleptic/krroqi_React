@@ -20,6 +20,8 @@ import SaveSearchModal from './components/saveSearchModal';
 import ErrorNotification from './components/errorNotification';
 import Login from './components/Login';
 import Password from './components/Password';
+import FilterAgent from './components/FilterAgent';
+import AgentDetail from './components/AgentDetail';
 
 export function registerScreens(store, Provider) {
   Navigation.registerComponent('krooqi.Home', () => Home, store, Provider);
@@ -38,6 +40,8 @@ export function registerScreens(store, Provider) {
   Navigation.registerComponent('krooqi.SavedSearch', () => SavedSearch, store, Provider);
   Navigation.registerComponent('krooqi.MoreMenu', () => MoreMenu, store, Provider);
   Navigation.registerComponent('krooqi.FindAgent', () => FindAgent, store, Provider);
+  Navigation.registerComponent('krooqi.FilterAgent', () => FilterAgent, store, Provider);
+  Navigation.registerComponent('krooqi.AgentDetail', () => AgentDetail, store, Provider);
   Navigation.registerComponent(
     'krooqi.ErrorNotification',
     () => ErrorNotification,

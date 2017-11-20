@@ -43,6 +43,14 @@ class More extends Component {
       navigatorStyle: {
         screenBackgroundColor: 'white',
       },
+      navigatorButtons: {
+        rightButtons: [
+          {
+            title: 'Filter',
+            id: 'filterAgent',
+          },
+        ],
+      },
       animationType: 'slide-up',
     });
   }
@@ -76,7 +84,7 @@ class More extends Component {
           </View>
           <View style={styles.rightView}>
             <TouchableHighlight onPress={this.openFindAgent} underlayColor="white">
-              <View>
+              <View style={{ alignItems: 'center' }}>
                 <Icon name="md-contacts" size={30} color={backgroundColor} />
                 <Text>Find Agent</Text>
               </View>

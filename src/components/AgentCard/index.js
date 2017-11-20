@@ -21,7 +21,7 @@ const AgentCard = ({ agent }) => {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 60,
+        paddingVertical: 10,
       }}
     >
       <View style={{ width: 60, justifyContent: 'center', alignItems: 'center' }}>
@@ -34,6 +34,15 @@ const AgentCard = ({ agent }) => {
       <View style={{ flex: 1, paddingHorizontal: 10 }}>
         <Text>{agent.display_name}</Text>
         <Text>{agent.address}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text>{agent.likes}/5</Text>
+          <Icon
+            style={{ marginHorizontal: 10 }}
+            name={Platform.OS === 'ios' ? 'ios-thumbs-up' : 'md-thumbs-up'}
+            size={24}
+          />
+          <Text>{agent.propertyCount === 0 ? 'No' : agent.propertyCount} Review(s)</Text>
+        </View>
         <View />
       </View>
       <View style={{ width: 40, justifyContent: 'center', alignItems: 'center' }}>
