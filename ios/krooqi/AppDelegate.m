@@ -15,6 +15,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <React/RCTI18nUtil.h>
+#import <React/RCTLinkingManager.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "RCCManager.h"
@@ -24,6 +25,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
+
+  [RNMobileCenter register];  // Initialize Mobile Center 
   
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];
@@ -61,9 +64,21 @@
                                                                 openURL:url
                                                       sourceApplication:sourceApplication
                                                              annotation:annotation
-                  ];
+                  ] || [RCTLinkingManager application:application openURL:url
+                                   sourceApplication:sourceApplication annotation:annotation
+                       ];
   // Add any custom logic here.
+  
+  
   return handled;
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
+{
+  return [RCTLinkingManager application:application
+                   continueUserActivity:userActivity
+                     restorationHandler:restorationHandler];
 }
 
 

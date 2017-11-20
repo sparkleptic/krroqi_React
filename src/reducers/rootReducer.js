@@ -10,6 +10,7 @@ import savedSearch from './savedSearch.reducer';
 import auth from './auth.reducer';
 import favorites from './favorites.reducer';
 import like from './like.reducer';
+import agents from './agents.reducer';
 
 const rootReducer = combineReducers({
   properties,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   auth,
   favorites,
   like,
+  agents,
 });
 
 export default rootReducer;

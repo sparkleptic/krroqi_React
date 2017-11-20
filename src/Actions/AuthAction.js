@@ -50,7 +50,26 @@ export function register(data) {
       .post(`${config.PUBLIC_URL}register`, data)
       .then((response) => {
         AsyncStorage.setItem(config.USER_DATA, JSON.stringify(response.data));
-        dispatch(authSuccess(response.data));
+        const userData = {
+          id: response.data.id,
+          type: response.data.type,
+          email: data.email,
+          name: data.name,
+          image: data.imageUrl,
+        };
+        dispatch(authSuccess(userData));
+      })
+      .catch((error) => {
+        dispatch(authFail(error));
+      });
+  };
+}
+export function logout() {
+  return (dispatch) => {
+    dispatch(authRequest());
+    return AsyncStorage.removeItem(config.USER_DATA)
+      .then(() => {
+        dispatch(authSuccess(false));
       })
       .catch((error) => {
         dispatch(authFail(error));

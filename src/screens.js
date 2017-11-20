@@ -6,6 +6,7 @@ import Favorites from './modules/favorites';
 import Search from './modules/search';
 import SavedSearch from './modules/savedSearch';
 import MoreMenu from './modules/moreMenu';
+import FindAgent from './modules/FindAgent';
 import PropertyList from './components/PropertyList';
 import HomeTopBar from './components/HomeTopBar';
 import PropertyDetail from './components/PropertyDetail';
@@ -36,6 +37,7 @@ export function registerScreens(store, Provider) {
   Navigation.registerComponent('krooqi.Favorites', () => Favorites, store, Provider);
   Navigation.registerComponent('krooqi.SavedSearch', () => SavedSearch, store, Provider);
   Navigation.registerComponent('krooqi.MoreMenu', () => MoreMenu, store, Provider);
+  Navigation.registerComponent('krooqi.FindAgent', () => FindAgent, store, Provider);
   Navigation.registerComponent(
     'krooqi.ErrorNotification',
     () => ErrorNotification,
