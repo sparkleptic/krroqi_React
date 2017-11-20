@@ -2,7 +2,6 @@ import axios from 'axios';
 import { AsyncStorage } from 'react-native';
 import * as types from './../constants/actionTypes';
 import * as config from './../constants/config';
-import { favoritePropertiesLoadSuccess } from './PropertiesAction';
 
 export function authRequest() {
   return { type: types.AUTH_REQUEST };
@@ -71,7 +70,6 @@ export function logout() {
     return AsyncStorage.removeItem(config.USER_DATA)
       .then(() => {
         dispatch(authSuccess(false));
-        dispatch(favoritePropertiesLoadSuccess(false));
       })
       .catch((error) => {
         dispatch(authFail(error));
