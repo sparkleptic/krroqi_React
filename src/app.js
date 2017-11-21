@@ -50,6 +50,10 @@ class App extends Component {
               },
             ],
           },
+          navigatorStyle: {
+            navBarCustomView: 'krooqi.SearchTopBar',
+            navBarComponentAlignment: 'fill',
+          },
         },
         {
           label: 'Home',

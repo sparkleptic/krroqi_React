@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  Dimensions,
-  TouchableWithoutFeedback,
-  FlatList,
-  Platform,
-  AsyncStorage,
-} from 'react-native';
+import { View, Dimensions, FlatList, Platform, AsyncStorage } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView from 'react-native-maps';
 import FlipCard from 'react-native-flip-card';
 import axios from 'axios';
-import I18n from './../../i18n';
-import { MapHeaderText } from './../../common/commonStyle';
 
 import * as PropertiesActions from './../../Actions/PropertiesAction';
 import * as AuthActions from '../../Actions/AuthAction';
@@ -85,11 +76,6 @@ class SearchPage extends Component {
   }
 
   componentDidMount() {
-    this.props.navigator.setStyle({
-      navBarCustomView: 'krooqi.SearchTopBar',
-      navBarComponentAlignment: 'fill',
-    });
-
     let navigatorOptions = {};
     if (Platform.OS === 'android' && Platform.Version === 23) {
       navigatorOptions = {
@@ -119,7 +105,10 @@ class SearchPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth) {
-      if (nextProps.auth.success && JSON.stringify(this.state.userData) !== JSON.stringify(nextProps.auth.success)) {
+      if (
+        nextProps.auth.success &&
+        JSON.stringify(this.state.userData) !== JSON.stringify(nextProps.auth.success)
+      ) {
         this.props.actions.favoritePropertiesLoad(nextProps.auth.success.id);
       }
       this.setState({ userData: nextProps.auth.success });
@@ -318,7 +307,6 @@ class SearchPage extends Component {
       animationType: 'slide-down', // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
     });
   }
-  
 
   render() {
     let disableSaveSearch = false;
@@ -332,12 +320,13 @@ class SearchPage extends Component {
     if (initSearch === JSON.stringify(search)) {
       disableSaveSearch = true;
     }
-    for (let i = 0; i < savedArray.length; i++) {
+    for (let i = 0; i < savedArray.length; i += 1) {
       const { searchLabel, ...savedObj } = savedArray[i];
       if (JSON.stringify(savedObj) === JSON.stringify(search)) {
         saved = true;
       }
     }
+
     return (
       <View style={{ flex: 1 }}>
         {loading && <Loading />}
@@ -379,9 +368,9 @@ class SearchPage extends Component {
               }}
             >
               <MapView
-                provider={PROVIDER_GOOGLE}
                 style={{ flex: 1 }}
                 region={this.state.region}
+                onRegionChange={region => this.setState({ region })}
                 onPress={this.dismissNotification}
               >
                 {filteredProperties.success &&
@@ -444,6 +433,9 @@ SearchPage.propTypes = {
   auth: PropTypes.object.isRequired,
   favorites: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
+  likeLoad: PropTypes.func.isRequired,
+  likeSuccess: PropTypes.func.isRequired,
+  likeError: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

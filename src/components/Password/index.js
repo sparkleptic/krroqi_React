@@ -93,8 +93,10 @@ class Password extends Component {
               onChangeText={password => this.setState({ data: { ...data, password } })}
               secureTextEntry
             />
+            {auth.error && (
+              <Text style={{ color: 'red', paddingBottom: 10 }}>Password is not valid</Text>
+            )}
           </View>
-
           <TouchableHighlight onPress={this.register} underlayColor="gray">
             <View style={styles.button}>
               <Text style={styles.buttonText}>Submit</Text>
@@ -112,7 +114,7 @@ class Password extends Component {
             <Text style={styles.TCText}>I accept Krooqi's Terms of use and Privacy Policy</Text>
           </View>
         </View>
-        {(loading || auth.success) && (
+        {(loading || auth.loading) && (
           <View style={styles.container}>
             <ActivityIndicator size="large" color={backgroundColor} />
             <Text style={{ textAlign: 'center', color: backgroundColor }}>Loading...</Text>
