@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { View, TextInput, Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { connect } from 'react-redux';
+import RNGooglePlaces from 'react-native-google-places';
 import { backgroundColor } from '../../constants/config';
 import styles from './styles';
 
@@ -17,30 +18,35 @@ class searchHeader extends Component {
   }
 
   openSearchPage(event) {
-    event.stopPropagation();
+    // event.stopPropagation();
     this.textInput.blur();
-    Navigation.showModal({
-      screen: 'krooqi.Search.SearchPage',
-      title: 'Search Page',
-      navigatorStyle: {
-        navBarCustomView: 'krooqi.SearchFormPage',
-        navBarComponentAlignment: 'fill',
-        navBarBackgroundColor: backgroundColor,
-      },
-      passProps: {
-        search: this.state.search,
-        onSubmit: this.onSearchSubmit,
-      },
-      navigatorButtons: {
-        leftButtons: [
-          {
-            title: 'Cancel',
-            id: 'cancel',
-            buttonColor: 'white',
-          },
-        ],
-      },
-    });
+    RNGooglePlaces.openAutocompleteModal()
+      .then((place) => {
+        console.log(place);
+      })
+      .catch(error => console.log(error.message));
+    // Navigation.showModal({
+    //   screen: 'krooqi.Search.SearchPage',
+    //   title: 'Search Page',
+    //   navigatorStyle: {
+    //     navBarCustomView: 'krooqi.SearchFormPage',
+    //     navBarComponentAlignment: 'fill',
+    //     navBarBackgroundColor: backgroundColor,
+    //   },
+    //   passProps: {
+    //     search: this.state.search,
+    //     onSubmit: this.onSearchSubmit,
+    //   },
+    //   navigatorButtons: {
+    //     leftButtons: [
+    //       {
+    //         title: 'Cancel',
+    //         id: 'cancel',
+    //         buttonColor: 'white',
+    //       },
+    //     ],
+    //   },
+    // });
   }
 
   render() {

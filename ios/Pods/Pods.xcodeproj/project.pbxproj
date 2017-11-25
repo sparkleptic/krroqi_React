@@ -39,12 +39,15 @@
 
 /* Begin PBXFileReference section */
 		0DFD52B25F1F7BFCD754F4A2FD4E5345 /* yoga-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "yoga-prefix.pch"; sourceTree = "<group>"; };
+		0EC1395ECB3ABD94A5220A4281004ECC /* GooglePlacePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlacePicker.framework; path = Frameworks/GooglePlacePicker.framework; sourceTree = "<group>"; };
+		11DC84396EBF707986E553705DA54E0B /* GoogleMapsCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMapsCore.framework; path = Maps/Frameworks/GoogleMapsCore.framework; sourceTree = "<group>"; };
 		20EBF738C09FAD7690F00AC636285606 /* YGEnums.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YGEnums.h; path = yoga/YGEnums.h; sourceTree = "<group>"; };
 		29F760576D5B0984E9F863DD50512692 /* Pods-krooqiTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-krooqiTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		2A75640D28288FFF2B1D683A956B71AC /* Pods-krooqi-tvOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-krooqi-tvOS-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2A77BF6C7B272C3189C42BD412948767 /* MobileCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCenter.framework; path = "MobileCenter-SDK-Apple/iOS/MobileCenter.framework"; sourceTree = "<group>"; };
-		2B6B6A1449E20FDE2D40E0B014C8D979 /* RNMobileCenterShared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RNMobileCenterShared.framework; path = RNMobileCenterShared/RNMobileCenterShared.framework; sourceTree = "<group>"; };
 		2D154F4805B9715F0E6D79B0363CE280 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		2DBE84E70F8E4C5FAEC9FEF1A5E3869F /* MobileCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCenterCrashes.framework; path = "MobileCenter-SDK-Apple/iOS/MobileCenterCrashes.framework"; sourceTree = "<group>"; };
+		35607566ACACE0FED11DE845117C9AF3 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Maps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
+		37C99AF2BC0238BAF8266AA0092B826D /* GooglePlacePicker.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GooglePlacePicker.bundle; path = Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle; sourceTree = "<group>"; };
 		3A0851516DBE5C5021DE67C7DABD1AF3 /* Pods-krooqiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqiTests.release.xcconfig"; sourceTree = "<group>"; };
 		4515EB104EEB7696329E28C6C2E3E203 /* Pods-krooqi-tvOSTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-krooqi-tvOSTests-dummy.m"; sourceTree = "<group>"; };
 		460B15AA8DF667B0A5469FAF11896F63 /* libPods-krooqi-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-krooqi-tvOS.a"; path = "libPods-krooqi-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,11 +65,11 @@
 		691640AE61DD4A904D3A5A0932C975A1 /* Pods-krooqi-tvOSTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-krooqi-tvOSTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		6A346CC5990B32E8553A3894BE6D4CA0 /* Pods-krooqi-tvOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-krooqi-tvOS-dummy.m"; sourceTree = "<group>"; };
 		6C09158B5CABE13CFFD82C7528478C03 /* Pods-krooqiTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-krooqiTests-frameworks.sh"; sourceTree = "<group>"; };
-		6C14ABA82FD4E85EBE72FC00BC08114A /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Maps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		6F79CF3EC3953B08C8B6461FCF3B5D11 /* Pods-krooqiTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-krooqiTests-dummy.m"; sourceTree = "<group>"; };
 		75AD5896B5B819FC1A10C4633F40B404 /* Pods-krooqi-tvOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-krooqi-tvOS-acknowledgements.plist"; sourceTree = "<group>"; };
 		77BFF3F42579B82C2AFC271942F43AC7 /* libPods-krooqiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-krooqiTests.a"; path = "libPods-krooqiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A3A9D9721228A114F405EB58E398032 /* Pods-krooqi-tvOSTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-krooqi-tvOSTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		7A67C1A35934F13882FA76790617861C /* MobileCenterAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCenterAnalytics.framework; path = "MobileCenter-SDK-Apple/iOS/MobileCenterAnalytics.framework"; sourceTree = "<group>"; };
 		81BE83B89FC1C19B82E36246D8122029 /* yoga-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "yoga-dummy.m"; sourceTree = "<group>"; };
 		82D6B7B351F50E7B6C86C97A66DBAE6A /* Pods-krooqi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqi.debug.xcconfig"; sourceTree = "<group>"; };
 		857BCA281C2D1EA9A68B46D8901C87B8 /* Pods-krooqi-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqi-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -74,25 +77,26 @@
 		8B0C863BAF5C3B5201A6973C30137346 /* Pods-krooqi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqi.release.xcconfig"; sourceTree = "<group>"; };
 		903260FE1DF2184A8990E9F557401BE8 /* yoga.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = yoga.xcconfig; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		97E1D30311B688B4F6C273684D72A16A /* GoogleMapsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMapsBase.framework; path = Base/Frameworks/GoogleMapsBase.framework; sourceTree = "<group>"; };
 		9BEE7997F4B53C722607AAAD2BE0462D /* libPods-krooqi-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-krooqi-tvOSTests.a"; path = "libPods-krooqi-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F4AFB255B88DBE7CEB5244C7804ABAE /* GoogleMapsCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMapsCore.framework; path = Maps/Frameworks/GoogleMapsCore.framework; sourceTree = "<group>"; };
-		9F5207E8D79E907E9581AF0A6873FBE8 /* MobileCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCenterCrashes.framework; path = "MobileCenter-SDK-Apple/iOS/MobileCenterCrashes.framework"; sourceTree = "<group>"; };
 		A38AC0760D4F2ECC0085FD758663331C /* YGMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YGMacros.h; path = yoga/YGMacros.h; sourceTree = "<group>"; };
 		A426663105E48D5D5335B9889874D639 /* Pods-krooqi-tvOSTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-krooqi-tvOSTests-frameworks.sh"; sourceTree = "<group>"; };
 		A541110D893066177AD47EDC0947B061 /* Yoga-internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Yoga-internal.h"; path = "yoga/Yoga-internal.h"; sourceTree = "<group>"; };
+		B10C9538E0F95E73A88E53081FE3667B /* GoogleMaps.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
+		BC0A0EB6A4896AEC4ED288AD112B22F2 /* GooglePlaces.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle; sourceTree = "<group>"; };
 		C0C53EF95B477A203339E0A19116B865 /* Pods-krooqi-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-krooqi-acknowledgements.markdown"; sourceTree = "<group>"; };
-		CA8D6259068A067153509D169DF7B06C /* MobileCenterAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCenterAnalytics.framework; path = "MobileCenter-SDK-Apple/iOS/MobileCenterAnalytics.framework"; sourceTree = "<group>"; };
+		CABAA0FAC90EF47E3266ED52C7C294D0 /* RNMobileCenterShared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RNMobileCenterShared.framework; path = RNMobileCenterShared/RNMobileCenterShared.framework; sourceTree = "<group>"; };
 		CFA5A215303DC0D9E92D304ADA828066 /* YGNodeList.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YGNodeList.h; path = yoga/YGNodeList.h; sourceTree = "<group>"; };
 		D826B80EA444469A0281CD33CC0A1EE7 /* Yoga.c */ = {isa = PBXFileReference; includeInIndex = 1; name = Yoga.c; path = yoga/Yoga.c; sourceTree = "<group>"; };
-		DF936D53F7307C02C92441F83F7AFC1A /* GoogleMaps.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		E13FBB67F20483D462F11B6AA71C1B5B /* Pods-krooqiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ECE4FA9568B7EA898EA6F53B4098FE4F /* Pods-krooqi-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-krooqi-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		EE8DB0A1AD440E6CFFA89F38846802FB /* GoogleMapsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMapsBase.framework; path = Base/Frameworks/GoogleMapsBase.framework; sourceTree = "<group>"; };
 		EF375C633A1A5C14A14E7257A4E266BA /* Pods-krooqi-tvOSTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-krooqi-tvOSTests-resources.sh"; sourceTree = "<group>"; };
 		F0FC2B5E3EA12B195F1D96D14CE17F07 /* Pods-krooqi-tvOS-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-krooqi-tvOS-resources.sh"; sourceTree = "<group>"; };
 		F41E3CA22E978346CC4938C02A38A623 /* libPods-krooqi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-krooqi.a"; path = "libPods-krooqi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8ACA92229E6B45C34EDF177365669F1 /* Yoga.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Yoga.h; path = yoga/Yoga.h; sourceTree = "<group>"; };
+		FA9BFFB47B08FAE01ADCC70135F6DE05 /* MobileCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCenter.framework; path = "MobileCenter-SDK-Apple/iOS/MobileCenter.framework"; sourceTree = "<group>"; };
 		FB39BD28CBFF58773EF6973DC195219C /* Pods-krooqi-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-krooqi-acknowledgements.plist"; sourceTree = "<group>"; };
+		FC5ED54AA2A612B8C11D296E45495036 /* GooglePlaces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlaces.framework; path = Frameworks/GooglePlaces.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +143,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0BB7A44E0AA714FA579E4E2E25D765D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EE8DB0A1AD440E6CFFA89F38846802FB /* GoogleMapsBase.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1075BD5D4F636019BD1DC5AD03E9D702 /* Pods-krooqi-tvOSTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,14 +166,6 @@
 			path = "Target Support Files/Pods-krooqi-tvOSTests";
 			sourceTree = "<group>";
 		};
-		1A6C4177CC5EA428FADCC7EB149C125A /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				2E03ADA727AB2A433886658242D9AD44 /* Frameworks */,
-			);
-			name = Core;
-			sourceTree = "<group>";
-		};
 		20F731AE46C73F232AF0C168DC383CF9 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,28 +174,45 @@
 			name = tvOS;
 			sourceTree = "<group>";
 		};
-		2E03ADA727AB2A433886658242D9AD44 /* Frameworks */ = {
+		251CBB3071027246F7E15D4348071EF1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2A77BF6C7B272C3189C42BD412948767 /* MobileCenter.framework */,
+				BC0A0EB6A4896AEC4ED288AD112B22F2 /* GooglePlaces.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		36D1442C1CA177C514145B8EF3FE1854 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				35607566ACACE0FED11DE845117C9AF3 /* GoogleMaps.framework */,
+				11DC84396EBF707986E553705DA54E0B /* GoogleMapsCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		385694D7E367E570420A7C01BC5833E4 /* Frameworks */ = {
+		396DA2AC316C4CF214FFB7E85DFE526C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9F5207E8D79E907E9581AF0A6873FBE8 /* MobileCenterCrashes.framework */,
+				CABAA0FAC90EF47E3266ED52C7C294D0 /* RNMobileCenterShared.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		469BBC0EB5391683AE7AD5F9A4E0106B /* Analytics */ = {
+		3B8A428C9004602E354BCB95CAD102AE /* Crashes */ = {
 			isa = PBXGroup;
 			children = (
-				FD0C032D912F25B89432C9A87B7FFA43 /* Frameworks */,
+				DF414A1516AEF376651DBCE3AE16A3FD /* Frameworks */,
 			);
-			name = Analytics;
+			name = Crashes;
+			sourceTree = "<group>";
+		};
+		40122614C0F684AD0221AFE9C8A2EC30 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FC5ED54AA2A612B8C11D296E45495036 /* GooglePlaces.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		58996781A54EE964D7111D73083A18A5 /* iOS */ = {
@@ -225,22 +246,32 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		63877A681EEC7C782694C63C099FD23C /* GoogleMaps */ = {
+		708CD7DDA79F1824D537BE78A24C6E44 /* RNMobileCenterShared */ = {
 			isa = PBXGroup;
 			children = (
-				820C777A0C5F098C082FA678C25F06CC /* Base */,
-				D708C5981A55C14E82B42F3224299AFA /* Maps */,
+				396DA2AC316C4CF214FFB7E85DFE526C /* Frameworks */,
 			);
-			name = GoogleMaps;
-			path = GoogleMaps;
+			name = RNMobileCenterShared;
+			path = RNMobileCenterShared;
 			sourceTree = "<group>";
 		};
-		730551646433D6AB394183BF9C61B416 /* Frameworks */ = {
+		76C5A78D26C78304AFE4560C964E1880 /* MobileCenter */ = {
 			isa = PBXGroup;
 			children = (
-				97E1D30311B688B4F6C273684D72A16A /* GoogleMapsBase.framework */,
+				D4F5A0F79D86E5185D524B06C4ACD293 /* Analytics */,
+				F45259457F720E791FE362099AAA8D4F /* Core */,
+				3B8A428C9004602E354BCB95CAD102AE /* Crashes */,
 			);
-			name = Frameworks;
+			name = MobileCenter;
+			path = MobileCenter;
+			sourceTree = "<group>";
+		};
+		79474EBCC62A6115BC9BD8C8B819F34F /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				0BB7A44E0AA714FA579E4E2E25D765D2 /* Frameworks */,
+			);
+			name = Base;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -249,18 +280,10 @@
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				7ED7F29F81AE374220E75F5CD19CDFB0 /* Development Pods */,
 				A42F72DC1D780481325DD00969B19BB6 /* Frameworks */,
-				C20C43B6DEA29B44E2B3D626E1908A29 /* Pods */,
+				CEFBEBB3523238FCABDCAF5D4B076C41 /* Pods */,
 				5BF284AD228A95316D6B0D64938F160B /* Products */,
 				F5F54FC537691F397A8F33D4D917B777 /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		7E833A78A277816A652F0543E756121D /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				DF936D53F7307C02C92441F83F7AFC1A /* GoogleMaps.bundle */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		7ED7F29F81AE374220E75F5CD19CDFB0 /* Development Pods */ = {
@@ -271,12 +294,12 @@
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		820C777A0C5F098C082FA678C25F06CC /* Base */ = {
+		96BA2A357CFF11EDCB8A85DBDA9A958A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				730551646433D6AB394183BF9C61B416 /* Frameworks */,
+				0EC1395ECB3ABD94A5220A4281004ECC /* GooglePlacePicker.framework */,
 			);
-			name = Base;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9822276D17BE0AC7789563E684A27A8F /* Pods-krooqi-tvOS */ = {
@@ -292,6 +315,14 @@
 			);
 			name = "Pods-krooqi-tvOS";
 			path = "Target Support Files/Pods-krooqi-tvOS";
+			sourceTree = "<group>";
+		};
+		9CC6A07AFC24E93A7139123A8E25CFCE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A67C1A35934F13882FA76790617861C /* MobileCenterAnalytics.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9E7922EF021E259B264AD694AAE1D749 /* yoga */ = {
@@ -311,28 +342,21 @@
 			path = "../../node_modules/react-native/ReactCommon/yoga";
 			sourceTree = "<group>";
 		};
+		A0FE9D0465E03752B2E56EBA7676844B /* GooglePlacePicker */ = {
+			isa = PBXGroup;
+			children = (
+				96BA2A357CFF11EDCB8A85DBDA9A958A /* Frameworks */,
+				C49922E00155441489B103DF97A6320F /* Resources */,
+			);
+			name = GooglePlacePicker;
+			path = GooglePlacePicker;
+			sourceTree = "<group>";
+		};
 		A42F72DC1D780481325DD00969B19BB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				58996781A54EE964D7111D73083A18A5 /* iOS */,
 				20F731AE46C73F232AF0C168DC383CF9 /* tvOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		ADF573772885EDDF8A30B4693C8E92BC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6C14ABA82FD4E85EBE72FC00BC08114A /* GoogleMaps.framework */,
-				9F4AFB255B88DBE7CEB5244C7804ABAE /* GoogleMapsCore.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C13D9BC9D93E6F38BC6207C5FE2666DC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2B6B6A1449E20FDE2D40E0B014C8D979 /* RNMobileCenterShared.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -352,32 +376,85 @@
 			path = "Target Support Files/Pods-krooqi";
 			sourceTree = "<group>";
 		};
-		C20C43B6DEA29B44E2B3D626E1908A29 /* Pods */ = {
+		C1FE10B04C5972F2AF24F0B71AE8B4FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				63877A681EEC7C782694C63C099FD23C /* GoogleMaps */,
-				FD2BD2EB016E142EDAF8B1EF1E8DF7E7 /* MobileCenter */,
-				C4B552FEC0E765D337AB1DD2FED148ED /* RNMobileCenterShared */,
+				FA9BFFB47B08FAE01ADCC70135F6DE05 /* MobileCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C49922E00155441489B103DF97A6320F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				37C99AF2BC0238BAF8266AA0092B826D /* GooglePlacePicker.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		CD03A6082D0985796176FF1C2F2AEAB6 /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				36D1442C1CA177C514145B8EF3FE1854 /* Frameworks */,
+				FB1521FACABD587FF485B598173F17E1 /* Resources */,
+			);
+			name = Maps;
+			sourceTree = "<group>";
+		};
+		CEFBEBB3523238FCABDCAF5D4B076C41 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D5894EB3CED2073CC968682B9E489F06 /* GoogleMaps */,
+				A0FE9D0465E03752B2E56EBA7676844B /* GooglePlacePicker */,
+				F34D067A4EF84AE0A5112FFF783900FF /* GooglePlaces */,
+				76C5A78D26C78304AFE4560C964E1880 /* MobileCenter */,
+				708CD7DDA79F1824D537BE78A24C6E44 /* RNMobileCenterShared */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		C4B552FEC0E765D337AB1DD2FED148ED /* RNMobileCenterShared */ = {
+		D4F5A0F79D86E5185D524B06C4ACD293 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
-				C13D9BC9D93E6F38BC6207C5FE2666DC /* Frameworks */,
+				9CC6A07AFC24E93A7139123A8E25CFCE /* Frameworks */,
 			);
-			name = RNMobileCenterShared;
-			path = RNMobileCenterShared;
+			name = Analytics;
 			sourceTree = "<group>";
 		};
-		D708C5981A55C14E82B42F3224299AFA /* Maps */ = {
+		D5894EB3CED2073CC968682B9E489F06 /* GoogleMaps */ = {
 			isa = PBXGroup;
 			children = (
-				ADF573772885EDDF8A30B4693C8E92BC /* Frameworks */,
-				7E833A78A277816A652F0543E756121D /* Resources */,
+				79474EBCC62A6115BC9BD8C8B819F34F /* Base */,
+				CD03A6082D0985796176FF1C2F2AEAB6 /* Maps */,
 			);
-			name = Maps;
+			name = GoogleMaps;
+			path = GoogleMaps;
+			sourceTree = "<group>";
+		};
+		DF414A1516AEF376651DBCE3AE16A3FD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2DBE84E70F8E4C5FAEC9FEF1A5E3869F /* MobileCenterCrashes.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F34D067A4EF84AE0A5112FFF783900FF /* GooglePlaces */ = {
+			isa = PBXGroup;
+			children = (
+				40122614C0F684AD0221AFE9C8A2EC30 /* Frameworks */,
+				251CBB3071027246F7E15D4348071EF1 /* Resources */,
+			);
+			name = GooglePlaces;
+			path = GooglePlaces;
+			sourceTree = "<group>";
+		};
+		F45259457F720E791FE362099AAA8D4F /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				C1FE10B04C5972F2AF24F0B71AE8B4FC /* Frameworks */,
+			);
+			name = Core;
 			sourceTree = "<group>";
 		};
 		F5F54FC537691F397A8F33D4D917B777 /* Targets Support Files */ = {
@@ -406,31 +483,12 @@
 			path = "Target Support Files/Pods-krooqiTests";
 			sourceTree = "<group>";
 		};
-		FBBC1C3DB13782A8E831ECEB43A426E3 /* Crashes */ = {
+		FB1521FACABD587FF485B598173F17E1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				385694D7E367E570420A7C01BC5833E4 /* Frameworks */,
+				B10C9538E0F95E73A88E53081FE3667B /* GoogleMaps.bundle */,
 			);
-			name = Crashes;
-			sourceTree = "<group>";
-		};
-		FD0C032D912F25B89432C9A87B7FFA43 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CA8D6259068A067153509D169DF7B06C /* MobileCenterAnalytics.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FD2BD2EB016E142EDAF8B1EF1E8DF7E7 /* MobileCenter */ = {
-			isa = PBXGroup;
-			children = (
-				469BBC0EB5391683AE7AD5F9A4E0106B /* Analytics */,
-				1A6C4177CC5EA428FADCC7EB149C125A /* Core */,
-				FBBC1C3DB13782A8E831ECEB43A426E3 /* Crashes */,
-			);
-			name = MobileCenter;
-			path = MobileCenter;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

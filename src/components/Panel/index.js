@@ -56,13 +56,13 @@ class Panel extends Component {
       icon = 'ios-arrow-up';
     }
     const { title, animation } = this.state;
-    const { children, data } = this.props;
+    const { children, data, text } = this.props;
     return (
       <Animated.View style={[styles.container, { height: animation }]}>
         <TouchableHighlight style={styles.button} onPress={this.toggle} underlayColor="#f1f1f1">
           <View style={styles.titleContainer} onLayout={this.setMinHeight}>
             <Text style={styles.title}>{title}</Text>
-            {data && (
+            {!!data && (
               <Text>
                 {data.start || data.end ? (
                   <Text>
@@ -73,6 +73,7 @@ class Panel extends Component {
                 )}
               </Text>
             )}
+            {!!text && <Text>{text}</Text>}
             <Icon style={styles.iconStyle} name={icon} size={24} />
           </View>
         </TouchableHighlight>
@@ -86,8 +87,14 @@ class Panel extends Component {
 
 Panel.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.object,
+  text: PropTypes.string,
   children: PropTypes.element.isRequired,
+};
+
+Panel.defaultProps = {
+  data: {},
+  text: '',
 };
 
 export default Panel;

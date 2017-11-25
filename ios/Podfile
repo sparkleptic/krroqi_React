@@ -11,6 +11,8 @@ target 'krooqi' do
   pod 'RNMobileCenterShared', '~> 0.10.0'
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga/Yoga.podspec'
   pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'GooglePlacePicker'
 
   
 

@@ -7,6 +7,7 @@ import Search from './modules/search';
 import SavedSearch from './modules/savedSearch';
 import MoreMenu from './modules/moreMenu';
 import FindAgent from './modules/FindAgent';
+import PostProperty from './modules/PostProperty';
 import PropertyList from './components/PropertyList';
 import HomeTopBar from './components/HomeTopBar';
 import PropertyDetail from './components/PropertyDetail';
@@ -50,4 +51,5 @@ export function registerScreens(store, Provider) {
   );
   Navigation.registerComponent('krooqi.Login', () => Login, store, Provider);
   Navigation.registerComponent('krooqi.Password', () => Password, store, Provider);
+  Navigation.registerComponent('krooqi.PostProperty', () => PostProperty, store, Provider);
 }

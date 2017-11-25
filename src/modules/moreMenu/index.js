@@ -13,6 +13,7 @@ class More extends Component {
     super(props);
     this.state = {};
     this.openLogin = this.openLogin.bind(this);
+    this.openPostProperty = this.openPostProperty.bind(this);
     this.openFindAgent = this.openFindAgent.bind(this);
   }
 
@@ -33,6 +34,18 @@ class More extends Component {
         animationType: 'slide-up',
       });
     }
+  }
+
+  openPostProperty() {
+    this.props.navigator.push({
+      screen: 'krooqi.PostProperty',
+      title: 'Post Property',
+      passProps: {},
+      navigatorStyle: {
+        screenBackgroundColor: 'white',
+      },
+      animationType: 'slide-up',
+    });
   }
 
   openFindAgent() {
@@ -79,8 +92,12 @@ class More extends Component {
         </View>
         <View style={styles.bottomView}>
           <View style={styles.leftView}>
-            <Icon name={ios ? 'ios-home' : 'md-home'} size={30} color={backgroundColor} />
-            <Text>Post Property</Text>
+            <TouchableHighlight onPress={this.openPostProperty} underlayColor="white">
+              <View style={{ alignItems: 'center' }}>
+                <Icon name={ios ? 'ios-home' : 'md-home'} size={30} color={backgroundColor} />
+                <Text>Post Property</Text>
+              </View>
+            </TouchableHighlight>
           </View>
           <View style={styles.rightView}>
             <TouchableHighlight onPress={this.openFindAgent} underlayColor="white">
