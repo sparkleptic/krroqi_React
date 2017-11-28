@@ -18,43 +18,30 @@ class searchHeader extends Component {
   }
 
   openSearchPage(event) {
-    // event.stopPropagation();
+    event.stopPropagation();
     this.textInput.blur();
+    const { search } = this.state;
     RNGooglePlaces.openAutocompleteModal()
       .then((place) => {
-        console.log(place);
+        this.setState({
+          search: {
+            ...search,
+            searchText: place.name,
+            latitude: place.latitude,
+            longitude: place.longitude,
+          },
+        });
       })
       .catch(error => console.log(error.message));
-    // Navigation.showModal({
-    //   screen: 'krooqi.Search.SearchPage',
-    //   title: 'Search Page',
-    //   navigatorStyle: {
-    //     navBarCustomView: 'krooqi.SearchFormPage',
-    //     navBarComponentAlignment: 'fill',
-    //     navBarBackgroundColor: backgroundColor,
-    //   },
-    //   passProps: {
-    //     search: this.state.search,
-    //     onSubmit: this.onSearchSubmit,
-    //   },
-    //   navigatorButtons: {
-    //     leftButtons: [
-    //       {
-    //         title: 'Cancel',
-    //         id: 'cancel',
-    //         buttonColor: 'white',
-    //       },
-    //     ],
-    //   },
-    // });
   }
 
   render() {
     const { OS } = Platform;
+    const { search } = this.state;
     return (
       <View style={OS === 'ios' ? styles.iosContainer : styles.container}>
         <TextInput
-          value={this.props.search.searchText}
+          value={search.searchText}
           style={OS === 'ios' ? styles.iosTextInput : styles.textInput}
           placeholder="Search city, state or zip"
           placeholderTextColor="white"

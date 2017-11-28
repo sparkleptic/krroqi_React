@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { View, Text, ScrollView, Dimensions, TouchableHighlight } from 'react-native';
 import * as PropertiesActions from '../../Actions/PropertiesAction';
 import Location from '../../components/Location';
+import PropertyTitle from '../../components/PropertyTitle';
+import PropertyAgent from '../../components/PropertyAgent';
+import Media from '../../components/Media';
 import styles from './styles';
 
 const { width } = Dimensions.get('window');
@@ -22,7 +25,7 @@ class PostProperty extends Component {
 
   ScrollNext() {
     const { currentPosition, currentPage } = this.state;
-    if (currentPosition < width * 2) {
+    if (currentPosition < width * 3) {
       const newPosition = currentPosition + width;
       this.scrollView.scrollTo({ x: newPosition, y: 0, animated: true });
       this.setState({ currentPosition: newPosition, currentPage: currentPage + 1 });
@@ -45,7 +48,7 @@ class PostProperty extends Component {
       case 1:
         pagingStyle = { justifyContent: 'flex-end' };
         break;
-      case 3:
+      case 4:
         pagingStyle = { justifyContent: 'flex-start' };
         break;
       default:
@@ -66,10 +69,13 @@ class PostProperty extends Component {
               <Location />
             </View>
             <View style={{ width }}>
-              <Text>Beautiful</Text>
+              <PropertyTitle />
             </View>
             <View style={{ width }}>
-              <Text>And simple</Text>
+              <PropertyAgent />
+            </View>
+            <View style={{ width }}>
+              <Media />
             </View>
           </ScrollView>
         </View>
@@ -89,7 +95,7 @@ class PostProperty extends Component {
               </Text>
             </TouchableHighlight>
           )}
-          {currentPage !== 3 && (
+          {currentPage !== 4 && (
             <TouchableHighlight onPress={this.ScrollNext} underlayColor="gray">
               <Text
                 style={{

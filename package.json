@@ -28,6 +28,7 @@
     "react-native-flip-card": "^3.5.2",
     "react-native-google-places": "^2.4.2",
     "react-native-i18n": "^2.0.6",
+    "react-native-image-picker": "^0.26.7",
     "react-native-maps": "^0.16.4",
     "react-native-navigation": "^1.1.280",
     "react-native-restart": "^0.0.3",

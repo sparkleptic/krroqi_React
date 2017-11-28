@@ -61,6 +61,10 @@ class App extends Component {
           icon: iconsMap['ios-home-outline'],
           selectedIcon: iconsMap['ios-home'],
           title: '',
+          navigatorStyle: {
+            navBarCustomView: 'krooqi.HomeTopBar',
+            navBarComponentAlignment: 'fill',
+          },
         },
         {
           label: 'Favorites',

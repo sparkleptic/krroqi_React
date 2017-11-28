@@ -151,6 +151,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-picker')
     compile project(':react-native-google-places')
     compile project(':react-native-fbsdk')
     compile project(':react-native-code-push')

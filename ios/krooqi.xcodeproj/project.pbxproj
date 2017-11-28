@@ -41,6 +41,7 @@
 		30F94C400E2C439D99BB8BC7 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89E433E3ECDF409FB149281E /* MaterialIcons.ttf */; };
 		316902B56DA447A99FDC3E5A /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7011E94D9D74D56A1C00ED8 /* Ionicons.ttf */; };
 		390481C0BE0C4BDD9353C1F4 /* libRNMobileCenter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0631D9236FF499FA6A1EEC2 /* libRNMobileCenter.a */; };
+		4AC2642A714E4DE4AA70E40A /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8801A07F9AE0401DB977396E /* libRNImagePicker.a */; };
 		4B4CFEEABC02A9502612BAB6 /* libPods-krooqiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C8FF6D957527B1782B9C3 /* libPods-krooqiTests.a */; };
 		5DCA99F007424AD89520A25E /* libRNGooglePlaces.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0331FD73252B4AA9B6EFAF58 /* libRNGooglePlaces.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
@@ -287,6 +288,13 @@
 			remoteGlobalIDString = D8AFADBD1BEE6F3F00A4592D;
 			remoteInfo = ReactNativeNavigation;
 		};
+		9903395E1FCD7EB8001C6A2B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52D322C2A2484357974C6F0E /* RNImagePicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
+			remoteInfo = RNImagePicker;
+		};
 		990350641F8A74CF003C7099 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 469F6A9EB589479A8CDA621D /* AirMaps.xcodeproj */;
@@ -469,6 +477,7 @@
 		4C2DC638DC98CA1F480335C2 /* Pods-krooqi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-krooqi.release.xcconfig"; path = "Pods/Target Support Files/Pods-krooqi/Pods-krooqi.release.xcconfig"; sourceTree = "<group>"; };
 		4E875958F5C54889B113E7AA /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		51D18BEE63BF43FEA81414A5 /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
+		52D322C2A2484357974C6F0E /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		538126BC8F69AA4F9ABCA926 /* Pods-krooqi-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-krooqi-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-krooqi-tvOS/Pods-krooqi-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		5915938B531044878B8BA74C /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
@@ -480,6 +489,7 @@
 		7E62BE8FC57D4B019386D2E3 /* RNAnalytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNAnalytics.xcodeproj; path = "../node_modules/mobile-center-analytics/ios/RNAnalytics.xcodeproj"; sourceTree = "<group>"; };
 		7EE71A586BA142168E705E1C /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8801A07F9AE0401DB977396E /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		89548A3C231BDC222A8F0622 /* libPods-krooqi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-krooqi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89E433E3ECDF409FB149281E /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		9916300D1FAC36CE008A0927 /* krooqi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = krooqi.entitlements; path = krooqi/krooqi.entitlements; sourceTree = "<group>"; };
@@ -592,6 +602,7 @@
 				B20847A1B2364579961AAD32 /* libz.tbd in Frameworks */,
 				2CA2EA445FB6F1E3C74B2460 /* libPods-krooqi.a in Frameworks */,
 				5DCA99F007424AD89520A25E /* libRNGooglePlaces.a in Frameworks */,
+				4AC2642A714E4DE4AA70E40A /* libRNImagePicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -813,6 +824,7 @@
 				51D18BEE63BF43FEA81414A5 /* CodePush.xcodeproj */,
 				C54F0A7C769A43EE89F40ABC /* RCTFBSDK.xcodeproj */,
 				B1403FCF313A44C38AD54E34 /* RNGooglePlaces.xcodeproj */,
+				52D322C2A2484357974C6F0E /* RNImagePicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -860,6 +872,14 @@
 			isa = PBXGroup;
 			children = (
 				990011AC1F84BBC200DE7D72 /* libReactNativeNavigation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9903395B1FCD7EB8001C6A2B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9903395F1FCD7EB8001C6A2B /* libRNImagePicker.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -998,6 +1018,7 @@
 				F2CB9A3434C34952A1778E67 /* libCodePush.a */,
 				7EE71A586BA142168E705E1C /* libRCTFBSDK.a */,
 				0331FD73252B4AA9B6EFAF58 /* libRNGooglePlaces.a */,
+				8801A07F9AE0401DB977396E /* libRNImagePicker.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1251,6 +1272,10 @@
 					ProjectRef = 2877FDF1983A4F489AB8ADF6 /* RNI18n.xcodeproj */;
 				},
 				{
+					ProductGroup = 9903395B1FCD7EB8001C6A2B /* Products */;
+					ProjectRef = 52D322C2A2484357974C6F0E /* RNImagePicker.xcodeproj */;
+				},
+				{
 					ProductGroup = 9916897E1F98A1C6009107E4 /* Products */;
 					ProjectRef = 07C01E5EA812415F8A6E415E /* RNMobileCenter.xcodeproj */;
 				},
@@ -1450,6 +1475,13 @@
 			fileType = archive.ar;
 			path = libReactNativeNavigation.a;
 			remoteRef = 990011AB1F84BBC200DE7D72 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9903395F1FCD7EB8001C6A2B /* libRNImagePicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNImagePicker.a;
+			remoteRef = 9903395E1FCD7EB8001C6A2B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		990350651F8A74CF003C7099 /* libAirMaps.a */ = {
@@ -1973,12 +2005,14 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = krooqiTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2009,12 +2043,14 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = krooqiTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2056,6 +2092,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/AirMaps/**",
 					"~/Documents/FacebookSDK",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = krooqi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2101,6 +2138,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/AirMaps/**",
 					"~/Documents/FacebookSDK",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = krooqi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2143,11 +2181,13 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = "krooqi-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2188,11 +2228,13 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = "krooqi-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2224,6 +2266,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.krooqi-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2249,6 +2292,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.krooqi-tvOSTests";

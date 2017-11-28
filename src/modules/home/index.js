@@ -15,16 +15,12 @@ class App extends Component {
   componentWillMount() {
     this.props.actions.propertiesLoad();
   }
+
   componentDidMount() {
     const dispatchConnected = isConnected => this.props.actions.checkConnection(isConnected);
     NetInfo.isConnected.fetch().then((isConnected) => {
       this.props.actions.checkConnection(isConnected);
       NetInfo.isConnected.addEventListener('connectionChange', dispatchConnected);
-    });
-
-    this.props.navigator.setStyle({
-      navBarCustomView: 'krooqi.HomeTopBar',
-      navBarComponentAlignment: 'fill',
     });
   }
 
