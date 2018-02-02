@@ -73,6 +73,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingBottom: 10,
   },
+  mainViewHead: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mainViewHeadText: {
+    fontWeight: '600',
+    fontSize: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
+  },
 });
 
 export default styles;

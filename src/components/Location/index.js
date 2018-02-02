@@ -28,11 +28,13 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 Navigation.registerComponent('krooqi.Map', () => Map);
+
 class Location extends Component {
   constructor(props) {
     super(props);
     this.state = {
       propertyStatus: '',
+      branch: '',
       region: '',
       city: '',
       district: '',
@@ -46,8 +48,20 @@ class Location extends Component {
       },
     };
     this.selectPropertyStatus = this.selectPropertyStatus.bind(this);
-    this.selectRegion = this.selectRegion.bind(this);
     this.openMap = this.openMap.bind(this);
+    this.selectRegion = this.selectRegion.bind(this);
+    this.selectBranch = this.selectBranch.bind(this);
+    this.selectDistrict = this.selectDistrict.bind(this);
+  }
+
+  selectRegion(region) {
+    this.setState({ region });
+  }
+  selectBranch(branch) {
+    this.setState({ branch });
+  }
+  selectDistrict(district) {
+    this.setState({ district });
   }
 
   selectPropertyStatus(index) {
@@ -61,10 +75,6 @@ class Location extends Component {
     }
     this.setState({ propertyStatus: termId });
     this.openMap = this.openMap.bind(this);
-  }
-
-  selectRegion() {
-    alert('select region');
   }
 
   openMap() {
@@ -85,7 +95,32 @@ class Location extends Component {
     const { region } = this.state;
     return (
       <View>
-        <Picker mode="dropdown" selectedValue={region} onValueChange={this.selectMinArea}>
+        <Picker mode="dropdown" selectedValue={region} onValueChange={this.selectRegion}>
+          <Picker.Item label="Select Region" />
+          <Picker.Item label="Min Area" />
+        </Picker>
+        {Platform.OS !== 'ios' && <View style={styles.divider} />}
+      </View>
+    );
+  }
+  renderBranch() {
+    const { branch } = this.state;
+    return (
+      <View>
+        <Picker mode="dropdown" selectedValue={branch} onValueChange={this.selectBranch}>
+          <Picker.Item label="Select Branch" />
+          <Picker.Item label="Min Area" />
+        </Picker>
+        {Platform.OS !== 'ios' && <View style={styles.divider} />}
+      </View>
+    );
+  }
+  renderDistrict() {
+    const { district } = this.state;
+    return (
+      <View>
+        <Picker mode="dropdown" selectedValue={district} onValueChange={this.selectDistrict}>
+          <Picker.Item label="Select District" />
           <Picker.Item label="Min Area" />
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
@@ -95,7 +130,7 @@ class Location extends Component {
 
   render() {
     const {
-      propertyStatus, region, city, district, address, unit, mapRegion,
+      propertyStatus, region, city, district, address, unit, mapRegion, branch
     } = this.state;
     const { OS } = Platform;
     let statusSelectedIndex = 0;
@@ -107,6 +142,7 @@ class Location extends Component {
     }
     return (
       <View style={styles.container}>
+        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> Location </Text></View>
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
             <View style={styles.margin}>
@@ -130,23 +166,23 @@ class Location extends Component {
               </View>
             )}
             {OS === 'ios' ? (
-              <Panel title="City" text={city}>
-                {this.renderRegion()}
+              <Panel title="Branch" text={branch}>
+                {this.renderBranch()}
               </Panel>
             ) : (
               <View style={styles.margin}>
-                <Text style={styles.label}>City</Text>
-                {this.renderRegion()}
+                <Text style={styles.label}>Branch</Text>
+                {this.renderBranch()}
               </View>
             )}
             {OS === 'ios' ? (
               <Panel title="District" text={district}>
-                {this.renderRegion()}
+                {this.renderDistrict()}
               </Panel>
             ) : (
               <View style={styles.margin}>
                 <Text style={styles.label}>District</Text>
-                {this.renderRegion()}
+                {this.renderDistrict()}
               </View>
             )}
             <View style={styles.margin}>

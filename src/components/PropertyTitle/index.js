@@ -20,44 +20,45 @@ class PropertyTitle extends Component {
     } = this.state;
     return (
       <View style={styles.container}>
+        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> Title </Text></View>
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
             <View style={styles.margin}>
-              <Text style={styles.label}>Unit / Floor</Text>
+              <Text style={styles.label}>Property Title</Text>
               <TextInput
                 style={styles.textInput}
                 value={title}
-                placeholder="Unit / Floor"
+                placeholder="Property Title"
                 onChangeText={txt => this.setState({ title: txt })}
               />
             </View>
             <View style={styles.margin}>
-              <Text style={styles.label}>Unit / Floor</Text>
+              <Text style={styles.label}>Prooperty Description</Text>
               <TextInput
                 style={styles.textInput}
                 value={description}
-                placeholder="Unit / Floor"
+                placeholder="Prooperty Description"
                 onChangeText={txt => this.setState({ description: txt })}
-              />
-            </View>
-            <View style={styles.margin}>
-              <Text style={styles.label}>Unit / Floor</Text>
-              <TextInput
-                style={styles.textInput}
-                value={name}
-                placeholder="Unit / Floor"
-                onChangeText={txt => this.setState({ name: txt })}
                 numberOfLines={4}
                 maxHeight={100}
                 multiline
               />
             </View>
             <View style={styles.margin}>
-              <Text style={styles.label}>Unit / Floor</Text>
+              <Text style={styles.label}>Owner Name</Text>
+              <TextInput
+                style={styles.textInput}
+                value={name}
+                placeholder="Owner Name"
+                onChangeText={txt => this.setState({ name: txt })}
+              />
+            </View>
+            <View style={styles.margin}>
+              <Text style={styles.label}>Owner Phone #</Text>
               <TextInput
                 style={styles.textInput}
                 value={phone}
-                placeholder="Unit / Floor"
+                placeholder="Owner Phone"
                 onChangeText={txt => this.setState({ phone: txt })}
               />
             </View>

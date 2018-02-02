@@ -6,6 +6,8 @@ import { View, Text, ScrollView, Dimensions, TouchableHighlight } from 'react-na
 import * as PropertiesActions from '../../Actions/PropertiesAction';
 import Location from '../../components/Location';
 import PropertyTitle from '../../components/PropertyTitle';
+import PropertyBasicDetails from '../../components/PropertyBasicDetails';
+import FeaturesAndServices from '../../components/FeaturesAndServices';
 import PropertyAgent from '../../components/PropertyAgent';
 import Media from '../../components/Media';
 import styles from './styles';
@@ -25,7 +27,7 @@ class PostProperty extends Component {
 
   ScrollNext() {
     const { currentPosition, currentPage } = this.state;
-    if (currentPosition < width * 3) {
+    if (currentPosition < width * 5) {
       const newPosition = currentPosition + width;
       this.scrollView.scrollTo({ x: newPosition, y: 0, animated: true });
       this.setState({ currentPosition: newPosition, currentPage: currentPage + 1 });
@@ -48,7 +50,7 @@ class PostProperty extends Component {
       case 1:
         pagingStyle = { justifyContent: 'flex-end' };
         break;
-      case 4:
+      case 6:
         pagingStyle = { justifyContent: 'flex-start' };
         break;
       default:
@@ -75,7 +77,13 @@ class PostProperty extends Component {
               <PropertyAgent />
             </View>
             <View style={{ width }}>
+              <PropertyBasicDetails />
+            </View>
+            <View style={{ width }}>
               <Media />
+            </View>
+            <View style={{ width }}>
+              <FeaturesAndServices />
             </View>
           </ScrollView>
         </View>
@@ -95,7 +103,7 @@ class PostProperty extends Component {
               </Text>
             </TouchableHighlight>
           )}
-          {currentPage !== 4 && (
+          {currentPage !== 6 && (
             <TouchableHighlight onPress={this.ScrollNext} underlayColor="gray">
               <Text
                 style={{
