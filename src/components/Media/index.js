@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImagePicker from 'react-native-image-picker';
-import { Image, View, TouchableHighlight, Text } from 'react-native';
+import { Image, View, Text, StyleSheet, TouchableOpacity, } from 'react-native';
 import styles from './styles';
 
 const options = {
@@ -18,26 +18,43 @@ class Media extends Component {
     super(props);
     this.state = {
       avatarSource: '',
+      ImageSource: null,
     };
-    this.selectImage = this.selectImage.bind(this);
+    this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
   }
 
-  selectImage() {
-    const self = this;
+  selectPhotoTapped() {
+    const options = {
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+  
     ImagePicker.showImagePicker(options, (response) => {
       console.log('Response = ', response);
-
+  
       if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
+        console.log('User cancelled photo picker');
+      }
+      else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
-      } else {
-        const source = { uri: response.uri };
-
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        let source = { uri: response.uri };
+  
         // You can also display the image using data:
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-        self.setState({
-          avatarSource: source,
+  
+        this.setState({
+
+          ImageSource: source
+
         });
       }
     });
@@ -45,18 +62,26 @@ class Media extends Component {
 
   render() {
     return (
-      <View>
-        <TouchableHighlight onPress={this.selectImage}>
-          <Text>Upload Photo</Text>
-        </TouchableHighlight>
-        {!!this.state.avatarSource && (
-          <Image style={{ height: 100, width: 100 }} source={this.state.avatarSource} />
-        )}
-      </View>
-    );
+        <View style={styles.container}>
+
+          <TouchableOpacity onPress={this.selectPhotoTapped}>
+
+            <View style={styles.ImageContainer}>
+
+            { this.state.ImageSource === null ? <Text>Select a Photo</Text> :
+              <Image style={styles.ImageContainer} source={this.state.ImageSource} />
+            }
+
+            </View>
+
+          </TouchableOpacity>
+
+        </View>
+      );
   }
 }
 
 Media.propTypes = {};
 
 export default Media;
+
