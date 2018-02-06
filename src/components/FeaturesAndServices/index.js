@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { CheckBox, View, Text, TextInput, KeyboardAvoidingView, Platform, Picker, ScrollView } from 'react-native';
-// import { CheckBox } from 'react-native-elements'
 import styles from './styles';
+import { connect } from 'react-redux'
+import {
+  updateViewR,
+  updateFeaturesR,
+  updateCommonFacilitiesR,
+  updateAdditionalFeaturesR,
+} from '../../Actions/propertyPostAction'
 
 let viewsArr = [
   {
@@ -98,7 +104,7 @@ String.prototype.toProperCase = function() {
       function($1) { return $1.toUpperCase(); });
 }
 
-class PropertyBasicDetails extends Component {
+class FeaturesAndServices extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -113,24 +119,53 @@ class PropertyBasicDetails extends Component {
     let viewsTemp = this.state.views
     viewsTemp[ArrValue].checkedValue = !this.state.views[ArrValue].checkedValue
     this.setState({ views: viewsTemp })
+    let TempEmpty = new Array();
+    this.state.views.map((value, i) => {
+      if(value.checkedValue){
+        let pushValue = TempEmpty.push(value.view)
+      }
+    })
+    this.props.updateViewR(TempEmpty)
   }
   featuresCheckBoxFuc = (ArrValue) => {
     let featuresTemp = this.state.features
     featuresTemp[ArrValue].checkedValue = !this.state.features[ArrValue].checkedValue
     this.setState({ features: featuresTemp })
+    let TempEmpty = new Array();
+    this.state.features.map((value, i) => {
+      if(value.checkedValue){
+        let pushValue = TempEmpty.push(value.feature)
+      }
+    })
+    this.props.updateFeaturesR(TempEmpty)
   }
   commonFacilitiesCheckBoxFuc = (ArrValue) => {
     let commonFacilitiesTemp = this.state.commonFacilities
     commonFacilitiesTemp[ArrValue].checkedValue = !this.state.commonFacilities[ArrValue].checkedValue
     this.setState({ commonFacilities: commonFacilitiesTemp })
+    let TempEmpty = new Array();
+    this.state.commonFacilities.map((value, i) => {
+      if(value.checkedValue){
+        let pushValue = TempEmpty.push(value.facility)
+      }
+    })
+    this.props.updateCommonFacilitiesR(TempEmpty)
   }
   additionalFeaturesCheckBoxFuc = (ArrValue) => {
     let additionalFeaturesTemp = this.state.additionalFeatures
     additionalFeaturesTemp[ArrValue].checkedValue = !this.state.additionalFeatures[ArrValue].checkedValue
     this.setState({ additionalFeatures: additionalFeaturesTemp })
+    let TempEmpty = new Array();
+    this.state.additionalFeatures.map((value, i) => {
+      if(value.checkedValue){
+        let pushValue = TempEmpty.push(value.additional)
+      }
+    })
+    this.props.updateAdditionalFeaturesR(TempEmpty)
   }
 
   render() {
+    const { viewR, featuresR, commonFacilitiesR, additionalFeaturesR } = this.props.propertyPost
     return (
       <View style={styles.container}>
         <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> Features & Services </Text></View>
@@ -207,6 +242,24 @@ class PropertyBasicDetails extends Component {
   }
 }
 
-PropertyBasicDetails.propTypes = {};
+FeaturesAndServices.propTypes = {};
 
-export default PropertyBasicDetails;
+function mapStateToProps (state) {
+  return {
+    propertyPost: state.propertyPost,
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    updateViewR: (value) => dispatch(updateViewR(value)),
+    updateFeaturesR: (value) => dispatch(updateFeaturesR(value)),
+    updateCommonFacilitiesR: (value) => dispatch(updateCommonFacilitiesR(value)),
+    updateAdditionalFeaturesR: (value) => dispatch(updateAdditionalFeaturesR(value)),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FeaturesAndServices)

@@ -53,8 +53,8 @@ class Login extends Component {
     };
     this.onFBLoginSuccess = this.onFBLoginSuccess.bind(this);
     this.onFBLoginLoading = this.onFBLoginLoading.bind(this);
-    this.onFbLoginFail = this.onFbLoginFail.bind(this);
-    this.register = this.register.bind(this);
+    this.onFbLoginFail    = this.onFbLoginFail.bind(this);
+    this.register         = this.register.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
