@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImagePicker from 'react-native-image-picker';
 import { Image, View, Text, StyleSheet, TouchableOpacity, } from 'react-native';
+import { Icon } from 'react-native-elements'
 import styles from './styles';
 
 const options = {
@@ -18,9 +19,10 @@ class Media extends Component {
     super(props);
     this.state = {
       avatarSource: '',
-      ImageSource: null,
+      ImageSource: [],
     };
     this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
+    // this.removeImage = this.removeImage.bind(this);;
   }
 
   selectPhotoTapped() {
@@ -50,32 +52,60 @@ class Media extends Component {
   
         // You can also display the image using data:
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        var tempArr =  new Array();
+        tempArr = this.state.ImageSource
+        let pushtempArr =  tempArr.push(source)
+
   
         this.setState({
 
-          ImageSource: source
+          ImageSource: tempArr
 
         });
       }
     });
   }
 
+  removeImage = (i) => {
+    let removeArr = this.state.ImageSource
+    let index = removeArr.indexOf(i);
+    var removedArray = removeArr.splice(i, 1)
+    this.setState({
+      ImageSource: removeArr
+    })
+  }
+
   render() {
     return (
         <View style={styles.container}>
-
-          <TouchableOpacity onPress={this.selectPhotoTapped}>
-
-            <View style={styles.ImageContainer}>
-
-            { this.state.ImageSource === null ? <Text>Select a Photo</Text> :
-              <Image style={styles.ImageContainer} source={this.state.ImageSource} />
+          <View style={{flexDirection: 'row', flexWrap: 'wrap',}}>                      
+            {
+              JSON.stringify(this.state.ImageSource).length > 2 && (
+                this.state.ImageSource.map((imgUri, i) => {
+                    let ii = {i}
+                    let iValue = ii.i
+                  return <View key={i} style={styles.ImageContainer}>
+                    { imgUri.uri === null ? <Text>Select a Photo</Text> :
+                      <Image style={styles.ImageContainer} source={{uri: imgUri.uri}} />
+                    } 
+                      <View style={styles.iconStyle}>         
+                      <Icon
+                        onPress={() => {this.removeImage(i)} }
+                        name='remove-circle'
+                        color='red'                        
+                      />
+                      </View>                  
+                    </View>                  
+                })
+              )
             }
-
-            </View>
-
-          </TouchableOpacity>
-
+            <TouchableOpacity onPress={this.selectPhotoTapped}>
+              <View style={styles.ImageContainer_1}>
+                <Text style={{ color: 'red' }}>Add new</Text>
+              </View>
+            </TouchableOpacity> 
+          </View> 
         </View>
       );
   }
@@ -84,4 +114,3 @@ class Media extends Component {
 Media.propTypes = {};
 
 export default Media;
-
