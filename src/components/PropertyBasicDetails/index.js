@@ -202,6 +202,7 @@ class PropertyBasicDetails extends Component {
                 style={styles.textInput}
                 value={rent}
                 placeholder="Rent Per Month/Price"
+                keyboardType={'numeric'}
                 onChangeText={txt => this.rentUpdate(txt)}
               />
             </View>
@@ -260,6 +261,7 @@ class PropertyBasicDetails extends Component {
                       style={styles.textInput}
                       value={meterSqLo}
                       placeholder="Meter Square"
+                      keyboardType={'numeric'}
                       onChangeText={txt => this.meterSqUpdate(txt)}
                     />
                   </View>
@@ -271,6 +273,7 @@ class PropertyBasicDetails extends Component {
                       style={styles.textInput}
                       value={yearBuildLo}
                       placeholder="Year Build"
+                      keyboardType={'numeric'}
                       onChangeText={txt => this.yrBuildUpdate(txt)}
                     />
                   </View>
