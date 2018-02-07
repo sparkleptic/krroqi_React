@@ -1,83 +1,77 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, Platform, Picker } from 'react-native';
+import { Alert, View, Text, Platform, Picker } from 'react-native';
 import Panel from '../Panel';
 import styles from './styles';
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
 import { 
-updateAgency,
-updateAgent,
+  updateAgent,
+  updateScreen_3,
 } from '../../Actions/propertyPostAction'
+import * as AgentAction from '../../Actions/AgentAction';
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+      function($1) { return $1.toUpperCase(); });
+}
 
 class PropertyAgent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       agentLo: '',
-      agencyLo: '',
     };
     this.selectAgent = this.selectAgent.bind(this);
-    this.selectAgency = this.selectAgency.bind(this);
   }
 
   selectAgent(agent) {
     this.setState({ agentLo: agent });
     this.props.updateAgent(agent)
   }
-  selectAgency(agency) {
-    this.setState({ agencyLo: agency });
-    this.props.updateAgency(agency)
-  }
 
   renderRegionAgent() {
     const { agentLo } = this.state;
+    const { agents } = this.props;
+    const data = (agents.success && agents.success.data) || [];
     return (
       <View>
         <Picker mode="dropdown" selectedValue={agentLo} onValueChange={this.selectAgent}>
           <Picker.Item label="Select Agent" value="Select Agent" />
-          <Picker.Item label="Agent 1" value="Agent 1" />
-          <Picker.Item label="Agent 2" value="Agent 2" />
-          <Picker.Item label="Agent 3" value="Agent 3" />
+          {
+            (JSON.stringify(data).length > 2) ? data.map((detail, i) => { return <Picker.Item key={i} label={detail.display_name.toProperCase()} value={detail.display_name.toProperCase()} /> }) : <Picker.Item label=" " value=" " />
+          }
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
     );
   }
-  renderRegionAgency() {
-    const { agencyLo } = this.state;
-    return (
-      <View>
-        <Picker mode="dropdown" selectedValue={agencyLo} onValueChange={this.selectAgency}>
-          <Picker.Item label="Select Agency" value="Select Agency" />
-          <Picker.Item label="Agency 1" value="Agency 1" />
-          <Picker.Item label="Agency 2" value="Agency 2" />
-          <Picker.Item label="Agency 3" value="Agency 3" />
-          <Picker.Item label="Agency 4" value="Agency 4" />
-        </Picker>
-        {Platform.OS !== 'ios' && <View style={styles.divider} />}
-      </View>
-    );
+
+  componentWillMount() {
+    this.props.actions.loadAgent({});
   }
+
   render() {
     const { OS } = Platform;
-    const { agentLo, agencyLo } = this.state;
-    const { agency, agent, screen_3 } = this.props.propertyPost;
+    const { agentLo } = this.state;
+    const { agent, screen_3 } = this.props.propertyPost;
+    const { agents } = this.props;
+    const data = (agents.success && agents.success.data) || [];
     return (
       <View>
         <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> Agent Details </Text></View>
         {
-          screen_3 ? <Text style={{color: 'red', fontWeight: '600'}}>Fill All Fields</Text> : null
+          screen_3 && (
+            Alert.alert(
+              'Required',
+              'Please fill all the fields',
+              [
+                {text: 'OK', onPress: () => this.props.updateScreen_3(false)},
+              ],
+              { cancelable: false }
+            )
+          )
         }
-        {OS === 'ios' ? (
-          <Panel title="Agency" text={agencyLo}>
-            {this.renderRegionAgency()}
-          </Panel>
-        ) : (
-          <View style={styles.margin}>
-            <Text style={styles.label}>Agency</Text>
-            {this.renderRegionAgency()}
-          </View>
-        )}
         {OS === 'ios' ? (
           <Panel title="Agent" text={agentLo}>
             {this.renderRegionAgent()}
@@ -98,13 +92,15 @@ PropertyAgent.propTypes = {};
 function mapStateToProps (state) {
   return {
     propertyPost: state.propertyPost,
+    agents: state.agents,
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    updateAgency: (value) => dispatch(updateAgency(value)),
     updateAgent: (value) => dispatch(updateAgent(value)),
+    updateScreen_3: (value) => dispatch(updateScreen_3(value)),
+    actions: bindActionCreators(AgentAction, dispatch),
   }
 }
 

@@ -28,13 +28,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     flexWrap: 'wrap',
   },
-  divChild_4: { 
-    flexDirection: 'row', 
-    width: '25%', 
-  },
   divChild_3: { 
     flexDirection: 'row', 
-    width: '33%', 
+    flexWrap: 'wrap',
+    paddingRight: 10,
   },
   divText: {
     textAlignVertical: 'center'

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, TextInput, KeyboardAvoidingView, Platform, Picker, ScrollView } from 'react-native';
+import { Alert, View, Text, TextInput, KeyboardAvoidingView, Platform, Picker, ScrollView, TouchableOpacity } from 'react-native';
+import { DatePickerDialog } from 'react-native-datepicker-dialog'
+import moment from 'moment';
 import styles from './styles';
 import { connect } from 'react-redux'
 import {
@@ -10,8 +12,11 @@ import {
   updateRooms,
   updateBathrooms,
   updateMeterSq,
-  updateYearBuild
+  updateYearBuild,
+  updateScreen_4,
 } from '../../Actions/propertyPostAction'
+
+var typeProperty = ['Apartment', 'Building', 'Office', 'Showroom', 'Villa'];
 
 class PropertyBasicDetails extends Component {
   constructor(props) {
@@ -24,6 +29,8 @@ class PropertyBasicDetails extends Component {
       bathroomsLo: '',
       meterSqLo: '',
       yearBuildLo: '',
+      DateText: 'Select Date',      
+      DateHolder: null,
     };
     this.selectpropertyType = this.selectpropertyType.bind(this);
     this.selectbathrooms = this.selectbathrooms.bind(this);
@@ -69,10 +76,11 @@ class PropertyBasicDetails extends Component {
       <View>
         <Picker mode="dropdown" selectedValue={propertyTypeLo} onValueChange={this.selectpropertyType}>
           <Picker.Item label="Select Type" value="Select Type" />
-          <Picker.Item label="Personal 1" value="Personal 1" />
-          <Picker.Item label="Personal 2" value="Personal 2" />
-          <Picker.Item label="Personal 3" value="Personal 3" />
-          <Picker.Item label="Personal 4" value="Personal 4" />
+          {
+            typeProperty.map((type, i) => {
+              return <Picker.Item key={i} label={type} value={type}/>
+            })
+          }
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
@@ -87,6 +95,13 @@ class PropertyBasicDetails extends Component {
           <Picker.Item label="2" value="2"/>
           <Picker.Item label="3" value="3"/>
           <Picker.Item label="4" value="4"/>
+          <Picker.Item label="5" value="5"/>
+          <Picker.Item label="6" value="6"/>
+          <Picker.Item label="7" value="7"/>
+          <Picker.Item label="8" value="8"/>
+          <Picker.Item label="9" value="9"/>
+          <Picker.Item label="10" value="10"/>
+          <Picker.Item label="10+" value="10+"/>
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
@@ -101,10 +116,53 @@ class PropertyBasicDetails extends Component {
           <Picker.Item label="2" value="2"/>
           <Picker.Item label="3" value="3"/>
           <Picker.Item label="4" value="4"/>
+          <Picker.Item label="5" value="5"/>
+          <Picker.Item label="6" value="6"/>
+          <Picker.Item label="7" value="7"/>
+          <Picker.Item label="8" value="8"/>
+          <Picker.Item label="9" value="9"/>
+          <Picker.Item label="10" value="10"/>
+          <Picker.Item label="10+" value="10+"/>
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
     );
+  }
+
+  /**
+   * Textbox click listener
+   */
+  DatePickerMainFunctionCall = () => {
+  
+    let DateHolder = this.state.DateHolder;
+  
+    if(!DateHolder || DateHolder == null){
+  
+      DateHolder = new Date();
+      this.setState({
+        DateHolder: DateHolder
+      });
+    }
+  
+    //To open the dialog
+    this.refs.DatePickerDialog.open({
+  
+      date: DateHolder,
+  
+    });
+  
+  }
+  
+  /**
+   * Call back for dob date picked event
+   *
+   */
+  onDatePickedFunction = (date) => {
+    this.setState({
+      dobDate: date,
+      DateText: moment(date).format('DD-MMM-YYYY')
+    });    
+    this.props.updateDateAvailable(this.state.DateText)
   }
 
   render() {
@@ -127,7 +185,16 @@ class PropertyBasicDetails extends Component {
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
             {
-              screen_4 ? <Text style={{color: 'red', fontWeight: '600'}}>Fill All Fields</Text> : null
+              screen_4 && (
+                Alert.alert(
+                  'Required',
+                  'Please fill all the fields',
+                  [
+                    {text: 'OK', onPress: () => this.props.updateScreen_4(false)},
+                  ],
+                  { cancelable: false }
+                )
+              )
             }
             <View style={styles.margin}>
               <Text style={styles.label}>Rent Per Month / Price</Text>
@@ -140,12 +207,13 @@ class PropertyBasicDetails extends Component {
             </View>
             <View style={styles.margin}>
               <Text style={styles.label}>Date Available</Text>
-              <TextInput
-                style={styles.textInput}
-                value={date}
-                placeholder="Date Available"
-                onChangeText={txt => this.dateAvailableUpdate(txt)}
-              />
+                <TouchableOpacity onPress={this.DatePickerMainFunctionCall.bind(this)} >              
+                  <View style={styles.datePickerBox}>              
+                    <Text style={styles.datePickerText}>{this.state.DateText}</Text>              
+                  </View>              
+                </TouchableOpacity>   
+              
+              <DatePickerDialog ref="DatePickerDialog" onDatePicked={this.onDatePickedFunction.bind(this)} />
             </View>
             {Platform.OS === 'ios' ? (
               <Panel title="Property Type" text={propertyTypeLo}>
@@ -234,6 +302,7 @@ function mapDispatchToProps (dispatch) {
     updateBathrooms: (value) => dispatch(updateBathrooms(value)),
     updateMeterSq: (value) => dispatch(updateMeterSq(value)),
     updateYearBuild: (value) => dispatch(updateYearBuild(value)),
+    updateScreen_4: (value) => dispatch(updateScreen_4(value)),
   }
 }
 

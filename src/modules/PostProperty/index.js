@@ -48,7 +48,6 @@ class PostProperty extends Component {
       propertyDescription,
       ownerName,
       ownerPhone,
-      agency,
       agent,
       rentPerMonth,
       dateAvailable,
@@ -67,14 +66,15 @@ class PostProperty extends Component {
 
     switch (currentPage) {
       case 1:
-        let jsonString = JSON.stringify(locationOnMap);
-        if ((propertyFor.length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0) && (unitFloor.length > 0) && (jsonString.length > 2)) {
-          this.props.updateScreen_1(false)
-          var screen = 1
-        }else{
-          this.props.updateScreen_1(true)
-          var screen = 0
-        }
+          let jsonString = JSON.stringify(locationOnMap);
+          if ((propertyFor.length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0) && (unitFloor.length > 0) && (jsonString.length > 2)) {
+            this.props.updateScreen_1(false)
+            var screen = 1
+          }else{
+            this.props.updateScreen_1(true)
+            var screen = 0
+          }
+          // var screen = 1
         break;
       case 2:
           if ((propertyTitle.length > 0) && (propertyDescription.length > 0) && (ownerName.length > 0) && (ownerPhone.length > 0)) {
@@ -84,24 +84,39 @@ class PostProperty extends Component {
             this.props.updateScreen_2(true)
             var screen = 0
           }
+          // var screen = 1
         break;
       case 3:
-          if ((agency.length > 0) && (agent.length > 0)) {
+          if ((agent.length > 0) && (agent !== 'Select Agent')) {
             this.props.updateScreen_3(false)
             var screen = 1
           }else{
             this.props.updateScreen_3(true)
             var screen = 0
           }
+          // var screen = 1
         break;
       case 4:
-          var screen = 1
+          if ((rentPerMonth.length > 0) && (dateAvailable.length > 0)  && (dateAvailable !== 'Select Date') && (propertyType.length > 0) && (propertyType !== 'Select Type') && (rooms.length > 0) && (bathrooms.length > 0) && (meterSq.length > 0) && (yearBuild.length > 0)) {
+            this.props.updateScreen_4(false)
+            var screen = 1
+          }else{
+            this.props.updateScreen_4(true)
+            var screen = 0
+          }
+          // var screen = 1
         break;
       case 5:
           var screen = 1
         break;
       case 6:
-          var screen = 1
+          if ((viewR.length > 0) && (featuresR.length > 0) && (commonFacilitiesR.length > 0) && (additionalFeaturesR.length > 0)) {
+            this.props.updateScreen_6(false)
+            alert("Saving data")
+          }else{
+            this.props.updateScreen_6(true)
+            var screen = 0
+          }
         break;
       default:
         var screen = 0
@@ -200,7 +215,7 @@ class PostProperty extends Component {
             </TouchableHighlight>
           )}
           {currentPage === 6 && (
-            <TouchableHighlight onPress={() => {alert("You Click On Save")}} underlayColor="gray">
+            <TouchableHighlight onPress={this.ScrollNext} underlayColor="gray">
               <Text
                 style={{
                   fontSize: 16,

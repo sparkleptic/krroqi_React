@@ -19,7 +19,6 @@ const UPDATE_OWNERPHONE 			= 'UPDATE_OWNERPHONE'
 
 //  Screen 3 Form
 
-const UPDATE_AGENCY ='UPDATE_AGENCY'
 const UPDATE_AGENT 	='UPDATE_AGENT'
 
 // Screen 4 Form
@@ -55,21 +54,25 @@ export default function propertyPostForm (state = initialState.PostProperty, act
         ...state,
         propertyFor: action.data
       }
+      break;
     case UPDATE_REGION:
       return {
         ...state,
         region: action.data
       }
+      break;
     case UPDATE_BRANCH:
       return {
         ...state,
         branch: action.data
       }
+      break;
     case UPDATE_DISTRICT:
       return {
         ...state,
         district: action.data
       }
+      break;
     case UPDATE_ADDRESS:
       return {
         ...state,
@@ -80,127 +83,147 @@ export default function propertyPostForm (state = initialState.PostProperty, act
         ...state,
         unitFloor: action.data
       }
+      break;
     case UPDATE_LOCATIONONMAP:
       return {
         ...state,
         locationOnMap: action.data
       }
+      break;
     case UPDATE_PROPERTYTITLE:
       return {
         ...state,
         propertyTitle: action.data
       }
+      break;
     case UPDATE_PROPERTYDESCRIPTION:
       return {
         ...state,
         propertyDescription: action.data
       }
+      break;
     case UPDATE_OWNERNAME:
       return {
         ...state,
         ownerName: action.data
       }
+      break;
     case UPDATE_OWNERPHONE:
       return {
         ...state,
         ownerPhone: action.data
       }
-    case UPDATE_AGENCY:
-      return {
-        ...state,
-        agency: action.data
-      }
+      break;
     case UPDATE_AGENT:
       return {
         ...state,
         agent: action.data
       }
+      break;
     case UPDATE_RENTPERMONTH:
       return {
         ...state,
         rentPerMonth: action.data
       }
+      break;
     case UPDATE_DATEAVAILABLE:
       return {
         ...state,
         dateAvailable: action.data
       }
+      break;
     case UPDATE_PROPERTYTYPE:
       return {
         ...state,
         propertyType: action.data
       }
+      break;
     case UPDATE_ROOMS:
       return {
         ...state,
         rooms: action.data
       }
+      break;
     case UPDATE_BATHROOMS:
       return {
         ...state,
         bathrooms: action.data
       }
+      break;
     case UPDATE_METERSQ:
       return {
         ...state,
         meterSq: action.data
       }
+      break;
     case UPDATE_YEARBUILD:
       return {
         ...state,
         yearBuild: action.data
       }
+      break;
     case UPDATE_VIEWR:
       return {
         ...state,
         viewR: action.data
       }
+      break;
     case UPDATE_FEATURESR:
       return {
         ...state,
         featuresR: action.data
       }
+      break;
     case UPDATE_COMMONFACILITIESR:
       return {
         ...state,
         commonFacilitiesR: action.data
       }
+      break;
     case UPDATE_ADDITIONALFEATURESR:
       return {
         ...state,
         additionalFeaturesR: action.data
       }
+      break;
     case SCREEN_1:
       return {
         ...state,
         screen_1: action.data
       }
+      break;
     case SCREEN_2:
       return {
         ...state,
         screen_2: action.data
       }
+      break;
     case SCREEN_3:
       return {
         ...state,
         screen_3: action.data
       }
+      break;
     case SCREEN_4:
       return {
         ...state,
         screen_4: action.data
       }
+      break;
     case SCREEN_5:
       return {
         ...state,
         screen_5: action.data
       }
+      break;
     case SCREEN_6:
       return {
         ...state,
         screen_6: action.data
       }
+      break;
     default:
       return state
+      break;
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Alert, View, Text, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
 import styles from './styles';
 import { connect } from 'react-redux'
 import { 
@@ -8,6 +8,7 @@ updatePropertyTitle,
 updatePropertyDescription,
 updateOwnerName,
 updateOwnerPhone,
+updateScreen_2,
 } from '../../Actions/propertyPostAction'
 
 class PropertyTitle extends Component {
@@ -64,51 +65,56 @@ class PropertyTitle extends Component {
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
             {
-              screen_2 ? <Text style={{color: 'red', fontWeight: '600'}}>Fill All Fields</Text> : null
+              screen_2 && (
+                Alert.alert(
+                  'Required',
+                  'Please fill all the fields',
+                  [
+                    {text: 'OK', onPress: () => this.props.updateScreen_2(false)},
+                  ],
+                  { cancelable: false }
+                )
+              )
             }
             <View style={styles.margin}>
               <Text style={styles.label}>Property Title</Text>
               <TextInput
                 style={styles.textInput}
                 value={title}
-                placeholder="Property Title"
+                placeholder="Property title"
                 onChangeText={txt => this.propertyTitleUpdate(txt)}
               />
-              <Text>propertyTitle : = {propertyTitle}</Text>
             </View>
             <View style={styles.margin}>
               <Text style={styles.label}>Prooperty Description</Text>
               <TextInput
                 style={styles.textInput}
                 value={description}
-                placeholder="Prooperty Description"
+                placeholder="Prooperty description"
                 onChangeText={txt => this.propertyDescriptionUpdate(txt) }
                 numberOfLines={4}
                 maxHeight={100}
                 multiline
               />
-              <Text>propertyDescription : = {propertyDescription}</Text>
             </View>
             <View style={styles.margin}>
               <Text style={styles.label}>Owner Name</Text>
               <TextInput
                 style={styles.textInput}
                 value={name}
-                placeholder="Owner Name"
+                placeholder="Owner name"
                 onChangeText={txt => this.ownerNameUpdate(txt)}
               />
-              <Text>ownerName : = {ownerName}</Text>
             </View>
             <View style={styles.margin}>
               <Text style={styles.label}>Owner Phone #</Text>
               <TextInput
                 style={styles.textInput}
                 value={phone}
-                placeholder="Owner Phone"
+                placeholder="Owner phone"
                 keyboardType={'numeric'}
                 onChangeText={txt => this.ownerPhoneUpdate(txt)}
               />
-              <Text>ownerPhone : = {ownerPhone}</Text>
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
@@ -131,6 +137,7 @@ function mapDispatchToProps (dispatch) {
     updatePropertyDescription: (value) => dispatch(updatePropertyDescription(value)),
     updateOwnerName: (value) => dispatch(updateOwnerName(value)),
     updateOwnerPhone: (value) => dispatch(updateOwnerPhone(value)),
+    updateScreen_2: (value) => dispatch(updateScreen_2(value)),
   }
 }
 

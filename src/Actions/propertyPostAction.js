@@ -18,7 +18,6 @@ const UPDATE_OWNERPHONE 			= 'UPDATE_OWNERPHONE'
 
 //  Screen 3 Form
 
-const UPDATE_AGENCY ='UPDATE_AGENCY'
 const UPDATE_AGENT 	='UPDATE_AGENT'
 
 // Screen 4 Form
@@ -120,13 +119,6 @@ export function updateOwnerName(data) {
 export function updateOwnerPhone(data) {
   return {
     type: UPDATE_OWNERPHONE,
-    data: data,
-  }
-}
-
-export function updateAgency(data) {
-  return {
-    type: UPDATE_AGENCY,
     data: data,
   }
 }

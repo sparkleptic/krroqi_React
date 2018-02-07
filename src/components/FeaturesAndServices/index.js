@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { CheckBox, View, Text, TextInput, KeyboardAvoidingView, Platform, Picker, ScrollView } from 'react-native';
+import { Alert, CheckBox, View, Text, TextInput, KeyboardAvoidingView, Platform, Picker, ScrollView } from 'react-native';
 import styles from './styles';
 import { connect } from 'react-redux'
 import {
@@ -8,6 +8,7 @@ import {
   updateFeaturesR,
   updateCommonFacilitiesR,
   updateAdditionalFeaturesR,
+  updateScreen_6,
 } from '../../Actions/propertyPostAction'
 
 let viewsArr = [
@@ -165,18 +166,30 @@ class FeaturesAndServices extends Component {
   }
 
   render() {
-    const { viewR, featuresR, commonFacilitiesR, additionalFeaturesR } = this.props.propertyPost
+    const { viewR, featuresR, commonFacilitiesR, additionalFeaturesR, screen_6 } = this.props.propertyPost
     return (
       <View style={styles.container}>
         <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> Features & Services </Text></View>
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
+            {
+              screen_6 && (
+                Alert.alert(
+                  'Required',
+                  'Please fill all the fields',
+                  [
+                    {text: 'OK', onPress: () => this.props.updateScreen_6(false)},
+                  ],
+                  { cancelable: false }
+                )
+              )
+            }
             <View style={styles.margin}>
               <Text style={styles.optionHeading}>Views</Text>
               <View style={styles.mainDivParent}>
               {
                 this.state.views.map( (dir, i) => {
-                  return <View key={i} style={styles.divChild_4}>
+                  return <View key={i} style={styles.divChild_3}>
                     <CheckBox                       
                       value= {dir.checkedValue}
                       onValueChange= { () => this.viewsCheckBoxFuc(i)}
@@ -192,7 +205,7 @@ class FeaturesAndServices extends Component {
                 <View style={styles.mainDivParent}>
                 {
                   this.state.features.map( (dir, i) => {
-                    return <View key={i} style={{ flexDirection: 'row', width: '33%' }}>
+                    return <View key={i} style={styles.divChild_3}>
                       <CheckBox                       
                         value= {dir.checkedValue}
                         onValueChange= { () => this.featuresCheckBoxFuc(i)}
@@ -208,7 +221,7 @@ class FeaturesAndServices extends Component {
                 <View style={styles.mainDivParent}>
                 {
                   this.state.commonFacilities.map( (dir, i) => {
-                    return <View key={i} style={{ flexDirection: 'row', width: '33%' }}>
+                    return <View key={i} style={styles.divChild_3}>
                       <CheckBox                       
                         value= {dir.checkedValue}
                         onValueChange= { () => this.commonFacilitiesCheckBoxFuc(i)}
@@ -224,7 +237,7 @@ class FeaturesAndServices extends Component {
                 <View style={styles.mainDivParent}>
                 {
                   this.state.additionalFeatures.map( (dir, i) => {
-                    return <View key={i} style={{ flexDirection: 'row', width: '33%' }}>
+                    return <View key={i} style={styles.divChild_3}>
                       <CheckBox                       
                         value= {dir.checkedValue}
                         onValueChange= { () => this.additionalFeaturesCheckBoxFuc(i)}
@@ -252,6 +265,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    updateScreen_6: (value) => dispatch(updateScreen_6(value)),
     updateViewR: (value) => dispatch(updateViewR(value)),
     updateFeaturesR: (value) => dispatch(updateFeaturesR(value)),
     updateCommonFacilitiesR: (value) => dispatch(updateCommonFacilitiesR(value)),

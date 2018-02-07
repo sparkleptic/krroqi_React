@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
       ios: {
         borderWidth: 1,
         borderRadius: 4,
-        borderColor: 'gray',
+        borderColor: '#000',
         paddingHorizontal: 10,
         paddingVertical: 5,
       },
@@ -33,6 +33,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingTop: 15,
     paddingBottom: 15,
+  }, 
+  datePickerBox:{
+    marginTop: 5,
+    borderColor: '#323232',
+    borderBottomWidth: 0.5,
+    padding: 0,
+    height: 38,
+    justifyContent:'center'
+  },  
+  datePickerText: {
+    fontSize: 14,
+    marginLeft: 5,
+    borderWidth: 0,
+    color: '#323232',
+  
   },
 });
 

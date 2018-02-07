@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
+  Alert,
   View,
   Text,
   ScrollView,
@@ -28,6 +29,7 @@ import {
   updateAddress, 
   updateUnitFloor,
   updateLocationOnMap,
+  updateScreen_1,
 } from '../../Actions/propertyPostAction'
 
 const { width, height } = Dimensions.get('window');
@@ -57,10 +59,7 @@ class Location extends Component {
         longitudeDelta: LONGITUDE_DELTA,
       },
     };
-    this.selectPropertyStatus = this.selectPropertyStatus.bind(this);
-    // this.selectRegion = this.selectRegion.bind(this);
-    // this.selectBranch = this.selectBranch.bind(this);
-    // this.selectDistrict = this.selectDistrict.bind(this);    
+    this.selectPropertyStatus = this.selectPropertyStatus.bind(this);  
     this.openMap = this.openMap.bind(this);
   }
 
@@ -129,6 +128,7 @@ class Location extends Component {
       </View>
     );
   }
+
   renderBranch() {
     const { branchLo } = this.state;
     return (
@@ -144,6 +144,7 @@ class Location extends Component {
       </View>
     );
   }
+
   renderDistrict() {
     const { districtLo } = this.state;
     return (
@@ -179,7 +180,16 @@ class Location extends Component {
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
             {
-              screen_1 ? <Text style={{color: 'red', fontWeight: '600'}}>Fill All Fields</Text> : null
+              screen_1 && (
+                Alert.alert(
+                  'Required',
+                  'Please fill all the fields',
+                  [
+                    {text: 'OK', onPress: () => this.props.updateScreen_1(false)},
+                  ],
+                  { cancelable: false }
+                )
+              )
             }
             <View style={styles.margin}>
               <SegmentedControlTab
@@ -281,6 +291,7 @@ function mapDispatchToProps (dispatch) {
     updateAddress: (value) => dispatch(updateAddress(value)),
     updateUnitFloor: (value) => dispatch(updateUnitFloor(value)),
     updateLocationOnMap: (value) => dispatch(updateLocationOnMap(value)),
+    updateScreen_1: (value) => dispatch(updateScreen_1(value)),
   }
 }
 

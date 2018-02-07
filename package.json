@@ -7,8 +7,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "flow": "flow",
-    "android-linux":
-      "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && react-native run-android"
+    "android-linux": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && react-native run-android"
   },
   "resolutions": {
     "moment": "2.19.0"
@@ -19,11 +18,14 @@
     "mobile-center": "^0.10.0",
     "mobile-center-analytics": "^0.10.0",
     "mobile-center-crashes": "^0.10.0",
-    "moment": "^2.19.1",
+    "moment": "^2.20.1",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
+    "react-moment": "^0.7.0",
     "react-native": "^0.49.3",
     "react-native-code-push": "^5.1.3-beta",
+    "react-native-datepicker-dialog": "0.0.8",
+    "react-native-elements": "^0.19.0",
     "react-native-fbsdk": "^0.6.3",
     "react-native-flip-card": "^3.5.2",
     "react-native-google-places": "^2.4.2",
@@ -33,7 +35,7 @@
     "react-native-navigation": "^1.1.280",
     "react-native-restart": "^0.0.3",
     "react-native-segmented-control-tab": "^3.2.1",
-    "react-native-vector-icons": "^4.4.0",
+    "react-native-vector-icons": "^4.5.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-form": "^7.1.0",
