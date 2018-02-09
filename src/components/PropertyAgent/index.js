@@ -1,46 +1,85 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, Platform, Picker } from 'react-native';
+import { Alert, View, Text, Platform, Picker } from 'react-native';
 import Panel from '../Panel';
 import styles from './styles';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { 
+  updateAgent,
+  updateScreen_3,
+} from '../../Actions/propertyPostAction'
+import * as AgentAction from '../../Actions/AgentAction';
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+      function($1) { return $1.toUpperCase(); });
+}
 
 class PropertyAgent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      agent: '',
+      agentLo: '',
     };
     this.selectAgent = this.selectAgent.bind(this);
   }
 
   selectAgent(agent) {
-    this.setState({ agent });
+    this.setState({ agentLo: agent });
+    this.props.updateAgent(agent)
   }
 
-  renderRegion() {
-    const { agent } = this.state;
+  renderRegionAgent() {
+    const { agentLo } = this.state;
+    const { agents } = this.props;
+    const data = (agents.success && agents.success.data) || [];
     return (
       <View>
-        <Picker mode="dropdown" selectedValue={agent} onValueChange={this.selectAgent}>
-          <Picker.Item label="Agent" />
+        <Picker mode="dropdown" selectedValue={agentLo} onValueChange={this.selectAgent}>
+          <Picker.Item label="Select Agent" value="Select Agent" />
+          {
+            (JSON.stringify(data).length > 2) ? data.map((detail, i) => { return <Picker.Item key={i} label={detail.display_name.toProperCase()} value={detail.display_name.toProperCase()} /> }) : <Picker.Item label=" " value=" " />
+          }
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
     );
   }
+
+  componentWillMount() {
+    this.props.actions.loadAgent({});
+  }
+
   render() {
     const { OS } = Platform;
-    const { agent } = this.state;
+    const { agentLo } = this.state;
+    const { agent, screen_3 } = this.props.propertyPost;
+    const { agents } = this.props;
+    const data = (agents.success && agents.success.data) || [];
     return (
       <View>
+        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> Agent Details </Text></View>
+        {
+          screen_3 && (
+            Alert.alert(
+              'Required',
+              'Please fill all the fields',
+              [
+                {text: 'OK', onPress: () => this.props.updateScreen_3(false)},
+              ],
+              { cancelable: false }
+            )
+          )
+        }
         {OS === 'ios' ? (
-          <Panel title="Agent" text={agent}>
-            {this.renderRegion()}
+          <Panel title="Agent" text={agentLo}>
+            {this.renderRegionAgent()}
           </Panel>
         ) : (
           <View style={styles.margin}>
             <Text style={styles.label}>Agent</Text>
-            {this.renderRegion()}
+            {this.renderRegionAgent()}
           </View>
         )}
       </View>
@@ -50,4 +89,22 @@ class PropertyAgent extends Component {
 
 PropertyAgent.propTypes = {};
 
-export default PropertyAgent;
+function mapStateToProps (state) {
+  return {
+    propertyPost: state.propertyPost,
+    agents: state.agents,
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    updateAgent: (value) => dispatch(updateAgent(value)),
+    updateScreen_3: (value) => dispatch(updateScreen_3(value)),
+    actions: bindActionCreators(AgentAction, dispatch),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PropertyAgent)

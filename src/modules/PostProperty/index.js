@@ -6,9 +6,19 @@ import { View, Text, ScrollView, Dimensions, TouchableHighlight } from 'react-na
 import * as PropertiesActions from '../../Actions/PropertiesAction';
 import Location from '../../components/Location';
 import PropertyTitle from '../../components/PropertyTitle';
+import PropertyBasicDetails from '../../components/PropertyBasicDetails';
+import FeaturesAndServices from '../../components/FeaturesAndServices';
 import PropertyAgent from '../../components/PropertyAgent';
 import Media from '../../components/Media';
 import styles from './styles';
+import {
+  updateScreen_1,
+  updateScreen_2,
+  updateScreen_3,
+  updateScreen_4,
+  updateScreen_5,
+  updateScreen_6,
+} from '../../Actions/propertyPostAction'
 
 const { width } = Dimensions.get('window');
 
@@ -25,7 +35,95 @@ class PostProperty extends Component {
 
   ScrollNext() {
     const { currentPosition, currentPage } = this.state;
-    if (currentPosition < width * 3) {
+
+    const { 
+      propertyFor,
+      region,
+      branch,
+      district,
+      address,
+      unitFloor,
+      locationOnMap,
+      propertyTitle,
+      propertyDescription,
+      ownerName,
+      ownerPhone,
+      agent,
+      rentPerMonth,
+      dateAvailable,
+      propertyType,
+      rooms,
+      bathrooms,
+      meterSq,
+      yearBuild,
+      viewR,
+      featuresR,
+      commonFacilitiesR,
+      additionalFeaturesR,
+    } = this.props.propertyPost;
+
+    var screen = 0
+
+    switch (currentPage) {
+      case 1:
+          let jsonString = JSON.stringify(locationOnMap);
+          if ((propertyFor.length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0) && (unitFloor.length > 0) && (jsonString.length > 2)) {
+            this.props.updateScreen_1(false)
+            var screen = 1
+          }else{
+            this.props.updateScreen_1(true)
+            var screen = 0
+          }
+          // var screen = 1
+        break;
+      case 2:
+          if ((propertyTitle.length > 0) && (propertyDescription.length > 0) && (ownerName.length > 0) && (ownerPhone.length > 0)) {
+            this.props.updateScreen_2(false)
+            var screen = 1
+          }else{
+            this.props.updateScreen_2(true)
+            var screen = 0
+          }
+          // var screen = 1
+        break;
+      case 3:
+          if ((agent.length > 0) && (agent !== 'Select Agent')) {
+            this.props.updateScreen_3(false)
+            var screen = 1
+          }else{
+            this.props.updateScreen_3(true)
+            var screen = 0
+          }
+          // var screen = 1
+        break;
+      case 4:
+          if ((rentPerMonth.length > 0) && (dateAvailable.length > 0)  && (dateAvailable !== 'Select Date') && (propertyType.length > 0) && (propertyType !== 'Select Type') && (rooms.length > 0) && (bathrooms.length > 0) && (meterSq.length > 0) && (yearBuild.length > 0)) {
+            this.props.updateScreen_4(false)
+            var screen = 1
+          }else{
+            this.props.updateScreen_4(true)
+            var screen = 0
+          }
+          // var screen = 1
+        break;
+      case 5:
+          var screen = 1
+        break;
+      case 6:
+          if ((viewR.length > 0) && (featuresR.length > 0) && (commonFacilitiesR.length > 0) && (additionalFeaturesR.length > 0)) {
+            this.props.updateScreen_6(false)
+            alert("Saving data")
+          }else{
+            this.props.updateScreen_6(true)
+            var screen = 0
+          }
+        break;
+      default:
+        var screen = 0
+        break;
+    }
+
+    if ((currentPosition < width * 5) && (screen == 1)) {
       const newPosition = currentPosition + width;
       this.scrollView.scrollTo({ x: newPosition, y: 0, animated: true });
       this.setState({ currentPosition: newPosition, currentPage: currentPage + 1 });
@@ -43,12 +141,13 @@ class PostProperty extends Component {
 
   render() {
     const { currentPage } = this.state;
+
     let pagingStyle = {};
     switch (currentPage) {
       case 1:
         pagingStyle = { justifyContent: 'flex-end' };
         break;
-      case 4:
+      case 7:
         pagingStyle = { justifyContent: 'flex-start' };
         break;
       default:
@@ -75,7 +174,13 @@ class PostProperty extends Component {
               <PropertyAgent />
             </View>
             <View style={{ width }}>
+              <PropertyBasicDetails />
+            </View>
+            <View style={{ width }}>
               <Media />
+            </View>
+            <View style={{ width }}>
+              <FeaturesAndServices />
             </View>
           </ScrollView>
         </View>
@@ -95,7 +200,21 @@ class PostProperty extends Component {
               </Text>
             </TouchableHighlight>
           )}
-          {currentPage !== 4 && (
+          {currentPage !== 6 && (
+            <TouchableHighlight onPress={this.ScrollNext} underlayColor="gray">
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  color: '#000',
+                  padding: 10,                 
+                }}
+              >
+                Next
+              </Text>
+            </TouchableHighlight>
+          )}
+          {currentPage === 6 && (
             <TouchableHighlight onPress={this.ScrollNext} underlayColor="gray">
               <Text
                 style={{
@@ -105,7 +224,7 @@ class PostProperty extends Component {
                   padding: 10,
                 }}
               >
-                Next
+                Save
               </Text>
             </TouchableHighlight>
           )}
@@ -120,12 +239,19 @@ PostProperty.propTypes = {};
 function mapStateToProps(state) {
   return {
     property: state.property,
+    propertyPost: state.propertyPost,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(PropertiesActions, dispatch),
+    updateScreen_1: (value) => dispatch(updateScreen_1(value)),
+    updateScreen_2: (value) => dispatch(updateScreen_2(value)),
+    updateScreen_3: (value) => dispatch(updateScreen_3(value)),
+    updateScreen_4: (value) => dispatch(updateScreen_4(value)),
+    updateScreen_5: (value) => dispatch(updateScreen_5(value)),
+    updateScreen_6: (value) => dispatch(updateScreen_6(value)),
   };
 }
 
