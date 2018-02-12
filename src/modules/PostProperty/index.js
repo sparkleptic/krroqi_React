@@ -44,6 +44,7 @@ class PostProperty extends Component {
           featuresValuesLo: value
          })
      }).done();
+     
     AsyncStorage.getItem('postImages').then((value) => {
          this.setState({
           postImages: value

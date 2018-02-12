@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { AsyncStorage, TouchableOpacity, Alert, CheckBox, View, Text, TextInput, KeyboardAvoidingView, Platform, Picker, ScrollView } from 'react-native';
+
+import axios from 'axios';
+import * as config from '../../constants/config';
+
 import styles from './styles';
 import { connect } from 'react-redux'
 import {
@@ -20,15 +24,35 @@ class FeaturesAndServices extends Component {
     super(props);
     this.state = {
       featureArray: [],
+      features_data: []
     };
   }
 
   componentWillMount() {
-    this.props.loadFeatures();
+    //this.props.loadFeatures();
+  }
+
+  componentDidMount(){
+    axios
+    .get(`${config.PUBLIC_URL}getFeatures`)
+    .then((response) => {
+      var objArr = new Array();
+      response.data.map( (dir, i) => {
+        // let o = Object.assign({}, dir);
+        // o.isChecked = false;
+        let obj_1 = {...dir}
+        obj_1.isChecked = false;
+        objArr.push(obj_1)
+      })
+      this.setState({'features_data' : objArr });
+    })
+    .catch((error) => {
+      
+    });
   }
 
   featureServicesFuc = (ArrValue) => {
-    const { features_data } = this.props.propertyPost
+    //const { features_data } = this.props.propertyPost
 
     // alert('ArrValue : '+ArrValue +'features_data : '+features_data)
 
@@ -43,7 +67,7 @@ class FeaturesAndServices extends Component {
     // })
 
     let viewsTemp = new Array();
-    viewsTemp = features_data
+    viewsTemp = this.state.features_data
     viewsTemp[ArrValue].isChecked = !viewsTemp[ArrValue].isChecked
     this.setState({ featureArray: viewsTemp })
     let TempEmpty = new Array();
@@ -60,7 +84,7 @@ class FeaturesAndServices extends Component {
   }
 
   render() {
-    const { screen_6, features_data, features_services} = this.props.propertyPost
+    const { screen_6, features_services} = this.props.propertyPost
     return (
       <View style={styles.container}>
         <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> Features & Services </Text></View>
@@ -81,7 +105,7 @@ class FeaturesAndServices extends Component {
             <View style={styles.margin}>
               <View style={styles.mainDivParent}>
               {
-                features_data.map((dir, i) => {
+                this.state.features_data.map((dir, i) => {
                   let value = dir.term_id
                   let keyValue = i
                 return <View key={i} style={styles.divChild_3}>
