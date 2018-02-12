@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImagePicker from 'react-native-image-picker';
-import { Image, View, Text, StyleSheet, TouchableOpacity, } from 'react-native';
+import { AsyncStorage, Image, View, Text, StyleSheet, TouchableOpacity, } from 'react-native';
 import { Icon } from 'react-native-elements'
 import styles from './styles';
 
@@ -63,6 +63,7 @@ class Media extends Component {
           ImageSource: tempArr
 
         });
+        AsyncStorage.setItem('postImages', JSON.stringify(tempArr));
       }
     });
   }
@@ -74,6 +75,7 @@ class Media extends Component {
     this.setState({
       ImageSource: removeArr
     })
+    AsyncStorage.setItem('postImages', JSON.stringify(removeArr));
   }
 
   render() {

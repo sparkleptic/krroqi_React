@@ -1,3 +1,4 @@
+import * as config from './../constants/config';
 
 // Screen 1 Form
 
@@ -32,10 +33,8 @@ const UPDATE_YEARBUILD 		= 'UPDATE_YEARBUILD'
 
 //  Screen 6 Form
 
-const UPDATE_VIEWR 					= 'UPDATE_VIEWR'
-const UPDATE_FEATURESR 				= 'UPDATE_FEATURESR'
-const UPDATE_COMMONFACILITIESR 		= 'UPDATE_COMMONFACILITIESR'
-const UPDATE_ADDITIONALFEATURESR 	= 'UPDATE_ADDITIONALFEATURESR'	
+const UPDATE_FEATURE_DATA 	= 'UPDATE_FEATURE_DATA'	
+const UPDATE_FEATURE_SERVICE  = 'UPDATE_FEATURE_SERVICE'  
 
 //  Unfilled fields in form screens
 
@@ -178,30 +177,16 @@ export function updateYearBuild(data) {
   }
 }
 
-export function updateViewR(data) {
+export function updateFeaturesServices(data) {
   return {
-    type: UPDATE_VIEWR,
+    type: UPDATE_FEATURE_SERVICE,
     data: data,
   }
 }
 
-export function updateFeaturesR(data) {
+export function updateFeaturesData(data) {
   return {
-    type: UPDATE_FEATURESR,
-    data: data,
-  }
-}
-
-export function updateCommonFacilitiesR(data) {
-  return {
-    type: UPDATE_COMMONFACILITIESR,
-    data: data,
-  }
-}
-
-export function updateAdditionalFeaturesR(data) {
-  return {
-    type: UPDATE_ADDITIONALFEATURESR,
+    type: UPDATE_FEATURE_DATA,
     data: data,
   }
 }

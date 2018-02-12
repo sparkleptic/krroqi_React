@@ -16,7 +16,28 @@ import {
   updateScreen_4,
 } from '../../Actions/propertyPostAction'
 
-var typeProperty = ['Apartment', 'Building', 'Office', 'Showroom', 'Villa'];
+var typeProperty = [
+  {
+    type: 'Apartment',
+    value: '13',
+  },
+  {
+    type: 'Building',
+    value: '107',
+  },
+  {
+    type: 'Office',
+    value: '221',
+  },
+  {
+    type: 'Showroom',
+    value: '219',
+  },
+  {
+    type: 'Villa',
+    value: '89',
+  },
+];
 
 class PropertyBasicDetails extends Component {
   constructor(props) {
@@ -78,7 +99,7 @@ class PropertyBasicDetails extends Component {
           <Picker.Item label="Select Type" value="Select Type" />
           {
             typeProperty.map((type, i) => {
-              return <Picker.Item key={i} label={type} value={type}/>
+              return <Picker.Item key={i} label={type.type} value={type.value}/>
             })
           }
         </Picker>
@@ -201,8 +222,8 @@ class PropertyBasicDetails extends Component {
               <TextInput
                 style={styles.textInput}
                 value={rent}
-                placeholder="Rent Per Month/Price"
                 keyboardType={'numeric'}
+                placeholder="Rent Per Month/Price"
                 onChangeText={txt => this.rentUpdate(txt)}
               />
             </View>
@@ -260,8 +281,8 @@ class PropertyBasicDetails extends Component {
                     <TextInput
                       style={styles.textInput}
                       value={meterSqLo}
-                      placeholder="Meter Square"
                       keyboardType={'numeric'}
+                      placeholder="Meter Square"
                       onChangeText={txt => this.meterSqUpdate(txt)}
                     />
                   </View>
@@ -272,8 +293,8 @@ class PropertyBasicDetails extends Component {
                     <TextInput
                       style={styles.textInput}
                       value={yearBuildLo}
-                      placeholder="Year Build"
                       keyboardType={'numeric'}
+                      placeholder="Year Build"
                       onChangeText={txt => this.yrBuildUpdate(txt)}
                     />
                   </View>

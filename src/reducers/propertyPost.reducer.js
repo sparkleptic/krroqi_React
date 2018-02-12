@@ -33,10 +33,8 @@ const UPDATE_YEARBUILD 		= 'UPDATE_YEARBUILD'
 
 //  Screen 6 Form
 
-const UPDATE_VIEWR 					= 'UPDATE_VIEWR'
-const UPDATE_FEATURESR 				= 'UPDATE_FEATURESR'
-const UPDATE_COMMONFACILITIESR 		= 'UPDATE_COMMONFACILITIESR'
-const UPDATE_ADDITIONALFEATURESR 	= 'UPDATE_ADDITIONALFEATURESR'
+const UPDATE_FEATURE_SERVICE  = 'UPDATE_FEATURE_SERVICE'
+const UPDATE_FEATURE_DATA 	= 'UPDATE_FEATURE_DATA'
 
 //  Unfilled fields in form screens
 
@@ -46,6 +44,12 @@ const SCREEN_3 = 'SCREEN_3'
 const SCREEN_4 = 'SCREEN_4'
 const SCREEN_5 = 'SCREEN_5'
 const SCREEN_6 = 'SCREEN_6'
+
+//  Get Features And Services
+
+const LOADING_FEATURE = 'LOADING_FEATURE'
+const LOAD_SUCCESS_FEATURE = 'LOAD_SUCCESS_FEATURE'
+const LOAD_FAIL_FEATURE = 'LOAD_FAIL_FEATURE'
 	
 export default function propertyPostForm (state = initialState.PostProperty, action) {
   switch (action.type) {
@@ -162,28 +166,16 @@ export default function propertyPostForm (state = initialState.PostProperty, act
         yearBuild: action.data
       }
       break;
-    case UPDATE_VIEWR:
+    case UPDATE_FEATURE_SERVICE:
       return {
         ...state,
-        viewR: action.data
+        features_services: action.data
       }
       break;
-    case UPDATE_FEATURESR:
+    case UPDATE_FEATURE_DATA:
       return {
         ...state,
-        featuresR: action.data
-      }
-      break;
-    case UPDATE_COMMONFACILITIESR:
-      return {
-        ...state,
-        commonFacilitiesR: action.data
-      }
-      break;
-    case UPDATE_ADDITIONALFEATURESR:
-      return {
-        ...state,
-        additionalFeaturesR: action.data
+        features_data: action.data
       }
       break;
     case SCREEN_1:
@@ -220,6 +212,24 @@ export default function propertyPostForm (state = initialState.PostProperty, act
       return {
         ...state,
         screen_6: action.data
+      }
+      break;
+    case LOADING_FEATURE:
+      return {
+        ...state,
+        features_data: []
+      }
+      break;
+    case LOAD_SUCCESS_FEATURE:
+      return {
+        ...state,
+        features_data: action.data
+      }
+      break;
+    case LOAD_FAIL_FEATURE:
+      return {
+        ...state,
+        features_data: []
       }
       break;
     default:

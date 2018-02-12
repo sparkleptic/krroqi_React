@@ -25,6 +25,34 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
   },
+  scrollViewParent: {
+    position: 'relative'
+  },
+  success: {
+    position: "absolute",
+    zIndex: 99999,
+    height: '100%',
+    width: '100%',
+    top: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  successViewText: {
+    backgroundColor: '#fff',
+    padding: 15,
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+  successText: {
+    color: '#000',
+    fontSize: 17,
+    textAlign: 'center'
+  }
 });
 
 export default styles;

@@ -39,6 +39,10 @@ const LONGITUDE = 0;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+var countriesArr = ['Saudi Arabia']
+var citiesArr = ['Asir','Jeddah Province','Makkah Province','Qassim','Riyadh Province','Tabuk']
+var districtsArr = ['Al Khunayqiyah','Jeddah','Labkhah','Mecca','Riyadh']
+
 Navigation.registerComponent('krooqi.Map', () => Map);
 
 class Location extends Component {
@@ -119,10 +123,14 @@ class Location extends Component {
     return (
       <View>
         <Picker mode="dropdown" selectedValue={regionLo} onValueChange={ (value) => {this.selectRegion(value)}}>
-          <Picker.Item label="Select Region" value="key0" />
-          <Picker.Item label="Min Area 1" value="selectRegion Min Area 1" />
-          <Picker.Item label="Min Area 2" value="selectRegion Min Area 2" />
-          <Picker.Item label="Min Area 3" value="selectRegion Min Area 3" />
+          <Picker.Item label="Select country" value="Select country" />
+          {
+            countriesArr.length > 0 && (
+              countriesArr.map((country, i) => {
+               return <Picker.Item key={i} label={country} value={country} />     
+              })
+            )
+          }
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
@@ -135,10 +143,13 @@ class Location extends Component {
       <View>
         <Picker mode="dropdown" selectedValue={branchLo} onValueChange={(value) => {this.selectBranch(value)}}>
           <Picker.Item label="Select Branch" value="key0" />
-          <Picker.Item label="Min Area 1" value="selectBranch key1" />
-          <Picker.Item label="Min Area 2" value="selectBranch key2" />
-          <Picker.Item label="Min Area 3" value="selectBranch key3" />
-          <Picker.Item label="Min Area 4" value="selectBranch key4" />
+          {
+            citiesArr.length > 0 && (
+              citiesArr.map((city, i) => {
+              return  <Picker.Item key={i} label={city} value={city} />     
+              })
+            )
+          }
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
@@ -150,11 +161,14 @@ class Location extends Component {
     return (
       <View>
         <Picker mode="dropdown" selectedValue={districtLo} onValueChange={(value) => {this.selectDistrict(value)}}>
-          <Picker.Item label="Select District" />
-          <Picker.Item label="Min Area 1" value="key1 selectDistrict" />
-          <Picker.Item label="Min Area 2" value="key2 selectDistrict" />
-          <Picker.Item label="Min Area 3" value="key3 selectDistrict" />
-          <Picker.Item label="Min Area 4" value="key4 selectDistrict" />
+          <Picker.Item label="Select District" value="Select District" />
+          {
+            districtsArr.length > 0 && (
+              districtsArr.map((district, i) => {
+              return  <Picker.Item key={i} label={district} value={district} />     
+              })
+            )
+          }
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
@@ -200,7 +214,7 @@ class Location extends Component {
                 selectedIndex={statusSelectedIndex}
                 onTabPress={this.selectPropertyStatus}
               />
-            </View>
+            </View>       
             {OS === 'ios' ? (
               <Panel title="Region" text={regionLo}>
                 {this.renderRegion()}
