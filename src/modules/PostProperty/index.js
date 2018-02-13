@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { AsyncStorage, View, Text, ScrollView, Dimensions, TouchableHighlight } from 'react-native';
+import { ActivityIndicator, AsyncStorage, View, Text, ScrollView, Dimensions, TouchableHighlight } from 'react-native';
 import * as PropertiesActions from '../../Actions/PropertiesAction';
 import Location from '../../components/Location';
 import PropertyTitle from '../../components/PropertyTitle';
@@ -31,6 +31,7 @@ class PostProperty extends Component {
       currentPosition: 0,
       currentPage: 1,
       successModal: false,
+      savingLoader: false,
       featuresValuesLo: [],
       postImages: [],
     };
@@ -44,7 +45,6 @@ class PostProperty extends Component {
           featuresValuesLo: value
          })
      }).done();
-     
     AsyncStorage.getItem('postImages').then((value) => {
          this.setState({
           postImages: value
@@ -86,7 +86,7 @@ class PostProperty extends Component {
     switch (currentPage) {
       case 1:
           let jsonString = JSON.stringify(locationOnMap);
-          if ((propertyFor.length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0) && (unitFloor.length > 0) && (jsonString.length > 2)) {
+          if ((JSON.stringify(propertyFor).length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0) && (unitFloor.length > 0)) {
             this.props.updateScreen_1(false)
             var screen = 1
           }else{
@@ -130,7 +130,11 @@ class PostProperty extends Component {
         break;
       case 6:
           if ((this.state.featuresValuesLo.length > 2)) {
-            this.props.updateScreen_6(false)
+          
+          this.props.updateScreen_6(false)
+          this.setState({
+            savingLoader: true
+          })
             
           let dataPost = {
             lang: 'en',
@@ -152,17 +156,16 @@ class PostProperty extends Component {
             area: meterSq,
             build_year: yearBuild,
             features: JSON.parse(this.state.featuresValuesLo),
-            // images: JSON.parse(this.state.postImages)
+            images: JSON.parse(this.state.postImages)
           }
 
           axios
             .post(`${config.PUBLIC_URL}addProperty`, dataPost)
             .then((response) => {
-              // alert(JSON.stringify(response.status)+' : response.data.status')
               if (response.status == '200' || response.status == 200) {                
-                // alert(screen +'screen' + JSON.stringify(response.status) + ' currentPosition' + currentPosition + ' width * 7' + (width * 7) + 'currentPage '+ currentPage)
                 this.setState({
-                  successModal: true
+                  successModal: true,
+                  savingLoader: false
                 })
               }
             })
@@ -173,8 +176,7 @@ class PostProperty extends Component {
           }else{
             this.props.updateScreen_6(true)
             var screen = 0
-          }
-          
+          }          
 
         break;
       default:
@@ -215,7 +217,7 @@ class PostProperty extends Component {
     }
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, }}>
           <ScrollView
             horizontal
             pagingEnabled
@@ -250,7 +252,10 @@ class PostProperty extends Component {
             <View style={styles.successViewText}>
               <Text style={styles.successText}>Your listing successfully submitted. We will review and get back to you shortly.</Text>
             </View>                
-          </View> ): (<View style={[{ flexDirection: 'row' }, pagingStyle]}>
+          </View> ): this.state.savingLoader ? ( <View style={styles.containerLoader}>
+      <ActivityIndicator size="large" color={config.backgroundColor} />
+      <Text style={{ textAlign: 'center', color: config.backgroundColor }}>Saving...</Text>
+    </View>) :(<View style={[{ flexDirection: 'row' }, pagingStyle]}>
           {currentPage !== 1 && (
             <TouchableHighlight onPress={this.ScrollPrev} underlayColor="gray">
               <Text

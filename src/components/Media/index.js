@@ -22,7 +22,6 @@ class Media extends Component {
       ImageSource: [],
     };
     this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
-    // this.removeImage = this.removeImage.bind(this);;
   }
 
   selectPhotoTapped() {
@@ -48,10 +47,15 @@ class Media extends Component {
         console.log('User tapped custom button: ', response.customButton);
       }
       else {
-        let source = { uri: response.uri };
+        // let source = { uri: response.uri };
   
         // You can also display the image using data:
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+        let source = { uri: 'data:'+response.type+';base64,' + response.data }; // Dynamic Base 64
+
+        // console.log(JSON.stringify(response));
+        // console.log("Data : "+'data:'response.type+';base64,' + response.data);
+        // alert(JSON.stringify(response));
 
         var tempArr =  new Array();
         tempArr = this.state.ImageSource
@@ -63,7 +67,16 @@ class Media extends Component {
           ImageSource: tempArr
 
         });
-        AsyncStorage.setItem('postImages', JSON.stringify(tempArr));
+
+        let AsyncImg = new Array();
+        this.state.ImageSource.map((imgUrl, i) => {
+          let pushAsyncImg = AsyncImg.push(imgUrl.uri)
+        })
+
+        AsyncStorage.setItem('postImages', JSON.stringify(AsyncImg));
+        // let parse = JSON.stringify(AsyncImg)
+        // console.log('AsyncImg : '+JSON.stringify(AsyncImg))
+        // console.log('parse : '+JSON.parse(parse))
       }
     });
   }
@@ -75,7 +88,12 @@ class Media extends Component {
     this.setState({
       ImageSource: removeArr
     })
-    AsyncStorage.setItem('postImages', JSON.stringify(removeArr));
+
+    let AsyncImgRemove = new Array();
+    this.state.ImageSource.map((imgUrl, i) => {
+      let pushAsyncImgRemove = AsyncImgRemove.push(imgUrl.uri)
+    })
+    AsyncStorage.setItem('postImages', JSON.stringify(AsyncImgRemove));
   }
 
   render() {
@@ -83,7 +101,7 @@ class Media extends Component {
         <View style={styles.container}>
           <View style={{flexDirection: 'row', flexWrap: 'wrap',}}>                      
             {
-              JSON.stringify(this.state.ImageSource).length > 2 && (
+              this.state.ImageSource.length > 0 && (
                 this.state.ImageSource.map((imgUri, i) => {
                     let ii = {i}
                     let iValue = ii.i
@@ -102,11 +120,13 @@ class Media extends Component {
                 })
               )
             }
+            { this.state.ImageSource.length < 5 && (
             <TouchableOpacity onPress={this.selectPhotoTapped}>
               <View style={styles.ImageContainer_1}>
                 <Text style={{ color: 'red' }}>Add new</Text>
               </View>
-            </TouchableOpacity> 
+            </TouchableOpacity> )
+            }
           </View> 
         </View>
       );

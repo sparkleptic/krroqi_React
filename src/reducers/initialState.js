@@ -10,7 +10,7 @@ export default {
   },
   search: config.search,
   PostProperty: {
-  	propertyFor: '33',
+  	propertyFor: 33,
   	region: '',
   	branch: '',
   	district: '',
