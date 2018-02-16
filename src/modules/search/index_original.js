@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, FlatList, Platform, AsyncStorage, Text } from 'react-native';
+import { View, Dimensions, FlatList, Platform, AsyncStorage } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import MapView from './Cluster/src/MapContainer'
+import MapView from 'react-native-maps';
 import FlipCard from 'react-native-flip-card';
 import axios from 'axios';
 
@@ -50,7 +50,6 @@ class SearchPage extends Component {
       openProperty: '',
       userData: null,
       error: false,
-      clusterlo: [],
     };
     this.showLightBox = this.showLightBox.bind(this);
     this.sortProperties = this.sortProperties.bind(this);
@@ -309,36 +308,6 @@ class SearchPage extends Component {
     });
   }
 
-  makeMarkersData(){
-    const { filteredProperties } = this.props;
-    
-    let markers = new Array();
-    
-    {
-      filteredProperties.success && filteredProperties.success.map(marker => {
-        let data = {
-          id: marker.ID,
-          latitude: parseFloat(marker.lat), 
-          longitude: parseFloat(marker.lng),
-          price: 5000,
-          currency: 'Krooqi'
-        };
-
-        markers.push(data);
-      })
-    }
-
-    /*
-    let markers = [
-      { id: 1, currency: '€', price: 123, latitude: 21.3891, longitude: 39.8579 },
-      { id: 2, currency: '$', price: 69, latitude: 55.6839255, longitude: 12.5576476 },
-      { id: 3, currency: '£', price: 666, latitude: 55.6799209, longitude: 12.5800284 },
-    ];
-    */
-
-    return markers;
-  }
-
   render() {
     let disableSaveSearch = false;
     let saved = false;
@@ -380,9 +349,6 @@ class SearchPage extends Component {
             backgroundColor: '#F5FCFF',
           }}
         >
-         <View>
-              <Text>{JSON.stringify(this.state.clusterlo)}</Text>
-            </View>
           <FlipCard
             flip={this.state.flip}
             friction={8}
@@ -396,15 +362,34 @@ class SearchPage extends Component {
               borderWidth: 0,
             }}
           >
-           
             <View
               style={{
                 flex: 1,
               }}
             >
-              <MapView data={this.makeMarkersData()}  />
+            <MapView
+              style={{ flex: 1 }}
+              region={this.state.region}
+              onRegionChange={region => this.setState({ region })}
+              onPress={this.dismissNotification}
+            >
+            {filteredProperties.success &&
+             filteredProperties.success.map(marker => (
+               <MapView.Marker
+                 key={marker.ID}
+                 coordinate={{
+                   latitude: parseFloat(marker.lat),
+                   longitude: parseFloat(marker.lng),
+                 }}
+                 image={MarkerImg}
+                 onPress={(e) => {
+                   e.stopPropagation();
+                   this.showLightBox(marker);
+                 }}
+               />
+             ))}
+            </MapView>           
             </View>
-
             <View
               style={{
                 flex: 1,
