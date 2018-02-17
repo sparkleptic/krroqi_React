@@ -5,7 +5,7 @@ import MarkerImg from '../../../../../images/highlight-pin-single-family-act.png
 
 const Marker = ({ item, color, children }) => {
 	const coords = item.geometry.coordinates
-	const { price, currency } = item.properties
+	const { price, currency, showLightBox, marker } = item.properties
 
 	return (
 		<MapView.Marker
@@ -17,6 +17,10 @@ const Marker = ({ item, color, children }) => {
 			calloutOffset={{ x: 100, y: 50 }}
 			calloutAnchor={{ x: 0.5, y: 0 }}
 			activeOpacity={0.8}
+			onPress={(e) => {
+				e.stopPropagation();
+				showLightBox(marker);
+			}}
 		/>
 	)
 }

@@ -94,6 +94,7 @@ class MapContainer extends Component {
 	render() {
 		return (
 			<Map
+				onPress={this.props.dismissNotification}
 				initialRegion={initialRegion}
 				onRegionChangeComplete={(x) => { this.onRegionChangeComplete(x) }}
 				{...this.props}

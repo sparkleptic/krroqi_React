@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Dimensions, FlatList, Platform, AsyncStorage, Text } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+// import MapView from 'react-native-maps';
 import MapView from './Cluster/src/MapContainer'
 import FlipCard from 'react-native-flip-card';
 import axios from 'axios';
@@ -321,7 +322,9 @@ class SearchPage extends Component {
           latitude: parseFloat(marker.lat), 
           longitude: parseFloat(marker.lng),
           price: 5000,
-          currency: 'Krooqi'
+          currency: 'Krooqi',
+          showLightBox: this.showLightBox,
+          marker: marker,
         };
 
         markers.push(data);
@@ -337,6 +340,7 @@ class SearchPage extends Component {
     */
 
     return markers;
+
   }
 
   render() {
@@ -402,7 +406,7 @@ class SearchPage extends Component {
                 flex: 1,
               }}
             >
-              <MapView data={this.makeMarkersData()}  />
+              <MapView data={this.makeMarkersData()} dismissNotification={this.dismissNotification}  />
             </View>
 
             <View
