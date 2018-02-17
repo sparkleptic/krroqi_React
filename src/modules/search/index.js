@@ -20,8 +20,8 @@ import HomeHeaderbar from '../../components/HomeHeaderbar';
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
-const LATITUDE = 0;
-const LONGITUDE = 0;
+const LATITUDE = 23.8859;
+const LONGITUDE = 45.0792;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
@@ -42,8 +42,8 @@ class SearchPage extends Component {
       region: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
+        latitudeDelta: 25,
+        longitudeDelta: 25,
       },
       defaultSearchLabel: '',
       selectedValue: 'Relevance',
@@ -406,7 +406,7 @@ class SearchPage extends Component {
                 flex: 1,
               }}
             >
-              <MapView data={this.makeMarkersData()} dismissNotification={this.dismissNotification}  />
+              <MapView region={this.state.region} data={this.makeMarkersData()} dismissNotification={this.dismissNotification}  />
             </View>
 
             <View
