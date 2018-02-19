@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { View, Dimensions, FlatList, Platform, AsyncStorage, Text } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import MapView from 'react-native-maps';
 import MapView from './Cluster/src/MapContainer'
 import FlipCard from 'react-native-flip-card';
 import axios from 'axios';
@@ -384,9 +383,6 @@ class SearchPage extends Component {
             backgroundColor: '#F5FCFF',
           }}
         >
-         <View>
-              <Text>{JSON.stringify(this.state.clusterlo)}</Text>
-            </View>
           <FlipCard
             flip={this.state.flip}
             friction={8}

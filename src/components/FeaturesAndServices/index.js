@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { AsyncStorage, TouchableOpacity, Alert, CheckBox, View, Text, TextInput, KeyboardAvoidingView, Platform, Picker, ScrollView } from 'react-native';
-
 import axios from 'axios';
 import * as config from '../../constants/config';
-
 import styles from './styles';
 import { connect } from 'react-redux'
 import {
@@ -13,10 +11,15 @@ import {
   updateScreen_6,
 } from '../../Actions/propertyPostAction'
 import { loadFeatures } from '../../Actions/FeaturesGet'
- 
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 String.prototype.toProperCase = function() {
   return this.toLowerCase().replace(/^(.)|\s(.)/g, 
-    function($1) { return $1.toUpperCase(); });
+      function($1) { return $1.toUpperCase(); });
 }
 
 class FeaturesAndServices extends Component {
@@ -49,6 +52,8 @@ class FeaturesAndServices extends Component {
     .catch((error) => {
       
     });
+    let TempEmpty = [12,14];
+    AsyncStorage.setItem('featuresValue', JSON.stringify(TempEmpty));
   }
 
   featureServicesFuc = (ArrValue) => {
@@ -77,7 +82,7 @@ class FeaturesAndServices extends Component {
       }
     })
     // AsyncStorage.setItem('featuresValues', JSON.stringify(TempEmpty));
-    AsyncStorage.setItem('featuresValues', JSON.stringify(TempEmpty));
+    AsyncStorage.setItem('featuresValue', JSON.stringify(TempEmpty));
    
     // this.props.updateFeaturesData(viewsTemp)
     //this.props.updateFeaturesServices(TempEmpty)
@@ -87,16 +92,16 @@ class FeaturesAndServices extends Component {
     const { screen_6, features_services} = this.props.propertyPost
     return (
       <View style={styles.container}>
-        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> Features & Services </Text></View>
+        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> {I18n.t('ppt_feat_ser').toProperCase()} </Text></View>
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
             {
               screen_6 && (
                 Alert.alert(
-                  'Required',
-                  'Please fill all the fields',
+                  `${I18n.t('ppa_required').capitalize()}`,
+                  `${I18n.t('ppa_content').capitalize()}`,
                   [
-                    {text: 'OK', onPress: () => this.props.updateScreen_6(false)},
+                    {text: `${I18n.t('ppa_ok').capitalize()}`, onPress: () => this.props.updateScreen_6(false)},
                   ],
                   { cancelable: false }
                 )

@@ -18,6 +18,13 @@ const styles = StyleSheet.create({
     padding: 20,
     borderColor: 'gray',
   },
+  middleView: { 
+    flex: 1,
+    borderRightWidth: 1,
+    alignItems: 'center',
+    padding: 20,
+    borderColor: 'gray',
+  },
   rightView: { flex: 1, padding: 20 },
   button: {
     borderRadius: 4,
@@ -34,7 +41,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     height: 80,
     width: 80,
-
     margin: 12,
     justifyContent: 'center',
     alignItems: 'center',

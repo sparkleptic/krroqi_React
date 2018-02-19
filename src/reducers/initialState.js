@@ -37,6 +37,7 @@ export default {
     screen_4: false,
     screen_5: false,
     screen_6: false,
-    features_data: [],
+		features_data: [],
+		lngRoot: 'en',
   }
 };

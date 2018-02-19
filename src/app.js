@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
-import { View, I18nManager } from 'react-native';
+import {AsyncStorage, View, I18nManager } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 import Analytics from 'mobile-center-analytics';
@@ -10,6 +10,15 @@ import I18n from './i18n';
 import configureStore from './store/configureStore';
 import { backgroundColor } from './constants/config';
 // import Mobile Center Analytics at the top of the file.
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 
 Analytics.trackEvent('Video clicked', { Category: 'Music', FileName: 'favorite.avi' });
 
@@ -29,15 +38,18 @@ const navigatorStyle = {
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {lang: 'en'};
+
+    store.subscribe(this.onStoreUpdate.bind(this));
     iconsLoaded.then(() => {
       this.initialTabIndex = 0;
       this.tabs = [
         {
-          label: 'Search',
+          label: `${I18n.t('ft_search').capitalize()}`,
           screen: 'krooqi.Search',
           icon: iconsMap['ios-search-outline'],
           selectedIcon: iconsMap['ios-search'],
-          title: 'Search',
+          title: `${I18n.t('ft_search').capitalize()}`,
           navigatorButtons: {
             rightButtons: [
               {
@@ -56,36 +68,36 @@ class App extends Component {
           },
         },
         {
-          label: 'Home',
+          label: `${I18n.t('ft_home').capitalize()}`,
           screen: 'krooqi.Home',
           icon: iconsMap['ios-home-outline'],
           selectedIcon: iconsMap['ios-home'],
-          title: '',
+          title: `${I18n.t('ft_home').capitalize()}`,
           navigatorStyle: {
             navBarCustomView: 'krooqi.HomeTopBar',
             navBarComponentAlignment: 'fill',
           },
         },
         {
-          label: 'Favorites',
+          label: `${I18n.t('ft_favourites').capitalize()}`,
           screen: 'krooqi.Favorites',
           icon: iconsMap['ios-heart-outline'],
           selectedIcon: iconsMap['ios-heart'],
-          title: 'Favorites',
+          title: `${I18n.t('ft_favourites').capitalize()}`,
         },
         {
-          label: 'Saved Search',
+          label: `${I18n.t('ft_saved_search').capitalize()}`,
           screen: 'krooqi.SavedSearch',
           icon: iconsMap['ios-bookmark-outline'],
           selectedIcon: iconsMap['ios-bookmark'],
-          title: 'Saved Search',
+          title: `${I18n.t('ft_saved_search').capitalize()}`,
         },
         {
-          label: 'More',
+          label:`${I18n.t('ft_more').capitalize()}`,
           screen: 'krooqi.MoreMenu',
           icon: iconsMap['ios-more-outline'],
           selectedIcon: iconsMap['ios-more'],
-          title: 'More',
+          title: `${I18n.t('ft_more').capitalize()}`,
         },
       ];
       if (I18nManager.isRTL) {
@@ -94,6 +106,19 @@ class App extends Component {
       }
       this.startApp();
     });
+  }
+
+  componentDidMount(){
+    const { lngRoot } = store.getState().propertyPost;
+    this.setState({ lang: lngRoot });
+  }
+
+  onStoreUpdate() {
+    const { lngRoot } = store.getState().propertyPost;
+    
+    if(this.state.lang != lngRoot){
+      //this.startApp();
+    }
   }
 
   startApp() {

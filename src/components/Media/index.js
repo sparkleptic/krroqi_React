@@ -4,6 +4,16 @@ import ImagePicker from 'react-native-image-picker';
 import { AsyncStorage, Image, View, Text, StyleSheet, TouchableOpacity, } from 'react-native';
 import { Icon } from 'react-native-elements'
 import styles from './styles';
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 
 const options = {
   title: 'Select Avatar',
@@ -22,6 +32,11 @@ class Media extends Component {
       ImageSource: [],
     };
     this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
+  }
+
+  componentDidMount(){
+    let AsyncImg = new Array();    
+    AsyncStorage.setItem('postImages', JSON.stringify(AsyncImg));
   }
 
   selectPhotoTapped() {
@@ -99,6 +114,7 @@ class Media extends Component {
   render() {
     return (
         <View style={styles.container}>
+          <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}>{I18n.t('ppt_media').capitalize()}</Text></View>
           <View style={{flexDirection: 'row', flexWrap: 'wrap',}}>                      
             {
               this.state.ImageSource.length > 0 && (
@@ -123,7 +139,7 @@ class Media extends Component {
             { this.state.ImageSource.length < 5 && (
             <TouchableOpacity onPress={this.selectPhotoTapped}>
               <View style={styles.ImageContainer_1}>
-                <Text style={{ color: 'red' }}>Add new</Text>
+                <Text style={{ color: 'red' }}>{I18n.t('pp_add_new').capitalize()}</Text>
               </View>
             </TouchableOpacity> )
             }

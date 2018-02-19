@@ -50,9 +50,20 @@ const SCREEN_6 = 'SCREEN_6'
 const LOADING_FEATURE = 'LOADING_FEATURE'
 const LOAD_SUCCESS_FEATURE = 'LOAD_SUCCESS_FEATURE'
 const LOAD_FAIL_FEATURE = 'LOAD_FAIL_FEATURE'
+
+
+// lang change
+
+const UPDATE_LANG = "UPDATE_LANG"
 	
 export default function propertyPostForm (state = initialState.PostProperty, action) {
   switch (action.type) {
+    case UPDATE_LANG:
+      return {
+        ...state,
+        lngRoot: action.data
+      }
+      break;
     case UPDATE_PropertyFor:
       return {
         ...state,

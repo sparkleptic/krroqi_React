@@ -45,6 +45,18 @@ const SCREEN_4 = 'SCREEN_4'
 const SCREEN_5 = 'SCREEN_5'
 const SCREEN_6 = 'SCREEN_6'
 
+// lang change
+
+const UPDATE_LANG = "UPDATE_LANG"
+
+
+export function updatelang(lng) {
+  return {
+    type: UPDATE_LANG,
+    data: lng,
+  }
+}
+
 export function updatePropertyFor(data) {
   return {
     type: UPDATE_PropertyFor,

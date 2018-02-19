@@ -10,6 +10,16 @@ updateOwnerName,
 updateOwnerPhone,
 updateScreen_2,
 } from '../../Actions/propertyPostAction'
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 
 class PropertyTitle extends Component {
   constructor(props) {
@@ -61,36 +71,36 @@ class PropertyTitle extends Component {
     const { propertyTitle, propertyDescription, ownerName, ownerPhone, screen_2 } = this.props.propertyPost;
     return (
       <View style={styles.container}>
-        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> Title </Text></View>
+        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}>  {I18n.t('ppt_title').capitalize()} </Text></View>
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
             {
               screen_2 && (
                 Alert.alert(
-                  'Required',
-                  'Please fill all the fields',
+                  `${I18n.t('ppa_required').capitalize()}`,
+                  `${I18n.t('ppa_content').capitalize()}`,
                   [
-                    {text: 'OK', onPress: () => this.props.updateScreen_2(false)},
+                    {text: `${I18n.t('ppa_ok').capitalize()}`, onPress: () => this.props.updateScreen_2(false)},
                   ],
                   { cancelable: false }
                 )
               )
             }
             <View style={styles.margin}>
-              <Text style={styles.label}>Property Title</Text>
+              <Text style={styles.label}>{I18n.t('pp_title').capitalize()}</Text>
               <TextInput
                 style={styles.textInput}
                 value={title}
-                placeholder="Property title"
+                placeholder={I18n.t('pp_title').capitalize()}
                 onChangeText={txt => this.propertyTitleUpdate(txt)}
               />
             </View>
             <View style={styles.margin}>
-              <Text style={styles.label}>Prooperty Description</Text>
+              <Text style={styles.label}>{I18n.t('pp_description').capitalize()}</Text>
               <TextInput
                 style={styles.textInput}
                 value={description}
-                placeholder="Prooperty description"
+                placeholder={I18n.t('pp_description').capitalize()}
                 onChangeText={txt => this.propertyDescriptionUpdate(txt) }
                 numberOfLines={4}
                 maxHeight={100}
@@ -98,20 +108,20 @@ class PropertyTitle extends Component {
               />
             </View>
             <View style={styles.margin}>
-              <Text style={styles.label}>Owner Name</Text>
+              <Text style={styles.label}>{I18n.t('pp_owner_name').capitalize()}</Text>
               <TextInput
                 style={styles.textInput}
                 value={name}
-                placeholder="Owner name"
+                placeholder={I18n.t('pp_owner_name').capitalize()}
                 onChangeText={txt => this.ownerNameUpdate(txt)}
               />
             </View>
             <View style={styles.margin}>
-              <Text style={styles.label}>Owner Phone #</Text>
+              <Text style={styles.label}>{I18n.t('pp_owner_phone').capitalize()}</Text>
               <TextInput
                 style={styles.textInput}
                 value={phone}
-                placeholder="Owner phone"
+                placeholder={I18n.t('pp_owner_phone').capitalize()}
                 keyboardType={'numeric'}
                 onChangeText={txt => this.ownerPhoneUpdate(txt)}
               />

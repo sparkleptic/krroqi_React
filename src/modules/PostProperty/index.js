@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { ActivityIndicator, AsyncStorage, View, Text, ScrollView, Dimensions, TouchableHighlight } from 'react-native';
 import * as PropertiesActions from '../../Actions/PropertiesAction';
+import I18n from '../../i18n';
 import Location from '../../components/Location';
 import PropertyTitle from '../../components/PropertyTitle';
 import PropertyBasicDetails from '../../components/PropertyBasicDetails';
@@ -20,7 +21,16 @@ import {
   updateScreen_4,
   updateScreen_5,
   updateScreen_6,
-} from '../../Actions/propertyPostAction'
+} from '../../Actions/propertyPostAction';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+      function($1) { return $1.toUpperCase(); });
+}
 
 const { width } = Dimensions.get('window');
 
@@ -32,24 +42,11 @@ class PostProperty extends Component {
       currentPage: 1,
       successModal: false,
       savingLoader: false,
-      featuresValuesLo: [],
+      featuresValuesLo: ['14','12'],
       postImages: [],
     };
     this.ScrollNext = this.ScrollNext.bind(this);
     this.ScrollPrev = this.ScrollPrev.bind(this);
-  }
-
-  componentDidMount(){
-    AsyncStorage.getItem('featuresValues').then((value) => {
-         this.setState({
-          featuresValuesLo: value
-         })
-     }).done();
-    AsyncStorage.getItem('postImages').then((value) => {
-         this.setState({
-          postImages: value
-         })
-     }).done();
   }
 
   ScrollNext() {
@@ -126,10 +123,22 @@ class PostProperty extends Component {
           // var screen = 1
         break;
       case 5:
-          var screen = 1
+        AsyncStorage.getItem('postImages').then((value) => {
+          this.setState({
+            postImages: value
+          })
+        }).done();
+        var screen = 1
         break;
       case 6:
-          if ((this.state.featuresValuesLo.length > 2)) {
+        AsyncStorage.getItem('featuresValue').then((value) => {
+          this.setState({
+            featuresValuesLo: value
+          })
+        }).done();         
+       
+        setTimeout(function(){
+          if(this.state.featuresValuesLo.length > 2) {
           
           this.props.updateScreen_6(false)
           this.setState({
@@ -177,7 +186,7 @@ class PostProperty extends Component {
             this.props.updateScreen_6(true)
             var screen = 0
           }          
-
+        }, 3000);
         break;
       default:
         var screen = 0
@@ -266,7 +275,7 @@ class PostProperty extends Component {
                   padding: 10,
                 }}
               >
-                Previous
+              {I18n.t('pps_previous').capitalize()}
               </Text>
             </TouchableHighlight>
           )}
@@ -280,7 +289,7 @@ class PostProperty extends Component {
                   padding: 10,                 
                 }}
               >
-                Next
+              {I18n.t('pps_next').capitalize()}
               </Text>
             </TouchableHighlight>
           )}
@@ -294,7 +303,7 @@ class PostProperty extends Component {
                   padding: 10,
                 }}
               >
-                Save
+              {I18n.t('pps_save').capitalize()}
               </Text>
             </TouchableHighlight>
           )}

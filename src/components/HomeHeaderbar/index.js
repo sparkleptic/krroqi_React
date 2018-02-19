@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableWithoutFeedback } from 'react-native';
-
 import I18n from '../../i18n';
 import { MapHeaderText } from '../../common/commonStyle';
 
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 const HomeHeader = ({
   flip,
   disableSaveSearch,
@@ -36,7 +43,7 @@ const HomeHeader = ({
     </TouchableWithoutFeedback>
     <TouchableWithoutFeedback onPress={() => openSaveSearch(disableSaveSearch || saved)}>
       <View>
-        <MapHeaderText disable={disableSaveSearch}>{saved ? 'SAVED' : 'SAVE SEARCH'}</MapHeaderText>
+        <MapHeaderText disable={disableSaveSearch}>{saved ? `${I18n.t('h_saved').toUpperCase()}` : `${I18n.t('save_search').toUpperCase()}`}</MapHeaderText>
       </View>
     </TouchableWithoutFeedback>
   </View>

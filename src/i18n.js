@@ -1,4 +1,4 @@
-import { I18nManager } from 'react-native';
+import { AsyncStorage, I18nManager } from 'react-native';
 import I18n from 'react-native-i18n';
 import en from './locales/en';
 import ar from './locales/ar';
@@ -15,7 +15,16 @@ I18n.translations = {
 };
 
 I18n.defaultLocale = 'en';
-I18n.locale = I18nManager.isRTL ? 'ar' : 'en';
+
+AsyncStorage.getItem('lang').then((value) => {
+    if(value == null){
+        I18n.locale = 'en';
+    }else{
+        I18n.locale = value;
+    }
+}).done();
+
+//I18n.locale = I18nManager.isRTL ? 'ar' : 'en';
 
 /*
     Only allow RTL if we have translations for RTL languages (ie. not fallbacks)

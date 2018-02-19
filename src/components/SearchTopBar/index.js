@@ -7,6 +7,17 @@ import RNGooglePlaces from 'react-native-google-places';
 import { backgroundColor } from '../../constants/config';
 import styles from './styles';
 
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
+
 class searchHeader extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +54,7 @@ class searchHeader extends Component {
         <TextInput
           value={search.searchText}
           style={OS === 'ios' ? styles.iosTextInput : styles.textInput}
-          placeholder="Search city, state or zip"
+          placeholder={I18n.t('search_placeholder').capitalize()}
           placeholderTextColor="white"
           onFocus={this.openSearchPage}
           underlineColorAndroid="white"
