@@ -413,7 +413,7 @@ class SearchPage extends Component {
                 flex: 1,
               }}
             >
-              <MapView region={this.state.region} data={this.makeMarkersData()} dismissNotification={this.dismissNotification}  />
+              <MapView regionGPS={this.state.region} data={this.makeMarkersData()} dismissNotification={this.dismissNotification}  />
             </View>
 
             <View

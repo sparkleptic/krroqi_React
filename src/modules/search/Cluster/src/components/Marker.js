@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import MapView from 'react-native-maps'
 import MarkerImg from '../../../../../images/highlight-pin-single-family-act.png'
+import MarkerImgFeatured from '../../../../../images/highlight-pin-single-family-act-featured.png'
 
 const Marker = ({ item, color, children }) => {
 	const coords = item.geometry.coordinates
@@ -9,7 +10,7 @@ const Marker = ({ item, color, children }) => {
 
 	return (
 		<MapView.Marker
-			image={MarkerImg}
+			image={marker.featured == 1 ? MarkerImgFeatured : MarkerImg}
 			coordinate={{ latitude: coords[1], longitude: coords[0] }}
 			width={40}
 			height={36.5}

@@ -16,8 +16,8 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const initialRegion = {
 	latitude: 23.8859,
 	longitude: 45.0792,
-	latitudeDelta: 25,
-	longitudeDelta: 25,
+	latitudeDelta: LATITUDE_DELTA,
+	longitudeDelta: LONGITUDE_DELTA,
 }
 
 let northeast = {
@@ -95,7 +95,7 @@ class MapContainer extends Component {
 		return (
 			<Map
 				onPress={this.props.dismissNotification}
-				initialRegion={this.props.region}
+				initialRegion={this.props.regionGPS}
 				onRegionChangeComplete={(x) => { this.onRegionChangeComplete(x) }}
 				{...this.props}
 			>
