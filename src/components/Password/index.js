@@ -4,12 +4,20 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { View, Text, Image, TextInput, TouchableHighlight, ActivityIndicator } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-
 import FacebookLogin from '../FacebookLogin';
 import { backgroundColor } from '../../constants/config';
 import * as AuthAction from '../../Actions/AuthAction';
 import styles from './styles';
+import I18n from '../../i18n';
 
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 const logoImage = require('../../images/KR-Logo.png');
 
 const closeModal = () => {
@@ -72,52 +80,52 @@ class Password extends Component {
             onPress={() => closeModal()}
             underlayColor="#f1f1f1"
           >
-            <Text style={{ padding: 10, fontSize: 16, fontWeight: '500' }}>Close</Text>
+            <Text style={{ padding: 10, fontSize: 16, fontWeight: '500' }}>{I18n.t('close').toProperCase()}</Text>
           </TouchableHighlight>
           <View style={styles.header}>
             <Image style={styles.imageStyle} resizeMode="contain" source={logoImage} />
             <View style={styles.headerText}>
               <Text style={styles.headerLabel}>
-                {`${userExist ? 'Enter' : 'Create'} your password`}
+                {userExist ? `${I18n.t('enter').capitalize()}` : `${I18n.t('create').capitalize()}`} {I18n.t('your_password').capitalize()}
               </Text>
             </View>
           </View>
           <View style={styles.textInputView}>
-            <Text style={styles.label}>password</Text>
+            <Text style={styles.label}>{I18n.t('login_pswd').capitalize()}</Text>
             <TextInput
               style={styles.textInput}
               returnKeyType="done"
               onSubmitEditing={this.register}
               value={this.state.data.password}
-              placeholder="password"
+              placeholder={I18n.t('login_pswd').capitalize()}
               onChangeText={password => this.setState({ data: { ...data, password } })}
               secureTextEntry
             />
             {auth.error && (
-              <Text style={{ color: 'red', paddingBottom: 10 }}>Password is not valid</Text>
+              <Text style={{ color: 'red', paddingBottom: 10 }}>{I18n.t('login_err').capitalize()}</Text>
             )}
           </View>
           <TouchableHighlight onPress={this.register} underlayColor="gray">
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Submit</Text>
+              <Text style={styles.buttonText}>{I18n.t('login_sub').capitalize()}</Text>
             </View>
           </TouchableHighlight>
           <View style={styles.header}>
             <View style={styles.fbLoginView}>
-              <Text style={styles.fbLoginText}>Or sign in with</Text>
+              <Text style={styles.fbLoginText}>{I18n.t('login_with').capitalize()}</Text>
               <FacebookLogin
                 onFBLoginSuccess={this.onFBLoginSuccess}
                 onFBLoginLoading={this.onFBLoginLoading}
                 onFbLoginFail={this.onFbLoginFail}
               />
             </View>
-            <Text style={styles.TCText}>I accept Krooqi's Terms of use and Privacy Policy</Text>
+            <Text style={styles.TCText}>{I18n.t('termsAndCond').capitalize()}</Text>
           </View>
         </View>
         {(loading || auth.loading) && (
           <View style={styles.container}>
             <ActivityIndicator size="large" color={backgroundColor} />
-            <Text style={{ textAlign: 'center', color: backgroundColor }}>Loading...</Text>
+            <Text style={{ textAlign: 'center', color: backgroundColor }}>{I18n.t('loading').capitalize()}...</Text>
           </View>
         )}
       </View>

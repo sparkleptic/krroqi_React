@@ -6,6 +6,14 @@ import ProgressiveImage from '../ProgressiveImage';
 import I18n from './../../i18n';
 import styles from './styles';
 
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 const imagePlaceholder = require('../../images/house_placeholder.png');
 
 const { width } = Dimensions.get('window');
@@ -47,10 +55,10 @@ const PropertyCard = ({
 
             <View style={{ flexDirection: 'row' }}>
               {!!property.bedroom_num && (
-                <Text style={styles.subHeader}>Beds: {property.bedroom_num}</Text>
+                <Text style={styles.subHeader}>{I18n.t('beds').toProperCase()}: {property.bedroom_num}</Text>
               )}
               {!!property.bathroom_num && (
-                <Text style={styles.subHeader}>Baths: {property.bathroom_num}</Text>
+                <Text style={styles.subHeader}>{I18n.t('baths').toProperCase()}: {property.bathroom_num}</Text>
               )}
               {!!property.area && <Text style={styles.subHeader}>Sq m: {property.area}</Text>}
             </View>

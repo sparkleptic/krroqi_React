@@ -116,7 +116,7 @@ class HomeCard extends Component {
     this.props.navigator.showModal({
       screen: 'krooqi.Login',
       passProps: {
-        label: 'to save a home',
+        label: `${I18n.t('to_save_a_home').toProperCase()}`,
       },
       navigatorStyle: {
         navBarHidden: true,

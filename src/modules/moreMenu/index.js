@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Alert, AsyncStorage, View, Text, TouchableHighlight, Platform, Image, Picker } from 'react-native';
+import ActionSheet from 'react-native-actionsheet';
+import RNRestart from 'react-native-restart';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as AuthAction from '../../Actions/AuthAction';
 import { updatelang } from '../../Actions/propertyPostAction';
@@ -19,17 +21,19 @@ String.prototype.toProperCase = function() {
     function($1) { return $1.toUpperCase(); });
 }
 
+const CANCEL_INDEX = 0;
+const options = [ 'Cancel', 'Arabic', 'English' ];
+const title = 'Choose your preferred language';
+
 class More extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      lang: 'en',
-    };
+    this.state = {lang: 'en'};
     this.openLogin = this.openLogin.bind(this);
     this.openPostProperty = this.openPostProperty.bind(this);
     this.openFindAgent = this.openFindAgent.bind(this);
-    this.langChange = this.langChange.bind(this);
-    this.openLangChange = this.openLangChange.bind(this);
+    this.setTranslate = this.setTranslate.bind(this);
+    this.showActionSheet = this.showActionSheet.bind(this);
   }
 
   componentDidMount(){
@@ -46,13 +50,6 @@ class More extends Component {
     }).done();
   }
 
-  langChange(lng) {    
-    AsyncStorage.setItem('lang', lng, () => {
-      this.setState({ lang: lng });
-      this.props.updatelang(lng);  
-    });
-  }
-
   openLogin() {
     const { auth } = this.props;
     if (auth.success) {
@@ -61,7 +58,7 @@ class More extends Component {
       this.props.navigator.showModal({
         screen: 'krooqi.Login',
         passProps: {
-          label: 'to save a home',
+          label: `${I18n.t('to_save_a_home').toProperCase()}`,
         },
         navigatorStyle: {
           navBarHidden: true,
@@ -75,7 +72,7 @@ class More extends Component {
   openPostProperty() {
     this.props.navigator.push({
       screen: 'krooqi.PostProperty',
-      title: 'Post Property',
+      title: `${I18n.t('m_post_pro').toProperCase()}`,
       passProps: {},
       navigatorStyle: {
         screenBackgroundColor: 'white',
@@ -87,7 +84,7 @@ class More extends Component {
   openFindAgent() {
     this.props.navigator.push({
       screen: 'krooqi.FindAgent',
-      title: 'Find Agent',
+      title: `${I18n.t('m_find_age').toProperCase()}`,
       passProps: {},
       navigatorStyle: {
         screenBackgroundColor: 'white',
@@ -95,7 +92,7 @@ class More extends Component {
       navigatorButtons: {
         rightButtons: [
           {
-            title: 'Filter',
+            title: `${I18n.t('s_filter').toProperCase()}`,
             id: 'filterAgent',
           },
         ],
@@ -104,27 +101,24 @@ class More extends Component {
     });
   }
 
-  openLangChange(){
-    Alert.alert(
-      'Language Preference',
-      'Choose your preferred language',
-      [
-        {text: 'Cancel', onPress: () => console.log('Click on cancel'), style: 'cancel'},
-        {text: 'Arabic', onPress: () =>{
-          AsyncStorage.setItem('lang', 'ar', () => {
-            this.setState({ lang: 'ar' });
-            this.props.updatelang('ar');  
-          });
-        }},
-        {text: 'English', onPress: () => {
-          AsyncStorage.setItem('lang', 'en', () => {
-            this.setState({ lang: 'en' });
-            this.props.updatelang('en');  
-          });
-        }},
-      ],
-      { cancelable: true }
-    )
+  showActionSheet() {
+    this.ActionSheet.show()
+  }
+ 
+  async setTranslate(i) {
+    if(i == 1){
+      await AsyncStorage.setItem('lang', 'ar');
+      this.setState({ lang: 'ar' });
+      this.props.updatelang('ar'); 
+      //RNRestart.Restart();
+    }
+    
+    if(i == 2){
+      await AsyncStorage.setItem('lang', 'en');
+      this.setState({ lang: 'en' });
+      this.props.updatelang('en');  
+      //RNRestart.Restart();
+    }
   }
 
   render() {
@@ -168,7 +162,7 @@ class More extends Component {
             </TouchableHighlight>
           </View>
           <View style={styles.rightView}>
-            <TouchableHighlight onPress={this.openLangChange} underlayColor="white">
+            <TouchableHighlight onPress={this.showActionSheet} underlayColor="white">
               <View style={{ alignItems: 'center' }}>
                 <Icon name="ios-paper" size={30} color={backgroundColor} />
                 <Text>{ this.state.lang == 'en' ? 'English' : 'عربى'}</Text>
@@ -176,6 +170,14 @@ class More extends Component {
             </TouchableHighlight>
           </View>
         </View>
+
+        <ActionSheet
+          ref={o => this.ActionSheet = o}
+          title={title}
+          options={options}
+          cancelButtonIndex={CANCEL_INDEX}
+          onPress={this.setTranslate}
+        />
       </View>
     );
   }

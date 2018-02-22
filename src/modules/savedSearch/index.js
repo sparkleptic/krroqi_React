@@ -5,6 +5,16 @@ import { connect } from 'react-redux';
 import { View, FlatList, Text, TouchableHighlight } from 'react-native';
 import SavedSearchCard from '../../components/SavedSearchCard';
 import * as PropertiesActions from './../../Actions/PropertiesAction';
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 
 class Favorites extends Component {
   constructor(props) {
@@ -45,7 +55,7 @@ class Favorites extends Component {
     this.props.navigator.showModal({
       screen: 'krooqi.Login',
       passProps: {
-        label: 'to save a home',
+        label: `${I18n.t('to_save_a_home').capitalize()}`,
       },
       navigatorStyle: {
         navBarHidden: true,
@@ -97,7 +107,7 @@ class Favorites extends Component {
                   margin: 40,
                 }}
               >
-                <Text style={{ lineHeight: 30, fontSize: 20 }}>Saved Search</Text>
+                <Text style={{ lineHeight: 30, fontSize: 20 }}>`${I18n.t('ft_saved_search').capitalize()}`</Text>
                 <Text
                   style={{
                     lineHeight: 25,
@@ -106,7 +116,7 @@ class Favorites extends Component {
                     textAlign: 'center',
                   }}
                 >
-                  you haven't saved any searches yet.
+                  {I18n.t('sav_not_msg').capitalize()}
                 </Text>
                 <Text
                   style={{
@@ -116,14 +126,14 @@ class Favorites extends Component {
                     textAlign: 'center',
                   }}
                 >
-                  Save your search criteria for easy access.
+                  {I18n.t('sav_search_msg').capitalize()}
                 </Text>
               </View>
             )}
           </View>
         ) : (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Please Login to view your Saved Search</Text>
+            <Text>{I18n.t('sav_lg_msg').capitalize()}</Text>
             <TouchableHighlight onPress={this.openLogin} underlayColor="#f1f1f1">
               <View
                 style={{
@@ -134,7 +144,7 @@ class Favorites extends Component {
                   borderColor: 'gray',
                 }}
               >
-                <Text style={{ fontSize: 16, fontWeight: '400' }}>Login</Text>
+                <Text style={{ fontSize: 16, fontWeight: '400' }}>{I18n.t('m_login').toProperCase()}</Text>
               </View>
             </TouchableHighlight>
           </View>

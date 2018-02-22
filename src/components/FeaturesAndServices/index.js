@@ -27,7 +27,7 @@ class FeaturesAndServices extends Component {
     super(props);
     this.state = {
       featureArray: [],
-      features_data: []
+      features_data: [],
     };
   }
 
@@ -52,8 +52,10 @@ class FeaturesAndServices extends Component {
     .catch((error) => {
       
     });
-    let TempEmpty = [12,14];
-    AsyncStorage.setItem('featuresValue', JSON.stringify(TempEmpty));
+    let TempEmpty = new Array();
+    // let dummyValue = 1;
+    // let pushTepmpEmpty = TempEmpty.push(dummyValue)
+    AsyncStorage.setItem('featuresValue', JSON.stringify(TempEmpty));    
   }
 
   featureServicesFuc = (ArrValue) => {

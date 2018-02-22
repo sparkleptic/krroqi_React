@@ -17,6 +17,17 @@ import { PUBLIC_URL } from '../../constants/config';
 import Loading from '../../components/Loading';
 import HomeHeaderbar from '../../components/HomeHeaderbar';
 
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
+
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE = 23.8859;
@@ -176,12 +187,12 @@ class SearchPage extends Component {
   onFilter(search) {
     this.props.actions.filteredPropertiesLoad(search);
   }
-
+  
   openLogin() {
     this.props.navigator.showModal({
       screen: 'krooqi.Login',
       passProps: {
-        label: 'to save a home',
+        label: `${I18n.t('to_save_a_home').toProperCase()}`,
       },
       navigatorStyle: {
         navBarHidden: true,
@@ -220,7 +231,7 @@ class SearchPage extends Component {
     const { search, propertyStatus, propertyTypes } = this.props;
     this.props.navigator.showModal({
       screen: 'krooqi.FilterPage',
-      title: 'Filter Page',
+      title: `${I18n.t('filter_pg').toProperCase()}`,
       passProps: {
         search,
         propertyStatus,

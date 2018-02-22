@@ -209,6 +209,11 @@ class Location extends Component {
     const pp_unit_floor = `${I18n.t('pp_unit_floor').capitalize()}`;
     const pp_loacate_on_map = `${I18n.t('pp_loacate_on_map').capitalize()}`;
 
+    let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
+    let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
+    let Devlopment = `${I18n.t('pp_for_development').toProperCase()}`;
+    let property_type_Location =  [For_Rent, For_Sale, Devlopment];
+
     return (
       <View style={styles.container}>
         <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}>  {I18n.t('ppt_loc').capitalize()} </Text></View>
@@ -231,7 +236,7 @@ class Location extends Component {
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
                 tabTextStyle={{ color: backgroundColor }}
-                values={propertyStatuses}
+                values={property_type_Location}
                 selectedIndex={statusSelectedIndex}
                 onTabPress={this.selectPropertyStatus}
               />

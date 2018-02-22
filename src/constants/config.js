@@ -18,7 +18,13 @@ export const savedSearch = 'savedSearch';
 
 export const USER_DATA = 'USER_DATA';
 
-export const propertyStatuses = [  `${I18n.t('pp_for_rent').toProperCase()}`, `${I18n.t('pp_for_sale').toProperCase()}`, `${I18n.t('pp_for_development').toProperCase()}`];
+let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
+let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
+let Devlopment = `${I18n.t('pp_for_development').toProperCase()}`;
+let property_type =  [For_Rent, For_Sale, Devlopment];
+
+export let propertyStatuses = property_type;
+
 // export const propertyStatuses = [  'demo 1', 'demo 2', 'demo 3'];
 
 export const minArea = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000];

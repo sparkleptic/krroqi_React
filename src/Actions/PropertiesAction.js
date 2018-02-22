@@ -3,6 +3,16 @@ import { AsyncStorage } from 'react-native';
 import * as types from './../constants/actionTypes';
 import * as config from './../constants/config';
 
+// let  lang = 'ar';
+
+// AsyncStorage.getItem('lang').then((value) => {
+//   if(value == null){
+//     let  lang = 'en';
+//   }else{
+//     let  lang = value;
+//   }
+// }).done();
+
 export function propertiesLoadRequest() {
   return { type: types.LOAD_PROPERTIES_REQUEST };
 }
@@ -109,29 +119,43 @@ export function likePropertyFail(error) {
 
 export function propertiesLoad() {
   return (dispatch) => {
-    dispatch(propertiesLoadRequest());
-    return axios
-      .get(`${config.PUBLIC_URL}getProperties/en`)
-      .then((response) => {
-        dispatch(propertiesLoadSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(propertiesLoadFail(error));
-      });
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        let  lang = 'en';
+      }else{
+        let  lang = value;
+      }
+      dispatch(propertiesLoadRequest());
+      return axios
+        .get(`${config.PUBLIC_URL}getProperties/${value}`)
+        .then((response) => {
+          dispatch(propertiesLoadSuccess(response.data));
+        })
+        .catch((error) => {
+          dispatch(propertiesLoadFail(error));
+        });
+    }).done();
   };
 }
 
 export function propertiesByCategoryLoad(category) {
   return (dispatch) => {
-    dispatch(propertiesByCategoryLoadRequest());
-    return axios
-      .get(`${config.PUBLIC_URL}getCategoryProperties/en/${category}`)
-      .then((response) => {
-        dispatch(propertiesByCategoryLoadSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(propertiesByCategoryLoadFail(error));
-      });
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        let  lang = 'en';
+      }else{
+        let  lang = value;
+      }
+      dispatch(propertiesByCategoryLoadRequest());
+      return axios
+        .get(`${config.PUBLIC_URL}getCategoryProperties/${value}/${category}`)
+        .then((response) => {
+          dispatch(propertiesByCategoryLoadSuccess(response.data));
+        })
+        .catch((error) => {
+          dispatch(propertiesByCategoryLoadFail(error));
+        });
+    }).done();
   };
 }
 
@@ -165,31 +189,45 @@ export function propertyTypesLoad() {
 
 export function filteredPropertiesLoad(search) {
   return (dispatch) => {
-    dispatch(filteredPropertiesLoadRequest());
-    return axios
-      .get(`${config.PUBLIC_URL}get30Properties/en`)
-      .then((response) => {
-        dispatch(filteredPropertiesLoadSuccess(response.data));
-        const newSearch = search || config.search;
-        dispatch(searchChange(newSearch));
-      })
-      .catch((error) => {
-        dispatch(filteredPropertiesLoadFail(error));
-      });
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        let  lang = 'en';
+      }else{
+        let  lang = value;
+      }
+      dispatch(filteredPropertiesLoadRequest());
+      return axios
+        .get(`${config.PUBLIC_URL}get30Properties/${value}`)
+        .then((response) => {
+          dispatch(filteredPropertiesLoadSuccess(response.data));
+          const newSearch = search || config.search;
+          dispatch(searchChange(newSearch));
+        })
+        .catch((error) => {
+          dispatch(filteredPropertiesLoadFail(error));
+        });
+    }).done();
   };
 }
 
 export function favoritePropertiesLoad(userId) {
   return (dispatch) => {
-    dispatch(favoritePropertiesLoadRequest());
-    return axios
-      .get(`${config.PUBLIC_URL}getUserFavouriteProperty/${userId}/en`)
-      .then((response) => {
-        dispatch(favoritePropertiesLoadSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(favoritePropertiesLoadFail(error));
-      });
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        let  lang = 'en';
+      }else{
+        let  lang = value;
+      }
+      dispatch(favoritePropertiesLoadRequest());
+      return axios
+        .get(`${config.PUBLIC_URL}getUserFavouriteProperty/${userId}/${value}`)
+        .then((response) => {
+          dispatch(favoritePropertiesLoadSuccess(response.data));
+        })
+        .catch((error) => {
+          dispatch(favoritePropertiesLoadFail(error));
+        });
+    }).done();
   };
 }
 

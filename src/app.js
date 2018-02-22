@@ -38,9 +38,7 @@ const navigatorStyle = {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {lang: 'en'};
 
-    store.subscribe(this.onStoreUpdate.bind(this));
     iconsLoaded.then(() => {
       this.initialTabIndex = 0;
       this.tabs = [
@@ -53,7 +51,7 @@ class App extends Component {
           navigatorButtons: {
             rightButtons: [
               {
-                title: 'Filter',
+                title: `${I18n.t('s_filter').capitalize()}`,
                 id: 'filter',
                 showAsAction: 'ifRoom',
                 buttonColor: 'white',
@@ -106,19 +104,6 @@ class App extends Component {
       }
       this.startApp();
     });
-  }
-
-  componentDidMount(){
-    const { lngRoot } = store.getState().propertyPost;
-    this.setState({ lang: lngRoot });
-  }
-
-  onStoreUpdate() {
-    const { lngRoot } = store.getState().propertyPost;
-    
-    if(this.state.lang != lngRoot){
-      //this.startApp();
-    }
   }
 
   startApp() {

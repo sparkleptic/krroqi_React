@@ -42,7 +42,7 @@ class PostProperty extends Component {
       currentPage: 1,
       successModal: false,
       savingLoader: false,
-      featuresValuesLo: ['14','12'],
+      featuresValuesLo: [],
       postImages: [],
     };
     this.ScrollNext = this.ScrollNext.bind(this);
@@ -135,9 +135,7 @@ class PostProperty extends Component {
           this.setState({
             featuresValuesLo: value
           })
-        }).done();         
-       
-        setTimeout(function(){
+        
           if(this.state.featuresValuesLo.length > 2) {
           
           this.props.updateScreen_6(false)
@@ -186,7 +184,8 @@ class PostProperty extends Component {
             this.props.updateScreen_6(true)
             var screen = 0
           }          
-        }, 3000);
+        }).done();
+        var screen = 0
         break;
       default:
         var screen = 0
@@ -259,11 +258,11 @@ class PostProperty extends Component {
           this.state.successModal ?
          (<View style={styles.success}>            
             <View style={styles.successViewText}>
-              <Text style={styles.successText}>Your listing successfully submitted. We will review and get back to you shortly.</Text>
+              <Text style={styles.successText}>{I18n.t('post_pro_api_success_msg').toProperCase()}</Text>
             </View>                
           </View> ): this.state.savingLoader ? ( <View style={styles.containerLoader}>
       <ActivityIndicator size="large" color={config.backgroundColor} />
-      <Text style={{ textAlign: 'center', color: config.backgroundColor }}>Saving...</Text>
+      <Text style={{ textAlign: 'center', color: config.backgroundColor }}>{I18n.t('saving').toProperCase()}...</Text>
     </View>) :(<View style={[{ flexDirection: 'row' }, pagingStyle]}>
           {currentPage !== 1 && (
             <TouchableHighlight onPress={this.ScrollPrev} underlayColor="gray">
