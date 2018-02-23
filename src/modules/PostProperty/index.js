@@ -131,6 +131,8 @@ class PostProperty extends Component {
         var screen = 1
         break;
       case 6:
+        const { auth } = this.props;
+
         AsyncStorage.getItem('featuresValue').then((value) => {
           this.setState({
             featuresValuesLo: value
@@ -145,7 +147,7 @@ class PostProperty extends Component {
             
           let dataPost = {
             lang: 'en',
-            owner_id: '1',
+            owner_id: (auth.success && auth.success.id ? auth.success.id : 1),
             status : propertyFor,
             country: region,
             city: branch,

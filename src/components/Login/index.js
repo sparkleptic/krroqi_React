@@ -82,7 +82,8 @@ class Login extends Component {
 
   onFBLoginSuccess(data) {
     this.setState({ loading: false });
-    this.props.actions.register(data);
+    let randomPwd = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    this.props.actions.register({...data, 'password': randomPwd});
   }
 
   onFbLoginFail() {
@@ -123,7 +124,7 @@ class Login extends Component {
           <View style={styles.headerText}>
             <Text style={styles.headerLabel}>{I18n.t('login_title').capitalize()}</Text>
             {/* {<Text style={styles.headerLabel}>{label}</Text>} */}
-            <Text>`${I18n.t('to_save_a_home').capitalize()}`</Text>
+            <Text>{I18n.t('to_save_a_home').capitalize()}</Text>
           </View>
         </View>
         <View style={styles.textInputView}>

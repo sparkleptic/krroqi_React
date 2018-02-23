@@ -110,14 +110,14 @@ class More extends Component {
       await AsyncStorage.setItem('lang', 'ar');
       this.setState({ lang: 'ar' });
       this.props.updatelang('ar'); 
-      //RNRestart.Restart();
+      RNRestart.Restart();
     }
     
     if(i == 2){
       await AsyncStorage.setItem('lang', 'en');
       this.setState({ lang: 'en' });
       this.props.updatelang('en');  
-      //RNRestart.Restart();
+      RNRestart.Restart();
     }
   }
 
@@ -139,7 +139,7 @@ class More extends Component {
           <View style={styles.buttonContainer}>
             <TouchableHighlight onPress={this.openLogin} underlayColor="white">
               <View style={styles.button}>
-                <Text style={styles.buttonText}>{auth.success ? `${I18n.t('m_login').toProperCase()}` : `${I18n.t('m_logout').toProperCase()}`} </Text>
+                <Text style={styles.buttonText}>{auth.success ? `${I18n.t('m_logout').toProperCase()}` : `${I18n.t('m_login').toProperCase()}`} </Text>
               </View>
             </TouchableHighlight>
           </View>

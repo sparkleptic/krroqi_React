@@ -50,7 +50,6 @@ export function register(data) {
     return axios
       .post(`${config.PUBLIC_URL}register`, data)
       .then((response) => {
-        AsyncStorage.setItem(config.USER_DATA, JSON.stringify(response.data));
         const userData = {
           id: response.data.id,
           type: response.data.type,
@@ -58,6 +57,8 @@ export function register(data) {
           name: data.name,
           image: data.imageUrl,
         };
+
+        AsyncStorage.setItem(config.USER_DATA, JSON.stringify(userData));        
         dispatch(authSuccess(userData));
       })
       .catch((error) => {
