@@ -27,6 +27,15 @@ import styles from './styles';
 import InitialState from '../../reducers/initialState';
 import Panel from '../Panel';
 
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
+
 class filterPage extends Component {
   constructor(props) {
     super(props);
@@ -180,7 +189,7 @@ class filterPage extends Component {
             selectedValue={search.squareMeterRange.start}
             onValueChange={this.selectMinArea}
           >
-            <Picker.Item label="Min Area" />
+            <Picker.Item label={I18n.t('min_area').toProperCase()} />
             {minArea.map(item => (
               <Picker.Item
                 key={item}
@@ -197,7 +206,7 @@ class filterPage extends Component {
             selectedValue={search.squareMeterRange.end}
             onValueChange={this.selectMaxArea}
           >
-            <Picker.Item label="Max Area" />
+            <Picker.Item label={I18n.t('max_area').toProperCase()} />
             {maxArea.map(item => (
               <Picker.Item
                 key={item}
@@ -222,7 +231,7 @@ class filterPage extends Component {
             selectedValue={search.priceRange.start}
             onValueChange={this.selectMinPrice}
           >
-            <Picker.Item label="Min Price" />
+            <Picker.Item label={I18n.t('min_price').toProperCase()} />
             {minPrice.map(item => (
               <Picker.Item
                 key={item}
@@ -239,7 +248,7 @@ class filterPage extends Component {
             selectedValue={search.priceRange.end}
             onValueChange={this.selectMaxPrice}
           >
-            <Picker.Item label="Max Price" />
+            <Picker.Item label={I18n.t('max_price').toProperCase()} />
             {maxPrice.map(item => (
               <Picker.Item
                 key={item}
@@ -264,7 +273,7 @@ class filterPage extends Component {
             selectedValue={search.yearBuilt.start}
             onValueChange={this.selectMinYear}
           >
-            <Picker.Item label="Min Built Year" />
+            <Picker.Item label={I18n.t('min_built_yr').toProperCase()} />
             {years.map(item => <Picker.Item key={item} value={`${item}`} label={`${item}`} />)}
           </Picker>
           {Platform.OS !== 'ios' && <View style={styles.divider} />}
@@ -275,7 +284,7 @@ class filterPage extends Component {
             selectedValue={search.yearBuilt.end}
             onValueChange={this.selectMaxYear}
           >
-            <Picker.Item label="Max Built Year" />
+            <Picker.Item label={I18n.t('max_built_yr').toProperCase()} />
             {years.map(item => <Picker.Item key={item} value={`${item}`} label={`${item}`} />)}
           </Picker>
           {Platform.OS !== 'ios' && <View style={styles.divider} />}
@@ -302,6 +311,11 @@ class filterPage extends Component {
     const years = Array(100)
       .fill()
       .map((_, i) => moment().year() - i);
+
+    let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
+    let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
+    let Devlopment = `${I18n.t('pp_for_development').toProperCase()}`;
+    let property_type_Location =  [For_Rent, For_Sale, Devlopment];
     return (
       <View style={styles.container}>
         <ScrollView style={styles.flex}>
@@ -311,7 +325,7 @@ class filterPage extends Component {
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
                 tabTextStyle={{ color: backgroundColor }}
-                values={propertyStatuses}
+                values={property_type_Location}
                 selectedIndex={statusSelectedIndex}
                 onTabPress={this.selectPropertyStatus}
               />
@@ -322,12 +336,12 @@ class filterPage extends Component {
               </Panel>
             ) : (
               <View style={styles.margin}>
-                <Text style={styles.label}>Price Range</Text>
+                <Text style={styles.label}>{I18n.t('price_range').toProperCase()}</Text>
                 {this.renderPriceRange()}
               </View>
             )}
             <View style={styles.margin}>
-              <Text style={styles.label}>Property Type</Text>
+              <Text style={styles.label}>{I18n.t('pp_pro_type').toProperCase()}</Text>
               <MultiSelect
                 multiSelectData={pl}
                 selectedValues={search.propertyType}
@@ -336,7 +350,7 @@ class filterPage extends Component {
               {OS === 'ios' && <View style={[styles.divider, { bottom: 0 }]} />}
             </View>
             <View style={styles.margin}>
-              <Text style={styles.label}>Rooms</Text>
+              <Text style={styles.label}>{I18n.t('pp_rooms').toProperCase()}</Text>
               <SegmentedControlTab
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
@@ -347,7 +361,7 @@ class filterPage extends Component {
               />
             </View>
             <View style={styles.margin}>
-              <Text style={styles.label}>Baths</Text>
+              <Text style={styles.label}>{I18n.t('baths').toProperCase()}</Text>
               <SegmentedControlTab
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
@@ -363,7 +377,7 @@ class filterPage extends Component {
               </Panel>
             ) : (
               <View style={styles.margin}>
-                <Text style={styles.label}>Square Meter Range</Text>
+                <Text style={styles.label}>{I18n.t('sq_m_range').toProperCase()}</Text>
                 {this.renderArea()}
               </View>
             )}
@@ -376,16 +390,16 @@ class filterPage extends Component {
                   </Panel>
                 ) : (
                   <View style={styles.margin}>
-                    <Text style={styles.label}>Year Built</Text>
+                    <Text style={styles.label}>{I18n.t('yr_built').toProperCase()}</Text>
                     {this.renderYearBuilt(years)}
                   </View>
                 )}
                 <View style={styles.margin}>
-                  <Text style={styles.label}>District</Text>
+                  <Text style={styles.label}>{I18n.t('pp_district').toProperCase()}</Text>
                   <TextInput
                     style={styles.textInput}
                     value={search.district}
-                    placeholder="District"
+                    placeholder={I18n.t('pp_district').toProperCase()}
                     onChangeText={district => this.setState({ search: { ...search, district } })}
                   />
                 </View>
@@ -401,7 +415,7 @@ class filterPage extends Component {
               >
                 <View>
                   <Text style={styles.padding}>
-                    {this.state.showAll ? 'Show Less' : 'Show More'}
+                    {this.state.showAll ? `${I18n.t('show_less').toProperCase()}` : `${I18n.t('show_more').toProperCase()}`}
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -411,7 +425,7 @@ class filterPage extends Component {
         <View style={styles.tabBar}>
           <TouchableOpacity onPress={this.resetForm}>
             <View>
-              <Text style={styles.label}>Reset</Text>
+              <Text style={styles.label}>{I18n.t('reset').toProperCase()}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
@@ -421,12 +435,12 @@ class filterPage extends Component {
                 name={Platform.OS === 'ios' ? 'ios-heart-outline' : 'md-heart-outline'}
                 size={20}
               />
-              <Text style={styles.label}>Save Search</Text>
+              <Text style={styles.label}>{I18n.t('save_search').toProperCase()}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.searchForm}>
             <View>
-              <Text style={styles.label}>Search</Text>
+              <Text style={styles.label}>{I18n.t('ft_search').toProperCase()}</Text>
             </View>
           </TouchableOpacity>
         </View>

@@ -15,8 +15,39 @@ import {
   updateYearBuild,
   updateScreen_4,
 } from '../../Actions/propertyPostAction'
+import I18n from '../../i18n';
 
-var typeProperty = ['Apartment', 'Building', 'Office', 'Showroom', 'Villa'];
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
+
+var typeProperty = [
+  {
+    type: 'Apartment',
+    value: '13',
+  },
+  {
+    type: 'Building',
+    value: '107',
+  },
+  {
+    type: 'Office',
+    value: '221',
+  },
+  {
+    type: 'Showroom',
+    value: '219',
+  },
+  {
+    type: 'Villa',
+    value: '89',
+  },
+];
 
 class PropertyBasicDetails extends Component {
   constructor(props) {
@@ -29,7 +60,7 @@ class PropertyBasicDetails extends Component {
       bathroomsLo: '',
       meterSqLo: '',
       yearBuildLo: '',
-      DateText: 'Select Date',      
+      DateText: `${I18n.t('pp_date_avlbl').capitalize()}`,      
       DateHolder: null,
     };
     this.selectpropertyType = this.selectpropertyType.bind(this);
@@ -75,10 +106,10 @@ class PropertyBasicDetails extends Component {
     return (
       <View>
         <Picker mode="dropdown" selectedValue={propertyTypeLo} onValueChange={this.selectpropertyType}>
-          <Picker.Item label="Select Type" value="Select Type" />
+          <Picker.Item label={I18n.t('pp_pro_type').capitalize()} value="Select Type" />
           {
             typeProperty.map((type, i) => {
-              return <Picker.Item key={i} label={type} value={type}/>
+              return <Picker.Item key={i} label={type.type} value={type.value}/>
             })
           }
         </Picker>
@@ -181,33 +212,33 @@ class PropertyBasicDetails extends Component {
     } = this.props.propertyPost;
     return (
       <View style={styles.container}>
-        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> Basic Details </Text></View>
+        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}>{I18n.t('ppt_basic').toProperCase()} </Text></View>
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
             {
               screen_4 && (
                 Alert.alert(
-                  'Required',
-                  'Please fill all the fields',
+                  `${I18n.t('ppa_required').capitalize()}`,
+                  `${I18n.t('ppa_content').capitalize()}`,
                   [
-                    {text: 'OK', onPress: () => this.props.updateScreen_4(false)},
+                    {text: `${I18n.t('ppa_ok').capitalize()}`, onPress: () => this.props.updateScreen_4(false)},
                   ],
                   { cancelable: false }
                 )
               )
             }
             <View style={styles.margin}>
-              <Text style={styles.label}>Rent Per Month / Price</Text>
+              <Text style={styles.label}>  {I18n.t('pp_rent').capitalize()}</Text>
               <TextInput
                 style={styles.textInput}
                 value={rent}
-                placeholder="Rent Per Month/Price"
                 keyboardType={'numeric'}
+                placeholder=  {I18n.t('pp_rent').capitalize()}
                 onChangeText={txt => this.rentUpdate(txt)}
               />
             </View>
             <View style={styles.margin}>
-              <Text style={styles.label}>Date Available</Text>
+              <Text style={styles.label}>{I18n.t('pp_date_avlbl').capitalize()}</Text>
                 <TouchableOpacity onPress={this.DatePickerMainFunctionCall.bind(this)} >              
                   <View style={styles.datePickerBox}>              
                     <Text style={styles.datePickerText}>{this.state.DateText}</Text>              
@@ -217,12 +248,12 @@ class PropertyBasicDetails extends Component {
               <DatePickerDialog ref="DatePickerDialog" onDatePicked={this.onDatePickedFunction.bind(this)} />
             </View>
             {Platform.OS === 'ios' ? (
-              <Panel title="Property Type" text={propertyTypeLo}>
+              <Panel title={I18n.t('pp_pro_type').capitalize()} text={propertyTypeLo}>
                 {this.propertyTypeFunc()}
               </Panel>
             ) : (
               <View style={styles.margin}>
-                <Text style={styles.label}>Property Type</Text>
+                <Text style={styles.label}>{I18n.t('pp_pro_type').capitalize()}</Text>
                 {this.propertyTypeFunc()}
               </View>
             )}
@@ -230,24 +261,24 @@ class PropertyBasicDetails extends Component {
               <View style={{flexDirection: 'row'}}>
                 <View style={{width: '50%'}}>
                   {Platform.OS === 'ios' ? (
-                    <Panel title="Rooms" text={roomsLo}>
+                    <Panel title={I18n.t('pp_rooms').capitalize()} text={roomsLo}>
                       {this.roomsFunc()}
                     </Panel>
                   ) : (
                     <View style={styles.margin}>
-                      <Text style={styles.label}>Rooms</Text>
+                      <Text style={styles.label}>{I18n.t('pp_rooms').capitalize()}</Text>
                       {this.roomsFunc()}
                     </View>
                   )}
                 </View>
                 <View style={{width: '50%'}}>
                   {Platform.OS === 'ios' ? (
-                    <Panel title="Bathrooms" text={bathroomsLo}>
+                    <Panel title={I18n.t('pp_bathrooms').capitalize()} text={bathroomsLo}>
                       {this.bathroomsFunc()}
                     </Panel>
                   ) : (
                     <View style={styles.margin}>
-                      <Text style={styles.label}>Bathrooms</Text>
+                      <Text style={styles.label}>{I18n.t('pp_bathrooms').capitalize()}</Text>
                       {this.bathroomsFunc()}
                     </View>
                   )}
@@ -256,24 +287,24 @@ class PropertyBasicDetails extends Component {
               <View style={{flexDirection: 'row'}}>
                 <View style={{width: '50%'}}>
                   <View style={styles.margin}>
-                    <Text style={styles.label}>Meter Square</Text>
+                    <Text style={styles.label}>{I18n.t('pp_meter_sq').capitalize()}</Text>
                     <TextInput
                       style={styles.textInput}
                       value={meterSqLo}
-                      placeholder="Meter Square"
                       keyboardType={'numeric'}
+                      placeholder={I18n.t('pp_meter_sq').capitalize()}
                       onChangeText={txt => this.meterSqUpdate(txt)}
                     />
                   </View>
                 </View>
                 <View style={{width: '50%'}}>
                   <View style={styles.margin}>
-                    <Text style={styles.label}>Year Build</Text>
+                    <Text style={styles.label}>{I18n.t('pp_year_build').capitalize()}</Text>
                     <TextInput
                       style={styles.textInput}
                       value={yearBuildLo}
-                      placeholder="Year Build"
                       keyboardType={'numeric'}
+                      placeholder={I18n.t('pp_year_build').capitalize()}
                       onChangeText={txt => this.yrBuildUpdate(txt)}
                     />
                   </View>

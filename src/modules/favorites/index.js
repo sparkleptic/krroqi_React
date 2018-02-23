@@ -8,6 +8,16 @@ import PropertyCard from '../../components/PropertyCard';
 import Loading from '../../components/Loading';
 import * as PropertiesActions from './../../Actions/PropertiesAction';
 import { PUBLIC_URL } from '../../constants/config';
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 
 class Favorites extends Component {
   constructor(props) {
@@ -72,7 +82,7 @@ class Favorites extends Component {
     this.props.navigator.showModal({
       screen: 'krooqi.Login',
       passProps: {
-        label: 'to save a home',
+        label: `${I18n.t('to_save_a_home').capitalize()}`,
       },
       navigatorStyle: {
         navBarHidden: true,
@@ -139,7 +149,7 @@ class Favorites extends Component {
                   margin: 40,
                 }}
               >
-                <Text style={{ lineHeight: 30, fontSize: 20 }}>Favorites</Text>
+                <Text style={{ lineHeight: 30, fontSize: 20 }}>{I18n.t('ft_favourites').toProperCase()}</Text>
                 <Text
                   style={{
                     lineHeight: 25,
@@ -148,7 +158,7 @@ class Favorites extends Component {
                     textAlign: 'center',
                   }}
                 >
-                  you haven't make any Favorites yet.
+                  {I18n.t('fav_not_mk').capitalize()}
                 </Text>
                 <Text
                   style={{
@@ -158,14 +168,14 @@ class Favorites extends Component {
                     textAlign: 'center',
                   }}
                 >
-                  Make Favorites your search criteria for easy access.
+                  {I18n.t('fav_mk_msg').capitalize()}
                 </Text>
               </View>
             )}
           </View>
         ) : (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Please Login to view your Favorite Properties</Text>
+            <Text>{I18n.t('fav_lg_msg').toProperCase()}</Text>
             <TouchableHighlight onPress={this.openLogin} underlayColor="#f1f1f1">
               <View
                 style={{
@@ -176,7 +186,7 @@ class Favorites extends Component {
                   borderColor: 'gray',
                 }}
               >
-                <Text style={{ fontSize: 16, fontWeight: '400' }}>Login</Text>
+                <Text style={{ fontSize: 16, fontWeight: '400' }}>{I18n.t('m_login').toProperCase()}</Text>
               </View>
             </TouchableHighlight>
           </View>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, FlatList, Platform, AsyncStorage, Text } from 'react-native';
+import { View, Dimensions, FlatList, Platform, AsyncStorage } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import MapView from './Cluster/src/MapContainer'
+import MapView from 'react-native-maps';
 import FlipCard from 'react-native-flip-card';
 import axios from 'axios';
 
@@ -17,21 +17,10 @@ import { PUBLIC_URL } from '../../constants/config';
 import Loading from '../../components/Loading';
 import HomeHeaderbar from '../../components/HomeHeaderbar';
 
-import I18n from '../../i18n';
-
-String.prototype.capitalize = function() {
-  return this.charAt(0).toUpperCase() + this.slice(1);
-}
-
-String.prototype.toProperCase = function() {
-  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
-    function($1) { return $1.toUpperCase(); });
-}
-
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
-const LATITUDE = 23.8859;
-const LONGITUDE = 45.0792;
+const LATITUDE = 0;
+const LONGITUDE = 0;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
@@ -52,8 +41,8 @@ class SearchPage extends Component {
       region: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
-        latitudeDelta: 25,
-        longitudeDelta: 25,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
       },
       defaultSearchLabel: '',
       selectedValue: 'Relevance',
@@ -61,7 +50,6 @@ class SearchPage extends Component {
       openProperty: '',
       userData: null,
       error: false,
-      clusterlo: [],
     };
     this.showLightBox = this.showLightBox.bind(this);
     this.sortProperties = this.sortProperties.bind(this);
@@ -187,12 +175,12 @@ class SearchPage extends Component {
   onFilter(search) {
     this.props.actions.filteredPropertiesLoad(search);
   }
-  
+
   openLogin() {
     this.props.navigator.showModal({
       screen: 'krooqi.Login',
       passProps: {
-        label: `${I18n.t('to_save_a_home').toProperCase()}`,
+        label: 'to save a home',
       },
       navigatorStyle: {
         navBarHidden: true,
@@ -231,7 +219,7 @@ class SearchPage extends Component {
     const { search, propertyStatus, propertyTypes } = this.props;
     this.props.navigator.showModal({
       screen: 'krooqi.FilterPage',
-      title: `${I18n.t('filter_pg').toProperCase()}`,
+      title: 'Filter Page',
       passProps: {
         search,
         propertyStatus,
@@ -320,39 +308,6 @@ class SearchPage extends Component {
     });
   }
 
-  makeMarkersData(){
-    const { filteredProperties } = this.props;
-    
-    let markers = new Array();
-    
-    {
-      filteredProperties.success && filteredProperties.success.map(marker => {
-        let data = {
-          id: marker.ID,
-          latitude: parseFloat(marker.lat), 
-          longitude: parseFloat(marker.lng),
-          price: 5000,
-          currency: 'Krooqi',
-          showLightBox: this.showLightBox,
-          marker: marker,
-        };
-
-        markers.push(data);
-      })
-    }
-
-    /*
-    let markers = [
-      { id: 1, currency: '€', price: 123, latitude: 21.3891, longitude: 39.8579 },
-      { id: 2, currency: '$', price: 69, latitude: 55.6839255, longitude: 12.5576476 },
-      { id: 3, currency: '£', price: 666, latitude: 55.6799209, longitude: 12.5800284 },
-    ];
-    */
-
-    return markers;
-
-  }
-
   render() {
     let disableSaveSearch = false;
     let saved = false;
@@ -407,15 +362,34 @@ class SearchPage extends Component {
               borderWidth: 0,
             }}
           >
-           
             <View
               style={{
                 flex: 1,
               }}
             >
-              <MapView regionGPS={this.state.region} data={this.makeMarkersData()} dismissNotification={this.dismissNotification}  />
+            <MapView
+              style={{ flex: 1 }}
+              region={this.state.region}
+              onRegionChange={region => this.setState({ region })}
+              onPress={this.dismissNotification}
+            >
+            {filteredProperties.success &&
+             filteredProperties.success.map(marker => (
+               <MapView.Marker
+                 key={marker.ID}
+                 coordinate={{
+                   latitude: parseFloat(marker.lat),
+                   longitude: parseFloat(marker.lng),
+                 }}
+                 image={MarkerImg}
+                 onPress={(e) => {
+                   e.stopPropagation();
+                   this.showLightBox(marker);
+                 }}
+               />
+             ))}
+            </MapView>           
             </View>
-
             <View
               style={{
                 flex: 1,

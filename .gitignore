@@ -1,3 +1,8 @@
+android/app/src/main/assets/fonts/Feather.ttf
+android/app/src/main/assets/fonts/MaterialCommunityIcons.ttf
+ios/krooqi.xcodeproj/project.pbxproj
+ios/krooqi/Info.plist
+
 # OSX
 #
 .DS_Store

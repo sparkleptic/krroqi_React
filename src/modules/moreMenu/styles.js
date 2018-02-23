@@ -15,10 +15,17 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRightWidth: 1,
     alignItems: 'center',
-    padding: 20,
+    padding: 15,
     borderColor: 'gray',
   },
-  rightView: { flex: 1, padding: 20 },
+  middleView: { 
+    flex: 1,
+    borderRightWidth: 1,
+    alignItems: 'center',
+    padding: 15,
+    borderColor: 'gray',
+  },
+  rightView: { flex: 1, padding: 15 },
   button: {
     borderRadius: 4,
     borderWidth: 1,
@@ -34,7 +41,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     height: 80,
     width: 80,
-
     margin: 12,
     justifyContent: 'center',
     alignItems: 'center',

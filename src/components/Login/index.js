@@ -19,6 +19,16 @@ import { backgroundColor, PUBLIC_URL } from '../../constants/config';
 import FacebookLogin from '../FacebookLogin';
 import styles from './styles';
 import * as AuthAction from '../../Actions/AuthAction';
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 
 const logoImage = require('../../images/KR-Logo.png');
 
@@ -72,7 +82,8 @@ class Login extends Component {
 
   onFBLoginSuccess(data) {
     this.setState({ loading: false });
-    this.props.actions.register(data);
+    let randomPwd = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    this.props.actions.register({...data, 'password': randomPwd});
   }
 
   onFbLoginFail() {
@@ -106,47 +117,48 @@ class Login extends Component {
           onPress={() => closeModal()}
           underlayColor="#f1f1f1"
         >
-          <Text style={{ padding: 10, fontSize: 16, fontWeight: '500' }}>Close</Text>
+          <Text style={{ padding: 10, fontSize: 16, fontWeight: '500' }}>{I18n.t('close').toProperCase()}</Text>
         </TouchableHighlight>
         <View style={styles.header}>
           <Image style={styles.imageStyle} resizeMode="contain" source={logoImage} />
           <View style={styles.headerText}>
-            <Text style={styles.headerLabel}>Sign in or register</Text>
-            <Text style={styles.headerLabel}>{label}</Text>
+            <Text style={styles.headerLabel}>{I18n.t('login_title').capitalize()}</Text>
+            {/* {<Text style={styles.headerLabel}>{label}</Text>} */}
+            <Text>{I18n.t('to_save_a_home').capitalize()}</Text>
           </View>
         </View>
         <View style={styles.textInputView}>
-          <Text style={styles.label}>Enter your email</Text>
+          <Text style={styles.label}>{I18n.t('login_email').capitalize()}</Text>
           <TextInput
             style={styles.textInput}
             keyboardType="email-address"
             returnKeyType="send"
             onSubmitEditing={this.register}
             value={this.state.email}
-            placeholder="Enter your email"
+            placeholder={I18n.t('login_email').capitalize()}
             onChangeText={email => this.setState({ email })}
           />
         </View>
         <TouchableHighlight onPress={this.register} underlayColor="gray">
           <View style={styles.button}>
-            <Text style={styles.buttonText}>Submit</Text>
+            <Text style={styles.buttonText}>{I18n.t('login_sub').capitalize()}</Text>
           </View>
         </TouchableHighlight>
         <View style={styles.header}>
           <View style={styles.fbLoginView}>
-            <Text style={styles.fbLoginText}>Or sign in with</Text>
+            <Text style={styles.fbLoginText}>{I18n.t('login_with').capitalize()}</Text>
             <FacebookLogin
               onFBLoginSuccess={this.onFBLoginSuccess}
               onFBLoginLoading={this.onFBLoginLoading}
               onFbLoginFail={this.onFbLoginFail}
             />
           </View>
-          <Text style={styles.TCText}>I accept Krooqi's Terms of use and Privacy Policy</Text>
+          <Text style={styles.TCText}>{I18n.t('termsAndCond').capitalize()}</Text>
         </View>
         {loading && (
           <View style={styles.container}>
             <ActivityIndicator size="large" color={backgroundColor} />
-            <Text style={{ textAlign: 'center', color: backgroundColor }}>Loading...</Text>
+            <Text style={{ textAlign: 'center', color: backgroundColor }}>{I18n.t('loading').capitalize()}...</Text>
           </View>
         )}
       </View>

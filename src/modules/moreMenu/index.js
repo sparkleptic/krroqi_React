@@ -2,19 +2,52 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { View, Text, TouchableHighlight, Platform, Image } from 'react-native';
+import { Alert, AsyncStorage, View, Text, TouchableHighlight, Platform, Image, Picker } from 'react-native';
+import ActionSheet from 'react-native-actionsheet';
+import RNRestart from 'react-native-restart';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as AuthAction from '../../Actions/AuthAction';
+import { updatelang } from '../../Actions/propertyPostAction';
 import styles from './styles';
 import { backgroundColor } from '../../constants/config';
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
+
+const CANCEL_INDEX = 0;
+const options = [ 'Cancel', 'Arabic', 'English' ];
+const title = 'Choose your preferred language';
 
 class More extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {lang: 'en'};
     this.openLogin = this.openLogin.bind(this);
     this.openPostProperty = this.openPostProperty.bind(this);
     this.openFindAgent = this.openFindAgent.bind(this);
+    this.setTranslate = this.setTranslate.bind(this);
+    this.showActionSheet = this.showActionSheet.bind(this);
+  }
+
+  componentDidMount(){
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        this.setState({
+          lang: 'en'
+        })
+      }else{
+        this.setState({
+          lang: value
+        })
+      }
+    }).done();
   }
 
   openLogin() {
@@ -25,7 +58,7 @@ class More extends Component {
       this.props.navigator.showModal({
         screen: 'krooqi.Login',
         passProps: {
-          label: 'to save a home',
+          label: `${I18n.t('to_save_a_home').toProperCase()}`,
         },
         navigatorStyle: {
           navBarHidden: true,
@@ -39,7 +72,7 @@ class More extends Component {
   openPostProperty() {
     this.props.navigator.push({
       screen: 'krooqi.PostProperty',
-      title: 'Post Property',
+      title: `${I18n.t('m_post_pro').toProperCase()}`,
       passProps: {},
       navigatorStyle: {
         screenBackgroundColor: 'white',
@@ -51,7 +84,7 @@ class More extends Component {
   openFindAgent() {
     this.props.navigator.push({
       screen: 'krooqi.FindAgent',
-      title: 'Find Agent',
+      title: `${I18n.t('m_find_age').toProperCase()}`,
       passProps: {},
       navigatorStyle: {
         screenBackgroundColor: 'white',
@@ -59,7 +92,7 @@ class More extends Component {
       navigatorButtons: {
         rightButtons: [
           {
-            title: 'Filter',
+            title: `${I18n.t('s_filter').toProperCase()}`,
             id: 'filterAgent',
           },
         ],
@@ -68,9 +101,30 @@ class More extends Component {
     });
   }
 
+  showActionSheet() {
+    this.ActionSheet.show()
+  }
+ 
+  async setTranslate(i) {
+    if(i == 1){
+      await AsyncStorage.setItem('lang', 'ar');
+      this.setState({ lang: 'ar' });
+      this.props.updatelang('ar'); 
+      RNRestart.Restart();
+    }
+    
+    if(i == 2){
+      await AsyncStorage.setItem('lang', 'en');
+      this.setState({ lang: 'en' });
+      this.props.updatelang('en');  
+      RNRestart.Restart();
+    }
+  }
+
   render() {
     const { auth } = this.props;
     const ios = Platform.ios === 'ios';
+    const { lngRoot } = this.props.propertyPost;
     return (
       <View style={styles.container}>
         <View style={styles.topView}>
@@ -85,7 +139,7 @@ class More extends Component {
           <View style={styles.buttonContainer}>
             <TouchableHighlight onPress={this.openLogin} underlayColor="white">
               <View style={styles.button}>
-                <Text style={styles.buttonText}>{auth.success ? 'Logout' : 'Login'} </Text>
+                <Text style={styles.buttonText}>{auth.success ? `${I18n.t('m_logout').toProperCase()}` : `${I18n.t('m_login').toProperCase()}`} </Text>
               </View>
             </TouchableHighlight>
           </View>
@@ -95,19 +149,35 @@ class More extends Component {
             <TouchableHighlight onPress={this.openPostProperty} underlayColor="white">
               <View style={{ alignItems: 'center' }}>
                 <Icon name={ios ? 'ios-home' : 'md-home'} size={30} color={backgroundColor} />
-                <Text>Post Property</Text>
+                <Text>{I18n.t('m_post_pro').toProperCase()}</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+          <View style={styles.middleView}>
+            <TouchableHighlight onPress={this.openFindAgent} underlayColor="white">
+              <View style={{ alignItems: 'center' }}>
+                <Icon name="md-contacts" size={30} color={backgroundColor} />
+                <Text>{I18n.t('m_find_age').toProperCase()}</Text>
               </View>
             </TouchableHighlight>
           </View>
           <View style={styles.rightView}>
-            <TouchableHighlight onPress={this.openFindAgent} underlayColor="white">
+            <TouchableHighlight onPress={this.showActionSheet} underlayColor="white">
               <View style={{ alignItems: 'center' }}>
-                <Icon name="md-contacts" size={30} color={backgroundColor} />
-                <Text>Find Agent</Text>
+                <Icon name="ios-paper" size={30} color={backgroundColor} />
+                <Text>{ this.state.lang == 'en' ? 'English' : 'عربى'}</Text>
               </View>
             </TouchableHighlight>
           </View>
         </View>
+
+        <ActionSheet
+          ref={o => this.ActionSheet = o}
+          title={title}
+          options={options}
+          cancelButtonIndex={CANCEL_INDEX}
+          onPress={this.setTranslate}
+        />
       </View>
     );
   }
@@ -121,12 +191,14 @@ More.propTypes = {
 function mapStateToProps(state) {
   return {
     auth: state.auth,
+    propertyPost: state.propertyPost,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(AuthAction, dispatch),
+    updatelang: (value) => dispatch(updatelang(value)),
   };
 }
 

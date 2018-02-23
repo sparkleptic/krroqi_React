@@ -16,6 +16,7 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 import RNGooglePlaces from 'react-native-google-places';
 import { Navigation } from 'react-native-navigation';
 import MapView from 'react-native-maps';
+import I18n from '../../i18n';
 import styles from './styles';
 import { backgroundColor, propertyStatuses } from '../../constants/config';
 import Panel from '../Panel';
@@ -39,7 +40,20 @@ const LONGITUDE = 0;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+var countriesArr = ['Saudi Arabia']
+var citiesArr = ['Asir','Jeddah Province','Makkah Province','Qassim','Riyadh Province','Tabuk']
+var districtsArr = ['Al Khunayqiyah','Jeddah','Labkhah','Mecca','Riyadh']
+
 Navigation.registerComponent('krooqi.Map', () => Map);
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+      function($1) { return $1.toUpperCase(); });
+}
 
 class Location extends Component {
   constructor(props) {
@@ -116,13 +130,18 @@ class Location extends Component {
 
   renderRegion() {
     const { regionLo } = this.state;
+    const pp_region = `${I18n.t('pp_region').capitalize()}`;
     return (
       <View>
         <Picker mode="dropdown" selectedValue={regionLo} onValueChange={ (value) => {this.selectRegion(value)}}>
-          <Picker.Item label="Select Region" value="key0" />
-          <Picker.Item label="Min Area 1" value="selectRegion Min Area 1" />
-          <Picker.Item label="Min Area 2" value="selectRegion Min Area 2" />
-          <Picker.Item label="Min Area 3" value="selectRegion Min Area 3" />
+          <Picker.Item label={pp_region} value="Select country" />
+          {
+            countriesArr.length > 0 && (
+              countriesArr.map((country, i) => {
+               return <Picker.Item key={i} label={country} value={country} />     
+              })
+            )
+          }
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
@@ -131,14 +150,18 @@ class Location extends Component {
 
   renderBranch() {
     const { branchLo } = this.state;
+    const pp_branch = `${I18n.t('pp_branch').capitalize()}`;
     return (
       <View>
         <Picker mode="dropdown" selectedValue={branchLo} onValueChange={(value) => {this.selectBranch(value)}}>
-          <Picker.Item label="Select Branch" value="key0" />
-          <Picker.Item label="Min Area 1" value="selectBranch key1" />
-          <Picker.Item label="Min Area 2" value="selectBranch key2" />
-          <Picker.Item label="Min Area 3" value="selectBranch key3" />
-          <Picker.Item label="Min Area 4" value="selectBranch key4" />
+          <Picker.Item label={pp_branch} value="key0" />
+          {
+            citiesArr.length > 0 && (
+              citiesArr.map((city, i) => {
+              return  <Picker.Item key={i} label={city} value={city} />     
+              })
+            )
+          }
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
@@ -147,14 +170,18 @@ class Location extends Component {
 
   renderDistrict() {
     const { districtLo } = this.state;
+    const pp_district = `${I18n.t('pp_district').capitalize()}`;
     return (
       <View>
         <Picker mode="dropdown" selectedValue={districtLo} onValueChange={(value) => {this.selectDistrict(value)}}>
-          <Picker.Item label="Select District" />
-          <Picker.Item label="Min Area 1" value="key1 selectDistrict" />
-          <Picker.Item label="Min Area 2" value="key2 selectDistrict" />
-          <Picker.Item label="Min Area 3" value="key3 selectDistrict" />
-          <Picker.Item label="Min Area 4" value="key4 selectDistrict" />
+          <Picker.Item label={pp_district} value="Select District" />
+          {
+            districtsArr.length > 0 && (
+              districtsArr.map((district, i) => {
+              return  <Picker.Item key={i} label={district} value={district} />     
+              })
+            )
+          }
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
@@ -174,18 +201,31 @@ class Location extends Component {
       statusSelectedIndex = 2;
     }
     const { propertyFor, region, branch, district, address, unitFloor, locationOnMap, screen_1 } = this.props.propertyPost;
+
+    const pp_region = `${I18n.t('pp_region').capitalize()}`;
+    const pp_branch = `${I18n.t('pp_branch').capitalize()}`;
+    const pp_district = `${I18n.t('pp_district').capitalize()}`;
+    const pp_address = `${I18n.t('pp_address').capitalize()}`;
+    const pp_unit_floor = `${I18n.t('pp_unit_floor').capitalize()}`;
+    const pp_loacate_on_map = `${I18n.t('pp_loacate_on_map').capitalize()}`;
+
+    let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
+    let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
+    let Devlopment = `${I18n.t('pp_for_development').toProperCase()}`;
+    let property_type_Location =  [For_Rent, For_Sale, Devlopment];
+
     return (
       <View style={styles.container}>
-        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> Location </Text></View>
+        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}>  {I18n.t('ppt_loc').capitalize()} </Text></View>
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
             {
               screen_1 && (
                 Alert.alert(
-                  'Required',
-                  'Please fill all the fields',
+                  `${I18n.t('ppa_required').capitalize()}`,
+                  `${I18n.t('ppa_content').capitalize()}`,
                   [
-                    {text: 'OK', onPress: () => this.props.updateScreen_1(false)},
+                    {text: `${I18n.t('ppa_ok').capitalize()}`, onPress: () => this.props.updateScreen_1(false)},
                   ],
                   { cancelable: false }
                 )
@@ -196,62 +236,62 @@ class Location extends Component {
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
                 tabTextStyle={{ color: backgroundColor }}
-                values={propertyStatuses}
+                values={property_type_Location}
                 selectedIndex={statusSelectedIndex}
                 onTabPress={this.selectPropertyStatus}
               />
-            </View>
+            </View>       
             {OS === 'ios' ? (
-              <Panel title="Region" text={regionLo}>
+              <Panel title={pp_region} text={regionLo}>
                 {this.renderRegion()}
               </Panel>
             ) : (
               <View style={styles.margin}>
-                <Text style={styles.label}>Region</Text>
+                <Text style={styles.label}>{pp_region}</Text>
                 {this.renderRegion()}
               </View>
             )}
             {OS === 'ios' ? (
-              <Panel title="Branch" text={branchLo}>
+              <Panel title={pp_branch} text={branchLo}>
                 {this.renderBranch()}
               </Panel>
             ) : (
               <View style={styles.margin}>
-                <Text style={styles.label}>Branch</Text>
+                <Text style={styles.label}>{pp_branch}</Text>
                 {this.renderBranch()}
               </View>
             )}
             {OS === 'ios' ? (
-              <Panel title="District" text={districtLo}>
+              <Panel title={pp_district} text={districtLo}>
                 {this.renderDistrict()}
               </Panel>
             ) : (
               <View style={styles.margin}>
-                <Text style={styles.label}>District</Text>
+                <Text style={styles.label}>{pp_district}</Text>
                 {this.renderDistrict()}
               </View>
             )}
             <View style={styles.margin}>
-              <Text style={styles.label}>Address</Text>
+              <Text style={styles.label}>{pp_address}</Text>
               <TextInput
                 style={styles.textInput}
                 value={addressLo}
-                placeholder="Address"
+                placeholder={pp_address}
                 onChangeText={txt => this.addressUpdate(txt)}
               />
             </View>
             <View style={styles.margin}>
-              <Text style={styles.label}>Unit / Floor</Text>
+              <Text style={styles.label}>{pp_unit_floor}</Text>
               <TextInput
                 style={styles.textInput}
                 value={unit}
-                placeholder="Unit / Floor"
+                placeholder={pp_unit_floor}
                 onChangeText={txt => this.unitFloorUpdate(txt) }
               />
             </View>
             <View style={[{ flexDirection: 'row' }, styles.margin]}>
               <TouchableHighlight onPress={this.openMap} underlayColor="gray">
-                <Text style={{ padding: 10 }}>LOCATE ON MAP</Text>
+                <Text style={{ padding: 10 }}>{pp_loacate_on_map}</Text>
               </TouchableHighlight>
             </View>
             {mapRegion.latitude !== 0 &&

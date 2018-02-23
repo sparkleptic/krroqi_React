@@ -1,15 +1,18 @@
+import axios from 'axios';
+import * as config from '../../constants/config';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { View, Text, ScrollView, Dimensions, TouchableHighlight } from 'react-native';
+import { ActivityIndicator, AsyncStorage, View, Text, ScrollView, Dimensions, TouchableHighlight } from 'react-native';
 import * as PropertiesActions from '../../Actions/PropertiesAction';
+import I18n from '../../i18n';
 import Location from '../../components/Location';
 import PropertyTitle from '../../components/PropertyTitle';
 import PropertyBasicDetails from '../../components/PropertyBasicDetails';
 import FeaturesAndServices from '../../components/FeaturesAndServices';
-import PropertyAgent from '../../components/PropertyAgent';
 import Media from '../../components/Media';
+import PropertyAgent from '../../components/PropertyAgent';
 import styles from './styles';
 import {
   updateScreen_1,
@@ -18,7 +21,16 @@ import {
   updateScreen_4,
   updateScreen_5,
   updateScreen_6,
-} from '../../Actions/propertyPostAction'
+} from '../../Actions/propertyPostAction';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+      function($1) { return $1.toUpperCase(); });
+}
 
 const { width } = Dimensions.get('window');
 
@@ -28,6 +40,10 @@ class PostProperty extends Component {
     this.state = {
       currentPosition: 0,
       currentPage: 1,
+      successModal: false,
+      savingLoader: false,
+      featuresValuesLo: [],
+      postImages: [],
     };
     this.ScrollNext = this.ScrollNext.bind(this);
     this.ScrollPrev = this.ScrollPrev.bind(this);
@@ -67,7 +83,7 @@ class PostProperty extends Component {
     switch (currentPage) {
       case 1:
           let jsonString = JSON.stringify(locationOnMap);
-          if ((propertyFor.length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0) && (unitFloor.length > 0) && (jsonString.length > 2)) {
+          if ((JSON.stringify(propertyFor).length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0) && (unitFloor.length > 0)) {
             this.props.updateScreen_1(false)
             var screen = 1
           }else{
@@ -107,16 +123,71 @@ class PostProperty extends Component {
           // var screen = 1
         break;
       case 5:
-          var screen = 1
+        AsyncStorage.getItem('postImages').then((value) => {
+          this.setState({
+            postImages: value
+          })
+        }).done();
+        var screen = 1
         break;
       case 6:
-          if ((viewR.length > 0) && (featuresR.length > 0) && (commonFacilitiesR.length > 0) && (additionalFeaturesR.length > 0)) {
-            this.props.updateScreen_6(false)
-            alert("Saving data")
+        const { auth } = this.props;
+
+        AsyncStorage.getItem('featuresValue').then((value) => {
+          this.setState({
+            featuresValuesLo: value
+          })
+        
+          if(this.state.featuresValuesLo.length > 2) {
+          
+          this.props.updateScreen_6(false)
+          this.setState({
+            savingLoader: true
+          })
+            
+          let dataPost = {
+            lang: 'en',
+            owner_id: (auth.success && auth.success.id ? auth.success.id : 1),
+            status : propertyFor,
+            country: region,
+            city: branch,
+            district: district,
+            real_address: address,
+            lat: locationOnMap.latitude,
+            lng: locationOnMap.longitude,
+            post_title: propertyTitle,
+            post_content: propertyDescription,
+            post_name: propertyTitle,
+            price: rentPerMonth,
+            type: propertyType,
+            bedroom_num: rooms,
+            bathroom_num: bathrooms,
+            area: meterSq,
+            build_year: yearBuild,
+            features: JSON.parse(this.state.featuresValuesLo),
+            images: JSON.parse(this.state.postImages)
+          }
+
+          axios
+            .post(`${config.PUBLIC_URL}addProperty`, dataPost)
+            .then((response) => {
+              if (response.status == '200' || response.status == 200) {                
+                this.setState({
+                  successModal: true,
+                  savingLoader: false
+                })
+              }
+            })
+            .catch((error) => {
+              alert(error)
+            });
+
           }else{
             this.props.updateScreen_6(true)
             var screen = 0
-          }
+          }          
+        }).done();
+        var screen = 0
         break;
       default:
         var screen = 0
@@ -156,13 +227,14 @@ class PostProperty extends Component {
     }
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, }}>
           <ScrollView
             horizontal
             pagingEnabled
             scrollEnabled={false}
             showsHorizontalScrollIndicator={false}
             ref={scrollView => (this.scrollView = scrollView)}
+            style={styles.scrollViewParent}
           >
             <View style={{ width }}>
               <Location />
@@ -184,8 +256,16 @@ class PostProperty extends Component {
             </View>
           </ScrollView>
         </View>
-
-        <View style={[{ flexDirection: 'row' }, pagingStyle]}>
+        {
+          this.state.successModal ?
+         (<View style={styles.success}>            
+            <View style={styles.successViewText}>
+              <Text style={styles.successText}>{I18n.t('post_pro_api_success_msg').toProperCase()}</Text>
+            </View>                
+          </View> ): this.state.savingLoader ? ( <View style={styles.containerLoader}>
+      <ActivityIndicator size="large" color={config.backgroundColor} />
+      <Text style={{ textAlign: 'center', color: config.backgroundColor }}>{I18n.t('saving').toProperCase()}...</Text>
+    </View>) :(<View style={[{ flexDirection: 'row' }, pagingStyle]}>
           {currentPage !== 1 && (
             <TouchableHighlight onPress={this.ScrollPrev} underlayColor="gray">
               <Text
@@ -196,7 +276,7 @@ class PostProperty extends Component {
                   padding: 10,
                 }}
               >
-                Previous
+              {I18n.t('pps_previous').capitalize()}
               </Text>
             </TouchableHighlight>
           )}
@@ -210,7 +290,7 @@ class PostProperty extends Component {
                   padding: 10,                 
                 }}
               >
-                Next
+              {I18n.t('pps_next').capitalize()}
               </Text>
             </TouchableHighlight>
           )}
@@ -224,11 +304,12 @@ class PostProperty extends Component {
                   padding: 10,
                 }}
               >
-                Save
+              {I18n.t('pps_save').capitalize()}
               </Text>
             </TouchableHighlight>
           )}
-        </View>
+        </View>)
+        }
       </View>
     );
   }

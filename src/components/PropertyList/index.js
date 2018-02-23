@@ -8,6 +8,16 @@ import PropertyCard from '../PropertyCard';
 import Loading from '../Loading';
 import * as PropertiesActions from '../../Actions/PropertiesAction';
 import { PUBLIC_URL } from '../../constants/config';
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 
 class PropertyList extends Component {
   constructor(props) {
@@ -53,7 +63,7 @@ class PropertyList extends Component {
     this.props.navigator.showModal({
       screen: 'krooqi.Login',
       passProps: {
-        label: 'to save a home',
+        label: `${I18n.t('to_save_a_home').toProperCase()}`,
       },
       navigatorStyle: {
         navBarHidden: true,

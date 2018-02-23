@@ -9,6 +9,16 @@ import PropertyCard from '../PropertyCard';
 import Loading from '../Loading';
 import * as PropertiesActions from '../../Actions/PropertiesAction';
 import { backgroundColor, PUBLIC_URL } from '../../constants/config';
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 
 const H1 = styled.Text`
   font-size: 18px;
@@ -106,7 +116,7 @@ class HomeCard extends Component {
     this.props.navigator.showModal({
       screen: 'krooqi.Login',
       passProps: {
-        label: 'to save a home',
+        label: `${I18n.t('to_save_a_home').toProperCase()}`,
       },
       navigatorStyle: {
         navBarHidden: true,
@@ -121,13 +131,13 @@ class HomeCard extends Component {
     const key = Object.keys(data)[0];
     let title = '';
     if (key === 'sale') {
-      title = 'Property for Sale';
+      title = `${I18n.t('h_pf_sale').toProperCase()}`;
     } else if (key === 'rent') {
-      title = 'Property for Rent';
+      title = `${I18n.t('h_pf_rent').toProperCase()}`;
     } else if (key === 'development') {
-      title = 'Development';
+      title = `${I18n.t('h_pf_devl').toProperCase()}`;
     } else if (key === 'featured') {
-      title = 'Featured Listing';
+      title = `${I18n.t('h_fe_list').toProperCase()}`;
     } else {
       title = '';
     }
@@ -155,7 +165,7 @@ class HomeCard extends Component {
         <Divider />
         <TouchableWithoutFeedback onPress={() => this.pushList(title, key)}>
           <View>
-            <ButtonText>See All</ButtonText>
+            <ButtonText>{I18n.t('h_see_all').toProperCase()}</ButtonText>
           </View>
         </TouchableWithoutFeedback>
       </View>

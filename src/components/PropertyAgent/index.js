@@ -10,10 +10,15 @@ import {
   updateScreen_3,
 } from '../../Actions/propertyPostAction'
 import * as AgentAction from '../../Actions/AgentAction';
+import I18n from '../../i18n';
+
+ String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
 
 String.prototype.toProperCase = function() {
   return this.toLowerCase().replace(/^(.)|\s(.)/g, 
-      function($1) { return $1.toUpperCase(); });
+    function($1) { return $1.toUpperCase(); });
 }
 
 class PropertyAgent extends Component {
@@ -37,7 +42,7 @@ class PropertyAgent extends Component {
     return (
       <View>
         <Picker mode="dropdown" selectedValue={agentLo} onValueChange={this.selectAgent}>
-          <Picker.Item label="Select Agent" value="Select Agent" />
+          <Picker.Item label={I18n.t('pp_agent').capitalize()} value="Select Agent" />
           {
             (JSON.stringify(data).length > 2) ? data.map((detail, i) => { return <Picker.Item key={i} label={detail.display_name.toProperCase()} value={detail.display_name.toProperCase()} /> }) : <Picker.Item label=" " value=" " />
           }
@@ -59,26 +64,26 @@ class PropertyAgent extends Component {
     const data = (agents.success && agents.success.data) || [];
     return (
       <View>
-        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> Agent Details </Text></View>
+        <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}>{I18n.t('ppt_agent').toProperCase()}</Text></View>
         {
           screen_3 && (
             Alert.alert(
-              'Required',
-              'Please fill all the fields',
+              `${I18n.t('ppa_required').capitalize()}`,
+              `${I18n.t('ppa_content').capitalize()}`,
               [
-                {text: 'OK', onPress: () => this.props.updateScreen_3(false)},
+                {text: `${I18n.t('ppa_ok').capitalize()}`, onPress: () => this.props.updateScreen_3(false)},
               ],
               { cancelable: false }
             )
           )
         }
         {OS === 'ios' ? (
-          <Panel title="Agent" text={agentLo}>
+          <Panel title={I18n.t('pp_agent').capitalize()} text={agentLo}>
             {this.renderRegionAgent()}
           </Panel>
         ) : (
           <View style={styles.margin}>
-            <Text style={styles.label}>Agent</Text>
+            <Text style={styles.label}>{I18n.t('pp_agent').capitalize()}</Text>
             {this.renderRegionAgent()}
           </View>
         )}
