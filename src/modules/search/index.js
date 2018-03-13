@@ -77,6 +77,13 @@ class SearchPage extends Component {
     this.onLikePress = this.onLikePress.bind(this);
     this.onErrorNotification = this.onErrorNotification.bind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+
+    /*
+    this.props.navigator.setStyle({
+      navBarCustomView: 'example.CustomTopBar',
+      navBarCustomViewInitialProps: {navigator: this.props.navigator}
+    });
+    */
   }
 
   componentWillMount() {

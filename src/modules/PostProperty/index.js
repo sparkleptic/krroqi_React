@@ -147,7 +147,7 @@ class PostProperty extends Component {
             
           let dataPost = {
             lang: 'en',
-            owner_id: (auth.success && auth.success.id ? auth.success.id : 1),
+            owner_id: '1',
             status : propertyFor,
             country: region,
             city: branch,
