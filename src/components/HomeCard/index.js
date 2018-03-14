@@ -109,6 +109,18 @@ class HomeCard extends Component {
       passProps: {
         category,
       },
+      navigatorButtons: {
+        rightButtons: [
+          {
+            title: `${I18n.t('s_filter').capitalize()}`,
+            id: 'filter',
+            showAsAction: 'ifRoom',
+            buttonColor: 'white',
+            buttonFontSize: 14,
+            buttonFontWeight: '600',
+          },
+        ],
+      }
     });
   }
 

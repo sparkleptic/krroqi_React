@@ -1,16 +1,42 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import MapView from 'react-native-maps'
-import MarkerImg from '../../../../../images/highlight-pin-single-family-act.png'
-import MarkerImgFeatured from '../../../../../images/highlight-pin-single-family-act-featured.png'
+
+import DefaultIcon from '../../../../../images/markers/default-marker.png'
+import DevelopmentIcon from '../../../../../images/markers/development-marker.png'
+import FeaturedIcon from '../../../../../images/markers/featured-marker.png'
+import RentIcon from '../../../../../images/markers/rent-marker.png'
+import SaleIcon from '../../../../../images/markers/sale-marker.png'
 
 const Marker = ({ item, color, children }) => {
-	const coords = item.geometry.coordinates
-	const { price, currency, showLightBox, marker } = item.properties
+	const coords = item.geometry.coordinates;
+	const { price, currency, showLightBox, marker } = item.properties;
+
+	let renderMarkerIcon = DefaultIcon;
+
+	if (marker.featured == 1) {
+		renderMarkerIcon = FeaturedIcon
+	}else{
+		switch (marker.proprtyConditon) {
+			case 'development':
+				renderMarkerIcon = DevelopmentIcon
+				break;
+			case 'rent':
+				renderMarkerIcon = RentIcon
+				break;
+			case 'sale':
+				renderMarkerIcon = SaleIcon
+				break;
+		
+			default:
+				renderMarkerIcon = DefaultIcon
+				break;
+		}
+	}
 
 	return (
 		<MapView.Marker
-			image={marker.featured == 1 ? MarkerImgFeatured : MarkerImg}
+			image={renderMarkerIcon}
 			coordinate={{ latitude: coords[1], longitude: coords[0] }}
 			width={40}
 			height={36.5}

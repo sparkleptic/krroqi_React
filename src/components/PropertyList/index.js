@@ -30,6 +30,50 @@ class PropertyList extends Component {
     this.closeModel = this.closeModel.bind(this);
     this.onLikePress = this.onLikePress.bind(this);
     this.openLogin = this.openLogin.bind(this);
+
+    this.onFilter = this.onFilter.bind(this);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  componentWillMount() {
+    this.props.actions.filteredPropertiesLoad();
+  }
+
+  onNavigatorEvent(event) {
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'filter') {
+        this.showFilterPage();
+      }
+    }
+  }
+
+  showFilterPage() {
+    const { search, propertyStatus, propertyTypes } = this.props;
+    this.props.navigator.showModal({
+      screen: 'krooqi.FilterPage',
+      title: `${I18n.t('filter_pg').toProperCase()}`,
+      passProps: {
+        search,
+        propertyStatus,
+        propertyTypes,
+        onFilter: this.onFilter,
+      },
+      navigatorButtons: {
+        leftButtons: [
+          {
+            title: 'Cancel',
+            id: 'cancel',
+            buttonColor: 'white',
+            buttonFontSize: 14,
+            buttonFontWeight: '600',
+          },
+        ],
+      },
+    });
+  }
+
+  onFilter(search) {
+    this.props.actions.filteredPropertiesLoad(search);
   }
 
   onLikePress(propertyID) {
@@ -138,12 +182,19 @@ function mapStateToProps(state) {
     state.auth.loading ||
     state.favorites.loading ||
     state.propertiesByCategory.loading;
-  const favorites = state.favorites.success || [];
+    const favorites = state.favorites.success || [];
+    const propertyTypes = state.propertyTypes.success || [];
+    let propertyStatus = state.propertyStatus.success || [];
+    propertyStatus = propertyStatus.filter(item => item.term_id === 33 || item.term_id === 34 || item.term_id === 108);
+
   return {
     propertiesByCategory: state.propertiesByCategory,
     auth: state.auth,
     favorites,
     loading,
+    search: state.search,
+    propertyStatus,
+    propertyTypes,
   };
 }
 
