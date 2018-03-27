@@ -46,6 +46,7 @@ class filterPage extends Component {
       selectedIndex: 0,
       language: 'java',
       showAll: false,
+      propertyTypeLo: '',
     };
     this.selectMinPrice = this.selectMinPrice.bind(this);
     this.selectMaxPrice = this.selectMaxPrice.bind(this);
@@ -61,6 +62,31 @@ class filterPage extends Component {
     this.selectPropertyType = this.selectPropertyType.bind(this);
     this.selectPropertyStatus = this.selectPropertyStatus.bind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+    renderPropertyType() {
+    const { propertyTypeLo } = this.state;
+    let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
+    let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
+    let Devlopment = `${I18n.t('pp_for_development').toProperCase()}`;
+    let New_Construction = `${I18n.t('pp_for_construction').toProperCase()}`;
+    let Sold = `${I18n.t('pp_for_sold').toProperCase()}`;
+    let Rented = `${I18n.t('pp_for_rented').toProperCase()}`;
+    let PropertyTypeArr =  [For_Rent, For_Sale, Devlopment, New_Construction, Sold, Rented];
+    return (
+      <View>
+        <Picker mode="dropdown" selectedValue={propertyTypeLo} onValueChange={ (value) => {this.selectPropertyStatus(value)}}>
+          {
+            PropertyTypeArr.length > 0 && (
+              PropertyTypeArr.map((proType, i) => {
+               return <Picker.Item key={i} label={proType} value={i} />     
+              })
+            )
+          }
+        </Picker>
+        {Platform.OS !== 'ios' && <View style={styles.divider} />}
+      </View>
+    );
   }
 
   onNavigatorEvent(event) {
@@ -165,18 +191,37 @@ class filterPage extends Component {
     const newVal = { ...search, propertyType: value };
     this.setState({ search: newVal });
   }
+  // selectPropertyStatus(index) {
+  //   let termId = 0;
+  //   if (index === 0) {
+  //     termId = 33;
+  //   } else if (index === 1) {
+  //     termId = 34;
+  //   } else {
+  //     termId = 108;
+  //   }
+  //   const { search } = this.state;
+  //   const newVal = { ...search, propertyStatus: termId };
+  //   this.setState({ search: newVal });
+  // }
   selectPropertyStatus(index) {
     let termId = 0;
     if (index === 0) {
       termId = 33;
     } else if (index === 1) {
       termId = 34;
-    } else {
+    } else if (index === 2) {
       termId = 108;
+    } else if (index === 3) {
+      termId = 319;
+    } else if (index === 4) {
+      termId = 217;
+    } else if (index === 5) {
+      termId = 218;
     }
     const { search } = this.state;
     const newVal = { ...search, propertyStatus: termId };
-    this.setState({ search: newVal });
+    this.setState({ search: newVal, propertyTypeLo: index  });
   }
 
   renderArea() {
@@ -296,7 +341,7 @@ class filterPage extends Component {
   render() {
     const { OS } = Platform;
     const { propertyTypes } = this.props;
-    const { search } = this.state;
+    const { search, propertyTypeLo } = this.state;
     const pl = propertyTypes.map(item => ({
       key: item.term_id,
       value: item.name,
@@ -312,6 +357,7 @@ class filterPage extends Component {
       .fill()
       .map((_, i) => moment().year() - i);
 
+    const pp_propertyType = `${I18n.t('pp_propertyType').capitalize()}`;
     let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
     let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
     let Devlopment = `${I18n.t('pp_for_development').toProperCase()}`;
@@ -320,7 +366,7 @@ class filterPage extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
-            <View style={styles.margin}>
+            {/* <View style={styles.margin}>
               <SegmentedControlTab
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
@@ -329,7 +375,17 @@ class filterPage extends Component {
                 selectedIndex={statusSelectedIndex}
                 onTabPress={this.selectPropertyStatus}
               />
-            </View>
+            </View> */}
+            {OS === 'ios' ? (
+              <Panel title={pp_propertyType} text={propertyTypeLo}>
+                {this.renderPropertyType()}
+              </Panel>
+            ) : (
+              <View style={styles.margin}>
+                <Text style={styles.label}>{pp_propertyType}</Text>
+                {this.renderPropertyType()}
+              </View>
+            )}
             {OS === 'ios' ? (
               <Panel title="Price Range" data={search.priceRange}>
                 {this.renderPriceRange()}
@@ -401,6 +457,7 @@ class filterPage extends Component {
                     value={search.district}
                     placeholder={I18n.t('pp_district').toProperCase()}
                     onChangeText={district => this.setState({ search: { ...search, district } })}
+                    autoCapitalize={'words'}
                   />
                 </View>
               </View>

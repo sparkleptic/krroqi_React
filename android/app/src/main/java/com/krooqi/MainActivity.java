@@ -16,6 +16,7 @@ public class MainActivity extends SplashActivity {
         MainApplication.getCallbackManager().onActivityResult(requestCode, resultCode, data);
     }
 
+    /*
     @Override
     public LinearLayout createSplashLayout() {
         LinearLayout view = new LinearLayout(this);
@@ -32,4 +33,5 @@ public class MainActivity extends SplashActivity {
         view.addView(textView);
         return view;
     }
+    */
 }

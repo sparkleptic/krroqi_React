@@ -15,6 +15,7 @@ import SearchTopBar from './components/SearchTopBar';
 import SearchFormPage from './components/SearchFormpage';
 import SearchPage from './components/searchPage';
 import FilterPage from './components/filterPage';
+import FilterResultPage from './components/filterResultPage';
 import MapDetail from './components/MapDetail';
 import SortModal from './components/sortModal';
 import SaveSearchModal from './components/saveSearchModal';
@@ -35,6 +36,7 @@ export function registerScreens(store, Provider) {
   Navigation.registerComponent('krooqi.SaveSearchModal', () => SaveSearchModal, store, Provider);
   Navigation.registerComponent('krooqi.MapDetail', () => MapDetail, store, Provider);
   Navigation.registerComponent('krooqi.FilterPage', () => FilterPage, store, Provider);
+  Navigation.registerComponent('krooqi.FilterResultPage', () => FilterResultPage, store, Provider);
   Navigation.registerComponent('krooqi.SearchTopBar', () => SearchTopBar, store, Provider);
   Navigation.registerComponent('krooqi.SearchFormPage', () => SearchFormPage, store, Provider);
   Navigation.registerComponent('krooqi.Favorites', () => Favorites, store, Provider);

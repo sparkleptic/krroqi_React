@@ -4,4 +4,9 @@
     <color name="colorPrimary">#f7941e</color>
     <color name="colorPrimaryDark">#f7941e</color>
     <color name="colorAccent">#f7941e</color>
+
+    <item name="blue" type="color">#f7941e</item>
+    <integer-array name="androidcolors">
+        <item>@color/blue</item>
+    </integer-array>
 </resources>

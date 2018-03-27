@@ -34,63 +34,63 @@ const PropertyContent = ({ property }) => {
         )}
         <Text style={styles.subject}>Property Details</Text>
         <View style={styles.row}>
-          <Text style={styles.label}>Year of Construction</Text>
+          <Text style={styles.label}>Propert ID</Text>
           <Text style={styles.text}>{property.ID}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Number of Rooms</Text>
-          <Text style={styles.text}>{property.eprice}</Text>
+          <Text style={styles.label}>Price</Text>
+          <Text style={styles.text}>{property.eprice} sar</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Number of baths</Text>
-          <Text style={styles.text}>{property.area}</Text>
+          <Text style={styles.label}>Total area</Text>
+          <Text style={styles.text}>{property.area} sq. m</Text>
         </View>
         {!!property.bedroom_num && (
           <View style={styles.row}>
-            <Text style={styles.label}>Number of baths</Text>
+            <Text style={styles.label}>Number of bedroom</Text>
             <Text style={styles.text}>{property.bedroom_num}</Text>
           </View>
         )}
         {!!property.bathroom_num && (
           <View style={styles.row}>
-            <Text style={styles.label}>Number of baths</Text>
+            <Text style={styles.label}>Number of bathroom</Text>
             <Text style={styles.text}>{property.bathroom_num}</Text>
           </View>
         )}
         {!!property.garage_num && (
           <View style={styles.row}>
-            <Text style={styles.label}>Number of baths</Text>
+            <Text style={styles.label}>Number of garage</Text>
             <Text style={styles.text}>{property.garage_num}</Text>
           </View>
         )}
         {!!property.garage_area && (
           <View style={styles.row}>
-            <Text style={styles.label}>Number of baths</Text>
-            <Text style={styles.text}>{property.garage_area}</Text>
+            <Text style={styles.label}>Total garage area</Text>
+            <Text style={styles.text}>{property.garage_area} sq. m</Text>
           </View>
         )}
         {!!property.build_year && (
           <View style={styles.row}>
-            <Text style={styles.label}>Number of baths</Text>
+            <Text style={styles.label}>Build on</Text>
             <Text style={styles.text}>{property.build_year}</Text>
           </View>
         )}
         {!!propertyType.name && (
           <View style={styles.row}>
-            <Text style={styles.label}>Number of baths</Text>
+            <Text style={styles.label}>Property type</Text>
             <Text style={styles.text}>{propertyType.name}</Text>
           </View>
         )}
         {!!propertyLabel &&
           propertyLabel.name && (
             <View style={styles.row}>
-              <Text style={styles.label}>Number of baths</Text>
+              <Text style={styles.label}>Property label</Text>
               <Text style={styles.text}>{propertyLabel.name}</Text>
             </View>
           )}
         {!!propertyStatus.name && (
           <View style={styles.row}>
-            <Text style={styles.label}>Number of baths</Text>
+            <Text style={styles.label}>Property status</Text>
             <Text style={styles.text}>{propertyStatus.name}</Text>
           </View>
         )}

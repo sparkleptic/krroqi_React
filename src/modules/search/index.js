@@ -116,6 +116,8 @@ class SearchPage extends Component {
           },
         });
 
+        let { mapSearch } = this.props;
+
         this.props.actionsSearch.updateSearch({
           ...mapSearch,
           searchText: 'found',
@@ -126,7 +128,7 @@ class SearchPage extends Component {
         });
       },
       (error) => {
-        this.onErrorNotification(error.message);
+        // this.onErrorNotification(error.message);
       },
       navigatorOptions,
     );
@@ -202,7 +204,14 @@ class SearchPage extends Component {
   }
 
   onFilter(search) {
-    this.props.actions.filteredPropertiesLoad(search);
+    this.props.navigator.dismissModal({
+      animationType: 'slide-down', // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
+    });
+    this.props.navigator.push({
+      screen: 'krooqi.FilterResultPage',
+      title: `${I18n.t('result_filters').toProperCase()}`,
+    });
+    this.props.actions.filteredPropertiesLoadOnSearch(search);
   }
   
   openLogin() {

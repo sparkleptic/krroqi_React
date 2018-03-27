@@ -2,7 +2,7 @@
     <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">4410de8a-fe70-463b-bfd6-d52fd09e9e85</string>
     <string moduleConfig="true" name="mobileCenterCrashes_whenToSendCrashes">ALWAYS_SEND</string>
     <string moduleConfig="true" name="mobileCenterAnalytics_whenToEnableAnalytics">ALWAYS_SEND</string>
-    <string name="app_name">krooqi</string>
+    <string name="app_name">Krooqi</string>
     <string name="facebook_app_id">2040181892924257</string>
     <string name="fb_login_protocol_scheme">fb2040181892924257</string>
 </resources>

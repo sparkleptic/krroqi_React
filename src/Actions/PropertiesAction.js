@@ -210,6 +210,30 @@ export function filteredPropertiesLoad(search) {
   };
 }
 
+export function filteredPropertiesLoadOnSearch(search) {
+  return (dispatch) => {
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        let  lang = 'en';
+      }else{
+        let  lang = value;
+      }
+      dispatch(filteredPropertiesLoadRequest());
+      let filterData = {"filter": search};
+      return axios
+        .post(`${config.PUBLIC_URL}filterProperties/${value}`, filterData)
+        .then((response) => {
+          dispatch(filteredPropertiesLoadSuccess(response.data));
+          const newSearch = search || config.search;
+          dispatch(searchChange(newSearch));
+        })
+        .catch((error) => {
+          dispatch(filteredPropertiesLoadFail(error));
+        });
+    }).done();
+  };
+}
+
 export function favoritePropertiesLoad(userId) {
   return (dispatch) => {
     AsyncStorage.getItem('lang').then((value) => {

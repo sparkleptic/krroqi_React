@@ -60,6 +60,8 @@ class Login extends Component {
       email: '',
       error: false,
       loading: false,
+      showError: false,
+      showInvalidEmail: false,
     };
     this.onFBLoginSuccess = this.onFBLoginSuccess.bind(this);
     this.onFBLoginLoading = this.onFBLoginLoading.bind(this);
@@ -76,6 +78,11 @@ class Login extends Component {
     }
   }
 
+  validateEmail = (email) => {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+};
+
   onFBLoginLoading() {
     this.setState({ loading: true });
   }
@@ -91,20 +98,29 @@ class Login extends Component {
   }
 
   register() {
-    this.setState({ loading: true });
-    axios
-      .post(`${PUBLIC_URL}checkIfUserExists`, {
-        email: this.state.email,
-      })
-      .then((response) => {
-        if (response.data) {
-          this.setState({ loading: false });
-          navigateToPassword(response.data.exists, this.state.email);
-        }
-      })
-      .catch((error) => {
-        this.setState({ error, loading: false });
-      });
+    if (this.state.email.length > 0) {
+      this.setState({ showError: false });
+      if (!this.validateEmail(this.state.email)) {
+        this.setState({ showInvalidEmail: true });
+      }else{
+        this.setState({ loading: true, showInvalidEmail: false });
+      axios
+        .post(`${PUBLIC_URL}checkIfUserExists`, {
+          email: this.state.email,
+        })
+        .then((response) => {
+          if (response.data) {
+            this.setState({ loading: false });
+            navigateToPassword(response.data.exists, this.state.email);
+          }
+        })
+        .catch((error) => {
+          this.setState({ error, loading: false });
+        });
+      }
+    }else{
+      this.setState({ showError: true });
+    }
   }
 
   render() {
@@ -138,6 +154,8 @@ class Login extends Component {
             placeholder={I18n.t('login_email').capitalize()}
             onChangeText={email => this.setState({ email })}
           />
+          {this.state.showError && ( <Text  style={{ color: 'red' }}>The email address is required and cannot be empty.</Text> )}
+          {this.state.showInvalidEmail && ( <Text  style={{ color: 'red' }}>You have entered an invalid email address!</Text> )}
         </View>
         <TouchableHighlight onPress={this.register} underlayColor="gray">
           <View style={styles.button}>

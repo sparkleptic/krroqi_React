@@ -73,9 +73,6 @@ export const maxPrice = [
 ];
 
 export const search = {
-  searchText: '',
-  latitude: 0,
-  longitude: 0,
   propertyStatus: 0,
   priceRange: {
     start: '',

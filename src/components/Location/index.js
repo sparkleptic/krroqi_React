@@ -60,12 +60,14 @@ class Location extends Component {
     super(props);
     this.state = {
       propertyStatus: '33',
+      propertyTypeLo: '',
       branchLo: '',
       regionLo: '',
       city: '',
       districtLo: '',
       addressLo: '',
       unit: '',
+      required: false,
       mapRegion: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
@@ -106,10 +108,16 @@ class Location extends Component {
       termId = 33;
     } else if (index === 1) {
       termId = 34;
-    } else {
+    } else if (index === 2) {
       termId = 108;
+    } else if (index === 3) {
+      termId = 319;
+    } else if (index === 4) {
+      termId = 217;
+    } else if (index === 5) {
+      termId = 218;
     }
-    this.setState({ propertyStatus: termId });
+    this.setState({ propertyStatus: termId, propertyTypeLo: index });
     this.props.updatePropertyFor(termId)
   }
 
@@ -128,13 +136,39 @@ class Location extends Component {
       .catch(error => console.log(error.message)); // error is a Javascript Error object
   }
 
+  renderPropertyType() {
+    const { propertyTypeLo } = this.state;
+    let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
+    let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
+    let Devlopment = `${I18n.t('pp_for_development').toProperCase()}`;
+    let New_Construction = `${I18n.t('pp_for_construction').toProperCase()}`;
+    let Sold = `${I18n.t('pp_for_sold').toProperCase()}`;
+    let Rented = `${I18n.t('pp_for_rented').toProperCase()}`;
+    let PropertyTypeArr =  [For_Rent, For_Sale, Devlopment, New_Construction, Sold, Rented];
+    return (
+      <View>
+        <Picker mode="dropdown" selectedValue={propertyTypeLo} onValueChange={ (value) => {this.selectPropertyStatus(value)}}>
+          {
+            PropertyTypeArr.length > 0 && (
+              PropertyTypeArr.map((proType, i) => {
+               return <Picker.Item key={i} label={proType} value={i} />     
+              })
+            )
+          }
+        </Picker>
+        {Platform.OS !== 'ios' && <View style={styles.divider} />}
+      </View>
+    );
+  }
+
   renderRegion() {
     const { regionLo } = this.state;
     const pp_region = `${I18n.t('pp_region').capitalize()}`;
+    const pp_country = `${I18n.t('pp_country').capitalize()}`;
     return (
       <View>
         <Picker mode="dropdown" selectedValue={regionLo} onValueChange={ (value) => {this.selectRegion(value)}}>
-          <Picker.Item label={pp_region} value="Select country" />
+          <Picker.Item label={pp_country} value="Select Country" />
           {
             countriesArr.length > 0 && (
               countriesArr.map((country, i) => {
@@ -151,10 +185,11 @@ class Location extends Component {
   renderBranch() {
     const { branchLo } = this.state;
     const pp_branch = `${I18n.t('pp_branch').capitalize()}`;
+    const pp_region = `${I18n.t('pp_region').capitalize()}`;
     return (
       <View>
         <Picker mode="dropdown" selectedValue={branchLo} onValueChange={(value) => {this.selectBranch(value)}}>
-          <Picker.Item label={pp_branch} value="key0" />
+          <Picker.Item label={pp_region} value="Select Region" />
           {
             citiesArr.length > 0 && (
               citiesArr.map((city, i) => {
@@ -171,10 +206,11 @@ class Location extends Component {
   renderDistrict() {
     const { districtLo } = this.state;
     const pp_district = `${I18n.t('pp_district').capitalize()}`;
+    const pp_city = `${I18n.t('pp_city').capitalize()}`;
     return (
       <View>
         <Picker mode="dropdown" selectedValue={districtLo} onValueChange={(value) => {this.selectDistrict(value)}}>
-          <Picker.Item label={pp_district} value="Select District" />
+          <Picker.Item label={pp_city} value="Select City" />
           {
             districtsArr.length > 0 && (
               districtsArr.map((district, i) => {
@@ -190,7 +226,7 @@ class Location extends Component {
 
   render() {
     const {
-      propertyStatus, regionLo, city, districtLo, addressLo, unit, mapRegion, branchLo
+      propertyStatus, regionLo, city, districtLo, addressLo, unit, mapRegion, branchLo, propertyTypeLo
     } = this.state;
     const { OS } = Platform;
     let statusSelectedIndex = 0;
@@ -200,9 +236,21 @@ class Location extends Component {
     if (propertyStatus === 108) {
       statusSelectedIndex = 2;
     }
+    if (propertyStatus === 319) {
+      statusSelectedIndex = 3;
+    }
+    if (propertyStatus === 217) {
+      statusSelectedIndex = 4;
+    }
+    if (propertyStatus === 218) {
+      statusSelectedIndex = 5;
+    }
     const { propertyFor, region, branch, district, address, unitFloor, locationOnMap, screen_1 } = this.props.propertyPost;
 
+    const pp_propertyType = `${I18n.t('pp_propertyType').capitalize()}`;
     const pp_region = `${I18n.t('pp_region').capitalize()}`;
+    const pp_country = `${I18n.t('pp_country').capitalize()}`;
+    const pp_city = `${I18n.t('pp_city').capitalize()}`;
     const pp_branch = `${I18n.t('pp_branch').capitalize()}`;
     const pp_district = `${I18n.t('pp_district').capitalize()}`;
     const pp_address = `${I18n.t('pp_address').capitalize()}`;
@@ -212,7 +260,10 @@ class Location extends Component {
     let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
     let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
     let Devlopment = `${I18n.t('pp_for_development').toProperCase()}`;
-    let property_type_Location =  [For_Rent, For_Sale, Devlopment];
+    let New_Construction = "Construction";
+    let Sold = "Sold";
+    let Rented = "Rented";
+    let property_type_Location =  [For_Rent, For_Sale, Devlopment, New_Construction, Sold, Rented];
 
     return (
       <View style={styles.container}>
@@ -231,7 +282,7 @@ class Location extends Component {
                 )
               )
             }
-            <View style={styles.margin}>
+            {/* <View style={styles.margin}>
               <SegmentedControlTab
                 tabStyle={{ borderColor: backgroundColor }}
                 activeTabStyle={{ backgroundColor }}
@@ -240,39 +291,49 @@ class Location extends Component {
                 selectedIndex={statusSelectedIndex}
                 onTabPress={this.selectPropertyStatus}
               />
-            </View>       
+            </View> */}
             {OS === 'ios' ? (
-              <Panel title={pp_region} text={regionLo}>
+              <Panel title={pp_propertyType} text={propertyTypeLo}>
+                {this.renderPropertyType()}
+              </Panel>
+            ) : (
+              <View style={styles.margin}>
+                <Text style={styles.label}>{pp_propertyType} <Text style={{ color: 'red' }}>*</Text></Text>
+                {this.renderPropertyType()}
+              </View>
+            )}
+            {OS === 'ios' ? (
+              <Panel title={pp_country} text={regionLo}>
                 {this.renderRegion()}
               </Panel>
             ) : (
               <View style={styles.margin}>
-                <Text style={styles.label}>{pp_region}</Text>
+                <Text style={styles.label}>{pp_country}  <Text style={{ color: 'red' }}>*</Text></Text>
                 {this.renderRegion()}
               </View>
             )}
             {OS === 'ios' ? (
-              <Panel title={pp_branch} text={branchLo}>
+              <Panel title={pp_region} text={branchLo}>
                 {this.renderBranch()}
               </Panel>
             ) : (
               <View style={styles.margin}>
-                <Text style={styles.label}>{pp_branch}</Text>
+                <Text style={styles.label}>{pp_region}  <Text style={{ color: 'red' }}>*</Text></Text>
                 {this.renderBranch()}
               </View>
             )}
             {OS === 'ios' ? (
-              <Panel title={pp_district} text={districtLo}>
+              <Panel title={pp_city} text={districtLo}>
                 {this.renderDistrict()}
               </Panel>
             ) : (
               <View style={styles.margin}>
-                <Text style={styles.label}>{pp_district}</Text>
+                <Text style={styles.label}>{pp_city} <Text style={{ color: 'red' }}>*</Text></Text>
                 {this.renderDistrict()}
               </View>
             )}
             <View style={styles.margin}>
-              <Text style={styles.label}>{pp_address}</Text>
+              <Text style={styles.label}>{pp_address} <Text style={{ color: 'red' }}>*</Text></Text>
               <TextInput
                 style={styles.textInput}
                 value={addressLo}
@@ -280,7 +341,7 @@ class Location extends Component {
                 onChangeText={txt => this.addressUpdate(txt)}
               />
             </View>
-            <View style={styles.margin}>
+            {/* <View style={styles.margin}>
               <Text style={styles.label}>{pp_unit_floor}</Text>
               <TextInput
                 style={styles.textInput}
@@ -288,7 +349,7 @@ class Location extends Component {
                 placeholder={pp_unit_floor}
                 onChangeText={txt => this.unitFloorUpdate(txt) }
               />
-            </View>
+            </View> */}
             <View style={[{ flexDirection: 'row' }, styles.margin]}>
               <TouchableHighlight onPress={this.openMap} underlayColor="gray">
                 <Text style={{ padding: 10 }}>{pp_loacate_on_map}</Text>

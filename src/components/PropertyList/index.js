@@ -73,7 +73,15 @@ class PropertyList extends Component {
   }
 
   onFilter(search) {
-    this.props.actions.filteredPropertiesLoad(search);
+    this.props.navigator.pop({
+      animated: true, // does the pop have transition animation or does it happen immediately (optional)
+      animationType: 'fade', // 'fade' (for both) / 'slide-horizontal' (for android) does the pop have different transition animation (optional)
+    });
+    this.props.navigator.push({
+      screen: 'krooqi.FilterResultPage',
+      title: `${I18n.t('result_filters').toProperCase()}`,
+    });
+    this.props.actions.filteredPropertiesLoadOnSearch(search);
   }
 
   onLikePress(propertyID) {
