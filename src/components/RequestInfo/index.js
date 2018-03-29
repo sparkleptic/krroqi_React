@@ -16,7 +16,7 @@ class RequestInfo extends Component {
   }
 
   submitRequestInfo() {
-    alert('submitRequestInfo');
+    //alert('submitRequestInfo');
   }
 
   render() {
