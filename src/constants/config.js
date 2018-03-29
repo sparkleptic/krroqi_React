@@ -21,7 +21,10 @@ export const USER_DATA = 'USER_DATA';
 let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
 let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
 let Devlopment = `${I18n.t('pp_for_development').toProperCase()}`;
-let property_type =  [For_Rent, For_Sale, Devlopment];
+let New_Construction = "New_Construction";
+let Sold = "Sold";
+let Rented = "Rented";
+let property_type =  [For_Rent, For_Sale, Devlopment, New_Construction, Sold, Rented];
 
 export let propertyStatuses = property_type;
 
@@ -73,7 +76,7 @@ export const maxPrice = [
 ];
 
 export const search = {
-  propertyStatus: 0,
+  propertyStatus: 33,
   priceRange: {
     start: '',
     end: '',
@@ -90,4 +93,5 @@ export const search = {
     end: '',
   },
   district: '',
+  region: '',
 };

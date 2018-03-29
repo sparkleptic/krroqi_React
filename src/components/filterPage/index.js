@@ -36,6 +36,9 @@ String.prototype.toProperCase = function() {
     function($1) { return $1.toUpperCase(); });
 }
 
+var citiesArr = ['Asir','Jeddah Province','Makkah Province','Qassim','Riyadh Province','Tabuk']
+var districtsArr = ['Al Khunayqiyah','Jeddah','Labkhah','Mecca','Riyadh']
+
 class filterPage extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +50,8 @@ class filterPage extends Component {
       language: 'java',
       showAll: false,
       propertyTypeLo: '',
+      districtLo: '',
+      branchLo: '',
     };
     this.selectMinPrice = this.selectMinPrice.bind(this);
     this.selectMaxPrice = this.selectMaxPrice.bind(this);
@@ -224,6 +229,16 @@ class filterPage extends Component {
     this.setState({ search: newVal, propertyTypeLo: index  });
   }
 
+  selectDistrict = (district) => {
+    const { search } = this.state;
+    this.setState({ search: { ...search, district }, districtLo: district });
+  }
+
+  selectBranch = (region) => {
+    const { search } = this.state;
+    this.setState({ search: { ...search, region }, branchLo: region });
+  }
+
   renderArea() {
     const { search } = this.state;
     return (
@@ -338,10 +353,52 @@ class filterPage extends Component {
     );
   }
 
+  renderBranch() {
+    const { branchLo } = this.state;
+    const pp_branch = `${I18n.t('pp_branch').capitalize()}`;
+    const pp_region = `${I18n.t('pp_region').capitalize()}`;
+    return (
+      <View>
+        <Picker mode="dropdown" selectedValue={branchLo} onValueChange={(value) => {this.selectBranch(value)}}>
+          <Picker.Item label={pp_region} value="Select Region" />
+          {
+            citiesArr.length > 0 && (
+              citiesArr.map((city, i) => {
+              return  <Picker.Item key={i} label={city} value={city} />     
+              })
+            )
+          }
+        </Picker>
+        {Platform.OS !== 'ios' && <View style={styles.divider} />}
+      </View>
+    );
+  }
+
+  renderDistrict() {
+    const { districtLo } = this.state;
+    const pp_district = `${I18n.t('pp_district').capitalize()}`;
+    const pp_city = `${I18n.t('pp_city').capitalize()}`;
+    return (
+      <View>
+        <Picker mode="dropdown" selectedValue={districtLo} onValueChange={(value) => {this.selectDistrict(value)}}>
+          <Picker.Item label={pp_city} value="Select City" />
+          {
+            districtsArr.length > 0 && (
+              districtsArr.map((district, i) => {
+              return  <Picker.Item key={i} label={district} value={district} />     
+              })
+            )
+          }
+        </Picker>
+        {Platform.OS !== 'ios' && <View style={styles.divider} />}
+      </View>
+    );
+  }
+
   render() {
     const { OS } = Platform;
     const { propertyTypes } = this.props;
-    const { search, propertyTypeLo } = this.state;
+    const { search, propertyTypeLo, districtLo, branchLo } = this.state;
     const pl = propertyTypes.map(item => ({
       key: item.term_id,
       value: item.name,
@@ -361,6 +418,8 @@ class filterPage extends Component {
     let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
     let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
     let Devlopment = `${I18n.t('pp_for_development').toProperCase()}`;
+    const pp_region = `${I18n.t('pp_region').capitalize()}`;
+    const pp_city = `${I18n.t('pp_city').capitalize()}`;    
     let property_type_Location =  [For_Rent, For_Sale, Devlopment];
     return (
       <View style={styles.container}>
@@ -450,7 +509,17 @@ class filterPage extends Component {
                     {this.renderYearBuilt(years)}
                   </View>
                 )}
-                <View style={styles.margin}>
+                {OS === 'ios' ? (
+                  <Panel title={pp_region} text={branchLo}>
+                    {this.renderBranch()}
+                  </Panel>
+                ) : (
+                  <View style={styles.margin}>
+                    <Text style={styles.label}>{pp_region} </Text>
+                    {this.renderBranch()}
+                  </View>
+                )}
+                {/* <View style={styles.margin}>
                   <Text style={styles.label}>{I18n.t('pp_district').toProperCase()}</Text>
                   <TextInput
                     style={styles.textInput}
@@ -459,7 +528,17 @@ class filterPage extends Component {
                     onChangeText={district => this.setState({ search: { ...search, district } })}
                     autoCapitalize={'words'}
                   />
-                </View>
+                </View> */}
+                {OS === 'ios' ? (
+                  <Panel title={pp_city} text={districtLo}>
+                    {this.renderDistrict()}
+                  </Panel>
+                ) : (
+                  <View style={styles.margin}>
+                    <Text style={styles.label}>{pp_city}</Text>
+                    {this.renderDistrict()}
+                  </View>
+                )}
               </View>
             )}
             <View style={styles.rowCenter}>
