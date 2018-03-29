@@ -82,7 +82,7 @@ class Carousel extends Component {
         <View style={styles.closeContainer}>
           <TouchableWithoutFeedback onPress={this.props.closeModel}>
             <View>
-              <Text>Close</Text>
+              <Text style={{ backgroundColor: 'rgba(0,0,0,0.5)', color: '#fff', padding: 15, }}>Close</Text>
             </View>
           </TouchableWithoutFeedback>
         </View>

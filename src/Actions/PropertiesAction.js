@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native';
 import * as types from './../constants/actionTypes';
 import * as config from './../constants/config';
 
-// let  lang = 'ar';
+let  lang = 'ar';
 
 // AsyncStorage.getItem('lang').then((value) => {
 //   if(value == null){
@@ -127,7 +127,7 @@ export function propertiesLoad() {
       }
       dispatch(propertiesLoadRequest());
       return axios
-        .get(`${config.PUBLIC_URL}getProperties/${value}`)
+        .get(`${config.PUBLIC_URL}getProperties/${lang}`)
         .then((response) => {
           dispatch(propertiesLoadSuccess(response.data));
         })
@@ -148,7 +148,7 @@ export function propertiesByCategoryLoad(category) {
       }
       dispatch(propertiesByCategoryLoadRequest());
       return axios
-        .get(`${config.PUBLIC_URL}getCategoryProperties/${value}/${category}`)
+        .get(`${config.PUBLIC_URL}getCategoryProperties/${lang}/${category}`)
         .then((response) => {
           dispatch(propertiesByCategoryLoadSuccess(response.data));
         })
@@ -197,7 +197,31 @@ export function filteredPropertiesLoad(search) {
       }
       dispatch(filteredPropertiesLoadRequest());
       return axios
-        .get(`${config.PUBLIC_URL}get30Properties/${value}`)
+        .get(`${config.PUBLIC_URL}get30Properties/${lang}`)
+        .then((response) => {
+          dispatch(filteredPropertiesLoadSuccess(response.data));
+          const newSearch = search || config.search;
+          dispatch(searchChange(newSearch));
+        })
+        .catch((error) => {
+          dispatch(filteredPropertiesLoadFail(error));
+        });
+    }).done();
+  };
+}
+
+export function filteredPropertiesLoadOnSearch(search) {
+  return (dispatch) => {
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        let  lang = 'en';
+      }else{
+        let  lang = value;
+      }
+      dispatch(filteredPropertiesLoadRequest());
+      let filterData = {"filter": search};
+      return axios
+        .post(`${config.PUBLIC_URL}filterProperties/${lang}`, filterData)
         .then((response) => {
           dispatch(filteredPropertiesLoadSuccess(response.data));
           const newSearch = search || config.search;
@@ -220,7 +244,7 @@ export function favoritePropertiesLoad(userId) {
       }
       dispatch(favoritePropertiesLoadRequest());
       return axios
-        .get(`${config.PUBLIC_URL}getUserFavouriteProperty/${userId}/${value}`)
+        .get(`${config.PUBLIC_URL}getUserFavouriteProperty/${userId}/${lang}`)
         .then((response) => {
           dispatch(favoritePropertiesLoadSuccess(response.data));
         })

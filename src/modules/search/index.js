@@ -9,6 +9,7 @@ import axios from 'axios';
 
 import * as PropertiesActions from './../../Actions/PropertiesAction';
 import * as AuthActions from '../../Actions/AuthAction';
+import * as commonActions from '../../Actions/commonActions';
 
 import PropertyCard from '../../components/PropertyCard';
 import MarkerImg from '../../images/highlight-pin-single-family-act.png';
@@ -77,6 +78,13 @@ class SearchPage extends Component {
     this.onLikePress = this.onLikePress.bind(this);
     this.onErrorNotification = this.onErrorNotification.bind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+
+    /*
+    this.props.navigator.setStyle({
+      navBarCustomView: 'example.CustomTopBar',
+      navBarCustomViewInitialProps: {navigator: this.props.navigator}
+    });
+    */
   }
 
   componentWillMount() {
@@ -107,9 +115,20 @@ class SearchPage extends Component {
             longitudeDelta: LONGITUDE_DELTA,
           },
         });
+
+        let { mapSearch } = this.props;
+
+        this.props.actionsSearch.updateSearch({
+          ...mapSearch,
+          searchText: 'found',
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: LATITUDE_DELTA, 
+          longitudeDelta: LONGITUDE_DELTA 
+        });
       },
       (error) => {
-        this.onErrorNotification(error.message);
+        // this.onErrorNotification(error.message);
       },
       navigatorOptions,
     );
@@ -185,7 +204,14 @@ class SearchPage extends Component {
   }
 
   onFilter(search) {
-    this.props.actions.filteredPropertiesLoad(search);
+    this.props.navigator.dismissModal({
+      animationType: 'slide-down', // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
+    });
+    this.props.navigator.push({
+      screen: 'krooqi.FilterResultPage',
+      title: `${I18n.t('result_filters').toProperCase()}`,
+    });
+    this.props.actions.filteredPropertiesLoadOnSearch(search);
   }
   
   openLogin() {
@@ -357,7 +383,7 @@ class SearchPage extends Component {
     let disableSaveSearch = false;
     let saved = false;
     const {
-      filteredProperties, search, savedSearch, favorites, loading,
+      filteredProperties, search, savedSearch, favorites, loading, mapSearch
     } = this.props;
     const { flip } = this.state;
     const initSearch = JSON.stringify(initialState.search);
@@ -413,7 +439,7 @@ class SearchPage extends Component {
                 flex: 1,
               }}
             >
-              <MapView regionGPS={this.state.region} data={this.makeMarkersData()} dismissNotification={this.dismissNotification}  />
+              <MapView regionGPS={mapSearch} data={this.makeMarkersData()} dismissNotification={this.dismissNotification} />
             </View>
 
             <View
@@ -481,6 +507,7 @@ const mapStateToProps = (state) => {
     savedSearch: state.savedSearch,
     auth: state.auth,
     search: state.search,
+    mapSearch: state.mapSearch,
     like: state.like,
     propertyStatus,
     propertyTypes,
@@ -492,6 +519,7 @@ const mapStateToProps = (state) => {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(PropertiesActions, dispatch),
+    actionsSearch: bindActionCreators(commonActions, dispatch),
     authAction: bindActionCreators(AuthActions, dispatch),
     likeLoad: () => {
       dispatch(PropertiesActions.likePropertyRequest());

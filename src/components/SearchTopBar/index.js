@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, TextInput, Platform } from 'react-native';
+import { View, TextInput, Platform, Dimensions } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RNGooglePlaces from 'react-native-google-places';
 import { backgroundColor } from '../../constants/config';
 import styles from './styles';
-
 import I18n from '../../i18n';
+import * as commonActions from '../../Actions/commonActions';
+
+const { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 String.prototype.capitalize = function() {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -22,7 +28,7 @@ class searchHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: props.search,
+      search: [],
     };
 
     this.openSearchPage = this.openSearchPage.bind(this);
@@ -33,17 +39,20 @@ class searchHeader extends Component {
     this.textInput.blur();
     const { search } = this.state;
     RNGooglePlaces.openAutocompleteModal()
-      .then((place) => {
-        this.setState({
-          search: {
-            ...search,
-            searchText: place.name,
-            latitude: place.latitude,
-            longitude: place.longitude,
-          },
-        });
-      })
-      .catch(error => console.log(error.message));
+    .then((place) => {
+      this.setState({
+        search: {
+          ...search,
+          searchText: place.name,
+          latitude: place.latitude,
+          longitude: place.longitude,
+          latitudeDelta: LATITUDE_DELTA, 
+          longitudeDelta: LONGITUDE_DELTA
+        },
+      });
+      this.props.actionsSearch.updateSearch(this.state.search);
+    })
+    .catch(error => console.log(error.message));
   }
 
   render() {
@@ -73,7 +82,13 @@ searchHeader.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  search: state.search,
+  search: state.mapSearch,
 });
 
-export default connect(mapStateToProps)(searchHeader);
+function mapDispatchToProps(dispatch) {
+  return {
+    actionsSearch: bindActionCreators(commonActions, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(searchHeader);

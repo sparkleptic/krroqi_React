@@ -12,6 +12,7 @@ import favorites from './favorites.reducer';
 import like from './like.reducer';
 import agents from './agents.reducer';
 import propertyPost from './propertyPost.reducer';
+import mapSearch from './commonReducers';
 
 const rootReducer = combineReducers({
   properties,
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
   favorites,
   like,
   agents,
-  propertyPost
+  propertyPost,
+  mapSearch
 });
 
 export default rootReducer;

@@ -41,8 +41,15 @@ class MapContainer extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			clusters: []
+			clusters: [],
+			regionChangeLoc: null,
+			nameSearch: '',
 		}
+	}
+
+	componentDidMount() {
+		const initialGeoLoc = this.props.regionGPS;
+		this.setState({ regionChangeLoc: initialGeoLoc });	
 	}
 
 	_createCluster(data) {
@@ -91,12 +98,27 @@ class MapContainer extends Component {
 		this._createRegions(region)
 	}
 
+	onRegionChange = (regionData) => {
+		const initialGeoLoc = this.props.regionGPS
+		const { regionChangeLoc, nameSearch } = this.state;
+
+		nameSearch != initialGeoLoc.searchText ? this.setState({ nameSearch: initialGeoLoc.searchText }) : null;
+
+		this.setState({ regionChangeLoc: regionData })
+	}
+
 	render() {
+		const initialGeoLoc = this.props.regionGPS;
+		const { regionChangeLoc, nameSearch } = this.state;
+		let renderRegionValue = nameSearch != initialGeoLoc.searchText ? initialGeoLoc : regionChangeLoc;
+
 		return (
 			<Map
 				onPress={this.props.dismissNotification}
-				initialRegion={this.props.regionGPS}
+				initialRegion={initialGeoLoc}
+				region={renderRegionValue}
 				onRegionChangeComplete={(x) => { this.onRegionChangeComplete(x) }}
+				onRegionChange={this.onRegionChange}
 				{...this.props}
 			>
 				{

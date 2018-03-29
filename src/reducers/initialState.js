@@ -8,7 +8,14 @@ export default {
     error: false,
     success: false,
   },
-  search: config.search,
+	search: config.search,
+	mapsearch: {
+		searchText: '',
+		latitude: 23.8859,
+		longitude: 45.0792,
+		latitudeDelta: 25,
+		longitudeDelta: 25,
+	},
   PostProperty: {
   	propertyFor: 33,
   	region: '',

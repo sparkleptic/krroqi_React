@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     margin: 5,
     borderWidth: 1,
     borderColor: '#e3e3e3',
+    backgroundColor: '#ccc',
   },
   ProgressiveImage: {
     width: '100%',

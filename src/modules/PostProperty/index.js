@@ -44,13 +44,41 @@ class PostProperty extends Component {
       savingLoader: false,
       featuresValuesLo: [],
       postImages: [],
+      auth: props.auth,
+      language: null,
     };
     this.ScrollNext = this.ScrollNext.bind(this);
     this.ScrollPrev = this.ScrollPrev.bind(this);
+    this.openLogin = this.openLogin.bind(this);
   }
 
+  componentDidMount() {
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        this.setState({language: 'en'})
+      }else{
+        this.setState({language: value})
+      }
+    }).done();
+  }
+
+  openLogin() {
+    this.props.navigator.showModal({
+      screen: 'krooqi.Login',
+      passProps: {
+        label: `${I18n.t('to_save_a_home').capitalize()}`,
+      },
+      navigatorStyle: {
+        navBarHidden: true,
+        screenBackgroundColor: 'white',
+      },
+      animationType: 'slide-up',
+    });
+  }
+
+
   ScrollNext() {
-    const { currentPosition, currentPage } = this.state;
+    const { currentPosition, currentPage, language } = this.state;
 
     const { 
       propertyFor,
@@ -83,7 +111,8 @@ class PostProperty extends Component {
     switch (currentPage) {
       case 1:
           let jsonString = JSON.stringify(locationOnMap);
-          if ((JSON.stringify(propertyFor).length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0) && (unitFloor.length > 0)) {
+          // if ((JSON.stringify(propertyFor).length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0) && (unitFloor.length > 0)) {
+          if ((JSON.stringify(propertyFor).length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0)) {
             this.props.updateScreen_1(false)
             var screen = 1
           }else{
@@ -93,7 +122,8 @@ class PostProperty extends Component {
           // var screen = 1
         break;
       case 2:
-          if ((propertyTitle.length > 0) && (propertyDescription.length > 0) && (ownerName.length > 0) && (ownerPhone.length > 0)) {
+          // if ((propertyTitle.length > 0) && (propertyDescription.length > 0) && (ownerName.length > 0) && (ownerPhone.length > 0)) {
+          if (propertyTitle.length > 0) {
             this.props.updateScreen_2(false)
             var screen = 1
           }else{
@@ -103,17 +133,18 @@ class PostProperty extends Component {
           // var screen = 1
         break;
       case 3:
-          if ((agent.length > 0) && (agent !== 'Select Agent')) {
+          // if ((agent.length > 0) && (agent !== 'Select Agent')) {
             this.props.updateScreen_3(false)
             var screen = 1
-          }else{
-            this.props.updateScreen_3(true)
-            var screen = 0
-          }
+          // }else{
+          //   this.props.updateScreen_3(true)
+          //   var screen = 0
+          // }
           // var screen = 1
         break;
       case 4:
-          if ((rentPerMonth.length > 0) && (dateAvailable.length > 0)  && (dateAvailable !== 'Select Date') && (propertyType.length > 0) && (propertyType !== 'Select Type') && (rooms.length > 0) && (bathrooms.length > 0) && (meterSq.length > 0) && (yearBuild.length > 0)) {
+          // if ((rentPerMonth.length > 0) && (dateAvailable.length > 0)  && (dateAvailable !== 'Select Date') && (propertyType.length > 0) && (propertyType !== 'Select Type') && (rooms.length > 0) && (bathrooms.length > 0) && (meterSq.length > 0) && (yearBuild.length > 0)) {
+          if (rentPerMonth.length > 0) {
             this.props.updateScreen_4(false)
             var screen = 1
           }else{
@@ -138,7 +169,7 @@ class PostProperty extends Component {
             featuresValuesLo: value
           })
         
-          if(this.state.featuresValuesLo.length > 2) {
+          // if(this.state.featuresValuesLo.length > 2) {
           
           this.props.updateScreen_6(false)
           this.setState({
@@ -146,8 +177,8 @@ class PostProperty extends Component {
           })
             
           let dataPost = {
-            lang: 'en',
-            owner_id: (auth.success && auth.success.id ? auth.success.id : 1),
+            lang: language,
+            owner_id: '1',
             status : propertyFor,
             country: region,
             city: branch,
@@ -182,10 +213,10 @@ class PostProperty extends Component {
               alert(error)
             });
 
-          }else{
-            this.props.updateScreen_6(true)
-            var screen = 0
-          }          
+          // }else{
+          //   this.props.updateScreen_6(true)
+          //   var screen = 0
+          // }          
         }).done();
         var screen = 0
         break;
@@ -212,6 +243,7 @@ class PostProperty extends Component {
 
   render() {
     const { currentPage } = this.state;
+    const { savedSearch, auth } = this.props;
 
     let pagingStyle = {};
     switch (currentPage) {
@@ -227,89 +259,110 @@ class PostProperty extends Component {
     }
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, }}>
-          <ScrollView
-            horizontal
-            pagingEnabled
-            scrollEnabled={false}
-            showsHorizontalScrollIndicator={false}
-            ref={scrollView => (this.scrollView = scrollView)}
-            style={styles.scrollViewParent}
-          >
-            <View style={{ width }}>
-              <Location />
+      {auth.success ? 
+        (<View style={{ flex: 1 }}>
+          <View style={{ flex: 1 }}>
+            <ScrollView
+              horizontal
+              pagingEnabled
+              scrollEnabled={false}
+              showsHorizontalScrollIndicator={false}
+              ref={scrollView => (this.scrollView = scrollView)}
+              style={styles.scrollViewParent}
+            >
+              <View style={{ width }}>
+                <Location />
+              </View>
+              <View style={{ width }}>
+                <PropertyTitle />
+              </View>
+              <View style={{ width }}>
+                <PropertyAgent />
+              </View>
+              <View style={{ width }}>
+                <PropertyBasicDetails />
+              </View>
+              <View style={{ width }}>
+                <Media />
+              </View>
+              <View style={{ width }}>
+                <FeaturesAndServices />
+              </View>
+            </ScrollView>
+          </View>
+            {
+              this.state.successModal ?
+            (<View style={styles.success}>            
+                <View style={styles.successViewText}>
+                  <Text style={styles.successText}>{I18n.t('post_pro_api_success_msg').toProperCase()}</Text>
+                </View>                
+              </View> ): this.state.savingLoader ? ( <View style={styles.containerLoader}>
+                <ActivityIndicator size="large" color={config.backgroundColor} />
+                <Text style={{ textAlign: 'center', color: config.backgroundColor }}>{I18n.t('saving').toProperCase()}...</Text>
+              </View>) :(<View style={[{ flexDirection: 'row' }, pagingStyle]}>
+              {currentPage !== 1 && (
+                <TouchableHighlight onPress={this.ScrollPrev} underlayColor="gray">
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 'bold',
+                      color: '#000',
+                      padding: 10,
+                    }}
+                  >
+                  {I18n.t('pps_previous').capitalize()}
+                  </Text>
+                </TouchableHighlight>
+              )}
+              {currentPage !== 6 && (
+                <TouchableHighlight onPress={this.ScrollNext} underlayColor="gray">
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 'bold',
+                      color: '#000',
+                      padding: 10,                 
+                    }}
+                  >
+                  {I18n.t('pps_next').capitalize()}
+                  </Text>
+                </TouchableHighlight>
+              )}
+              {currentPage === 6 && (
+                <TouchableHighlight onPress={this.ScrollNext} underlayColor="gray">
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 'bold',
+                      color: '#000',
+                      padding: 10,
+                    }}
+                  >
+                  {I18n.t('pps_save').capitalize()}
+                  </Text>
+                </TouchableHighlight>
+              )}
+            </View>)
+            }
+        </View>) : (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <Text>{I18n.t('pp_loginMsg')}</Text>
+              <TouchableHighlight onPress={this.openLogin} underlayColor="#f1f1f1">
+                <View
+                  style={{
+                    borderWidth: 1,
+                    padding: 10,
+                    borderRadius: 4,
+                    margin: 10,
+                    borderColor: '#ccc',
+                  }}
+                >
+                  <Text style={{ fontSize: 16, fontWeight: '400' }}>{I18n.t('m_login').toProperCase()}</Text>
+                </View>
+              </TouchableHighlight>
             </View>
-            <View style={{ width }}>
-              <PropertyTitle />
-            </View>
-            <View style={{ width }}>
-              <PropertyAgent />
-            </View>
-            <View style={{ width }}>
-              <PropertyBasicDetails />
-            </View>
-            <View style={{ width }}>
-              <Media />
-            </View>
-            <View style={{ width }}>
-              <FeaturesAndServices />
-            </View>
-          </ScrollView>
-        </View>
-        {
-          this.state.successModal ?
-         (<View style={styles.success}>            
-            <View style={styles.successViewText}>
-              <Text style={styles.successText}>{I18n.t('post_pro_api_success_msg').toProperCase()}</Text>
-            </View>                
-          </View> ): this.state.savingLoader ? ( <View style={styles.containerLoader}>
-      <ActivityIndicator size="large" color={config.backgroundColor} />
-      <Text style={{ textAlign: 'center', color: config.backgroundColor }}>{I18n.t('saving').toProperCase()}...</Text>
-    </View>) :(<View style={[{ flexDirection: 'row' }, pagingStyle]}>
-          {currentPage !== 1 && (
-            <TouchableHighlight onPress={this.ScrollPrev} underlayColor="gray">
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  color: '#000',
-                  padding: 10,
-                }}
-              >
-              {I18n.t('pps_previous').capitalize()}
-              </Text>
-            </TouchableHighlight>
-          )}
-          {currentPage !== 6 && (
-            <TouchableHighlight onPress={this.ScrollNext} underlayColor="gray">
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  color: '#000',
-                  padding: 10,                 
-                }}
-              >
-              {I18n.t('pps_next').capitalize()}
-              </Text>
-            </TouchableHighlight>
-          )}
-          {currentPage === 6 && (
-            <TouchableHighlight onPress={this.ScrollNext} underlayColor="gray">
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  color: '#000',
-                  padding: 10,
-                }}
-              >
-              {I18n.t('pps_save').capitalize()}
-              </Text>
-            </TouchableHighlight>
-          )}
-        </View>)
-        }
+        )
+      }
       </View>
     );
   }
@@ -321,6 +374,7 @@ function mapStateToProps(state) {
   return {
     property: state.property,
     propertyPost: state.propertyPost,
+    auth: state.auth,
   };
 }
 
