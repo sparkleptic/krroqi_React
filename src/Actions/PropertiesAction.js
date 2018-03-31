@@ -3,15 +3,7 @@ import { AsyncStorage } from 'react-native';
 import * as types from './../constants/actionTypes';
 import * as config from './../constants/config';
 
-let  lang = 'ar';
-
-// AsyncStorage.getItem('lang').then((value) => {
-//   if(value == null){
-//     let  lang = 'en';
-//   }else{
-//     let  lang = value;
-//   }
-// }).done();
+let  lang = 'en';
 
 export function propertiesLoadRequest() {
   return { type: types.LOAD_PROPERTIES_REQUEST };
