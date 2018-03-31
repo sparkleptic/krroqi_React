@@ -16,6 +16,7 @@ import {
   updateScreen_4,
 } from '../../Actions/propertyPostAction'
 import I18n from '../../i18n';
+import Panel from '../Panel';
 
 String.prototype.capitalize = function() {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -228,7 +229,7 @@ class PropertyBasicDetails extends Component {
               )
             }
             <View style={styles.margin}>
-              <Text style={styles.label}>  {I18n.t('pp_rent').capitalize()}</Text>
+              <Text style={styles.label}>  {I18n.t('pp_rent').capitalize()}  <Text style={{ color: 'red' }}>*</Text></Text>
               <TextInput
                 style={styles.textInput}
                 value={rent}

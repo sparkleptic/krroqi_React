@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TextInput, TouchableHighlight } from 'react-native';
 import styles from './styles';
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 
 class RequestInfo extends Component {
   constructor(props) {
@@ -16,7 +26,7 @@ class RequestInfo extends Component {
   }
 
   submitRequestInfo() {
-    //alert('submitRequestInfo');
+    // alert('submitRequestInfo');
   }
 
   render() {
@@ -27,7 +37,7 @@ class RequestInfo extends Component {
           style={styles.textInput}
           keyboardType="default"
           returnKeyType="next"
-          placeholder="Your Name"
+          placeholder={I18n.t('req_your_name').capitalize()}
           value={this.state.name}
           autoCapitalize="none"
           autoCorrect={false}
@@ -38,7 +48,7 @@ class RequestInfo extends Component {
           style={styles.textInput}
           keyboardType="email-address"
           returnKeyType="next"
-          placeholder="Email"
+          placeholder={I18n.t('req_email_address').capitalize()}
           value={this.state.email}
           autoCapitalize="none"
           autoCorrect={false}
@@ -50,7 +60,7 @@ class RequestInfo extends Component {
           style={styles.textInput}
           keyboardType="phone-pad"
           returnKeyType="next"
-          placeholder="Phone"
+          placeholder={I18n.t('req_Phone').capitalize()}
           autoCapitalize="none"
           autoCorrect={false}
           value={this.state.phone}
@@ -63,7 +73,7 @@ class RequestInfo extends Component {
           numberOfLines={4}
           keyboardType="default"
           returnKeyType="go"
-          placeholder="Message"
+          placeholder={I18n.t('req_msg').capitalize()}
           autoCapitalize="none"
           autoCorrect={false}
           value={this.state.message}
@@ -72,7 +82,7 @@ class RequestInfo extends Component {
         />
         <TouchableHighlight onPress={this.submitRequestInfo} underlayColor="gray">
           <View style={styles.button}>
-            <Text style={styles.buttonText}>Request Info</Text>
+            <Text style={styles.buttonText}>{I18n.t('req_info').capitalize()}</Text>
           </View>
         </TouchableHighlight>
       </View>

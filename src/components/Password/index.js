@@ -32,6 +32,7 @@ class Password extends Component {
       data: {
         email: props.email,
         password: '',
+        showPswdError: false,
       },
       error: false,
       loading: false,
@@ -62,15 +63,22 @@ class Password extends Component {
 
   register() {
     const { data } = this.state;
-    if (this.props.userExist) {
-      this.props.actions.login(data);
-    } else {
-      this.props.actions.register({ ...data, name: '' });
+    alert(JSON.stringify(data));
+    if (data.password.length > 0){
+      this.setState({ showPswdError: false });
+
+      if (this.props.userExist) {
+        this.props.actions.login(data);
+      } else {
+        this.props.actions.register({ ...data, name: '' });
+      }
+    }else{
+      this.setState({ showPswdError: true });
     }
   }
 
   render() {
-    const { loading, data } = this.state;
+    const { loading, data, showPswdError } = this.state;
     const { userExist, auth } = this.props;
     return (
       <View>
@@ -104,6 +112,11 @@ class Password extends Component {
             {auth.error && (
               <Text style={{ color: 'red', paddingBottom: 10 }}>{I18n.t('login_err').capitalize()}</Text>
             )}
+            {
+              showPswdError && (
+                <Text style={{ color: 'red', paddingBottom: 10 }}>The password is required and cannot be empty.</Text>
+              )
+            }
           </View>
           <TouchableHighlight onPress={this.register} underlayColor="gray">
             <View style={styles.button}>
