@@ -107,7 +107,7 @@ class Favorites extends Component {
                   margin: 40,
                 }}
               >
-                <Text style={{ lineHeight: 30, fontSize: 20 }}>`${I18n.t('ft_saved_search').capitalize()}`</Text>
+                <Text style={{ lineHeight: 30, fontSize: 20 }}>{I18n.t('ft_saved_search').capitalize()}</Text>
                 <Text
                   style={{
                     lineHeight: 25,

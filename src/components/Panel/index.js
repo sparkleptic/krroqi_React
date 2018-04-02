@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight, Animated } from 'react-native';
+import { Text, View, TouchableHighlight, Animated, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
@@ -58,29 +58,29 @@ class Panel extends Component {
     const { title, animation } = this.state;
     const { children, data, text } = this.props;
     return (
-      <Animated.View style={[styles.container, { height: animation }]}>
-        <TouchableHighlight style={styles.button} onPress={this.toggle} underlayColor="#f1f1f1">
-          <View style={styles.titleContainer} onLayout={this.setMinHeight}>
-            <Text style={styles.title}>{title}</Text>
-            {!!data && (
-              <Text>
-                {data.start || data.end ? (
-                  <Text>
-                    {data.start || 'No Min'} - {data.end || 'No Max'}
-                  </Text>
-                ) : (
-                  <Text>Any</Text>
-                )}
-              </Text>
-            )}
-            {!!text && <Text>{text}</Text>}
-            <Icon style={styles.iconStyle} name={icon} size={24} />
+      <ScrollView>
+        <Animated.View style={[styles.container, { height: animation }]}>
+          <TouchableHighlight style={styles.button} onPress={this.toggle} underlayColor="#f1f1f1">
+            <View style={styles.titleContainer} onLayout={this.setMinHeight}>
+              <Text style={styles.title}>{title}</Text>
+              {!!data && (
+                <Text>
+                  {data.start || data.end ? (
+                    <Text>
+                      {data.start || 'No Min'} - {data.end || 'No Max'}
+                    </Text>
+                  ) : null}
+                </Text>
+              )}
+              {!!text && <Text>{text}</Text>}
+              <Icon style={styles.iconStyle} name={icon} size={24} />
+            </View>
+          </TouchableHighlight>
+          <View style={styles.body} onLayout={this.setMaxHeight}>
+            {children}
           </View>
-        </TouchableHighlight>
-        <View style={styles.body} onLayout={this.setMaxHeight}>
-          {children}
-        </View>
-      </Animated.View>
+        </Animated.View>
+      </ScrollView>
     );
   }
 }
