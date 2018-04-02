@@ -63,7 +63,7 @@ class Password extends Component {
 
   register() {
     const { data } = this.state;
-    alert(JSON.stringify(data));
+
     if (data.password.length > 0){
       this.setState({ showPswdError: false });
 

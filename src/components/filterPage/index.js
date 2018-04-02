@@ -226,7 +226,7 @@ class filterPage extends Component {
     }
     const { search } = this.state;
     const newVal = { ...search, propertyStatus: termId };
-    this.setState({ search: newVal, propertyTypeLo: index  });
+    this.setState({ search: { ...search, propertyStatus: termId }, propertyTypeLo: index  });
   }
 
   selectDistrict = (district) => {
@@ -410,6 +410,22 @@ class filterPage extends Component {
     if (search.propertyStatus === 108) {
       statusSelectedIndex = 2;
     }
+
+
+    let termIdValue = `${I18n.t('pp_for_rent').toProperCase()}`;
+    if (search.propertyStatus === 0) {
+      termIdValue = `${I18n.t('pp_for_rent').toProperCase()}`;
+    } else if (search.propertyStatus === 34) {
+      termIdValue = `${I18n.t('pp_for_sale').toProperCase()}`;
+    } else if (search.propertyStatus === 108) {
+      termIdValue = `${I18n.t('pp_for_development').toProperCase()}`;
+    } else if (search.propertyStatus === 319) {
+      termIdValue = `${I18n.t('pp_for_construction').toProperCase()}`;
+    } else if (search.propertyStatus === 217) {
+      termIdValue = `${I18n.t('pp_for_sold').toProperCase()}`;
+    } else if (search.propertyStatus === 218) {
+      termIdValue = `${I18n.t('pp_for_rented').toProperCase()}`;
+    }
     const years = Array(100)
       .fill()
       .map((_, i) => moment().year() - i);
@@ -436,7 +452,7 @@ class filterPage extends Component {
               />
             </View> */}
             {OS === 'ios' ? (
-              <Panel title={pp_propertyType} text={propertyTypeLo}>
+              <Panel title={pp_propertyType} text={termIdValue}>
                 {this.renderPropertyType()}
               </Panel>
             ) : (
