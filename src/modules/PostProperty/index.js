@@ -46,6 +46,11 @@ class PostProperty extends Component {
       postImages: [],
       auth: props.auth,
       language: null,
+      propertyForValidation: false,
+      regionValidation: false,
+      branchValidation: false,
+      districtValidation: false,
+      addressValidation: false,
     };
     this.ScrollNext = this.ScrollNext.bind(this);
     this.ScrollPrev = this.ScrollPrev.bind(this);
@@ -78,7 +83,16 @@ class PostProperty extends Component {
 
 
   ScrollNext() {
-    const { currentPosition, currentPage, language } = this.state;
+    const { 
+      currentPosition, 
+      currentPage, 
+      language,
+      propertyForValidation,
+      regionValidation,
+      branchValidation,
+      districtValidation,
+      addressValidation,
+    } = this.state;
 
     const { 
       propertyFor,
@@ -110,9 +124,16 @@ class PostProperty extends Component {
 
     switch (currentPage) {
       case 1:
+
+          JSON.stringify(propertyFor).length > 0 ? this.setState({ propertyForValidation: false }) : this.setState({ propertyForValidation: true });
+          region.length > 1 ? this.setState({ regionValidation: false }) : this.setState({ regionValidation: true });
+          branch.length > 1 ? this.setState({ branchValidation: false }) : this.setState({ branchValidation: true });
+          district.length > 1 ? this.setState({ districtValidation: false }) : this.setState({ districtValidation: true });
+          address.length > 0 ? this.setState({ addressValidation: false }) : this.setState({ addressValidation: true });
+
           let jsonString = JSON.stringify(locationOnMap);
           // if ((JSON.stringify(propertyFor).length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0) && (unitFloor.length > 0)) {
-          if ((JSON.stringify(propertyFor).length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0)) {
+          if ((JSON.stringify(propertyFor).length > 0) && (region.length > 1) && (branch.length > 1) && (district.length > 1) && (address.length > 0)) {
             this.props.updateScreen_1(false)
             var screen = 1
           }else{
@@ -242,7 +263,14 @@ class PostProperty extends Component {
   }
 
   render() {
-    const { currentPage } = this.state;
+    const { 
+      currentPage,
+      propertyForValidation,
+      regionValidation,
+      branchValidation,
+      districtValidation,
+      addressValidation,
+    } = this.state;
     const { savedSearch, auth } = this.props;
 
     let pagingStyle = {};
@@ -271,7 +299,13 @@ class PostProperty extends Component {
               style={styles.scrollViewParent}
             >
               <View style={{ width }}>
-                <Location />
+                <Location
+                  propertyForValidation={propertyForValidation}
+                  regionValidation={regionValidation}
+                  branchValidation={branchValidation}
+                  districtValidation={districtValidation}
+                  addressValidation={addressValidation}
+                />
               </View>
               <View style={{ width }}>
                 <PropertyTitle />

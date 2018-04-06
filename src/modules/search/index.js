@@ -296,6 +296,55 @@ class SearchPage extends Component {
   selectSortData(data) {
     this.props.navigator.dismissLightBox();
     this.setState({ selectedValue: data });
+
+    var sentDataApi = {
+      sortBy: 'Relevance',
+      sortOrder: 'DESC',
+    }
+
+    if (data === 'Relevance') {
+      sentDataApi = {
+        sortBy: 'Relevance',
+        sortOrder: 'DESC',
+      }
+    }
+    if (data === 'Newest') {
+      sentDataApi = {
+        sortBy: 'newest',
+        sortOrder: 'DESC',
+      }
+    }
+    if (data === 'Price(Low to High)') {
+      sentDataApi = {
+        sortBy: 'price',
+        sortOrder: 'ASC',
+      }
+    }
+    if (data === 'Price(High to Low)') {
+      sentDataApi = {
+        sortBy: 'price',
+        sortOrder: 'DESC',
+      }
+    }
+    if (data === 'Sq.m(Low to High)') {
+      sentDataApi = {
+        sortBy: 'area',
+        sortOrder: 'ASC',
+      }
+    }
+    if (data === 'Sq.m(High to Low)') {
+      sentDataApi = {
+        sortBy: 'area',
+        sortOrder: 'DESC',
+      }
+    }
+    if (data === '# of Rooms') {
+      sentDataApi = {
+        sortBy: 'rooms',
+        sortOrder: 'DESC',
+      }
+    }
+    this.props.actions.filteredPropertiesLoad(sentDataApi);
   }
 
   showLightBox(property) {

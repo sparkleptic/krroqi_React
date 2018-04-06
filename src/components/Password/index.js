@@ -85,7 +85,10 @@ class Password extends Component {
         <View style={styles.container}>
           <TouchableHighlight
             style={{ alignSelf: 'flex-end' }}
-            onPress={() => closeModal()}
+            onPress={() => {
+              this.props.actions.authReset({'success':null});
+              closeModal();
+            }}
             underlayColor="#f1f1f1"
           >
             <Text style={{ padding: 10, fontSize: 16, fontWeight: '500' }}>{I18n.t('close').toProperCase()}</Text>
@@ -109,12 +112,16 @@ class Password extends Component {
               onChangeText={password => this.setState({ data: { ...data, password } })}
               secureTextEntry
             />
-            {auth.error && (
+
+             {userExist ? null : <Text style={{ color: 'red', paddingBottom: 10 }}>{I18n.t('create_pswd').capitalize()}</Text> }
+            {
+              auth.error && (
               <Text style={{ color: 'red', paddingBottom: 10 }}>{I18n.t('login_err').capitalize()}</Text>
-            )}
+              )
+            }
             {
               showPswdError && (
-                <Text style={{ color: 'red', paddingBottom: 10 }}>The password is required and cannot be empty.</Text>
+                <Text style={{ color: 'red', paddingBottom: 10 }}>{I18n.t('login_err_null').capitalize()}</Text>
               )
             }
           </View>

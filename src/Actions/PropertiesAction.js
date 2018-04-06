@@ -180,6 +180,13 @@ export function propertyTypesLoad() {
 }
 
 export function filteredPropertiesLoad(search) {
+  var sortBy = 'Relevance';
+  var sortOrder = 'DESC';
+
+  if (search !== undefined && search !== null) {
+    sortBy = search.sortBy;
+    sortOrder = search.sortOrder;
+  }
   return (dispatch) => {
     AsyncStorage.getItem('lang').then((value) => {
       if(value == null){
@@ -189,7 +196,7 @@ export function filteredPropertiesLoad(search) {
       }
       dispatch(filteredPropertiesLoadRequest());
       return axios
-        .get(`${config.PUBLIC_URL}get30Properties/${lang}`)
+        .get(`${config.PUBLIC_URL}get30Properties/${lang}?sortBy=${sortBy}&sortOrder=${sortOrder}`)
         .then((response) => {
           dispatch(filteredPropertiesLoadSuccess(response.data));
           const newSearch = search || config.search;

@@ -4,6 +4,10 @@ import * as types from './../constants/actionTypes';
 import * as config from './../constants/config';
 import { favoritePropertiesLoadSuccess } from './PropertiesAction';
 
+export function authReset() {
+  return { type: types.AUTH_RESET };
+}
+
 export function authRequest() {
   return { type: types.AUTH_REQUEST };
 }

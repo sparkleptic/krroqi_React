@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import {
   Alert,
@@ -11,6 +12,7 @@ import {
   TextInput,
   TouchableHighlight,
   Dimensions,
+  AsyncStorage,
 } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import RNGooglePlaces from 'react-native-google-places';
@@ -32,6 +34,7 @@ import {
   updateLocationOnMap,
   updateScreen_1,
 } from '../../Actions/propertyPostAction'
+import * as config from '../../constants/config';
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -68,6 +71,8 @@ class Location extends Component {
       addressLo: '',
       unit: '',
       required: false,
+      apiRegion: [],
+      apiCity: [],
       mapRegion: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
@@ -77,6 +82,38 @@ class Location extends Component {
     };
     this.selectPropertyStatus = this.selectPropertyStatus.bind(this);  
     this.openMap = this.openMap.bind(this);
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('lang').then((value) => {
+
+      let lang = 'en';
+      if(value == null){
+        lang = 'en';
+      }else{
+        lang = value;
+      }
+
+      axios
+        .get(`${config.PUBLIC_URL}getRegions/${lang}`)
+        .then((response) => {
+          this.setState({ apiRegion: response.data })
+          // alert(JSON.stringify(response));
+        })
+        .catch((error) => {
+          // do nothing
+        });
+
+      axios
+        .get(`${config.PUBLIC_URL}getCities/${lang}`)
+        .then((response) => {
+          this.setState({ apiCity: response.data })
+        })
+        .catch((error) => {
+          // do nothing
+        });
+
+      }).done();
   }
 
   selectRegion = (region) => {
@@ -168,7 +205,7 @@ class Location extends Component {
     return (
       <View>
         <Picker mode="dropdown" selectedValue={regionLo} onValueChange={ (value) => {this.selectRegion(value)}}>
-          <Picker.Item label={pp_country} value="Select Country" />
+          <Picker.Item label={pp_country} value="0" />
           {
             countriesArr.length > 0 && (
               countriesArr.map((country, i) => {
@@ -183,17 +220,19 @@ class Location extends Component {
   }
 
   renderBranch() {
-    const { branchLo } = this.state;
+    const { branchLo, apiRegion } = this.state;
     const pp_branch = `${I18n.t('pp_branch').capitalize()}`;
     const pp_region = `${I18n.t('pp_region').capitalize()}`;
+
+    if(apiRegion.length > 0) {
     return (
       <View>
         <Picker mode="dropdown" selectedValue={branchLo} onValueChange={(value) => {this.selectBranch(value)}}>
-          <Picker.Item label={pp_region} value="Select Region" />
+          <Picker.Item label={pp_region} value="0" />
           {
-            citiesArr.length > 0 && (
-              citiesArr.map((city, i) => {
-              return  <Picker.Item key={i} label={city} value={city} />     
+            apiRegion.length > 0 && (
+              apiRegion.map((city, i) => {
+              return  <Picker.Item key={i} label={city.name} value={city.name} />     
               })
             )
           }
@@ -202,26 +241,46 @@ class Location extends Component {
       </View>
     );
   }
+  }
 
   renderDistrict() {
-    const { districtLo } = this.state;
+    const { districtLo, apiCity, branchLo } = this.state;
     const pp_district = `${I18n.t('pp_district').capitalize()}`;
     const pp_city = `${I18n.t('pp_city').capitalize()}`;
-    return (
-      <View>
-        <Picker mode="dropdown" selectedValue={districtLo} onValueChange={(value) => {this.selectDistrict(value)}}>
-          <Picker.Item label={pp_city} value="Select City" />
-          {
-            districtsArr.length > 0 && (
-              districtsArr.map((district, i) => {
-              return  <Picker.Item key={i} label={district} value={district} />     
-              })
-            )
+    var mapRenderArray = [];
+
+    if (apiCity.length > 0) {
+      if (branchLo !== null && branchLo !== '') {
+        apiCity.map((district, i) => {
+          if (branchLo !== null && branchLo !== '' && branchLo === district.region) {
+            mapRenderArray.push(district)
           }
-        </Picker>
-        {Platform.OS !== 'ios' && <View style={styles.divider} />}
-      </View>
-    );
+        })
+        if (mapRenderArray.length == 0) {
+          mapRenderArray.push({'name': branchLo});
+        }
+      }else{
+        mapRenderArray = apiCity;
+      }
+    }
+    
+    if (apiCity.length > 0) {
+      return (
+        <View>
+          <Picker mode="dropdown" selectedValue={districtLo} onValueChange={(value) => {this.selectDistrict(value)}}>
+            <Picker.Item label={pp_city} value="0" />
+            {
+              mapRenderArray.length > 0 && (
+                mapRenderArray.map((district, i) => {
+                  return  <Picker.Item key={i} label={district.name} value={district.name} />
+                })
+              )
+            }
+          </Picker>
+          {Platform.OS !== 'ios' && <View style={styles.divider} />}
+        </View>
+      );    
+    }
   }
 
   render() {
@@ -265,22 +324,30 @@ class Location extends Component {
     let Rented = "Rented";
     let property_type_Location =  [For_Rent, For_Sale, Devlopment, New_Construction, Sold, Rented];
 
+    const {
+      propertyForValidation,
+      regionValidation,
+      branchValidation,
+      districtValidation,
+      addressValidation,
+    } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}>  {I18n.t('ppt_loc').capitalize()} </Text></View>
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
             {
-              screen_1 && (
-                Alert.alert(
-                  `${I18n.t('ppa_required').capitalize()}`,
-                  `${I18n.t('ppa_content').capitalize()}`,
-                  [
-                    {text: `${I18n.t('ppa_ok').capitalize()}`, onPress: () => this.props.updateScreen_1(false)},
-                  ],
-                  { cancelable: false }
-                )
-              )
+              // screen_1 && (
+              //   Alert.alert(
+              //     `${I18n.t('ppa_required').capitalize()}`,
+              //     `${I18n.t('ppa_content').capitalize()}`,
+              //     [
+              //       {text: `${I18n.t('ppa_ok').capitalize()}`, onPress: () => this.props.updateScreen_1(false)},
+              //     ],
+              //     { cancelable: false }
+              //   )
+              // )
             }
             {/* <View style={styles.margin}>
               <SegmentedControlTab
@@ -302,6 +369,7 @@ class Location extends Component {
                 {this.renderPropertyType()}
               </View>
             )}
+            { propertyForValidation && ( <Text style={{ color: 'red', paddingLeft: 10, }}>It's a required filled.</Text> ) }
             {OS === 'ios' ? (
               <Panel title={pp_country} text={regionLo}>
                 {this.renderRegion()}
@@ -312,6 +380,7 @@ class Location extends Component {
                 {this.renderRegion()}
               </View>
             )}
+            { regionValidation && ( <Text style={{ color: 'red', paddingLeft: 10, }}>It's a required filled.</Text> ) }
             {OS === 'ios' ? (
               <Panel title={pp_region} text={branchLo}>
                 {this.renderBranch()}
@@ -322,6 +391,7 @@ class Location extends Component {
                 {this.renderBranch()}
               </View>
             )}
+            { branchValidation && ( <Text style={{ color: 'red', paddingLeft: 10, }}>It's a required filled.</Text> ) }
             {OS === 'ios' ? (
               <Panel title={pp_city} text={districtLo}>
                 {this.renderDistrict()}
@@ -332,6 +402,7 @@ class Location extends Component {
                 {this.renderDistrict()}
               </View>
             )}
+            { districtValidation && ( <Text style={{ color: 'red', paddingLeft: 10, }}>It's a required filled.</Text> ) }
             <View style={styles.margin}>
               <Text style={styles.label}>{pp_address} <Text style={{ color: 'red' }}>*</Text></Text>
               <TextInput
@@ -340,6 +411,7 @@ class Location extends Component {
                 placeholder={pp_address}
                 onChangeText={txt => this.addressUpdate(txt)}
               />
+              { addressValidation && ( <Text style={{ color: 'red', paddingLeft: 5, }}>It's a required filled.</Text> ) }
             </View>
             {/* <View style={styles.margin}>
               <Text style={styles.label}>{pp_unit_floor}</Text>
