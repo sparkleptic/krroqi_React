@@ -12,7 +12,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Modal,
-  Alert,
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class App extends Component {
+class PropertyDetail extends Component {
   constructor(props) {
     super(props);
 
@@ -152,7 +152,9 @@ class App extends Component {
     });
 
     const { property, favorites, onLikePress } = this.props;
-
+    let sampleImage = "http://dummyimage.com/200x200/fff/000.png&text=Krooqi";
+    const carosalImage = this.props.property.images.length > 0 ? this.props.property.images : [sampleImage] ;
+    const animatedImage = "thumbnail" in this.props.property ? this.props.property.thumbnail : sampleImage;
     return (
       <View style={styles.fill}>
         {Platform.OS === 'ios' ? (
@@ -172,7 +174,7 @@ class App extends Component {
                   transform: [{ translateY: imageTranslate }],
                 },
               ]}
-              source={{ uri: this.props.property.thumbnail }}
+              source={{ uri: animatedImage }}
             />
           </TouchableWithoutFeedback>
         </Animated.View>
@@ -220,7 +222,7 @@ class App extends Component {
           }}
         >
           <Carousel
-            images={this.props.property.images}
+            images={carosalImage}
             closeModel={() => {
               this.setState({ modalVisible: false });
             }}
@@ -231,14 +233,14 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
+PropertyDetail.propTypes = {
   property: PropTypes.object.isRequired,
   closeModel: PropTypes.func.isRequired,
   favorites: PropTypes.array.isRequired,
   onLikePress: PropTypes.func,
 };
 
-App.defaultProps = {
+PropertyDetail.defaultProps = {
   onLikePress: () => null,
 };
 
@@ -249,4 +251,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(PropertyDetail);

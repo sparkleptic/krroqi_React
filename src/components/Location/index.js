@@ -11,6 +11,7 @@ import {
   Picker,
   TextInput,
   TouchableHighlight,
+  TouchableOpacity,
   Dimensions,
   AsyncStorage,
 } from 'react-native';
@@ -78,6 +79,7 @@ class Location extends Component {
         longitude: LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
+        nameSearchAdd: null,
       },
     };
     this.selectPropertyStatus = this.selectPropertyStatus.bind(this);  
@@ -166,6 +168,7 @@ class Location extends Component {
             ...this.state.mapRegion,
             latitude: place.latitude,
             longitude: place.longitude,
+            nameSearchAdd: place.name,
           },
         });
         this.props.updateLocationOnMap(this.state.mapRegion)
@@ -285,7 +288,7 @@ class Location extends Component {
 
   render() {
     const {
-      propertyStatus, regionLo, city, districtLo, addressLo, unit, mapRegion, branchLo, propertyTypeLo
+      propertyStatus, regionLo, city, districtLo, addressLo, unit, mapRegion, branchLo, propertyTypeLo,
     } = this.state;
     const { OS } = Platform;
     let statusSelectedIndex = 0;
@@ -405,12 +408,17 @@ class Location extends Component {
             { districtValidation && ( <Text style={{ color: 'red', paddingLeft: 10, }}>It's a required filled.</Text> ) }
             <View style={styles.margin}>
               <Text style={styles.label}>{pp_address} <Text style={{ color: 'red' }}>*</Text></Text>
-              <TextInput
-                style={styles.textInput}
-                value={addressLo}
-                placeholder={pp_address}
-                onChangeText={txt => this.addressUpdate(txt)}
-              />
+              <TouchableOpacity onPress={this.openMap}>
+                {/* <TextInput
+                  style={styles.textInput}
+                  value={addressLo}
+                  placeholder={pp_address}
+                  onChangeText={txt => this.addressUpdate(txt)}
+                /> */}
+                
+                <Text style={styles.addStyle}>{mapRegion.nameSearchAdd === null ? pp_address : mapRegion.nameSearchAdd}</Text>
+                
+              </TouchableOpacity>              
               { addressValidation && ( <Text style={{ color: 'red', paddingLeft: 5, }}>It's a required filled.</Text> ) }
             </View>
             {/* <View style={styles.margin}>
@@ -422,11 +430,11 @@ class Location extends Component {
                 onChangeText={txt => this.unitFloorUpdate(txt) }
               />
             </View> */}
-            <View style={[{ flexDirection: 'row' }, styles.margin]}>
+            {/* <View style={[{ flexDirection: 'row' }, styles.margin]}>
               <TouchableHighlight onPress={this.openMap} underlayColor="gray">
                 <Text style={{ padding: 10 }}>{pp_loacate_on_map}</Text>
               </TouchableHighlight>
-            </View>
+            </View> */}
             {mapRegion.latitude !== 0 &&
               mapRegion.longitude !== 0 && (
                 <View style={[styles.margin, { height: 200 }]}>
