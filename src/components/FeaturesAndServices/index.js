@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { AsyncStorage, TouchableOpacity, Alert, CheckBox, View, Text, TextInput, KeyboardAvoidingView, Platform, Picker, ScrollView } from 'react-native';
+import { AsyncStorage, TouchableOpacity, Alert, View, Text, TextInput, KeyboardAvoidingView, Platform, Picker, ScrollView } from 'react-native';
 import axios from 'axios';
 import * as config from '../../constants/config';
 import styles from './styles';
@@ -11,6 +11,7 @@ import {
   updateScreen_6,
 } from '../../Actions/propertyPostAction'
 import { loadFeatures } from '../../Actions/FeaturesGet'
+import { CheckBox } from 'react-native-elements'
 import I18n from '../../i18n';
 
 String.prototype.capitalize = function() {
@@ -117,10 +118,11 @@ class FeaturesAndServices extends Component {
                   let keyValue = i
                 return <View key={i} style={styles.divChild_3}>
                   <CheckBox
-                    value= {dir.isChecked}
-                    onValueChange= { () => this.featureServicesFuc(keyValue)}
+                    title= { dir.name.toProperCase() }
+                    checked= {dir.isChecked}
+                    onIconPress= { () => this.featureServicesFuc(keyValue)}
                   />
-                  <Text style={styles.divText}>{dir.name.toProperCase()}</Text>
+                  {/* <Text style={styles.divText}>{dir.name.toProperCase()}</Text> */}
                 </View>
                 })
               }

@@ -20,6 +20,7 @@ import Carousel from '../Carousel';
 import LikeButton from '../LikeButton';
 import PropertyContent from '../PropertyContent';
 import { backgroundColor } from '../../constants/config';
+import Loading from '../Loading';
 
 // const { width, height } = Dimensions.get('window');
 
@@ -151,7 +152,7 @@ class PropertyDetail extends Component {
       extrapolate: 'clamp',
     });
 
-    const { property, favorites, onLikePress } = this.props;
+    const { property, favorites, onLikePress, loading } = this.props;
     let sampleImage = "http://dummyimage.com/200x200/fff/000.png&text=Krooqi";
     const carosalImage = this.props.property.images.length > 0 ? this.props.property.images : [sampleImage] ;
     const animatedImage = "thumbnail" in this.props.property ? this.props.property.thumbnail : sampleImage;
@@ -228,6 +229,7 @@ class PropertyDetail extends Component {
             }}
           />
         </Modal>
+        {loading && <Loading />}
       </View>
     );
   }
@@ -246,8 +248,10 @@ PropertyDetail.defaultProps = {
 
 function mapStateToProps(state) {
   const favorites = state.favorites.success || [];
+  const loading = state.like.loading || state.auth.loading || state.favorites.loading;
   return {
     favorites,
+    loading,
   };
 }
 

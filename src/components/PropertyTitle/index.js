@@ -75,25 +75,26 @@ class PropertyTitle extends Component {
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
             {
-              screen_2 && (
-                Alert.alert(
-                  `${I18n.t('ppa_required').capitalize()}`,
-                  `${I18n.t('ppa_content').capitalize()}`,
-                  [
-                    {text: `${I18n.t('ppa_ok').capitalize()}`, onPress: () => this.props.updateScreen_2(false)},
-                  ],
-                  { cancelable: false }
-                )
-              )
+              // screen_2 && (
+              //   Alert.alert(
+              //     `${I18n.t('ppa_required').capitalize()}`,
+              //     `${I18n.t('ppa_content').capitalize()}`,
+              //     [
+              //       {text: `${I18n.t('ppa_ok').capitalize()}`, onPress: () => this.props.updateScreen_2(false)},
+              //     ],
+              //     { cancelable: false }
+              //   )
+              // )
             }
             <View style={styles.margin}>
-              <Text style={styles.label}>{I18n.t('pp_title').capitalize()}</Text>
+              <Text style={styles.label}>{I18n.t('pp_title').capitalize()}<Text style={{ color: 'red' }}> *</Text></Text>
               <TextInput
                 style={styles.textInput}
                 value={title}
                 placeholder={I18n.t('pp_title').capitalize()}
                 onChangeText={txt => this.propertyTitleUpdate(txt)}
               />
+              { screen_2 && ( <Text style={{ color: 'red' }}>It's a required filled.</Text> ) }
             </View>
             <View style={styles.margin}>
               <Text style={styles.label}>{I18n.t('pp_description').capitalize()}</Text>

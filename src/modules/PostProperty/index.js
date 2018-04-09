@@ -129,11 +129,12 @@ class PostProperty extends Component {
           region.length > 1 ? this.setState({ regionValidation: false }) : this.setState({ regionValidation: true });
           branch.length > 1 ? this.setState({ branchValidation: false }) : this.setState({ branchValidation: true });
           district.length > 1 ? this.setState({ districtValidation: false }) : this.setState({ districtValidation: true });
-          address.length > 0 ? this.setState({ addressValidation: false }) : this.setState({ addressValidation: true });
+          locationOnMap !== undefined && locationOnMap !== null && locationOnMap !== "" ? (locationOnMap.nameSearchAdd.length > 1 ? this.setState({ addressValidation: false }) : this.setState({ addressValidation: true })) : this.setState({ addressValidation: true })
 
           let jsonString = JSON.stringify(locationOnMap);
+
           // if ((JSON.stringify(propertyFor).length > 0) && (region.length > 0) && (branch.length > 0) && (district.length > 0) && (address.length > 0) && (unitFloor.length > 0)) {
-          if ((JSON.stringify(propertyFor).length > 0) && (region.length > 1) && (branch.length > 1) && (district.length > 1) && (address.length > 0)) {
+          if ((JSON.stringify(propertyFor).length > 0) && (region.length > 1) && (branch.length > 1) && (district.length > 1) && (locationOnMap !== undefined && locationOnMap !== null && locationOnMap !== "" ? locationOnMap.nameSearchAdd.length > 1 : false)) {
             this.props.updateScreen_1(false)
             var screen = 1
           }else{
@@ -204,7 +205,7 @@ class PostProperty extends Component {
             country: region,
             city: branch,
             district: district,
-            real_address: address,
+            real_address: locationOnMap.name,
             lat: locationOnMap.latitude,
             lng: locationOnMap.longitude,
             post_title: propertyTitle,

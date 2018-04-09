@@ -64,7 +64,7 @@ class Location extends Component {
     super(props);
     this.state = {
       propertyStatus: '33',
-      propertyTypeLo: '',
+      propertyTypeLo: 0,
       branchLo: '',
       regionLo: '',
       city: '',
@@ -161,7 +161,8 @@ class Location extends Component {
   }
 
   openMap() {
-    RNGooglePlaces.openPlacePickerModal()
+    // RNGooglePlaces.openPlacePickerModal()
+    RNGooglePlaces.openAutocompleteModal()
       .then((place) => {
         this.setState({
           mapRegion: {
@@ -322,9 +323,9 @@ class Location extends Component {
     let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
     let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
     let Devlopment = `${I18n.t('pp_for_development').toProperCase()}`;
-    let New_Construction = "Construction";
-    let Sold = "Sold";
-    let Rented = "Rented";
+    let New_Construction = `${I18n.t('pp_for_construction').toProperCase()}`;
+    let Sold = `${I18n.t('pp_for_sold').toProperCase()}`;
+    let Rented = `${I18n.t('pp_for_rented').toProperCase()}`;
     let property_type_Location =  [For_Rent, For_Sale, Devlopment, New_Construction, Sold, Rented];
 
     const {
@@ -334,6 +335,32 @@ class Location extends Component {
       districtValidation,
       addressValidation,
     } = this.props;
+
+    const renderReqPropertyType = <Text> { pp_propertyType } <Text style={{ color: 'red' }} > *</Text> </Text>
+    const renderReqCountry = <Text> { pp_country } <Text style={{ color: 'red' }} > *</Text> </Text>
+    const renderReqRegion = <Text> { pp_region } <Text style={{ color: 'red' }} > *</Text> </Text>
+    const renderReqCity = <Text> { pp_city } <Text style={{ color: 'red' }} > *</Text> </Text>
+
+    let renderpropertyTypeLo = `${I18n.t('pp_for_rent').toProperCase()}`;
+
+    if (propertyTypeLo == 0) {
+      renderpropertyTypeLo = `${I18n.t('pp_for_rent').toProperCase()}`;
+    }
+    if (propertyTypeLo == 1) {
+      renderpropertyTypeLo = `${I18n.t('pp_for_sale').toProperCase()}`;
+    }
+    if (propertyTypeLo == 2) {
+      renderpropertyTypeLo = `${I18n.t('pp_for_development').toProperCase()}`;
+    }
+    if (propertyTypeLo == 3) {
+      renderpropertyTypeLo = `${I18n.t('pp_for_construction').toProperCase()}`;
+    }
+    if (propertyTypeLo == 4) {
+      renderpropertyTypeLo = `${I18n.t('pp_for_sold').toProperCase()}`;
+    }
+    if (propertyTypeLo == 5) {
+      renderpropertyTypeLo = `${I18n.t('pp_for_rented').toProperCase()}`;
+    }
 
     return (
       <View style={styles.container}>
@@ -363,7 +390,7 @@ class Location extends Component {
               />
             </View> */}
             {OS === 'ios' ? (
-              <Panel title={pp_propertyType} text={propertyTypeLo}>
+              <Panel title={renderReqPropertyType} text={renderpropertyTypeLo}>
                 {this.renderPropertyType()}
               </Panel>
             ) : (
@@ -374,7 +401,7 @@ class Location extends Component {
             )}
             { propertyForValidation && ( <Text style={{ color: 'red', paddingLeft: 10, }}>It's a required filled.</Text> ) }
             {OS === 'ios' ? (
-              <Panel title={pp_country} text={regionLo}>
+              <Panel title={renderReqCountry} text={regionLo}>
                 {this.renderRegion()}
               </Panel>
             ) : (
@@ -385,7 +412,7 @@ class Location extends Component {
             )}
             { regionValidation && ( <Text style={{ color: 'red', paddingLeft: 10, }}>It's a required filled.</Text> ) }
             {OS === 'ios' ? (
-              <Panel title={pp_region} text={branchLo}>
+              <Panel title={renderReqRegion} text={branchLo}>
                 {this.renderBranch()}
               </Panel>
             ) : (
@@ -396,7 +423,7 @@ class Location extends Component {
             )}
             { branchValidation && ( <Text style={{ color: 'red', paddingLeft: 10, }}>It's a required filled.</Text> ) }
             {OS === 'ios' ? (
-              <Panel title={pp_city} text={districtLo}>
+              <Panel title={renderReqCity} text={districtLo}>
                 {this.renderDistrict()}
               </Panel>
             ) : (

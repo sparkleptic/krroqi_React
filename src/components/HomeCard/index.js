@@ -57,14 +57,14 @@ class HomeCard extends Component {
   onLikePress(propertyID) {
     const { auth } = this.props;
     if (auth.success) {
-      this.props.likeLoad();
+      // this.props.likeLoad();
       axios
         .post(`${PUBLIC_URL}saveUserFavouriteProperty`, {
           user_id: auth.success.id,
           property_id: propertyID,
         })
         .then((response) => {
-          this.props.likeSuccess(response.data);
+          // this.props.likeSuccess(response.data);
           if (response.data && response.data.success) {
             this.props.actions.favoritePropertiesLoad(auth.success.id);
           }
