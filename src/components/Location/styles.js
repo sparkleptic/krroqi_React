@@ -69,6 +69,13 @@ const styles = StyleSheet.create({
       },
     }),
   },
+  addStyle: {
+    color: '#000',
+    fontSize: 16,
+    paddingLeft: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray'
+  },
   label: {
     fontWeight: 'bold',
     paddingBottom: 10,

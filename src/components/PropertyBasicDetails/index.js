@@ -217,16 +217,16 @@ class PropertyBasicDetails extends Component {
         <ScrollView style={styles.flex}>
           <KeyboardAvoidingView style={styles.flex} behavior="padding">
             {
-              screen_4 && (
-                Alert.alert(
-                  `${I18n.t('ppa_required').capitalize()}`,
-                  `${I18n.t('ppa_content').capitalize()}`,
-                  [
-                    {text: `${I18n.t('ppa_ok').capitalize()}`, onPress: () => this.props.updateScreen_4(false)},
-                  ],
-                  { cancelable: false }
-                )
-              )
+              // screen_4 && (
+              //   Alert.alert(
+              //     `${I18n.t('ppa_required').capitalize()}`,
+              //     `${I18n.t('ppa_content').capitalize()}`,
+              //     [
+              //       {text: `${I18n.t('ppa_ok').capitalize()}`, onPress: () => this.props.updateScreen_4(false)},
+              //     ],
+              //     { cancelable: false }
+              //   )
+              // )
             }
             <View style={styles.margin}>
               <Text style={styles.label}>  {I18n.t('pp_rent').capitalize()}  <Text style={{ color: 'red' }}>*</Text></Text>
@@ -237,6 +237,7 @@ class PropertyBasicDetails extends Component {
                 placeholder=  {I18n.t('pp_rent').capitalize()}
                 onChangeText={txt => this.rentUpdate(txt)}
               />
+              { screen_4 && ( <Text style={{ color: 'red' }}>It's a required filled.</Text> ) }
             </View>
             <View style={styles.margin}>
               <Text style={styles.label}>{I18n.t('pp_date_avlbl').capitalize()}</Text>

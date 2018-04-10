@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { Dimensions } from 'react-native'
+import { Dimensions, Platform } from 'react-native'
 import GeoJSON from 'geojson'
 import supercluster from 'supercluster'
 
 import Map from './components/Map'
 import Marker from './components/Marker'
 import Cluster from './components/Cluster'
+
+var flagIOS = 0;
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -42,7 +44,12 @@ class MapContainer extends Component {
 		super(props)
 		this.state = {
 			clusters: [],
-			regionChangeLoc: null,
+			regionChangeLoc: {
+				latitude: 23.8859,
+				longitude: 45.0792,
+				latitudeDelta: 25,
+				longitudeDelta: 25,
+			},
 			nameSearch: '',
 		}
 	}
@@ -99,12 +106,18 @@ class MapContainer extends Component {
 	}
 
 	onRegionChange = (regionData) => {
+
+		if ( Platform.OS !== 'ios' || flagIOS > 1 ) {
+
 		const initialGeoLoc = this.props.regionGPS
 		const { regionChangeLoc, nameSearch } = this.state;
 
 		nameSearch != initialGeoLoc.searchText ? this.setState({ nameSearch: initialGeoLoc.searchText }) : null;
 
 		this.setState({ regionChangeLoc: regionData })
+		}else{
+			flagIOS = flagIOS+1;
+		}
 	}
 
 	render() {
@@ -118,7 +131,7 @@ class MapContainer extends Component {
 				initialRegion={initialGeoLoc}
 				region={renderRegionValue}
 				onRegionChangeComplete={(x) => { this.onRegionChangeComplete(x) }}
-				onRegionChange={this.onRegionChange}
+				onRegionChange={(regionChange) => { this.onRegionChange(regionChange);}}
 				{...this.props}
 			>
 				{

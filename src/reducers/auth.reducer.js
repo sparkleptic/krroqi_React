@@ -3,6 +3,8 @@ import initialState from './initialState';
 
 export default (state = initialState.common, action) => {
   switch (action.type) {
+    case types.AUTH_RESET:
+      return { ...state, loading: false, error: false, success: null };
     case types.AUTH_REQUEST:
       return { ...state, loading: true };
     case types.AUTH_SUCCESS:

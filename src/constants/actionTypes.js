@@ -43,5 +43,6 @@ export const CHECK_CONNECTION = 'CHECK_CONNECTION';
 export const SEARCH_CHANGE = 'SEARCH_CHANGE';
 
 export const AUTH_REQUEST = 'LOGIN_REQUEST';
+export const AUTH_RESET = 'LOGIN_RESET';
 export const AUTH_SUCCESS = 'LOGIN_SUCCESS';
 export const AUTH_FAIL = 'LOGIN_FAIL';

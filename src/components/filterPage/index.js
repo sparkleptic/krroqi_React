@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from "axios";
 import PropTypes from 'prop-types';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import {
@@ -10,6 +11,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   Platform,
+  AsyncStorage,
 } from 'react-native';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -20,6 +22,7 @@ import {
   minPrice,
   maxPrice,
   propertyStatuses,
+  PUBLIC_URL,
 } from '../../constants/config';
 import MultiSelect from '../../inputControls/MultiSelect';
 import I18n from '../../i18n';
@@ -52,6 +55,8 @@ class filterPage extends Component {
       propertyTypeLo: '',
       districtLo: '',
       branchLo: '',
+      apiRegion: [],
+      apiCity: [],
     };
     this.selectMinPrice = this.selectMinPrice.bind(this);
     this.selectMaxPrice = this.selectMaxPrice.bind(this);
@@ -67,6 +72,38 @@ class filterPage extends Component {
     this.selectPropertyType = this.selectPropertyType.bind(this);
     this.selectPropertyStatus = this.selectPropertyStatus.bind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('lang').then((value) => {
+
+      let lang = 'en';
+      if(value == null){
+        lang = 'en';
+      }else{
+        lang = value;
+      }
+
+      axios
+        .get(`${PUBLIC_URL}getRegions/${lang}`)
+        .then((response) => {
+          this.setState({ apiRegion: response.data })
+          // alert(JSON.stringify(response));
+        })
+        .catch((error) => {
+          // do nothing
+        });
+
+      axios
+        .get(`${PUBLIC_URL}getCities/${lang}`)
+        .then((response) => {
+          this.setState({ apiCity: response.data })
+        })
+        .catch((error) => {
+          // do nothing
+        });
+
+      }).done();
   }
 
     renderPropertyType() {
@@ -354,17 +391,18 @@ class filterPage extends Component {
   }
 
   renderBranch() {
-    const { branchLo } = this.state;
+    const { branchLo, apiRegion } = this.state;
     const pp_branch = `${I18n.t('pp_branch').capitalize()}`;
     const pp_region = `${I18n.t('pp_region').capitalize()}`;
+    if (apiRegion.length > 0) {
     return (
       <View>
         <Picker mode="dropdown" selectedValue={branchLo} onValueChange={(value) => {this.selectBranch(value)}}>
           <Picker.Item label={pp_region} value="Select Region" />
           {
-            citiesArr.length > 0 && (
-              citiesArr.map((city, i) => {
-              return  <Picker.Item key={i} label={city} value={city} />     
+            apiRegion.length > 0 && (
+              apiRegion.map((city, i) => {
+              return  <Picker.Item key={i} label={city.name} value={city.name} />     
               })
             )
           }
@@ -372,20 +410,41 @@ class filterPage extends Component {
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
     );
+    }
   }
 
   renderDistrict() {
-    const { districtLo } = this.state;
+    const { districtLo, apiCity, branchLo } = this.state;
     const pp_district = `${I18n.t('pp_district').capitalize()}`;
     const pp_city = `${I18n.t('pp_city').capitalize()}`;
+
+    var mapRenderArray = [];
+
+    if (apiCity.length > 0) {
+      if (branchLo !== null && branchLo !== '') {
+
+        apiCity.map((district, i) => {
+          if (branchLo !== null && branchLo !== '' && branchLo === district.region) {
+          mapRenderArray.push(district)
+          }
+        })
+        if (mapRenderArray.length == 0) {
+          mapRenderArray.push({'name': branchLo});      
+        }
+      }else{
+        mapRenderArray = apiCity;
+      }
+    }
+
+    if (apiCity.length > 0) {
     return (
       <View>
         <Picker mode="dropdown" selectedValue={districtLo} onValueChange={(value) => {this.selectDistrict(value)}}>
           <Picker.Item label={pp_city} value="Select City" />
           {
-            districtsArr.length > 0 && (
-              districtsArr.map((district, i) => {
-              return  <Picker.Item key={i} label={district} value={district} />     
+            mapRenderArray.length > 0 && (
+              mapRenderArray.map((district, i) => {
+              return  <Picker.Item key={i} label={district.name} value={district.name} />     
               })
             )
           }
@@ -393,6 +452,7 @@ class filterPage extends Component {
         {Platform.OS !== 'ios' && <View style={styles.divider} />}
       </View>
     );
+    }
   }
 
   render() {

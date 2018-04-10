@@ -126,6 +126,7 @@ class App extends Component {
         tabFontFamily: 'BioRhyme-Bold',
         screenBackgroundColor: '#E9EBEE',
         tabBarTranslucent: false,
+        orientation: 'portrait',
       },
     });
   }
