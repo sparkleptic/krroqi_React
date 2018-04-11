@@ -169,7 +169,7 @@ class Location extends Component {
             ...this.state.mapRegion,
             latitude: place.latitude,
             longitude: place.longitude,
-            nameSearchAdd: place.name,
+            nameSearchAdd: place.address,
           },
         });
         this.props.updateLocationOnMap(this.state.mapRegion)

@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -78,6 +79,7 @@
 		9A5022F981014E63950ACAB0 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0FB00DFDA9BC4DD0AF600A1A /* EvilIcons.ttf */; };
 		A540FC0812CD43DC830B6352 /* libRNCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A2CA643D3A41E698E78850 /* libRNCrashes.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		AE0C20AE207D0188005361F8 /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE0C20AD207D0188005361F8 /* Images-2.xcassets */; };
 		B20847A1B2364579961AAD32 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC68CE5B40D4382B9E0548C /* libz.tbd */; };
 		DBC72127D5C342CEB617DA11 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B80E2D80A447A4B8F1EDC8 /* Entypo.ttf */; };
 		E07F4AD4B64E49319A248FB4 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2BE27DF16CE84F30BD3639B1 /* Feather.ttf */; };
@@ -538,6 +540,7 @@
 		9A168E87705701C512D26411 /* libPods-krooqi-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-krooqi-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0631D9236FF499FA6A1EEC2 /* libRNMobileCenter.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNMobileCenter.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		AE0C20AD207D0188005361F8 /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Images-2.xcassets"; path = "krooqi/Images-2.xcassets"; sourceTree = "<group>"; };
 		B1403FCF313A44C38AD54E34 /* RNGooglePlaces.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGooglePlaces.xcodeproj; path = "../node_modules/react-native-google-places/ios/RNGooglePlaces.xcodeproj"; sourceTree = "<group>"; };
 		B16F62075AB34729B26D0566 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		B1C737C7EDBF4C75AB8C87B6 /* libRNAnalytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNAnalytics.a; sourceTree = "<group>"; };
@@ -738,6 +741,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				AE0C20AD207D0188005361F8 /* Images-2.xcassets */,
 			);
 			name = krooqi;
 			sourceTree = "<group>";
@@ -1640,6 +1644,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				DBC72127D5C342CEB617DA11 /* Entypo.ttf in Resources */,
+				AE0C20AE207D0188005361F8 /* Images-2.xcassets in Resources */,
 				9A5022F981014E63950ACAB0 /* EvilIcons.ttf in Resources */,
 				E07F4AD4B64E49319A248FB4 /* Feather.ttf in Resources */,
 				966168033A1D44BE9B172203 /* FontAwesome.ttf in Resources */,
@@ -2066,6 +2071,7 @@
 			baseConfigurationReference = C18EC3AFE5F0D71294C3FBF4 /* Pods-krooqi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2113,6 +2119,7 @@
 			baseConfigurationReference = 4C2DC638DC98CA1F480335C2 /* Pods-krooqi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;

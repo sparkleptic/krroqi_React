@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, Platform } from 'react-native';
+import { View, Text, Platform, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import RequestInfo from '../RequestInfo';
+import LoginCheck from './loginCheck';
 
 import styles from './styles';
 import I18n from '../../i18n';
@@ -18,11 +21,12 @@ String.prototype.toProperCase = function() {
     function($1) { return $1.toUpperCase(); });
 }
 
-const PropertyContent = ({ property }) => {
+const PropertyContent = ({ property, auth, navigatorProp }) => {
   const ios = Platform.OS === 'ios';
   const propertyType = property.features.find(value => value.taxonomy === 'property_type');
   const propertyLabel = property.features.find(value => value.taxonomy === 'property_label');
   const propertyStatus = property.features.find(value => value.taxonomy === 'property_status');
+  // const { auth } = this.props;
   return (
     <View style={styles.scrollViewContent}>
       <View style={styles.container}>
@@ -129,7 +133,7 @@ const PropertyContent = ({ property }) => {
           </View>
         </View>
         <Text style={styles.subject}>   {I18n.t('single_reqInfo').capitalize()}</Text>
-        <RequestInfo />
+        { auth.success ? <RequestInfo auth={auth} property={property} /> : <LoginCheck navigator={navigatorProp} /> }
       </View>
     </View>
   );
@@ -137,6 +141,16 @@ const PropertyContent = ({ property }) => {
 
 PropertyContent.propTypes = {
   property: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  navigatorProp: PropTypes.object.isRequired,
 };
 
-export default PropertyContent;
+// export default PropertyContent;
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+  };
+}
+
+export default connect(mapStateToProps)(PropertyContent);
