@@ -103,7 +103,8 @@ const PropertyContent = ({ property, auth, navigatorProp }) => {
               <Text style={styles.text}>{propertyLabel.name}</Text>
             </View>
           )}
-        {!!propertyStatus.name && (
+        { !!propertyStatus &&
+          !!propertyStatus.name && (
           <View style={styles.row}>
             <Text style={styles.label}>   {I18n.t('single_propstatus').capitalize()}</Text>
             <Text style={styles.text}>{propertyStatus.name}</Text>

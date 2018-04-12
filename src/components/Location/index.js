@@ -74,6 +74,7 @@ class Location extends Component {
       required: false,
       apiRegion: [],
       apiCity: [],
+      dragLocError: false,
       mapRegion: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
@@ -175,6 +176,32 @@ class Location extends Component {
         this.props.updateLocationOnMap(this.state.mapRegion)
       })
       .catch(error => console.log(error.message)); // error is a Javascript Error object
+  }
+
+  _dragableLocation = (latlong) => {
+    
+    axios
+    .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlong.latitude},${latlong.longitude}&sensor=true&key=AIzaSyAoinDWoGz4ylisKJhfsvHn2LLZ8KfbR3g`)
+    .then((response) => {
+      if (response.data.results[0].formatted_address !== null && response.data.results[0].formatted_address !== '' && response.data.results[0].formatted_address !== undefined) {
+      
+        this.setState({
+          mapRegion: {
+            ...this.state.mapRegion,
+            latitude: latlong.latitude,
+            longitude: latlong.longitude,
+            nameSearchAdd: response.data.results[0].formatted_address,
+          },
+        });
+        this.props.updateLocationOnMap(this.state.mapRegion)
+
+      }else{
+        this.setState({ dragLocError: true })
+      }
+    })
+    .catch((error) => {
+      this.setState({ dragLocError: true })
+    });
   }
 
   renderPropertyType() {
@@ -289,7 +316,7 @@ class Location extends Component {
 
   render() {
     const {
-      propertyStatus, regionLo, city, districtLo, addressLo, unit, mapRegion, branchLo, propertyTypeLo,
+      propertyStatus, regionLo, city, districtLo, addressLo, unit, mapRegion, branchLo, propertyTypeLo, dragLocError
     } = this.state;
     const { OS } = Platform;
     let statusSelectedIndex = 0;
@@ -444,7 +471,9 @@ class Location extends Component {
                 /> */}
                 
                 <Text style={styles.addStyle}>{mapRegion.nameSearchAdd === null ? pp_address : mapRegion.nameSearchAdd}</Text>
-                
+                {
+                  dragLocError && <Text style={{ color: 'red', paddingLeft: 5, paddingTop: 5 }}>No address found. Please choose different location else we use same as above. </Text>
+                }                
               </TouchableOpacity>              
               { addressValidation && ( <Text style={{ color: 'red', paddingLeft: 5, }}>It's a required filled.</Text> ) }
             </View>
@@ -466,11 +495,12 @@ class Location extends Component {
               mapRegion.longitude !== 0 && (
                 <View style={[styles.margin, { height: 200 }]}>
                   <MapView style={{ flex: 1 }} region={mapRegion}>
-                    <MapView.Marker
+                    <MapView.Marker draggable
                       coordinate={{
                         latitude: mapRegion.latitude,
                         longitude: mapRegion.longitude,
                       }}
+                      onDragEnd={(e) => this._dragableLocation(e.nativeEvent.coordinate)}
                     />
                   </MapView>
                 </View>
