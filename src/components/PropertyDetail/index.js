@@ -119,7 +119,7 @@ class PropertyDetail extends Component {
         useNativeDriver: true,
       })}
     >
-      <PropertyContent property={this.props.property} />
+      <PropertyContent property={this.props.property} navigatorProp={this.props.navigator}/>
     </Animated.ScrollView>
   );
 
@@ -140,6 +140,12 @@ class PropertyDetail extends Component {
       outputRange: [0, 100],
       extrapolate: 'clamp',
     });
+    
+    const agentNameTranslate = this.state.scrollY.interpolate({
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [0, 100],
+      extrapolate: 'clamp',
+    }); 
 
     const titleScale = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
@@ -178,6 +184,18 @@ class PropertyDetail extends Component {
               source={{ uri: animatedImage }}
             />
           </TouchableWithoutFeedback>
+          {/* transform: [{ translateY: agentNameTranslate }], */}
+            { 
+              property.agent &&
+              property.agent.exists &&
+              property.agent.nickname && (
+                <Animated.View style={{ position: 'absolute', bottom: 5, right: 5, transform: [{ translateY: agentNameTranslate }], }}>
+                  <Text numberOfLines={1} style={{ color: '#fff', padding: 10, backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <Icon name="ios-person" size={15} color='#fff' /> {property.agent.nickname}
+                  </Text>
+                </Animated.View>
+              )
+            }
         </Animated.View>
         <Animated.View
           style={[

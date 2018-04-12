@@ -11,6 +11,8 @@ String.prototype.toProperCase = function() {
 
 export const PUBLIC_URL = 'http://krooqi.step-stp.net/api/public/krooqi/';
 
+export const krooqi_URL = 'http://krooqi.step-stp.net/';
+
 export const backgroundColor = '#f7941e';
 export const textColor = 'white';
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import LikeButton from '../LikeButton';
 import ProgressiveImage from '../ProgressiveImage';
 import I18n from './../../i18n';
@@ -49,10 +50,18 @@ const PropertyCard = ({
             <Text numberOfLines={1} style={styles.title}>
               {property.post_title}
             </Text>
-            <Text numberOfLines={1} style={styles.subTitle}>
-              {property.real_address}
-            </Text>
-
+            { property.real_address && (
+              <Text numberOfLines={1} style={styles.subTitle}>
+                <Icon name="ios-pin" size={15} color='#000' /> {property.real_address}
+            </Text> )
+            }
+            { property.agent &&
+              property.agent.exists && (
+                <Text numberOfLines={1} style={styles.subTitle}>
+                  <Icon name="ios-person" size={15} color='#000' /> {property.agent.nickname}
+                </Text>
+              )
+            }
             <View style={{ flexDirection: 'row' }}>
               {!!property.bedroom_num && (
                 <Text style={styles.subHeader}>{I18n.t('beds').toProperCase()}: {property.bedroom_num}</Text>
