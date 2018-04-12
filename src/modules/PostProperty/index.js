@@ -205,7 +205,7 @@ class PostProperty extends Component {
             country: region,
             city: branch,
             district: district,
-            real_address: locationOnMap.name,
+            real_address: locationOnMap.nameSearchAdd,
             lat: locationOnMap.latitude,
             lng: locationOnMap.longitude,
             post_title: propertyTitle,
