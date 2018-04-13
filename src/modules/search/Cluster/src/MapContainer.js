@@ -132,6 +132,7 @@ class MapContainer extends Component {
 				region={renderRegionValue}
 				onRegionChangeComplete={(x) => { this.onRegionChangeComplete(x) }}
 				onRegionChange={(regionChange) => { this.onRegionChange(regionChange);}}
+				minZoomLevel={4}
 				{...this.props}
 			>
 				{

@@ -120,6 +120,7 @@ class FeaturesAndServices extends Component {
                   <CheckBox
                     title= { dir.name.toProperCase() }
                     checked= {dir.isChecked}
+                    onPress= { () => this.featureServicesFuc(keyValue)}
                     onIconPress= { () => this.featureServicesFuc(keyValue)}
                   />
                   {/* <Text style={styles.divText}>{dir.name.toProperCase()}</Text> */}
