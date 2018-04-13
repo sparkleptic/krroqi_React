@@ -97,7 +97,7 @@ class FeaturesAndServices extends Component {
       <View style={styles.container}>
         <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}> {I18n.t('ppt_feat_ser').toProperCase()} </Text></View>
         <ScrollView style={styles.flex}>
-          <KeyboardAvoidingView style={styles.flex} behavior="padding">
+          {/* <KeyboardAvoidingView style={styles.flex} behavior="padding"> */}
             {
               screen_6 && (
                 Alert.alert(
@@ -129,7 +129,7 @@ class FeaturesAndServices extends Component {
               }
               </View>
             </View>      
-          </KeyboardAvoidingView>
+          {/* </KeyboardAvoidingView> */}
         </ScrollView>
       </View>
     );
