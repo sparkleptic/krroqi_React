@@ -82,6 +82,13 @@ class Location extends Component {
         longitudeDelta: LONGITUDE_DELTA,
         nameSearchAdd: null,
       },
+      mapRegionForPg: {
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+        nameSearchAdd: null,
+      },
     };
     this.selectPropertyStatus = this.selectPropertyStatus.bind(this);  
     this.openMap = this.openMap.bind(this);
@@ -172,10 +179,28 @@ class Location extends Component {
             longitude: place.longitude,
             nameSearchAdd: place.address,
           },
+          mapRegionForPg: {
+            ...this.state.mapRegion,
+            latitude: place.latitude,
+            longitude: place.longitude,
+            nameSearchAdd: place.address,
+          },
         });
         this.props.updateLocationOnMap(this.state.mapRegion)
       })
       .catch(error => console.log(error.message)); // error is a Javascript Error object
+  }
+
+  onRegionChangeComplete = (region) => {
+    this.setState({
+      mapRegionForPg: {
+      ...this.state.mapRegion,
+      latitude: region.latitude,
+      longitude: region.longitude,
+      latitudeDelta: region.latitudeDelta,
+      longitudeDelta: region.longitudeDelta,
+      },
+    });
   }
 
   _dragableLocation = (latlong) => {
@@ -192,7 +217,15 @@ class Location extends Component {
             longitude: latlong.longitude,
             nameSearchAdd: response.data.results[0].formatted_address,
           },
+          mapRegionForPg: {
+            ...this.state.mapRegion,
+            latitude: latlong.latitude,
+            longitude: latlong.longitude,
+            nameSearchAdd: response.data.results[0].formatted_address,
+          },
         });
+        console.log('this.state.mapRegion')
+        console.log(this.state.mapRegion)
         this.props.updateLocationOnMap(this.state.mapRegion)
 
       }else{
@@ -316,7 +349,7 @@ class Location extends Component {
 
   render() {
     const {
-      propertyStatus, regionLo, city, districtLo, addressLo, unit, mapRegion, branchLo, propertyTypeLo, dragLocError
+      propertyStatus, regionLo, city, districtLo, addressLo, unit, mapRegion, mapRegionForPg, branchLo, propertyTypeLo, dragLocError
     } = this.state;
     const { OS } = Platform;
     let statusSelectedIndex = 0;
@@ -494,7 +527,11 @@ class Location extends Component {
             {mapRegion.latitude !== 0 &&
               mapRegion.longitude !== 0 && (
                 <View style={[styles.margin, { height: 200 }]}>
-                  <MapView style={{ flex: 1 }} region={mapRegion}>
+                  <MapView 
+                    style={{ flex: 1 }} 
+                    region={mapRegionForPg}
+                    onRegionChangeComplete={(x) => { this.onRegionChangeComplete(x) }}
+                  >
                     <MapView.Marker draggable
                       coordinate={{
                         latitude: mapRegion.latitude,
