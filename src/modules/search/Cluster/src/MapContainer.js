@@ -43,6 +43,7 @@ class MapContainer extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			regionSet: false,
 			clusters: [],
 			regionChangeLoc: {
 				latitude: 23.8859,
@@ -106,23 +107,17 @@ class MapContainer extends Component {
 	}
 
 	onRegionChange = (regionData) => {
-
-		if ( Platform.OS !== 'ios' || flagIOS > 1 ) {
-
-		const initialGeoLoc = this.props.regionGPS
+		const initialGeoLoc = this.props.regionGPS;
 		const { regionChangeLoc, nameSearch } = this.state;
 
 		nameSearch != initialGeoLoc.searchText ? this.setState({ nameSearch: initialGeoLoc.searchText }) : null;
 
-		this.setState({ regionChangeLoc: regionData })
-		}else{
-			flagIOS = flagIOS+1;
-		}
+		this.setState({ regionChangeLoc: regionData });
 	}
 
 	render() {
 		const initialGeoLoc = this.props.regionGPS;
-		const { regionChangeLoc, nameSearch } = this.state;
+		const { regionChangeLoc, nameSearch, regionSet } = this.state;
 		let renderRegionValue = nameSearch != initialGeoLoc.searchText ? initialGeoLoc : regionChangeLoc;
 
 		return (
@@ -130,8 +125,19 @@ class MapContainer extends Component {
 				onPress={this.props.dismissNotification}
 				initialRegion={initialGeoLoc}
 				region={renderRegionValue}
-				onRegionChangeComplete={(x) => { this.onRegionChangeComplete(x) }}
-				onRegionChange={(regionChange) => { this.onRegionChange(regionChange);}}
+				onRegionChangeComplete={(x) => { 
+					if (regionSet) {
+						this.onRegionChangeComplete(x);
+					}
+				}}
+				onRegionChange={(regionChange) => { 
+					if (regionSet) {
+						this.onRegionChange(regionChange);
+					}
+				}}
+				onMapReady={() => {
+					this.setState({ regionSet: true });
+				}}
 				minZoomLevel={4}
 				{...this.props}
 			>
@@ -146,4 +152,4 @@ class MapContainer extends Component {
 	}
 }
 
-export default MapContainer
+export default MapContainer;
