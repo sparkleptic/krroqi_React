@@ -37,6 +37,32 @@ const PropertyCard = ({
       margin: 0,
     };
   }
+  var labelVar = null;
+  
+  if (!!propertyLabel) {
+    if ((propertyLabel.name) === ('Sale')) {
+      labelVar = I18n.t('label_name_sale').toProperCase();
+    }
+    if ((propertyLabel.name) === ('Rent')) {
+      labelVar = I18n.t('label_name_rent').toProperCase();
+    }
+    if ((propertyLabel.name) === ('Future Developments')) {
+      labelVar = I18n.t('label_name_Futdev').toProperCase();
+    }
+  }
+
+  if (!!propertyStatus) {  
+    if ((propertyStatus.name) === ('Sale')) {
+      labelVar = I18n.t('label_name_sale').toProperCase();
+    }
+    if ((propertyStatus.name) === ('Rent')) {
+      labelVar = I18n.t('label_name_rent').toProperCase();
+    }
+    if ((propertyStatus.name) === ('Future Developments')) {
+      labelVar = I18n.t('label_name_Futdev').toProperCase();
+    }
+  }
+
   return (
     <View style={[styles.container, containerStyle]}>
       <TouchableWithoutFeedback onPress={() => onCardPress(property)}>
@@ -74,8 +100,8 @@ const PropertyCard = ({
             {propertyType && <Text style={styles.subHeader}>{propertyType.name}</Text>}
           </View>
           <View style={styles.displayTop}>
-            {!!propertyLabel && <Text style={styles.propertyLabel}>{propertyLabel.name}</Text>}
-            {!!propertyStatus && <Text style={styles.propertyStatus}>{propertyStatus.name}</Text>}
+            {!!propertyLabel && (labelVar !== null) && <Text style={styles.propertyLabel}>{labelVar}</Text>}
+            {!!propertyStatus && (labelVar !== null) && <Text style={styles.propertyStatus}>{labelVar}</Text>}
           </View>
           {!!property.eprice && (
             <Text style={styles.priceLabel}>

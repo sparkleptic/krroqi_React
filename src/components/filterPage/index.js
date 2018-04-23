@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import {
   View,
@@ -39,8 +41,10 @@ String.prototype.toProperCase = function() {
     function($1) { return $1.toUpperCase(); });
 }
 
-var citiesArr = ['Asir','Jeddah Province','Makkah Province','Qassim','Riyadh Province','Tabuk']
-var districtsArr = ['Al Khunayqiyah','Jeddah','Labkhah','Mecca','Riyadh']
+var citiesArr = ['Asir','Jeddah Province','Makkah Province','Qassim','Riyadh Province','Tabuk'];
+var districtsArr = ['Al Khunayqiyah','Jeddah','Labkhah','Mecca','Riyadh'];
+
+let string1 = "/advanced-search/?keyword=&property_id=";
 
 class filterPage extends Component {
   constructor(props) {
@@ -57,6 +61,7 @@ class filterPage extends Component {
       branchLo: '',
       apiRegion: [],
       apiCity: [],
+      isSavedSearch: false,
     };
     this.selectMinPrice = this.selectMinPrice.bind(this);
     this.selectMaxPrice = this.selectMaxPrice.bind(this);
@@ -106,7 +111,7 @@ class filterPage extends Component {
       }).done();
   }
 
-    renderPropertyType() {
+  renderPropertyType() {
     const { propertyTypeLo } = this.state;
     let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
     let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
@@ -144,6 +149,34 @@ class filterPage extends Component {
         });
       }
     }
+  }
+
+  _saveSearch = () => {
+    const { auth } = this.props;
+    const { search } = this.state;
+
+    this._convertIntoString(search);
+
+    let dataSent = {
+      "user_id": auth.success.id,
+      "search_arg": "from_mobile",
+      "email": auth.success.email,
+      "search_url": string1
+    }
+    
+    axios
+      .post(`${PUBLIC_URL}addSearch`, dataSent)
+      .then((response) => {
+        if (response.data.status) {
+          this.setState({ isSavedSearch: true });
+        }
+        string1 = "/advanced-search/?keyword=&property_id=";
+      })
+      .catch((error) => {
+        console.log(error);        
+        string1 = "/advanced-search/?keyword=&property_id=";
+      });
+    
   }
 
   resetForm() {
@@ -286,7 +319,7 @@ class filterPage extends Component {
             selectedValue={search.squareMeterRange.start}
             onValueChange={this.selectMinArea}
           >
-            <Picker.Item label={I18n.t('min_area').toProperCase()} />
+            <Picker.Item label={I18n.t('min_area').toProperCase()} value="" />
             {minArea.map(item => (
               <Picker.Item
                 key={item}
@@ -303,7 +336,7 @@ class filterPage extends Component {
             selectedValue={search.squareMeterRange.end}
             onValueChange={this.selectMaxArea}
           >
-            <Picker.Item label={I18n.t('max_area').toProperCase()} />
+            <Picker.Item label={I18n.t('max_area').toProperCase()} value="" />
             {maxArea.map(item => (
               <Picker.Item
                 key={item}
@@ -328,7 +361,7 @@ class filterPage extends Component {
             selectedValue={search.priceRange.start}
             onValueChange={this.selectMinPrice}
           >
-            <Picker.Item label={I18n.t('min_price').toProperCase()} />
+            <Picker.Item label={I18n.t('min_price').toProperCase()} value="" />
             {minPrice.map(item => (
               <Picker.Item
                 key={item}
@@ -345,7 +378,7 @@ class filterPage extends Component {
             selectedValue={search.priceRange.end}
             onValueChange={this.selectMaxPrice}
           >
-            <Picker.Item label={I18n.t('max_price').toProperCase()} />
+            <Picker.Item label={I18n.t('max_price').toProperCase()} value="" />
             {maxPrice.map(item => (
               <Picker.Item
                 key={item}
@@ -370,7 +403,7 @@ class filterPage extends Component {
             selectedValue={search.yearBuilt.start}
             onValueChange={this.selectMinYear}
           >
-            <Picker.Item label={I18n.t('min_built_yr').toProperCase()} />
+            <Picker.Item label={I18n.t('min_built_yr').toProperCase()} value="" />
             {years.map(item => <Picker.Item key={item} value={`${item}`} label={`${item}`} />)}
           </Picker>
           {Platform.OS !== 'ios' && <View style={styles.divider} />}
@@ -381,7 +414,7 @@ class filterPage extends Component {
             selectedValue={search.yearBuilt.end}
             onValueChange={this.selectMaxYear}
           >
-            <Picker.Item label={I18n.t('max_built_yr').toProperCase()} />
+            <Picker.Item label={I18n.t('max_built_yr').toProperCase()} value="" />
             {years.map(item => <Picker.Item key={item} value={`${item}`} label={`${item}`} />)}
           </Picker>
           {Platform.OS !== 'ios' && <View style={styles.divider} />}
@@ -398,7 +431,7 @@ class filterPage extends Component {
     return (
       <View>
         <Picker mode="dropdown" selectedValue={branchLo} onValueChange={(value) => {this.selectBranch(value)}}>
-          <Picker.Item label={pp_region} value="Select Region" />
+          <Picker.Item label={pp_region} value="" />
           {
             apiRegion.length > 0 && (
               apiRegion.map((city, i) => {
@@ -440,7 +473,7 @@ class filterPage extends Component {
     return (
       <View>
         <Picker mode="dropdown" selectedValue={districtLo} onValueChange={(value) => {this.selectDistrict(value)}}>
-          <Picker.Item label={pp_city} value="Select City" />
+          <Picker.Item label={pp_city} value="" />
           {
             mapRenderArray.length > 0 && (
               mapRenderArray.map((district, i) => {
@@ -455,10 +488,116 @@ class filterPage extends Component {
     }
   }
 
+  _convertIntoString = (object1) => {
+  for (let key1 in object1) {
+
+    if((typeof object1[key1] === "object") && (key1 === "propertyType")) {
+      	let finalpara = "type";
+        let value = "";
+        if(object1[key1][0]){
+        	value = object1[key1][0].value.toLowerCase();
+        }
+      	string1 = string1 + `&${finalpara}=${value}`;
+    }
+    
+  	if((typeof object1[key1] === "object") && (key1 !== "propertyType")) {
+    	let object2 = object1[key1];
+        let parameterPass = "";
+        let areaAdditional = "";
+        if (key1 === "priceRange") {
+        	parameterPass = "price";
+        }
+        if (key1 === "squareMeterRange") {
+          parameterPass = "area";
+        }
+        if (key1 === "yearBuilt") {
+        	parameterPass = "yrbuilt";
+        }
+    	for (let key2 in object2) {
+          let innerparaPass = "";
+          if (key2 === "start") {
+              innerparaPass = "min";
+          }
+          if (key2 === "end") {
+              innerparaPass = "max";
+          }
+          if (parameterPass === "area") {
+            if (object2[key2] !== "") {
+              areaAdditional = "+Sq+m";            
+            }
+          }
+          let finalpara = innerparaPass + "-" + parameterPass;
+          string1 = string1 + `&${finalpara}=${object2[key2]}${areaAdditional}`;          
+        }
+    }
+    
+    if(typeof object1[key1] === "number") {
+        if(key1 === "propertyStatus"){
+        	let finalpara = "status";
+            let value = "";
+          	if(object1[key1] === 33) {
+               value = "for-rent";
+            }
+            if(object1[key1] === 34) {
+               value = "for-sale";
+            }
+            if(object1[key1] === 108) {
+               value = "future-developments";
+            }
+            if(object1[key1] === 319) {
+               value = "new-construction-2";
+            }
+            if(object1[key1] === 217) {
+               value = "sold";
+            }
+            if(object1[key1] === 218) {
+               value = "rented";
+            }
+            string1 = string1 + `&${finalpara}=${value}`;
+        }
+      
+      	if(key1 !== "propertyStatus"){
+          let finalpara = "";
+          let value = "";
+          if(key1 === "rooms") {
+          	finalpara = "bedrooms";
+          }
+          if(key1 === "baths") {
+          	finalpara = "bathrooms";
+          }
+          if (object1[key1] !== 0) {
+            value = object1[key1];
+          }
+          	string1 = string1 + `&${finalpara}=${value}`;
+        }
+    }
+    
+    if(typeof object1[key1] === "string") {
+        let finalpara = "";
+        let value = "";
+        if(key1 === "district") {
+          finalpara = "location";
+          value = object1[key1].replace(/\s+/g, '-').toLowerCase();
+        }
+        if(key1 === "region") {
+          finalpara = "state";
+          value = object1[key1].replace(/\s+/g, '-').toLowerCase();
+        }
+        if(key1 === "rooms") {
+          finalpara = "bedrooms";
+        }
+        if(key1 === "baths") {
+          finalpara = "bathrooms";
+        }
+          string1 = string1 + `&${finalpara}=${value}`;
+    }
+  }
+}
+
   render() {
     const { OS } = Platform;
-    const { propertyTypes } = this.props;
-    const { search, propertyTypeLo, districtLo, branchLo } = this.state;
+    const { propertyTypes, auth } = this.props;
+    const { search, propertyTypeLo, districtLo, branchLo, isSavedSearch } = this.state;
     const pl = propertyTypes.map(item => ({
       key: item.term_id,
       value: item.name,
@@ -640,16 +779,25 @@ class filterPage extends Component {
               <Text style={styles.label}>{I18n.t('reset').toProperCase()}</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={{ flexDirection: 'row' }}>
-              <Icon
-                style={{ marginRight: 10 }}
-                name={Platform.OS === 'ios' ? 'ios-heart-outline' : 'md-heart-outline'}
-                size={20}
-              />
-              <Text style={styles.label}>{I18n.t('save_search').toProperCase()}</Text>
-            </View>
-          </TouchableOpacity>
+          {
+            auth.success && 
+            <TouchableOpacity onPress={() => this._saveSearch()} >
+              <View style={{ flexDirection: 'row' }}>
+                {
+                  isSavedSearch ? <Icon
+                    style={{ marginRight: 10 }}
+                    name={Platform.OS === 'ios' ? 'ios-heart' : 'md-heart'}
+                    size={20}
+                  /> : <Icon
+                    style={{ marginRight: 10 }}
+                    name={Platform.OS === 'ios' ? 'ios-heart-outline' : 'md-heart-outline'}
+                    size={20}
+                  />
+                }
+                <Text style={styles.label}>{I18n.t('save_search').toProperCase()}</Text>
+              </View>
+            </TouchableOpacity>
+          }
           <TouchableOpacity onPress={this.searchForm}>
             <View>
               <Text style={styles.label}>{I18n.t('ft_search').toProperCase()}</Text>
@@ -669,4 +817,9 @@ filterPage.propTypes = {
   navigator: PropTypes.object.isRequired,
 };
 
-export default filterPage;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+
+export default connect(mapStateToProps)(filterPage);

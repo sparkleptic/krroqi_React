@@ -200,7 +200,7 @@ class PostProperty extends Component {
             
           let dataPost = {
             lang: language,
-            owner_id: '1',
+            owner_id: auth.success.id,
             status : propertyFor,
             country: region,
             city: branch,
@@ -219,8 +219,12 @@ class PostProperty extends Component {
             area: meterSq,
             build_year: yearBuild,
             features: JSON.parse(this.state.featuresValuesLo),
-            images: JSON.parse(this.state.postImages)
+            images: JSON.parse(this.state.postImages),
+            agent: agent,
           }
+
+          console.log("post property")
+          console.log(JSON.stringify(dataPost))
 
           axios
             .post(`${config.PUBLIC_URL}addProperty`, dataPost)

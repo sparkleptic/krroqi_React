@@ -23,9 +23,14 @@ class RequestInfo extends Component {
       email: '',
       phone: '',
       message: '',
+      phoneError: false,
+      messageError: false,
+      agent_id: null,
       name_string: null,
       property_id: null,
       userid: null,
+      user_display_name: null,
+      user_email: null,
       isLoding: false,
     };
     this.submitRequestInfo = this.submitRequestInfo.bind(this);
@@ -38,23 +43,40 @@ class RequestInfo extends Component {
     this.setState({
       name_string: property.post_title,
       property_id: property.ID,
+      agent_id: property.agent_id,
       message: `Hello, I am interested in ${property.post_title}`,
       userid: auth.success.id,
+      user_display_name: auth.success.name,
+      user_email: auth.success.email,
     })
 
   }
 
   submitRequestInfo() {
 
+    const { name_string, property_id, message, userid, user_display_name, user_email, agent_id, phone } = this.state;
+
+    if (phone.length === 0) {
+      this.setState({ phoneError: true });
+    }
+    if (message.length === 0) {
+      this.setState({ messageError: true });
+    }
+
+    if ((phone.length === 0 && message.length === 0) || phone.length === 0 || message.length === 0) {
+      return false;
+    }else{
+      this.setState({ phoneError: false, messageError: false });
+    }
+
     this.setState({ isLoding: true })
 
-    const { name_string, property_id, message, userid } = this.state;
 
     let phpPost = {
       "name_string": name_string, // property name
-      "agent_id": "5792", // agent id
+      "agent_id": agent_id, // agent id
       "userlog": "1", // hard coded
-      "userid": userid, // Login user id
+      "userid": userid, // login user id
       "typeadd": "1", // hard coded
       "mobile_nounce": "cabfd9e42d" // hard coded
     }
@@ -62,7 +84,12 @@ class RequestInfo extends Component {
     let nonPhpPost = {
       "property_id": property_id, // id of property 
       "message": message, // user message
-      "mobile_nounce": "cabfd9e42d" // hard coded
+      "mobile_nounce": "cabfd9e42d", // hard coded
+      "agent_id": agent_id,
+      "phone": phone, // phone Number 
+      "user_id": userid, // user Id
+      "user_email": user_email, // user E-Mail
+      "user_display_name": user_display_name, // user Name
     }
 
     axios
@@ -91,7 +118,7 @@ class RequestInfo extends Component {
 
   render() {
     const { onPress, } = this.props;
-    const { isLoding } =this.state;
+    const { isLoding, phoneError, messageError } =this.state;
     return (
       <View>
         {/* <TextInput
@@ -134,6 +161,20 @@ class RequestInfo extends Component {
         }
         <TextInput
           style={styles.textInput}
+          keyboardType="numeric"
+          returnKeyType="next"
+          placeholder={I18n.t('req_Phone').capitalize()}
+          autoCapitalize="none"
+          autoCorrect={false}
+          value={this.state.phone}
+          onChangeText={phone => this.setState({ phone })}
+          ref={input => (this.phoneInput = input)}
+        />
+        {
+          phoneError && <Text style={{ color: 'red', }}>{I18n.t('PhoneReq').capitalize()}</Text>
+        }
+        <TextInput
+          style={styles.textInput}
           numberOfLines={4}
           keyboardType="default"
           returnKeyType="go"
@@ -144,6 +185,9 @@ class RequestInfo extends Component {
           onChangeText={message => this.setState({ message })}
           ref={input => (this.messageInput = input)}
         />
+        {
+          messageError && <Text style={{ color: 'red', paddingBottom: 10, }}>{I18n.t('MsgReq').capitalize()}</Text>
+        }
         <TouchableHighlight onPress={this.submitRequestInfo} underlayColor="gray">
           <View style={styles.button}>
             <Text style={styles.buttonText}>{I18n.t('req_info').capitalize()}</Text>

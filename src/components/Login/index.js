@@ -154,8 +154,8 @@ class Login extends Component {
             placeholder={I18n.t('login_email').capitalize()}
             onChangeText={email => this.setState({ email })}
           />
-          {this.state.showError && ( <Text  style={{ color: 'red' }}>The email address is required and cannot be empty.</Text> )}
-          {this.state.showInvalidEmail && ( <Text  style={{ color: 'red' }}>You have entered an invalid email address!</Text> )}
+          {this.state.showError && ( <Text  style={{ color: 'red' }}>{I18n.t('email_req').capitalize()}</Text> )}
+          {this.state.showInvalidEmail && ( <Text  style={{ color: 'red' }}>{I18n.t('email_val_err').capitalize()}</Text> )}
         </View>
         <TouchableHighlight onPress={this.register} underlayColor="gray">
           <View style={styles.button}>
