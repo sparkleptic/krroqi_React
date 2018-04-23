@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { AsyncStorage, View, FlatList, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
 import SavedSearchCard from '../../components/SavedSearchCard';
 import * as PropertiesActions from './../../Actions/PropertiesAction';
+import * as commonActions from './../../Actions/commonActions';
 import { backgroundColor, PUBLIC_URL } from "../../constants/config";
 import I18n from '../../i18n';
 import axios from "axios";
@@ -150,7 +151,9 @@ class Favorites extends Component {
 
     })
 
-    this.setState({ dummyDataArr: tempStoreUrlArr, isRefeshing: false });
+    this.props.actionsUpdated.updateSaveSearch(tempStoreUrlArr);
+    this.setState({isRefeshing: false });
+    // this.setState({ dummyDataArr: tempStoreUrlArr, isRefeshing: false });
     // console.log("JSON.stringify(tempStoreUrlArr)");
     // console.log(JSON.stringify(tempStoreUrlArr));
   }
@@ -304,7 +307,7 @@ class Favorites extends Component {
   }
 
   render() {
-    const { savedSearch, auth } = this.props;
+    const { savedSearch, auth, updatedSavedSearch } = this.props;
     const { urlData, dummyDataArr, isRefeshing } = this.state;
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
@@ -312,9 +315,9 @@ class Favorites extends Component {
         {auth.success ? (
           <View style={{ flex: 1 }}>
             {
-              dummyDataArr.length > 0 ? (
+              updatedSavedSearch.length > 0 ? (
               <FlatList
-                data={dummyDataArr}
+                data={updatedSavedSearch}
                 renderItem={this._showUrlPara}
                 ItemSeparatorComponent={() => (
                   <View style={{ borderBottomWidth: 1, borderColor: 'gray' }} />
@@ -387,12 +390,14 @@ Favorites.propTypes = {
 
 const mapStateToProps = state => ({
   savedSearch: state.savedSearch,
+  updatedSavedSearch: state.updatedSavedSearch,
   auth: state.auth,
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(PropertiesActions, dispatch),
+    actionsUpdated: bindActionCreators(commonActions, dispatch),
   };
 }
 

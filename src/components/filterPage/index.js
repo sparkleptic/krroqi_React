@@ -31,6 +31,7 @@ import I18n from '../../i18n';
 import styles from './styles';
 import InitialState from '../../reducers/initialState';
 import Panel from '../Panel';
+import * as commonActions from '../../Actions/commonActions';
 
 String.prototype.capitalize = function() {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -169,6 +170,7 @@ class filterPage extends Component {
       .then((response) => {
         if (response.data.status) {
           this.setState({ isSavedSearch: true });
+          this.authsuccessFunction(auth);
         }
         string1 = "/advanced-search/?keyword=&property_id=";
       })
@@ -178,6 +180,135 @@ class filterPage extends Component {
       });
     
   }
+
+  authsuccessFunction = (auth) => {
+    if (auth.success) {
+    axios
+      .post(`${PUBLIC_URL}getSearch`, { "user_id": auth.success.id })
+      .then((response) => {       
+        this.creatingObjFromUrl(response.data);
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+    }
+  }
+
+    creatingObjFromUrl = (urlArr) => {
+
+    let tempStoreUrlArr = [];  
+    
+    urlArr.map((dataUrl, index) => {
+      
+      let data = dataUrl.url;
+      
+      let propertyStatus = 33,
+        priceRangeStart = "",
+        priceRangeEnd = "", 
+        rooms = "", 
+        baths = "", 
+        squareMeterRangeStart = "", 
+        squareMeterRangeEnd = "", 
+        yearBuiltStart = "", 
+        yearBuilttEnd = "", 
+        district = "", 
+        region = "", 
+        propertyTypeKey = "", 
+        propertyTypeValue = "";
+      let propertyTypeArr = [];
+      
+      priceRangeStart = this.getQueryString('min-price', data);
+      priceRangeEnd = this.getQueryString('max-price', data);
+      rooms = this.getQueryString('bedrooms', data);
+      baths = this.getQueryString('bathrooms', data);
+      squareMeterRangeStart = this.getQueryString('min-area', data);
+      squareMeterRangeEnd = this.getQueryString('max-area', data);
+      yearBuiltStart = this.getQueryString('min-yrbuilt', data);
+      yearBuilttEnd = this.getQueryString('max-yrbuilt', data);
+      district = this.getQueryString('state', data);
+      region = this.getQueryString('location', data);
+
+      let statusForPro = this.getQueryString('status', data);
+      let typeProLocal = this.getQueryString('type', data);     
+
+      propertyTypeValue = typeProLocal.toProperCase();      
+
+      if(statusForPro === "for-rent") {
+          propertyStatus = 33;
+      }
+      if(statusForPro === "for-sale") {
+          propertyStatus = 34;
+      }
+      if(statusForPro === "future-developments") {
+          propertyStatus = 108;
+      }
+      if(statusForPro === "new-construction-2") {
+          propertyStatus = 319;
+      }
+      if(statusForPro === "sold") {
+          propertyStatus = 217;
+      }
+      if(statusForPro === "rented") {
+          propertyStatus = 218;
+      }
+
+      if(typeProLocal === "apartment") {
+          propertyTypeKey = 13;
+      }
+      if(typeProLocal === "building") {
+          propertyTypeKey = 107;
+      }
+      if(typeProLocal === "office") {
+          propertyTypeKey = 221;
+      }
+      if(typeProLocal === "showroom") {
+          propertyTypeKey = 219;
+      }
+      if(typeProLocal === "villa") {
+          propertyTypeKey = 89;
+      }
+
+      if (propertyTypeKey !== "" && propertyTypeValue !== "") {
+        propertyTypeArr = [{"key": propertyTypeKey, "value": propertyTypeValue}];        
+      }
+
+      let objectPush = {
+        "propertyStatus": propertyStatus,
+        "priceRange": {
+          "start": priceRangeStart,
+          "end": priceRangeEnd
+        },
+        "propertyType": propertyTypeArr,
+        "rooms": rooms,
+        "baths": baths,
+        "squareMeterRange": {
+          "start": squareMeterRangeStart.replace('+Sq+m',''),
+          "end": squareMeterRangeEnd.replace('+Sq+m','')
+        },
+        "yearBuilt": {
+          "start": yearBuiltStart,
+          "end": yearBuilttEnd
+        },
+        "district": district.replace(/-/g,' ').toProperCase(),
+        "region": region.replace(/-/g,' ').toProperCase()
+      };
+
+      tempStoreUrlArr.push(objectPush);
+
+    })
+
+    this.props.actions.updateSaveSearch(tempStoreUrlArr);
+    // console.log("JSON.stringify(tempStoreUrlArr)");
+    // console.log(JSON.stringify(tempStoreUrlArr));
+  }
+
+  getQueryString = ( field, url ) => {
+    let href = url;
+    let reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+    let string = reg.exec(href);
+    // return string ? string[1] : null;
+    return string ? (string[1]  === undefined || string[1]  === null || string[1]  === "" ? "" : string[1] ) : "";
+  };
 
   resetForm() {
     this.setState({ search: InitialState.search });
@@ -821,5 +952,10 @@ const mapStateToProps = state => ({
   auth: state.auth,
 });
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(commonActions, dispatch),
+  };
+}
 
-export default connect(mapStateToProps)(filterPage);
+export default connect(mapStateToProps, mapDispatchToProps)(filterPage);

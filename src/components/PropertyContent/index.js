@@ -146,11 +146,16 @@ const PropertyContent = ({ property, auth, navigatorProp }) => {
           </View>
         </View>
         {
-          property.agent.exists &&
-          property.post_author !== auth.success.id && (
-            <View>
-              <Text style={styles.subject}>{I18n.t('single_reqInfo').capitalize()}</Text>        
-              { (auth.success !== null && auth.success !== false) ? <RequestInfo auth={auth} property={property} /> : <LoginCheck navigator={navigatorProp} /> }
+          (property.agent.exists) && (
+            <View>              
+              { (auth.success !== null && auth.success !== false) ? ((property.post_author !== auth.success.id) ? <View>
+                  <Text style={styles.subject}>{I18n.t('single_reqInfo').capitalize()}</Text>
+                  <RequestInfo auth={auth} property={property} />
+                </View> : null) : <View> 
+                  <Text style={styles.subject}>{I18n.t('single_reqInfo').capitalize()}</Text> 
+                  <LoginCheck navigator={navigatorProp} /> 
+                </View>  
+              }
             </View>
           )
         }

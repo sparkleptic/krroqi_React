@@ -148,4 +148,5 @@ export default {
   inSavedSearchRegion: 'Region',
   inSavedSearchCity: 'City',
   inSavedSearchSearch: 'Search',
+  inAgentContactUs: 'Contact Us',
 };

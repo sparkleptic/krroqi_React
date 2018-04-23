@@ -150,4 +150,5 @@ export default {
   inSavedSearchRegion: 'منطقة',
   inSavedSearchCity: 'مدينة',
   inSavedSearchSearch: 'بحث',
+  inAgentContactUs: 'اتصل بنا',
 };

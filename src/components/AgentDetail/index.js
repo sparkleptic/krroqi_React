@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { ActivityIndicator, View, Text, Linking, Image, TextInput, TouchableHighlight, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { krooqi_URL, backgroundColor } from '../../constants/config';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import I18n from '../../i18n';
 import axios from "axios";
 import styles from './styles';
+import LoginCheck from './loginCheck';
 
 String.prototype.capitalize = function() {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -106,7 +109,7 @@ class AgentDetail extends Component {
   };
 
   render() {
-    const { agent, auth } = this.props;
+    const { agent, auth, authDetails } = this.props;
     const { message, isLoding, phone, phoneError, messageError } = this.state;
     const number = '+918690090417';
     return (
@@ -127,17 +130,19 @@ class AgentDetail extends Component {
               <Text>{agent.user_email}</Text>
             </View>
           </View>
-          <View style={{ marginVertical: 10 }}>
+          {/* <View style={{ marginVertical: 10 }}>
             <Text>Active Listing (5)</Text>
             <Text>Rating & Reviews (3)</Text>
-          </View>
+          </View> */}
+          <View>
           {
-            auth.success !== null &&
-            auth.success !== false &&
-            agent.agentid4msg !== 0 &&
-            agent.agentid4msg !== "0" &&
-            agent.ID !== auth.success.id && (
+            (authDetails.success !== null &&
+              authDetails.success !== false &&
+              agent.agentid4msg !== 0 &&
+              agent.agentid4msg !== "0" &&
+              agent.ID !== authDetails.success.id) && (
               <View>
+                <Text style={{ fontSize: 18, color: '#000', paddingTop: 15, }}>{I18n.t('inAgentContactUs').capitalize()}</Text>
                 {
                   isLoding ? <ActivityIndicator style={{ zIndex: 999999 }} size="large" color={backgroundColor} /> : null
                 }
@@ -174,9 +179,19 @@ class AgentDetail extends Component {
                   </View>
                 </TouchableHighlight>
               </View>
+            ) 
+           }
+           { 
+             !authDetails.success &&
+             (
+              <View>
+                <Text style={{ fontSize: 18, color: '#000', paddingTop: 15, }}>{I18n.t('inAgentContactUs').capitalize()}</Text>
+                <LoginCheck navigator={this.props.navigator} />
+              </View>
             )
           }
         </View>
+      </View>
         {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 25 }}>
           <TouchableHighlight onPress={() => this.openURL(`sms:${number}`)} underlayColor="white">
             <Text style={{ paddingLeft: 10 }}>Send A Message</Text>
@@ -199,4 +214,8 @@ AgentDetail.propTypes = {
   submitRequestInfo: PropTypes.func,
 };
 
-export default AgentDetail;
+const mapStateToProps = state => ({
+  authDetails: state.auth,
+});
+
+export default connect(mapStateToProps)(AgentDetail);

@@ -7,7 +7,8 @@ export default {
     loading: false,
     error: false,
     success: false,
-  },
+	},
+	savedSearchData: [],
 	search: config.search,
 	mapsearch: {
 		searchText: '',
