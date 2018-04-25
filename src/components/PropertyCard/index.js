@@ -37,6 +37,39 @@ const PropertyCard = ({
       margin: 0,
     };
   }
+  var labelVarLabel = null;
+  var labelVarStatus = null;
+  
+  if (!!propertyLabel) {
+    if ((propertyLabel.name) === ('Sale')) {
+      labelVarLabel = I18n.t('label_name_sale').toProperCase();
+    }
+    if ((propertyLabel.name) === ('Rent')) {
+      labelVarLabel = I18n.t('label_name_rent').toProperCase();
+    }
+    if ((propertyLabel.name) === ('Future Developments')) {
+      labelVarLabel = I18n.t('label_name_Futdev').toProperCase();
+    }
+    if ((propertyLabel.name) === ('Hot Offer')) {
+      labelVarLabel = I18n.t('label_name_HotOffer').toProperCase();
+    }
+  }
+
+  if (!!propertyStatus) {  
+    if ((propertyStatus.name) === ('Sale')) {
+      labelVarStatus = I18n.t('label_name_sale').toProperCase();
+    }
+    if ((propertyStatus.name) === ('Rent')) {
+      labelVarStatus = I18n.t('label_name_rent').toProperCase();
+    }
+    if ((propertyStatus.name) === ('Future Developments')) {
+      labelVarStatus = I18n.t('label_name_Futdev').toProperCase();
+    }
+    if ((propertyStatus.name) === ('Hot Offer')) {
+      labelVarStatus = I18n.t('label_name_HotOffer').toProperCase();
+    }
+  }
+
   return (
     <View style={[styles.container, containerStyle]}>
       <TouchableWithoutFeedback onPress={() => onCardPress(property)}>
@@ -74,8 +107,8 @@ const PropertyCard = ({
             {propertyType && <Text style={styles.subHeader}>{propertyType.name}</Text>}
           </View>
           <View style={styles.displayTop}>
-            {!!propertyLabel && <Text style={styles.propertyLabel}>{propertyLabel.name}</Text>}
-            {!!propertyStatus && <Text style={styles.propertyStatus}>{propertyStatus.name}</Text>}
+            {!!propertyLabel && (labelVarLabel !== null) && <Text style={styles.propertyLabel}>{labelVarLabel}</Text>}
+            {!!propertyStatus && (labelVarStatus !== null) && <Text style={styles.propertyStatus}>{labelVarStatus}</Text>}
           </View>
           {!!property.eprice && (
             <Text style={styles.priceLabel}>

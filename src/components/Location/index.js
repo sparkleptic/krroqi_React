@@ -44,7 +44,8 @@ const LONGITUDE = 0;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-var countriesArr = ['Saudi Arabia']
+var countriesArrEn = ['Saudi Arabia']
+var countriesArrAr = ['المملكة العربية السعودية']
 var citiesArr = ['Asir','Jeddah Province','Makkah Province','Qassim','Riyadh Province','Tabuk']
 var districtsArr = ['Al Khunayqiyah','Jeddah','Labkhah','Mecca','Riyadh']
 
@@ -75,6 +76,7 @@ class Location extends Component {
       apiRegion: [],
       apiCity: [],
       dragLocError: false,
+      lang: 'en',
       mapRegion: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
@@ -102,6 +104,7 @@ class Location extends Component {
         lang = 'en';
       }else{
         lang = value;
+        this.setState({ lang: value});
       }
 
       axios
@@ -263,9 +266,15 @@ class Location extends Component {
   }
 
   renderRegion() {
-    const { regionLo } = this.state;
+    const { regionLo, lang } = this.state;
     const pp_region = `${I18n.t('pp_region').capitalize()}`;
     const pp_country = `${I18n.t('pp_country').capitalize()}`;
+
+    var countriesArr = countriesArrEn;
+
+    if (lang !== 'en') {
+      countriesArr = countriesArrAr;
+    }
     return (
       <View>
         <Picker mode="dropdown" selectedValue={regionLo} onValueChange={ (value) => {this.selectRegion(value)}}>

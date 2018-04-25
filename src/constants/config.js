@@ -9,9 +9,10 @@ String.prototype.toProperCase = function() {
     function($1) { return $1.toUpperCase(); });
 }
 
-export const PUBLIC_URL = 'http://krooqi.step-stp.net/api/public/krooqi/';
+// export const PUBLIC_URL = 'http://krooqi.step-stp.net/api/public/krooqi/';
+export const PUBLIC_URL = 'http://krooqinew.gvmsoftware.in/api/public/krooqi/';
 
-export const krooqi_URL = 'http://krooqi.step-stp.net/';
+export const krooqi_URL = 'http://krooqinew.gvmsoftware.in/';
 
 export const backgroundColor = '#f7941e';
 export const textColor = 'white';

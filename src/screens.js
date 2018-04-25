@@ -8,6 +8,8 @@ import SavedSearch from './modules/savedSearch';
 import MoreMenu from './modules/moreMenu';
 import FindAgent from './modules/FindAgent';
 import PostProperty from './modules/PostProperty';
+import SingleChat from './components/SingleChat';
+import ChatList from './components/ChatList';
 import PropertyList from './components/PropertyList';
 import HomeTopBar from './components/HomeTopBar';
 import PropertyDetail from './components/PropertyDetail';
@@ -28,6 +30,8 @@ import AgentDetail from './components/AgentDetail';
 export function registerScreens(store, Provider) {
   Navigation.registerComponent('krooqi.Home', () => Home, store, Provider);
   Navigation.registerComponent('krooqi.HomeTopBar', () => HomeTopBar);
+  Navigation.registerComponent('krooqi.SingleChat', () => SingleChat, store, Provider);
+  Navigation.registerComponent('krooqi.ChatList', () => ChatList, store, Provider);
   Navigation.registerComponent('krooqi.PropertyList', () => PropertyList, store, Provider);
   Navigation.registerComponent('krooqi.PropertyDetail', () => PropertyDetail, store, Provider);
   Navigation.registerComponent('krooqi.Search', () => Search, store, Provider);

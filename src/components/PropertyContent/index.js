@@ -26,19 +26,31 @@ const PropertyContent = ({ property, auth, navigatorProp }) => {
   const propertyType = property.features.find(value => value.taxonomy === 'property_type');
   const propertyLabel = property.features.find(value => value.taxonomy === 'property_label');
   const propertyStatus = property.features.find(value => value.taxonomy === 'property_status');
-  // const { auth } = this.props;
+  
   return (
     <View style={styles.scrollViewContent}>
       <View style={styles.container}>
         <Text style={styles.title}>{property.post_title}</Text>
         <Text style={styles.subTitle}>
-          <Text>{`${property.bedroom_num} beds  `}</Text>
-          <Text>{`${property.bathroom_num} bath  `}</Text>
-          <Text>{`${property.area} sq. m  `}</Text>
+          {
+            property.bedroom_num && (
+              <Text>{`${property.bedroom_num} ${I18n.t('beds').capitalize()}`}  </Text>
+            )
+          }
+          {
+            property.bathroom_num && (
+              <Text>{`${property.bathroom_num} ${I18n.t('baths').capitalize()}`}  </Text>
+            )
+          }
+          {
+            property.area && (
+              <Text>{`${property.area} sq. m`}  </Text>
+            )
+          }
         </Text>
         <Text>
           <Text style={styles.label}>{I18n.t('single_listed').capitalize()}</Text>
-          <Text style={styles.text}>{moment(property.post_date).format('DD-MMM-YYYY')}</Text>
+          <Text style={styles.text}> {moment(property.post_date).format('DD-MMM-YYYY')}</Text>
         </Text>
         {!!property.post_content && (
           <View>
@@ -53,7 +65,7 @@ const PropertyContent = ({ property, auth, navigatorProp }) => {
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>{I18n.t('single_price').capitalize()}</Text>
-          <Text style={styles.text}>{property.eprice} sar</Text>
+          <Text style={styles.text}>{property.eprice} SAR</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>{I18n.t('single_totalArea').capitalize()}</Text>
@@ -133,8 +145,20 @@ const PropertyContent = ({ property, auth, navigatorProp }) => {
             })}
           </View>
         </View>
-        <Text style={styles.subject}>{I18n.t('single_reqInfo').capitalize()}</Text>
-        { auth.success ? <RequestInfo auth={auth} property={property} /> : <LoginCheck navigator={navigatorProp} /> }
+        {
+          (property.agent.exists) && (
+            <View>              
+              { (auth.success !== null && auth.success !== false) ? ((property.post_author !== auth.success.id) ? <View>
+                  <Text style={styles.subject}>{I18n.t('single_reqInfo').capitalize()}</Text>
+                  <RequestInfo auth={auth} property={property} />
+                </View> : null) : <View> 
+                  <Text style={styles.subject}>{I18n.t('single_reqInfo').capitalize()}</Text> 
+                  <LoginCheck navigator={navigatorProp} /> 
+                </View>  
+              }
+            </View>
+          )
+        }
       </View>
     </View>
   );

@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { View, FlatList, TouchableHighlight } from 'react-native';
 import * as AgentAction from '../../Actions/AgentAction';
 import AgentCard from '../../components/AgentCard';
+import { krooqi_URL, backgroundColor } from "../../constants/config";
+import axios from "axios";
 // import styles from './styles';
 
 class FindAgent extends Component {
@@ -34,11 +36,13 @@ class FindAgent extends Component {
   }
 
   openAgentDetail(agent) {
+    const { auth } = this.props;
     this.props.navigator.push({
       screen: 'krooqi.AgentDetail',
       title: 'Agent Detail',
       passProps: {
         agent,
+        auth,
       },
       navigatorStyle: {
         screenBackgroundColor: 'white',
@@ -90,6 +94,7 @@ FindAgent.propTypes = {
 function mapStateToProps(state) {
   return {
     agents: state.agents,
+    auth: state.auth,
   };
 }
 

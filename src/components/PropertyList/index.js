@@ -24,6 +24,26 @@ class PropertyList extends Component {
     super(props);
     this.state = {
       error: false,
+      searchDataBlank: {
+      "propertyStatus": 33,
+      "priceRange": {
+        "start": "",
+        "end": ""
+      },
+      "propertyType": [],
+      "rooms": 0,
+      "baths": 0,
+      "squareMeterRange": {
+        "start": "",
+        "end": ""
+      },
+      "yearBuilt": {
+        "start": "",
+        "end": ""
+      },
+      "district": "",
+      "region": ""
+    },
     };
     this.onRefresh = this.onRefresh.bind(this);
     this.pushDetail = this.pushDetail.bind(this);
@@ -49,11 +69,12 @@ class PropertyList extends Component {
 
   showFilterPage() {
     const { search, propertyStatus, propertyTypes } = this.props;
+    const { searchDataBlank } = this.state;
     this.props.navigator.showModal({
       screen: 'krooqi.FilterPage',
       title: `${I18n.t('filter_pg').toProperCase()}`,
       passProps: {
-        search,
+        search: searchDataBlank,
         propertyStatus,
         propertyTypes,
         onFilter: this.onFilter,

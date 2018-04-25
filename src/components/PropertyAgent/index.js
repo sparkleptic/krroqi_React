@@ -44,7 +44,7 @@ class PropertyAgent extends Component {
         <Picker mode="dropdown" selectedValue={agentLo} onValueChange={this.selectAgent}>
           <Picker.Item label={I18n.t('pp_agent').capitalize()} value="Select Agent" />
           {
-            (JSON.stringify(data).length > 2) ? data.map((detail, i) => { return <Picker.Item key={i} label={detail.display_name.toProperCase()} value={detail.display_name.toProperCase()} /> }) : <Picker.Item label=" " value=" " />
+            (JSON.stringify(data).length > 2) ? data.map((detail, i) => { return <Picker.Item key={i} label={detail.display_name.toProperCase()} value={detail.agentid4msg} /> }) : <Picker.Item label=" " value=" " />
           }
         </Picker>
         {Platform.OS !== 'ios' && <View style={styles.divider} />}

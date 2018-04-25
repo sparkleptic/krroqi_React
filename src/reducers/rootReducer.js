@@ -7,6 +7,7 @@ import propertyStatus from './propertyStatus.reducer';
 import propertyTypes from './propertyTypes.reducer';
 import search from './search.reducer';
 import savedSearch from './savedSearch.reducer';
+import updatedSavedSearch from './UpdatedSavedSearch.reducer';
 import auth from './auth.reducer';
 import favorites from './favorites.reducer';
 import like from './like.reducer';
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   propertyTypes,
   search,
   savedSearch,
+  updatedSavedSearch,
   auth,
   favorites,
   like,
