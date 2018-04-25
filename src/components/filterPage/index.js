@@ -177,8 +177,7 @@ class filterPage extends Component {
       .catch((error) => {
         console.log(error);        
         string1 = "/advanced-search/?keyword=&property_id=";
-      });
-    
+      });    
   }
 
   authsuccessFunction = (auth) => {
@@ -194,7 +193,7 @@ class filterPage extends Component {
     }
   }
 
-    creatingObjFromUrl = (urlArr) => {
+  creatingObjFromUrl = (urlArr) => {
 
     let tempStoreUrlArr = [];  
     
@@ -311,7 +310,7 @@ class filterPage extends Component {
   };
 
   resetForm() {
-    this.setState({ search: InitialState.search });
+    this.setState({ search: InitialState.search, isSavedSearch: false });
   }
 
   searchForm() {
@@ -327,7 +326,7 @@ class filterPage extends Component {
       ...search,
       priceRange: { ...search.priceRange, start: value },
     };
-    this.setState({ search: newVal });
+    this.setState({ search: newVal, isSavedSearch: false });    
   }
 
   selectMaxPrice(value) {
@@ -336,7 +335,7 @@ class filterPage extends Component {
       ...search,
       priceRange: { ...search.priceRange, end: value },
     };
-    this.setState({ search: newVal });
+    this.setState({ search: newVal, isSavedSearch: false });
   }
 
   selectMinArea(start) {
@@ -345,7 +344,7 @@ class filterPage extends Component {
       ...search,
       squareMeterRange: { ...search.squareMeterRange, start },
     };
-    this.setState({ search: newVal });
+    this.setState({ search: newVal, isSavedSearch: false });
   }
 
   selectMaxArea(end) {
@@ -354,7 +353,7 @@ class filterPage extends Component {
       ...search,
       squareMeterRange: { ...search.squareMeterRange, end },
     };
-    this.setState({ search: newVal });
+    this.setState({ search: newVal, isSavedSearch: false });
   }
 
   selectMinYear(start) {
@@ -363,7 +362,7 @@ class filterPage extends Component {
       ...search,
       yearBuilt: { ...search.yearBuilt, start },
     };
-    this.setState({ search: newVal });
+    this.setState({ search: newVal, isSavedSearch: false });
   }
 
   selectMaxYear(end) {
@@ -372,30 +371,31 @@ class filterPage extends Component {
       ...search,
       yearBuilt: { ...search.yearBuilt, end },
     };
-    this.setState({ search: newVal });
+    this.setState({ search: newVal, isSavedSearch: false });
   }
 
   selectRooms(rooms) {
     const { search } = this.state;
-    this.setState({ search: { ...search, rooms } });
+    this.setState({ search: { ...search, rooms }, isSavedSearch: false });
   }
 
   selectBaths(baths) {
     const { search } = this.state;
-    this.setState({ search: { ...search, baths } });
+    this.setState({ search: { ...search, baths }, isSavedSearch: false });
   }
 
   handleIndexChange = (index) => {
     this.setState({
       ...this.state,
-      selectedIndex: index,
+      selectedIndex: index, 
+      isSavedSearch: false
     });
   };
 
   selectPropertyType(value) {
     const { search } = this.state;
     const newVal = { ...search, propertyType: value };
-    this.setState({ search: newVal });
+    this.setState({ search: newVal, isSavedSearch: false });
   }
   // selectPropertyStatus(index) {
   //   let termId = 0;
@@ -427,17 +427,17 @@ class filterPage extends Component {
     }
     const { search } = this.state;
     const newVal = { ...search, propertyStatus: termId };
-    this.setState({ search: { ...search, propertyStatus: termId }, propertyTypeLo: index  });
+    this.setState({ search: { ...search, propertyStatus: termId }, propertyTypeLo: index, isSavedSearch: false  });
   }
 
   selectDistrict = (district) => {
     const { search } = this.state;
-    this.setState({ search: { ...search, district }, districtLo: district });
+    this.setState({ search: { ...search, district }, districtLo: district, isSavedSearch: false });
   }
 
   selectBranch = (region) => {
     const { search } = this.state;
-    this.setState({ search: { ...search, region }, branchLo: region });
+    this.setState({ search: { ...search, region }, branchLo: region, isSavedSearch: false });
   }
 
   renderArea() {
@@ -619,7 +619,7 @@ class filterPage extends Component {
     }
   }
 
-  _convertIntoString = (object1) => {
+_convertIntoString = (object1) => {
   for (let key1 in object1) {
 
     if((typeof object1[key1] === "object") && (key1 === "propertyType")) {
@@ -740,7 +740,6 @@ class filterPage extends Component {
     if (search.propertyStatus === 108) {
       statusSelectedIndex = 2;
     }
-
 
     let termIdValue = `${I18n.t('pp_for_rent').toProperCase()}`;
     if (search.propertyStatus === 0) {

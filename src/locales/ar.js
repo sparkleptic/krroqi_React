@@ -133,6 +133,7 @@ export default {
   label_name_sale: 'للبيع',
   label_name_rent: 'للإيجار',
   label_name_Futdev: 'تحت  مشاريع',
+  label_name_HotOffer: 'عرض ساخن',
   PhoneReq: 'رقم الهاتف مطلوب.',
   MsgReq: 'الرسالة مطلوبة.',
   sendMsg: 'ارسل رسالة',
@@ -151,4 +152,8 @@ export default {
   inSavedSearchCity: 'مدينة',
   inSavedSearchSearch: 'بحث',
   inAgentContactUs: 'اتصل بنا',
+  chatlist: 'قائمة الدردشة',
+  chatDetails: 'التفاصيل',
+  noMsgs: 'لا رسائل',
+  ChatMoreMenu: 'رسائل',
 };

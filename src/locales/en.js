@@ -131,6 +131,7 @@ export default {
   label_name_sale: 'sale',
   label_name_rent: 'rent',
   label_name_Futdev: 'future developments',
+  label_name_HotOffer: 'Hot Offer',
   PhoneReq: 'Phone number is required.',
   MsgReq: 'Message is required.',
   sendMsg: 'Send Message',
@@ -149,4 +150,8 @@ export default {
   inSavedSearchCity: 'City',
   inSavedSearchSearch: 'Search',
   inAgentContactUs: 'Contact Us',
+  chatlist: 'Chat List',
+  chatDetails: 'Detail',
+  noMsgs: 'No Messages',
+  ChatMoreMenu: 'Messages',
 };

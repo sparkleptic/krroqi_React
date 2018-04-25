@@ -37,29 +37,36 @@ const PropertyCard = ({
       margin: 0,
     };
   }
-  var labelVar = null;
+  var labelVarLabel = null;
+  var labelVarStatus = null;
   
   if (!!propertyLabel) {
     if ((propertyLabel.name) === ('Sale')) {
-      labelVar = I18n.t('label_name_sale').toProperCase();
+      labelVarLabel = I18n.t('label_name_sale').toProperCase();
     }
     if ((propertyLabel.name) === ('Rent')) {
-      labelVar = I18n.t('label_name_rent').toProperCase();
+      labelVarLabel = I18n.t('label_name_rent').toProperCase();
     }
     if ((propertyLabel.name) === ('Future Developments')) {
-      labelVar = I18n.t('label_name_Futdev').toProperCase();
+      labelVarLabel = I18n.t('label_name_Futdev').toProperCase();
+    }
+    if ((propertyLabel.name) === ('Hot Offer')) {
+      labelVarLabel = I18n.t('label_name_HotOffer').toProperCase();
     }
   }
 
   if (!!propertyStatus) {  
     if ((propertyStatus.name) === ('Sale')) {
-      labelVar = I18n.t('label_name_sale').toProperCase();
+      labelVarStatus = I18n.t('label_name_sale').toProperCase();
     }
     if ((propertyStatus.name) === ('Rent')) {
-      labelVar = I18n.t('label_name_rent').toProperCase();
+      labelVarStatus = I18n.t('label_name_rent').toProperCase();
     }
     if ((propertyStatus.name) === ('Future Developments')) {
-      labelVar = I18n.t('label_name_Futdev').toProperCase();
+      labelVarStatus = I18n.t('label_name_Futdev').toProperCase();
+    }
+    if ((propertyStatus.name) === ('Hot Offer')) {
+      labelVarStatus = I18n.t('label_name_HotOffer').toProperCase();
     }
   }
 
@@ -100,8 +107,8 @@ const PropertyCard = ({
             {propertyType && <Text style={styles.subHeader}>{propertyType.name}</Text>}
           </View>
           <View style={styles.displayTop}>
-            {!!propertyLabel && (labelVar !== null) && <Text style={styles.propertyLabel}>{labelVar}</Text>}
-            {!!propertyStatus && (labelVar !== null) && <Text style={styles.propertyStatus}>{labelVar}</Text>}
+            {!!propertyLabel && (labelVarLabel !== null) && <Text style={styles.propertyLabel}>{labelVarLabel}</Text>}
+            {!!propertyStatus && (labelVarStatus !== null) && <Text style={styles.propertyStatus}>{labelVarStatus}</Text>}
           </View>
           {!!property.eprice && (
             <Text style={styles.priceLabel}>

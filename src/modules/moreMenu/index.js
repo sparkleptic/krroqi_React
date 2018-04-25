@@ -32,6 +32,7 @@ class More extends Component {
     this.openLogin = this.openLogin.bind(this);
     this.openPostProperty = this.openPostProperty.bind(this);
     this.openFindAgent = this.openFindAgent.bind(this);
+    this.openChat = this.openChat.bind(this);
     this.setTranslate = this.setTranslate.bind(this);
     this.showActionSheet = this.showActionSheet.bind(this);
   }
@@ -96,6 +97,18 @@ class More extends Component {
             id: 'filterAgent',
           },
         ],
+      },
+      animationType: 'slide-up',
+    });
+  }
+
+  openChat() {
+    this.props.navigator.push({
+      screen: 'krooqi.ChatList',
+      title: `${I18n.t('chatlist').toProperCase()}`,
+      passProps: {},
+      navigatorStyle: {
+        screenBackgroundColor: 'white',
       },
       animationType: 'slide-up',
     });
@@ -170,6 +183,20 @@ class More extends Component {
             </TouchableHighlight>
           </View>
         </View>
+        {
+          auth.success && (
+            <View style={styles.bottomView}>
+              <View style={styles.middleView}>
+                <TouchableHighlight onPress={this.openChat} underlayColor="white">
+                  <View style={{ alignItems: 'center' }}>
+                    <Icon name="md-chatboxes" size={30} color={backgroundColor} />
+                    <Text>{I18n.t('ChatMoreMenu').toProperCase()}</Text>
+                  </View>
+                </TouchableHighlight>
+              </View>
+            </View>
+          )
+        }
 
         <ActionSheet
           ref={o => this.ActionSheet = o}

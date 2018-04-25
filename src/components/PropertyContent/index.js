@@ -34,17 +34,17 @@ const PropertyContent = ({ property, auth, navigatorProp }) => {
         <Text style={styles.subTitle}>
           {
             property.bedroom_num && (
-              <Text>{`${property.bedroom_num} ${I18n.t('beds').capitalize()}`}</Text>
+              <Text>{`${property.bedroom_num} ${I18n.t('beds').capitalize()}`}  </Text>
             )
           }
           {
             property.bathroom_num && (
-              <Text>{`${property.bathroom_num} ${I18n.t('baths').capitalize()}`}</Text>
+              <Text>{`${property.bathroom_num} ${I18n.t('baths').capitalize()}`}  </Text>
             )
           }
           {
             property.area && (
-              <Text>{`${property.area} sq. m`}</Text>
+              <Text>{`${property.area} sq. m`}  </Text>
             )
           }
         </Text>

@@ -113,9 +113,9 @@ export function propertiesLoad() {
   return (dispatch) => {
     AsyncStorage.getItem('lang').then((value) => {
       if(value == null){
-        let  lang = 'en';
+        lang = 'en';
       }else{
-        let  lang = value;
+        lang = value;
       }
       dispatch(propertiesLoadRequest());
       return axios
@@ -134,9 +134,9 @@ export function propertiesByCategoryLoad(category) {
   return (dispatch) => {
     AsyncStorage.getItem('lang').then((value) => {
       if(value == null){
-        let  lang = 'en';
+        lang = 'en';
       }else{
-        let  lang = value;
+        lang = value;
       }
       dispatch(propertiesByCategoryLoadRequest());
       return axios
@@ -190,9 +190,9 @@ export function filteredPropertiesLoad(search) {
   return (dispatch) => {
     AsyncStorage.getItem('lang').then((value) => {
       if(value == null){
-        let  lang = 'en';
+        lang = 'en';
       }else{
-        let  lang = value;
+        lang = value;
       }
       dispatch(filteredPropertiesLoadRequest());
       return axios
@@ -213,12 +213,12 @@ export function filteredPropertiesLoadOnSearch(search) {
   return (dispatch) => {
     AsyncStorage.getItem('lang').then((value) => {
       if(value == null){
-        let  lang = 'en';
+        lang = 'en';
       }else{
-        let  lang = value;
+        lang = value;
       }
-      dispatch(filteredPropertiesLoadRequest());
-      let filterData = {"filter": search};
+      dispatch(filteredPropertiesLoadRequest());      
+      let filterData = {"filter": search};      
       return axios
         .post(`${config.PUBLIC_URL}filterProperties/${lang}`, filterData)
         .then((response) => {
@@ -237,9 +237,9 @@ export function favoritePropertiesLoad(userId) {
   return (dispatch) => {
     AsyncStorage.getItem('lang').then((value) => {
       if(value == null){
-        let  lang = 'en';
+        lang = 'en';
       }else{
-        let  lang = value;
+        lang = value;
       }
       dispatch(favoritePropertiesLoadRequest());
       return axios

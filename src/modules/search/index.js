@@ -46,6 +46,8 @@ const sortData = [
   '# of Rooms',
 ];
 
+let string1 = "/advanced-search/?keyword=&property_id=";
+
 class SearchPage extends Component {
   constructor(props) {
     super(props);
@@ -62,7 +64,29 @@ class SearchPage extends Component {
       openProperty: '',
       userData: null,
       error: false,
+      savedPara: false,
+      disableSaveSearchPara: true,
       clusterlo: [],
+      searchDataBlank: {
+      "propertyStatus": 33,
+      "priceRange": {
+        "start": "",
+        "end": ""
+      },
+      "propertyType": [],
+      "rooms": 0,
+      "baths": 0,
+      "squareMeterRange": {
+        "start": "",
+        "end": ""
+      },
+      "yearBuilt": {
+        "start": "",
+        "end": ""
+      },
+      "district": "",
+      "region": ""
+    },
     };
     this.showLightBox = this.showLightBox.bind(this);
     this.sortProperties = this.sortProperties.bind(this);
@@ -245,17 +269,7 @@ class SearchPage extends Component {
     const { auth } = this.props;
     if (!isDisabled) {
       if (auth.success) {
-        this.props.navigator.showLightBox({
-          screen: 'krooqi.Search.SaveSearchModal',
-          passProps: {
-            defaultSearchLabel: this.state.defaultSearchLabel,
-            onSaveSearch: this.onSaveSearch,
-            onCancel: this.closeSaveSearch,
-          },
-          style: {
-            backgroundBlur: 'dark',
-          },
-        });
+        this._saveSearch();
       } else {
         this.openLogin();
       }
@@ -263,12 +277,13 @@ class SearchPage extends Component {
   }
 
   showFilterPage() {
-    const { search, propertyStatus, propertyTypes } = this.props;
+    const { propertyStatus, propertyTypes } = this.props;
+    const { searchDataBlank } = this.state;
     this.props.navigator.showModal({
       screen: 'krooqi.FilterPage',
       title: `${I18n.t('filter_pg').toProperCase()}`,
       passProps: {
-        search,
+        search: searchDataBlank,
         propertyStatus,
         propertyTypes,
         onFilter: this.onFilter,
@@ -304,7 +319,7 @@ class SearchPage extends Component {
 
   selectSortData(data) {
     this.props.navigator.dismissLightBox();
-    this.setState({ selectedValue: data });
+    this.setState({ selectedValue: data, savedPara: false, disableSaveSearchPara: false });
 
     var sentDataApi = {
       sortBy: 'Relevance',
@@ -437,13 +452,279 @@ class SearchPage extends Component {
 
   }
 
+  _saveSearch = () => {
+    const { auth, } = this.props;
+    const { searchDataBlank, } = this.state;  
+    
+    this._convertIntoString(searchDataBlank);
+
+    let dataSent = {
+      "user_id": auth.success.id,
+      "search_arg": "from_mobile",
+      "email": auth.success.email,
+      "search_url": string1
+    } 
+
+    this.setState({ disableSaveSearchPara: false, savedPara: true });
+    string1 = "/advanced-search/?keyword=&property_id=";
+    
+    axios
+      .post(`${PUBLIC_URL}addSearch`, dataSent)
+      .then((response) => {
+        if (response.data.status) {
+          this.setState({ disableSaveSearchPara: false, savedPara: true });
+          this.authsuccessFunction(auth);
+        }
+        string1 = "/advanced-search/?keyword=&property_id=";
+      })
+      .catch((error) => {
+        console.log(error);        
+        string1 = "/advanced-search/?keyword=&property_id=";
+      });    
+  }
+
+  _convertIntoString = (object1) => {
+    for (let key1 in object1) {
+
+      if((typeof object1[key1] === "object") && (key1 === "propertyType")) {
+          let finalpara = "type";
+          let value = "";
+          if(object1[key1][0]){
+            value = object1[key1][0].value.toLowerCase();
+          }
+          string1 = string1 + `&${finalpara}=${value}`;
+      }
+      
+      if((typeof object1[key1] === "object") && (key1 !== "propertyType")) {
+        let object2 = object1[key1];
+          let parameterPass = "";
+          let areaAdditional = "";
+          if (key1 === "priceRange") {
+            parameterPass = "price";
+          }
+          if (key1 === "squareMeterRange") {
+            parameterPass = "area";
+          }
+          if (key1 === "yearBuilt") {
+            parameterPass = "yrbuilt";
+          }
+        for (let key2 in object2) {
+            let innerparaPass = "";
+            if (key2 === "start") {
+                innerparaPass = "min";
+            }
+            if (key2 === "end") {
+                innerparaPass = "max";
+            }
+            if (parameterPass === "area") {
+              if (object2[key2] !== "") {
+                areaAdditional = "+Sq+m";            
+              }
+            }
+            let finalpara = innerparaPass + "-" + parameterPass;
+            string1 = string1 + `&${finalpara}=${object2[key2]}${areaAdditional}`;          
+          }
+      }
+      
+      if(typeof object1[key1] === "number") {
+          if(key1 === "propertyStatus"){
+            let finalpara = "status";
+              let value = "";
+              if(object1[key1] === 33) {
+                value = "for-rent";
+              }
+              if(object1[key1] === 34) {
+                value = "for-sale";
+              }
+              if(object1[key1] === 108) {
+                value = "future-developments";
+              }
+              if(object1[key1] === 319) {
+                value = "new-construction-2";
+              }
+              if(object1[key1] === 217) {
+                value = "sold";
+              }
+              if(object1[key1] === 218) {
+                value = "rented";
+              }
+              string1 = string1 + `&${finalpara}=${value}`;
+          }
+        
+          if(key1 !== "propertyStatus"){
+            let finalpara = "";
+            let value = "";
+            if(key1 === "rooms") {
+              finalpara = "bedrooms";
+            }
+            if(key1 === "baths") {
+              finalpara = "bathrooms";
+            }
+            if (object1[key1] !== 0) {
+              value = object1[key1];
+            }
+              string1 = string1 + `&${finalpara}=${value}`;
+          }
+      }
+      
+      if(typeof object1[key1] === "string") {
+          let finalpara = "";
+          let value = "";
+          if(key1 === "district") {
+            finalpara = "location";
+            value = object1[key1].replace(/\s+/g, '-').toLowerCase();
+          }
+          if(key1 === "region") {
+            finalpara = "state";
+            value = object1[key1].replace(/\s+/g, '-').toLowerCase();
+          }
+          if(key1 === "rooms") {
+            finalpara = "bedrooms";
+          }
+          if(key1 === "baths") {
+            finalpara = "bathrooms";
+          }
+            string1 = string1 + `&${finalpara}=${value}`;
+      }
+    }
+  }
+
+  authsuccessFunction = (auth) => {
+    if (auth.success) {
+    axios
+      .post(`${PUBLIC_URL}getSearch`, { "user_id": auth.success.id })
+      .then((response) => {       
+        this.creatingObjFromUrl(response.data);
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+    }
+  }
+
+  creatingObjFromUrl = (urlArr) => {
+
+    let tempStoreUrlArr = [];  
+    
+    urlArr.map((dataUrl, index) => {
+      
+      let data = dataUrl.url;
+      
+      let propertyStatus = 33,
+        priceRangeStart = "",
+        priceRangeEnd = "", 
+        rooms = "", 
+        baths = "", 
+        squareMeterRangeStart = "", 
+        squareMeterRangeEnd = "", 
+        yearBuiltStart = "", 
+        yearBuilttEnd = "", 
+        district = "", 
+        region = "", 
+        propertyTypeKey = "", 
+        propertyTypeValue = "";
+      let propertyTypeArr = [];
+      
+      priceRangeStart = this.getQueryString('min-price', data);
+      priceRangeEnd = this.getQueryString('max-price', data);
+      rooms = this.getQueryString('bedrooms', data);
+      baths = this.getQueryString('bathrooms', data);
+      squareMeterRangeStart = this.getQueryString('min-area', data);
+      squareMeterRangeEnd = this.getQueryString('max-area', data);
+      yearBuiltStart = this.getQueryString('min-yrbuilt', data);
+      yearBuilttEnd = this.getQueryString('max-yrbuilt', data);
+      district = this.getQueryString('state', data);
+      region = this.getQueryString('location', data);
+
+      let statusForPro = this.getQueryString('status', data);
+      let typeProLocal = this.getQueryString('type', data);     
+
+      propertyTypeValue = typeProLocal.toProperCase();      
+
+      if(statusForPro === "for-rent") {
+          propertyStatus = 33;
+      }
+      if(statusForPro === "for-sale") {
+          propertyStatus = 34;
+      }
+      if(statusForPro === "future-developments") {
+          propertyStatus = 108;
+      }
+      if(statusForPro === "new-construction-2") {
+          propertyStatus = 319;
+      }
+      if(statusForPro === "sold") {
+          propertyStatus = 217;
+      }
+      if(statusForPro === "rented") {
+          propertyStatus = 218;
+      }
+
+      if(typeProLocal === "apartment") {
+          propertyTypeKey = 13;
+      }
+      if(typeProLocal === "building") {
+          propertyTypeKey = 107;
+      }
+      if(typeProLocal === "office") {
+          propertyTypeKey = 221;
+      }
+      if(typeProLocal === "showroom") {
+          propertyTypeKey = 219;
+      }
+      if(typeProLocal === "villa") {
+          propertyTypeKey = 89;
+      }
+
+      if (propertyTypeKey !== "" && propertyTypeValue !== "") {
+        propertyTypeArr = [{"key": propertyTypeKey, "value": propertyTypeValue}];        
+      }
+
+      let objectPush = {
+        "propertyStatus": propertyStatus,
+        "priceRange": {
+          "start": priceRangeStart,
+          "end": priceRangeEnd
+        },
+        "propertyType": propertyTypeArr,
+        "rooms": rooms,
+        "baths": baths,
+        "squareMeterRange": {
+          "start": squareMeterRangeStart.replace('+Sq+m',''),
+          "end": squareMeterRangeEnd.replace('+Sq+m','')
+        },
+        "yearBuilt": {
+          "start": yearBuiltStart,
+          "end": yearBuilttEnd
+        },
+        "district": district.replace(/-/g,' ').toProperCase(),
+        "region": region.replace(/-/g,' ').toProperCase()
+      };
+
+      tempStoreUrlArr.push(objectPush);
+
+    })
+
+    this.props.actionsSearch.updateSaveSearch(tempStoreUrlArr);
+    // console.log("JSON.stringify(tempStoreUrlArr)");
+    // console.log(JSON.stringify(tempStoreUrlArr));
+  }
+
+  getQueryString = ( field, url ) => {
+    let href = url;
+    let reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+    let string = reg.exec(href);
+    // return string ? string[1] : null;
+    return string ? (string[1]  === undefined || string[1]  === null || string[1]  === "" ? "" : string[1] ) : "";
+  };
+
   render() {
     let disableSaveSearch = false;
     let saved = false;
     const {
       filteredProperties, search, savedSearch, favorites, loading, mapSearch
     } = this.props;
-    const { flip } = this.state;
+    const { flip, disableSaveSearchPara, savedPara } = this.state;
     const initSearch = JSON.stringify(initialState.search);
     const savedArray = savedSearch.success || [];
     if (initSearch === JSON.stringify(search)) {
@@ -461,8 +742,8 @@ class SearchPage extends Component {
         {loading && <Loading />}
         <HomeHeaderbar
           flip={flip}
-          disableSaveSearch={disableSaveSearch}
-          saved={saved}
+          disableSaveSearch={disableSaveSearchPara}
+          saved={savedPara}
           sortProperties={this.sortProperties}
           openSaveSearch={this.openSaveSearch}
           flipView={() => {
