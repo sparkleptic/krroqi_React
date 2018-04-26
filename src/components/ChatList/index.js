@@ -34,7 +34,7 @@ class ChatList extends Component {
     const { auth } = this.props;
     
     axios
-      .post(`${PUBLIC_URL}getUserMessages`, { userid: auth.success.id })
+      .post(`${PUBLIC_URL}getUserMessages`, { agent_id: auth.success.agent_id })
       .then((response) => {
         if (response.data) {
           this.setState({ isRefreshing: false, data: response.data });

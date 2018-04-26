@@ -159,7 +159,7 @@ class PropertyDetail extends Component {
     });
 
     const { property, favorites, onLikePress, loading } = this.props;
-    let sampleImage = "http://dummyimage.com/200x200/fff/000.png&text=Krooqi";
+    let sampleImage = "http://krooqinew.gvmsoftware.in/wp-content/themes/houzez/images/krooqi-property-default.png";
     const carosalImage = this.props.property.images.length > 0 ? this.props.property.images : [sampleImage] ;
     const animatedImage = "thumbnail" in this.props.property ? this.props.property.thumbnail : sampleImage;
     return (

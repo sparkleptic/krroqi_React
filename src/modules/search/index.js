@@ -267,13 +267,13 @@ class SearchPage extends Component {
 
   openSaveSearch(isDisabled) {
     const { auth } = this.props;
-    if (!isDisabled) {
+    // if (!isDisabled) {
       if (auth.success) {
         this._saveSearch();
       } else {
         this.openLogin();
       }
-    }
+    // }
   }
 
   showFilterPage() {
@@ -453,10 +453,21 @@ class SearchPage extends Component {
   }
 
   _saveSearch = () => {
-    const { auth, } = this.props;
+    const { auth, mapSearch } = this.props;
     const { searchDataBlank, } = this.state;  
+
+    let convObj = searchDataBlank;
+
+    mapSearch.searchText !== undefined && 
+    mapSearch.searchText !== null && 
+    mapSearch.searchText !== "" && 
+    mapSearch.searchText !== "found" && 
+    mapSearch.searchText !== "notFound" && 
+    (
+      convObj = {...searchDataBlank, district: mapSearch.searchText}
+    )
     
-    this._convertIntoString(searchDataBlank);
+    this._convertIntoString(convObj);
 
     let dataSent = {
       "user_id": auth.success.id,
@@ -474,6 +485,7 @@ class SearchPage extends Component {
         if (response.data.status) {
           this.setState({ disableSaveSearchPara: false, savedPara: true });
           this.authsuccessFunction(auth);
+          alert(`${I18n.t('AddedToSavedSearch').toProperCase()}`)
         }
         string1 = "/advanced-search/?keyword=&property_id=";
       })
@@ -633,8 +645,8 @@ class SearchPage extends Component {
       squareMeterRangeEnd = this.getQueryString('max-area', data);
       yearBuiltStart = this.getQueryString('min-yrbuilt', data);
       yearBuilttEnd = this.getQueryString('max-yrbuilt', data);
-      district = this.getQueryString('state', data);
-      region = this.getQueryString('location', data);
+      region = this.getQueryString('state', data);
+      district = this.getQueryString('location', data);
 
       let statusForPro = this.getQueryString('status', data);
       let typeProLocal = this.getQueryString('type', data);     

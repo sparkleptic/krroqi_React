@@ -156,4 +156,5 @@ export default {
   chatDetails: 'التفاصيل',
   noMsgs: 'لا رسائل',
   ChatMoreMenu: 'رسائل',
+  AddedToSavedSearch: 'يضاف إلى حفظ البحث',
 };

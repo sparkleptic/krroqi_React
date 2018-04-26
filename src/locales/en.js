@@ -154,4 +154,5 @@ export default {
   chatDetails: 'Detail',
   noMsgs: 'No Messages',
   ChatMoreMenu: 'Messages',
+  AddedToSavedSearch: 'Added  to saved search',
 };

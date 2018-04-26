@@ -43,7 +43,8 @@ const HomeHeader = ({
     </TouchableWithoutFeedback>
     <TouchableWithoutFeedback onPress={() => openSaveSearch(disableSaveSearch || saved)}>
       <View>
-        <MapHeaderText disable={disableSaveSearch}>{saved ? `${I18n.t('h_saved').toUpperCase()}` : `${I18n.t('save_search').toUpperCase()}`}</MapHeaderText>
+        {/* <MapHeaderText disable={disableSaveSearch}>{saved ? `${I18n.t('h_saved').toUpperCase()}` : `${I18n.t('save_search').toUpperCase()}`}</MapHeaderText> */}
+        <MapHeaderText>{I18n.t('save_search').toUpperCase()}</MapHeaderText>
       </View>
     </TouchableWithoutFeedback>
   </View>
