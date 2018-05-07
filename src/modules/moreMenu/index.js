@@ -184,7 +184,8 @@ class More extends Component {
           </View>
         </View>
         {
-          auth.success && (
+          auth.success &&
+          auth.success.type === "agent" && (
             <View style={styles.bottomView}>
               <View style={styles.middleView}>
                 <TouchableHighlight onPress={this.openChat} underlayColor="white">

@@ -41,31 +41,31 @@ const PropertyCard = ({
   var labelVarStatus = null;
   
   if (!!propertyLabel) {
-    if ((propertyLabel.name) === ('Sale')) {
+    if ((propertyLabel.slug) === ('for-sale') || (propertyLabel.slug) === ('for-sale-ar')) {
       labelVarLabel = I18n.t('label_name_sale').toProperCase();
     }
-    if ((propertyLabel.name) === ('Rent')) {
+    if ((propertyLabel.slug) === ('for-rent') || (propertyLabel.slug) === ('for-rent-ar')) {
       labelVarLabel = I18n.t('label_name_rent').toProperCase();
     }
-    if ((propertyLabel.name) === ('Future Developments')) {
+    if ((propertyLabel.slug) === ('future-developments') || (propertyLabel.slug) === ('future-developments-ar')) {
       labelVarLabel = I18n.t('label_name_Futdev').toProperCase();
     }
-    if ((propertyLabel.name) === ('Hot Offer')) {
+    if ((propertyLabel.slug) === ('hot-offer') || (propertyLabel.slug) === ('hot-offer-ar')) {
       labelVarLabel = I18n.t('label_name_HotOffer').toProperCase();
     }
   }
 
   if (!!propertyStatus) {  
-    if ((propertyStatus.name) === ('Sale')) {
+    if ((propertyStatus.slug) === ('for-sale') || (propertyStatus.slug) === ('for-sale-ar')) {
       labelVarStatus = I18n.t('label_name_sale').toProperCase();
     }
-    if ((propertyStatus.name) === ('Rent')) {
+    if ((propertyStatus.slug) === ('for-rent') || (propertyStatus.slug) === ('for-rent-ar')) {
       labelVarStatus = I18n.t('label_name_rent').toProperCase();
     }
-    if ((propertyStatus.name) === ('Future Developments')) {
+    if ((propertyStatus.slug) === ('future-developments') || (propertyStatus.slug) === ('future-developments-ar')) {
       labelVarStatus = I18n.t('label_name_Futdev').toProperCase();
     }
-    if ((propertyStatus.name) === ('Hot Offer')) {
+    if ((propertyStatus.slug) === ('hot-offer') || (propertyStatus.slug) === ('hot-offer-ar')) {
       labelVarStatus = I18n.t('label_name_HotOffer').toProperCase();
     }
   }

@@ -79,8 +79,8 @@ class Favorites extends Component {
       squareMeterRangeEnd = this.getQueryString('max-area', data);
       yearBuiltStart = this.getQueryString('min-yrbuilt', data);
       yearBuilttEnd = this.getQueryString('max-yrbuilt', data);
-      district = this.getQueryString('state', data);
-      region = this.getQueryString('location', data);
+      region = this.getQueryString('state', data);
+      district = this.getQueryString('location', data);
 
       let statusForPro = this.getQueryString('status', data);
       let typeProLocal = this.getQueryString('type', data);     

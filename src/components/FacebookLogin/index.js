@@ -14,17 +14,18 @@ const response = {
 const FacebookLogin = ({ onFBLoginSuccess, onFbLoginFail, onFBLoginLoading }) => {
   const facebookLogin = () => {
     onFBLoginLoading();
+    LoginManager.logOut()
     LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
-      (result) => {
+      (result) => {        
         if (result.isCancelled) {
           onFbLoginFail();
         } else {
           AccessToken.getCurrentAccessToken().then((data) => {
             const { accessToken } = data;
             const responseInfoCallback = (error, res) => {
-              if (error) {
+              if (error) {                
                 onFbLoginFail(error);
-              } else {
+              } else {                
                 const success = {
                   token: accessToken,
                   name: res.name,
