@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import * as AuthAction from '../../Actions/AuthAction';
 import { updatelang } from '../../Actions/propertyPostAction';
 import styles from './styles';
-import { backgroundColor } from '../../constants/config';
+import { backgroundColor, USER_DATA } from '../../constants/config';
 import I18n from '../../i18n';
 
 String.prototype.capitalize = function() {
@@ -28,7 +28,10 @@ const title = 'Choose your preferred language';
 class More extends Component {
   constructor(props) {
     super(props);
-    this.state = {lang: 'en'};
+    this.state = {
+      lang: 'en',
+      FbMsg: false,
+    };
     this.openLogin = this.openLogin.bind(this);
     this.openPostProperty = this.openPostProperty.bind(this);
     this.openFindAgent = this.openFindAgent.bind(this);
@@ -47,6 +50,25 @@ class More extends Component {
         this.setState({
           lang: value
         })
+      }
+    }).done();
+  }
+
+  componentWillReceiveProps() {
+    AsyncStorage.getItem(USER_DATA).then((value) => {
+      if(value == null){
+        // do nothing
+      }else{
+        let tempValue = JSON.parse(value);
+        if(tempValue.is_new){
+          this.setState({ FbMsg: tempValue.is_new })
+          let newTempValue = {...tempValue, is_new: false}
+          console.log(newTempValue);
+          
+          AsyncStorage.setItem(USER_DATA, JSON.stringify(newTempValue));  
+        }else{
+          this.setState({ FbMsg: false })
+        }
       }
     }).done();
   }
@@ -138,6 +160,7 @@ class More extends Component {
     const { auth } = this.props;
     const ios = Platform.ios === 'ios';
     const { lngRoot } = this.props.propertyPost;
+    const { FbMsg } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.topView}>
@@ -149,6 +172,9 @@ class More extends Component {
 
           {!!auth.success && !!auth.success.name && <Text>{auth.success.name}</Text>}
           {!!auth.success && !!auth.success.email && <Text>{auth.success.email}</Text>}
+          {
+            !!auth.success && FbMsg && <Text style={{ padding: 15, color: 'red' }}>Your Username {'&'} password have been sent to Email.</Text>
+          }
           <View style={styles.buttonContainer}>
             <TouchableHighlight onPress={this.openLogin} underlayColor="white">
               <View style={styles.button}>

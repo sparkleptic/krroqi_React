@@ -57,6 +57,7 @@ export function register(data) {
         const userData = {
           id: response.data.id,
           type: response.data.type,
+          is_new: response.data.is_new,
           email: data.email,
           name: data.name,
           image: data.imageUrl,
