@@ -110,10 +110,17 @@ class filterPage extends Component {
         });
 
       }).done();
+      AsyncStorage.getItem('searchParaKrooqi').then((value) => {
+        if(value == null){
+          // do nothing
+        }else{
+          this.setState({ search: JSON.parse(value) })
+        }        
+      }).done();
   }
 
   renderPropertyType() {
-    const { propertyTypeLo } = this.state;
+    const { propertyTypeLo, search } = this.state;
     let For_Rent = `${I18n.t('pp_for_rent').toProperCase()}`;
     let For_Sale = `${I18n.t('pp_for_sale').toProperCase()}`;
     let Devlopment = `${I18n.t('pp_for_development').toProperCase()}`;
@@ -121,9 +128,26 @@ class filterPage extends Component {
     let Sold = `${I18n.t('pp_for_sold').toProperCase()}`;
     let Rented = `${I18n.t('pp_for_rented').toProperCase()}`;
     let PropertyTypeArr =  [For_Rent, For_Sale, Devlopment, New_Construction, Sold, Rented];
+
+    let termId = 0;
+    let index = search.propertyStatus;
+    if (index === 33) {
+      termId = 0;
+    } else if (index === 34) {
+      termId = 1;
+    } else if (index === 108) {
+      termId = 2;
+    } else if (index === 319) {
+      termId = 3;
+    } else if (index === 217) {
+      termId = 4;
+    } else if (index === 218) {
+      termId = 5;
+    }
+
     return (
       <View>
-        <Picker mode="dropdown" selectedValue={propertyTypeLo} onValueChange={ (value) => {this.selectPropertyStatus(value)}}>
+        <Picker mode="dropdown" selectedValue={termId} onValueChange={ (value) => {this.selectPropertyStatus(value)}}>
           {
             PropertyTypeArr.length > 0 && (
               PropertyTypeArr.map((proType, i) => {
@@ -314,6 +338,9 @@ class filterPage extends Component {
   }
 
   searchForm() {
+
+    AsyncStorage.setItem("searchParaKrooqi", JSON.stringify(this.state.search));
+    
     this.props.onFilter(this.state.search);
     this.props.navigator.dismissModal({
       animationType: 'slide-down',
@@ -555,13 +582,13 @@ class filterPage extends Component {
   }
 
   renderBranch() {
-    const { branchLo, apiRegion } = this.state;
+    const { branchLo, apiRegion, search } = this.state;
     const pp_branch = `${I18n.t('pp_branch').capitalize()}`;
     const pp_region = `${I18n.t('pp_region').capitalize()}`;
     if (apiRegion.length > 0) {
     return (
       <View>
-        <Picker mode="dropdown" selectedValue={branchLo} onValueChange={(value) => {this.selectBranch(value)}}>
+        <Picker mode="dropdown" selectedValue={search.region} onValueChange={(value) => {this.selectBranch(value)}}>
           <Picker.Item label={pp_region} value="" />
           {
             apiRegion.length > 0 && (
@@ -578,7 +605,7 @@ class filterPage extends Component {
   }
 
   renderDistrict() {
-    const { districtLo, apiCity, branchLo } = this.state;
+    const { districtLo, apiCity, branchLo, search } = this.state;
     const pp_district = `${I18n.t('pp_district').capitalize()}`;
     const pp_city = `${I18n.t('pp_city').capitalize()}`;
 
@@ -603,7 +630,7 @@ class filterPage extends Component {
     if (apiCity.length > 0) {
     return (
       <View>
-        <Picker mode="dropdown" selectedValue={districtLo} onValueChange={(value) => {this.selectDistrict(value)}}>
+        <Picker mode="dropdown" selectedValue={search.district} onValueChange={(value) => {this.selectDistrict(value)}}>
           <Picker.Item label={pp_city} value="" />
           {
             mapRenderArray.length > 0 && (

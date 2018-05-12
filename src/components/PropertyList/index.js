@@ -98,11 +98,14 @@ class PropertyList extends Component {
       animated: true, // does the pop have transition animation or does it happen immediately (optional)
       animationType: 'fade', // 'fade' (for both) / 'slide-horizontal' (for android) does the pop have different transition animation (optional)
     });
-    this.props.navigator.push({
-      screen: 'krooqi.FilterResultPage',
-      title: `${I18n.t('result_filters').toProperCase()}`,
-    });
+    // this.props.navigator.push({
+    //   screen: 'krooqi.FilterResultPage',
+    //   title: `${I18n.t('result_filters').toProperCase()}`,
+    // });
     this.props.actions.filteredPropertiesLoadOnSearch(search);
+    this.props.navigator.switchToTab({
+      tabIndex: 0 // (optional) if missing, this screen's tab will become selected
+    });
   }
 
   onLikePress(propertyID) {

@@ -240,10 +240,10 @@ class SearchPage extends Component {
     this.props.navigator.dismissModal({
       animationType: 'slide-down', // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
     });
-    this.props.navigator.push({
-      screen: 'krooqi.FilterResultPage',
-      title: `${I18n.t('result_filters').toProperCase()}`,
-    });
+    // this.props.navigator.push({
+    //   screen: 'krooqi.FilterResultPage',
+    //   title: `${I18n.t('result_filters').toProperCase()}`,
+    // });
     this.props.actions.filteredPropertiesLoadOnSearch(search);
   }
   
