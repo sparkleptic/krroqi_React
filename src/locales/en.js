@@ -101,7 +101,7 @@ export default {
   reset: 'Reset',  
   show_less: 'Show Less',
   show_more: 'Show More',
-  beds: 'beds',
+  beds: 'Rooms',
   result_filters: 'Result Filters',
   noResult: 'No Results Found',
   pp_loginMsg: 'Please Login to Post Property',

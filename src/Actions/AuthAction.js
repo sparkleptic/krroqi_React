@@ -39,8 +39,12 @@ export function login(data) {
     return axios
       .post(`${config.PUBLIC_URL}checkUser`, data)
       .then((response) => {
-        AsyncStorage.setItem(config.USER_DATA, JSON.stringify(response.data));
-        dispatch(authSuccess(response.data));
+        if(response.data.id === 0) {
+          dispatch(authFail(error));
+        }else{
+          AsyncStorage.setItem(config.USER_DATA, JSON.stringify(response.data));
+          dispatch(authSuccess(response.data));
+        }
       })
       .catch((error) => {
         dispatch(authFail(error));

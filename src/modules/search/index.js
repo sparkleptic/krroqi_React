@@ -800,6 +800,13 @@ class SearchPage extends Component {
                 alignItems: 'center',
               }}
             >
+            {
+              filteredProperties.success.length < 1 && (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  <Text>{I18n.t('noResult').toProperCase()}</Text>
+                </View>
+              )
+            }
               <FlatList
                 data={filteredProperties.success}
                 renderItem={({ item }) => (
