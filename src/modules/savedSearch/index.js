@@ -299,9 +299,12 @@ class Favorites extends Component {
   }
 
   searcheAgain = (search) => {
-    this.props.navigator.push({
-      screen: 'krooqi.FilterResultPage',
-      title: `${I18n.t('result_filters').toProperCase()}`,
+    // this.props.navigator.push({
+    //   screen: 'krooqi.FilterResultPage',
+    //   title: `${I18n.t('result_filters').toProperCase()}`,
+    // });
+    this.props.navigator.switchToTab({
+      tabIndex: 0 // (optional) if missing, this screen's tab will become selected
     });
     this.props.actions.filteredPropertiesLoadOnSearch(search);
   }

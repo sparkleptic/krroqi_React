@@ -46,8 +46,6 @@ class MultiSelect extends Component {
   }
 
   selectValues(selectedValues) {
-    // alert(JSON.stringify(selectedValues));
-    // this.setState({ selectedValues });
     this.props.onSelect(selectedValues);
     this.hideLightBox();
   }

@@ -240,10 +240,10 @@ class SearchPage extends Component {
     this.props.navigator.dismissModal({
       animationType: 'slide-down', // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
     });
-    this.props.navigator.push({
-      screen: 'krooqi.FilterResultPage',
-      title: `${I18n.t('result_filters').toProperCase()}`,
-    });
+    // this.props.navigator.push({
+    //   screen: 'krooqi.FilterResultPage',
+    //   title: `${I18n.t('result_filters').toProperCase()}`,
+    // });
     this.props.actions.filteredPropertiesLoadOnSearch(search);
   }
   
@@ -800,6 +800,13 @@ class SearchPage extends Component {
                 alignItems: 'center',
               }}
             >
+            {
+              filteredProperties.success.length < 1 && (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  <Text>{I18n.t('noResult').toProperCase()}</Text>
+                </View>
+              )
+            }
               <FlatList
                 data={filteredProperties.success}
                 renderItem={({ item }) => (
