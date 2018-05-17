@@ -54,7 +54,8 @@ class Password extends Component {
   }
 
   onFBLoginSuccess(data) {
-    this.props.actions.register(data);
+    let randomPwd = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    this.props.actions.register({...data, 'password': randomPwd});
   }
 
   onFbLoginFail() {
