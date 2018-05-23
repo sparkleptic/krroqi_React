@@ -90,23 +90,23 @@ class ChatList extends Component {
               <View style={styles.mainView}>
                 { 
                   item.email !== null && item.email !== "" && item.email !== undefined && 
-                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>Email : </Text>{item.email}</Text>
+                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Email').toProperCase()} : </Text>{item.email}</Text>
                 }
                 { 
                   item.name !== null && item.name !== "" && item.name !== undefined && 
-                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>Name : </Text>{item.name}</Text>
+                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Name').toProperCase()} : </Text>{item.name}</Text>
                 }
                 { 
                   item.phone !== null && item.phone !== "" && item.phone !== undefined && 
-                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>Phone : </Text>{item.phone}</Text>
+                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Phone').toProperCase()} : </Text>{item.phone}</Text>
                 }
                 { 
                   item.message !== null && item.message !== "" && item.message !== undefined && 
-                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>Message : </Text>{item.message}</Text>
+                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Message').toProperCase()} : </Text>{item.message}</Text>
                 }
                 { 
                   item.property_name !== null && item.property_name !== "" && item.property_name !== undefined && 
-                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>Property : </Text>{item.property_name}</Text>
+                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Property').toProperCase()} : </Text>{item.property_name}</Text>
                 }
               </View>
             </TouchableHighlight>

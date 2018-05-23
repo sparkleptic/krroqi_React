@@ -244,6 +244,15 @@ class SearchPage extends Component {
     //   screen: 'krooqi.FilterResultPage',
     //   title: `${I18n.t('result_filters').toProperCase()}`,
     // });
+    let { mapSearch } = this.props;
+    this.props.actionsSearch.updateSearch({
+      ...mapSearch,
+      searchText: 'notFound',
+      latitude: 23.8859,
+      longitude: 45.0792,
+      latitudeDelta: 25,
+      longitudeDelta: 25,
+    });
     this.props.actions.filteredPropertiesLoadOnSearch(search);
   }
   

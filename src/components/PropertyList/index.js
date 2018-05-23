@@ -7,6 +7,7 @@ import axios from 'axios';
 import PropertyCard from '../PropertyCard';
 import Loading from '../Loading';
 import * as PropertiesActions from '../../Actions/PropertiesAction';
+import * as commonActions from '../../Actions/commonActions';
 import { PUBLIC_URL } from '../../constants/config';
 import I18n from '../../i18n';
 
@@ -103,6 +104,19 @@ class PropertyList extends Component {
     //   title: `${I18n.t('result_filters').toProperCase()}`,
     // });
     this.props.actions.filteredPropertiesLoadOnSearch(search);
+
+    let { mapSearch } = this.props;
+
+    this.props.actionsUpdated.updateSearch({
+      ...mapSearch,
+      searchText: 'notFound',
+      latitude: 23.8859,
+      longitude: 45.0792,
+      latitudeDelta: 25,
+      longitudeDelta: 25,
+    });
+    this.props.actions.filteredPropertiesLoadOnSearch(search);
+    
     this.props.navigator.switchToTab({
       tabIndex: 0 // (optional) if missing, this screen's tab will become selected
     });
@@ -227,11 +241,13 @@ function mapStateToProps(state) {
     search: state.search,
     propertyStatus,
     propertyTypes,
+    mapSearch: state.mapSearch,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    actionsUpdated: bindActionCreators(commonActions, dispatch),
     actions: bindActionCreators(PropertiesActions, dispatch),
     likeLoad: () => {
       dispatch(PropertiesActions.likePropertyRequest());
