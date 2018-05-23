@@ -224,22 +224,22 @@ class Favorites extends Component {
     let value = "";
     if (item.propertyStatus !== "") {
       if(item.propertyStatus === 33) {
-          value = "For Rent";
+          value = `${I18n.t('pp_for_rent').toProperCase()}`;
       }
       if(item.propertyStatus === 34) {
-          value = "For Sale";
+          value = `${I18n.t('pp_for_sale').toProperCase()}`;
       }
       if(item.propertyStatus === 108) {
-          value = "Future Developments";
+          value = `${I18n.t('pp_for_development').toProperCase()}`;
       }
       if(item.propertyStatus === 319) {
-          value = "New Construction";
+          value = `${I18n.t('pp_for_construction').toProperCase()}`;
       }
       if(item.propertyStatus === 217) {
-          value = "Sold";
+          value = `${I18n.t('pp_for_sold').toProperCase()}`;
       }
       if(item.propertyStatus === 218) {
-          value = "Rented";
+          value = `${I18n.t('pp_for_rented').toProperCase()}`;
       }
     }
     return <View style={{ padding: 10, }}>
@@ -305,6 +305,17 @@ class Favorites extends Component {
     // });
     this.props.navigator.switchToTab({
       tabIndex: 0 // (optional) if missing, this screen's tab will become selected
+    });
+
+    let { mapSearch } = this.props;
+
+    this.props.actionsUpdated.updateSearch({
+      ...mapSearch,
+      searchText: 'notFound',
+      latitude: 23.8859,
+      longitude: 45.0792,
+      latitudeDelta: 25,
+      longitudeDelta: 25,
     });
     this.props.actions.filteredPropertiesLoadOnSearch(search);
   }
@@ -395,6 +406,7 @@ const mapStateToProps = state => ({
   savedSearch: state.savedSearch,
   updatedSavedSearch: state.updatedSavedSearch,
   auth: state.auth,
+  mapSearch: state.mapSearch,
 });
 
 function mapDispatchToProps(dispatch) {

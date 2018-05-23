@@ -155,4 +155,9 @@ export default {
   noMsgs: 'No Messages',
   ChatMoreMenu: 'Messages',
   AddedToSavedSearch: 'Added  to saved search',
+  chat_Email: 'Email',
+  chat_Name: 'Name',
+  chat_Phone: 'Phone',
+  chat_Message: 'Message',
+  chat_Property: 'Property',
 };
