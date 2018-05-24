@@ -44,7 +44,7 @@ class RequestInfo extends Component {
       name_string: property.post_title,
       property_id: property.ID,
       agent_id: property.agent_id,
-      message: `Hello, I am interested in ${property.post_title}`,
+      message: `${I18n.t('reqInfoMsg').toProperCase()} ${property.post_title}`,
       userid: auth.success.id,
       user_display_name: auth.success.name,
       user_email: auth.success.email,

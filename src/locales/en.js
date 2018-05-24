@@ -160,4 +160,5 @@ export default {
   chat_Phone: 'Phone',
   chat_Message: 'Message',
   chat_Property: 'Property',
+  reqInfoMsg: "Hello, I am interested in",
 };

@@ -119,7 +119,7 @@ class PropertyDetail extends Component {
         useNativeDriver: true,
       })}
     >
-      <PropertyContent property={this.props.property} navigatorProp={this.props.navigator}/>
+      <PropertyContent property={this.props.property} navigatorProp={this.props.navigator} lang={this.props.lang}/>
     </Animated.ScrollView>
   );
 

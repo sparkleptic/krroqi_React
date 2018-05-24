@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, FlatList, TouchableWithoutFeedback } from 'react-native';
+import { View, FlatList, TouchableWithoutFeedback, AsyncStorage } from 'react-native';
 import styled from 'styled-components/native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -46,12 +46,33 @@ class HomeCard extends Component {
     super(props);
     this.state = {
       error: false,
+      langValue: "en",
     };
     this.pushList = this.pushList.bind(this);
     this.pushDetail = this.pushDetail.bind(this);
     this.closeModel = this.closeModel.bind(this);
     this.onLikePress = this.onLikePress.bind(this);
     this.openLogin = this.openLogin.bind(this);
+  }
+
+  componentDidMount() {
+      AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        
+      }else{
+        this.setState({langValue: value});
+      }
+    }).done();
+  }
+
+  componentWillReceiveProps() {
+      AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        
+      }else{
+        this.setState({langValue: value});
+      }
+    }).done();
   }
 
   onLikePress(propertyID) {
@@ -97,6 +118,7 @@ class HomeCard extends Component {
         isFavorite: favorites.some(x => x.ID === property.ID),
         closeModel: this.closeModel,
         onLikePress: this.onLikePress,
+        lang: this.state.langValue,
       },
     });
   }
@@ -168,6 +190,7 @@ class HomeCard extends Component {
               isFavorite={favorites.some(x => x.ID === item.ID)}
               onCardPress={this.pushDetail}
               onLikePress={this.onLikePress}
+              lang={this.state.langValue}
             />
           )}
           ItemSeparatorComponent={() => <View style={{ width: 10 }} />}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Dimensions, TouchableWithoutFeedback, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LikeButton from '../LikeButton';
 import ProgressiveImage from '../ProgressiveImage';
@@ -26,6 +26,7 @@ const PropertyCard = ({
   containerStyle,
   isFavorite,
   onLikePress,
+  lang,
 }) => {
   const propertyType = property.features.find(value => value.taxonomy === 'property_type');
   const propertyLabel = property.features.find(value => value.taxonomy === 'property_label');
@@ -83,19 +84,22 @@ const PropertyCard = ({
             <Text numberOfLines={1} style={styles.title}>
               {property.post_title}
             </Text>
+            <View>
+            <View>
             { property.real_address && (
-              <Text numberOfLines={1} style={styles.subTitle}>
-                <Icon name="ios-pin" size={15} color='#000' /> {property.real_address}
+              <Text  style={[styles.subTitle, Platform.OS === "android" && lang !== "en" ? {textAlign: "right"} : {}]}>
+                <Icon name="ios-pin" size={15} color='#000' /> {property.real_address.substr(0, 31)}
             </Text> )
             }
             { property.agent &&
               property.agent.exists && (
-                <Text numberOfLines={1} style={styles.subTitle}>
+                <Text style={[styles.subTitle, Platform.OS === "android" && lang !== "en" ? {textAlign: "right"} : {}]}>
                   <Icon name="ios-person" size={15} color='#000' /> {property.agent.nickname}
                 </Text>
               )
             }
-            <View style={{ flexDirection: 'row' }}>
+            </View>
+            <View style={[{ flexDirection: 'row' }, Platform.OS === "android" && lang !== "en" ? {justifyContent: "flex-end"} : {}]}>
               {!!property.bedroom_num && (
                 <Text style={styles.subHeader}>{I18n.t('beds').toProperCase()}: {property.bedroom_num}</Text>
               )}
@@ -104,7 +108,8 @@ const PropertyCard = ({
               )}
               {!!property.area && <Text style={styles.subHeader}>Sq m: {property.area}</Text>}
             </View>
-            {propertyType && <Text style={styles.subHeader}>{propertyType.name}</Text>}
+            {propertyType && <Text style={styles.subHeader}>{propertyType.name}</Text>}            
+            </View>
           </View>
           <View style={styles.displayTop}>
             {!!propertyLabel && (labelVarLabel !== null) && <Text style={styles.propertyLabel}>{labelVarLabel}</Text>}
@@ -131,12 +136,14 @@ PropertyCard.propTypes = {
   containerStyle: PropTypes.object,
   fullWidth: PropTypes.bool,
   isFavorite: PropTypes.bool,
+  lang: PropTypes.string,
 };
 
 PropertyCard.defaultProps = {
   fullWidth: false,
   isFavorite: false,
   containerStyle: {},
+  lang: "en",
   onLikePress: () => null,
 };
 
