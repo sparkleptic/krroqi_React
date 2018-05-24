@@ -164,4 +164,5 @@ export default {
   chat_Phone: 'رقم الهاتف',
   chat_Message: 'الرسالة',
   chat_Property: 'عقار',
+  reqInfoMsg: "مرحبًا ، أنا مهتم",  
 };

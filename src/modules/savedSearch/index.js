@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { AsyncStorage, View, FlatList, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { AsyncStorage, View, FlatList, Text, TouchableHighlight, TouchableOpacity, Platform } from 'react-native';
 import SavedSearchCard from '../../components/SavedSearchCard';
 import * as PropertiesActions from './../../Actions/PropertiesAction';
 import * as commonActions from './../../Actions/commonActions';
@@ -26,6 +26,7 @@ class Favorites extends Component {
       auth: props.auth,
       isRefeshing: false,
       dummyDataArr: [],
+      langValue: 'en',
     };
     this.onRefresh = this.onRefresh.bind(this);
     this.pushDetail = this.pushDetail.bind(this);
@@ -168,6 +169,24 @@ class Favorites extends Component {
 
   componentWillMount() {
     this.props.actions.savedSearchLoad();
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        
+      }else{
+        this.setState({langValue: value});
+      }
+    }).done();
+  }
+
+  componentDidMount() {
+    this.props.actions.savedSearchLoad();
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        
+      }else{
+        this.setState({langValue: value});
+      }
+    }).done();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -175,6 +194,13 @@ class Favorites extends Component {
       this.setState({ auth: nextProps.auth });
       nextProps.auth.success && this.authsuccessFunction(nextProps.auth);      
     }
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        
+      }else{
+        this.setState({langValue: value});
+      }
+    }).done();
   }
 
   onRefresh() {
@@ -245,7 +271,7 @@ class Favorites extends Component {
     return <View style={{ padding: 10, }}>
       <View>
         <Text style={{ fontWeight: '600', fontSize: 18, paddingBottom: 10,  }}>{index+1}) {I18n.t('insavedSearchParameter').toProperCase()} :</Text>
-        <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
+        <View style={[{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }, Platform.OS === "android" && this.state.langValue !== "en" ? {justifyContent: "flex-end"} : {}]}>
           {
             item.propertyStatus !== "" && <Text style={{ paddingRight: 10, }}><Text style={{ fontWeight: '600' }}>{I18n.t('inSavedSearchStatus').capitalize()} : </Text> {value}</Text>
           }

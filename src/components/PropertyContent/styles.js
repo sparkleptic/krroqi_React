@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     fontWeight: 'bold',
-
     width: width / 2,
   },
   text: {
