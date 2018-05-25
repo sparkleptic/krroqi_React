@@ -105,10 +105,11 @@ const PropertyCard = ({
                 <Text style={[styles.subTitle, Platform.OS === "android" && lang !== "en" ? {textAlign: "right"} : {}]}>
                 { 
                   lang === "en" &&
-                  <Icon name="ios-person" size={15} color='#000' />
-                }   {property.agent.nickname}   { 
+                  <Text><Icon name="ios-person" size={15} color='#000' />    {property.agent.nickname}</Text>
+                }   
+                { 
                   lang !== "en" &&
-                  <Icon name="ios-person" size={15} color='#000' />
+                  <Text>{property.agent.nickname}    <Icon name="ios-person" size={15} color='#000' /></Text>
                 }                   
                 </Text>
               )

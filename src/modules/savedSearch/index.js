@@ -69,7 +69,8 @@ class Favorites extends Component {
         district = "", 
         region = "", 
         propertyTypeKey = "", 
-        propertyTypeValue = "";
+        propertyTypeValue = "",
+        id= "";
       let propertyTypeArr = [];
       
       priceRangeStart = this.getQueryString('min-price', data);
@@ -145,7 +146,8 @@ class Favorites extends Component {
           "end": yearBuilttEnd
         },
         "district": district.replace(/-/g,' ').toProperCase(),
-        "region": region.replace(/-/g,' ').toProperCase()
+        "region": region.replace(/-/g,' ').toProperCase(),
+        "id": dataUrl.id 
       };
 
       tempStoreUrlArr.push(objectPush);
@@ -310,7 +312,7 @@ class Favorites extends Component {
           }
         </View>
       </View>
-      <View style={{ marginTop: 10, justifyContent: "space-between" }}>
+      <View style={{ marginTop: 10, justifyContent: "space-between", flexDirection: "row" }}>
         <TouchableOpacity onPress={() => this.searcheAgain(item)}>
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={{ backgroundColor: backgroundColor, paddingLeft: 15, paddingRight: 15}}>
@@ -324,7 +326,7 @@ class Favorites extends Component {
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={{ backgroundColor: backgroundColor, paddingLeft: 15, paddingRight: 15}}>
               <Text style={{ fontSize: 15, padding: 5, color: "#fff", textAlign: 'center' }}>
-                Delete
+                {I18n.t('inSavedSearchDelete').capitalize()}
               </Text>
             </View>
           </View>
@@ -356,8 +358,19 @@ class Favorites extends Component {
   }
 
   deleteFunc = (item) => {
-    console.log(item);
-    console.log(this.props.auth);
+    const { auth } = this.state;
+    if (auth.success) {
+    axios
+      .post(`${PUBLIC_URL}deleteSearch`, { "user_id": auth.success.id, "id": item.id })
+      .then((response) => {
+        if (response.data.success) {
+          this.onRefresh();
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+    }
   }
 
   render() {

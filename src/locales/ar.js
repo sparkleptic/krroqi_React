@@ -166,4 +166,5 @@ export default {
   chat_Property: 'عقار',
   reqInfoMsg: "مرحبًا ، أنا مهتم",  
   sqmWord: 'متر مربع',
+  inSavedSearchDelete: 'حذف',
 };

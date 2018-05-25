@@ -61,43 +61,41 @@ const PropertyContent = ({ property, auth, navigatorProp, lang }) => {
           </View>
         )}
         <Text style={styles.subject}>{I18n.t('single_prop_detail').capitalize()}</Text>
-      <View> 
+      
       {
         lang !== "en" ? <View style={styles.row}>
-          <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.ID}</Text>
+          <Text style={[styles.text, {width: width / 3}, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.ID}</Text>
           <Text style={styles.label}>{I18n.t('single_prop_id').capitalize()}</Text>
         </View> : <View style={styles.row}>
           <Text style={styles.label}>{I18n.t('single_prop_id').capitalize()}</Text>
           <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.ID}</Text>
         </View>
       }
-      </View>
-      <View> 
+
       {
         lang !== "en" ? <View style={styles.row}>
-          <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.eprice} SAR</Text>
+          <Text style={[styles.text, {width: width / 3}, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.eprice} SAR</Text>
           <Text style={styles.label}>{I18n.t('single_price').capitalize()}</Text>
         </View> : <View style={styles.row}>
           <Text style={styles.label}>{I18n.t('single_price').capitalize()}</Text>
           <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.eprice} SAR</Text>
         </View>
       }
-      </View>
-      <View> 
+ 
       {
         lang !== "en" ? <View style={styles.row}>
-          <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.area} sq. m</Text>
+          <Text style={[styles.text, {width: width / 3}, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.area} {I18n.t('sqmWord')}</Text>
           <Text style={styles.label}>{I18n.t('single_totalArea').capitalize()}</Text>
         </View> : <View style={styles.row}>
           <Text style={styles.label}>{I18n.t('single_totalArea').capitalize()}</Text>
           <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.area} {I18n.t('sqmWord')}</Text>
         </View>
       }
-      </View>
+      
         {!!property.bedroom_num && (
           <View>{
             lang !== "en" ? <View style={styles.row}>
-            <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.bedroom_num}</Text>
+            <Text style={[styles.text, {width: width / 3}, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.bedroom_num}</Text>
             <Text style={styles.label}>{I18n.t('single_noBedroom').capitalize()}</Text>
           </View> : <View style={styles.row}>
             <Text style={styles.label}>{I18n.t('single_noBedroom').capitalize()}</Text>
@@ -109,7 +107,7 @@ const PropertyContent = ({ property, auth, navigatorProp, lang }) => {
         {!!property.bathroom_num && (
           <View>{
             lang !== "en" ? <View style={styles.row}>
-            <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.bathroom_num}</Text>
+            <Text style={[styles.text, {width: width / 3}, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.bathroom_num}</Text>
             <Text style={styles.label}>{I18n.t('single_noBath').capitalize()}</Text>
           </View> : <View style={styles.row}>
             <Text style={styles.label}>{I18n.t('single_noBath').capitalize()}</Text>
@@ -121,7 +119,7 @@ const PropertyContent = ({ property, auth, navigatorProp, lang }) => {
         {!!property.garage_num && (
           <View>{
             lang !== "en" ? <View style={styles.row}>
-            <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.garage_num}</Text>
+            <Text style={[styles.text, {width: width / 3}, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.garage_num}</Text>
             <Text style={styles.label}>{I18n.t('single_noGarage').capitalize()}</Text>
           </View> : <View style={styles.row}>
             <Text style={styles.label}>{I18n.t('single_noGarage').capitalize()}</Text>
@@ -133,11 +131,11 @@ const PropertyContent = ({ property, auth, navigatorProp, lang }) => {
         {!!property.garage_area && (
           <View>{
             lang !== "en" ? <View style={styles.row}>
-            <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.garage_area} sq. m</Text>
+            <Text style={[styles.text, {width: width / 3}, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.garage_area} {I18n.t('sqmWord')}</Text>
             <Text style={styles.label}>{I18n.t('single_AreaGarage').capitalize()}</Text>
           </View> : <View style={styles.row}>
             <Text style={styles.label}>{I18n.t('single_AreaGarage').capitalize()}</Text>
-            <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.garage_area} sq. m</Text>
+            <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.garage_area} {I18n.t('sqmWord')}</Text>
           </View>
           }
           </View>
@@ -145,7 +143,7 @@ const PropertyContent = ({ property, auth, navigatorProp, lang }) => {
         {!!property.build_year && (
           <View>{
             lang !== "en" ? <View style={styles.row}>
-            <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.build_year}</Text>
+            <Text style={[styles.text, {width: width / 3}, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{property.build_year}</Text>
             <Text style={styles.label}>{I18n.t('single_Build_on').capitalize()}</Text>
           </View> : <View style={styles.row}>
             <Text style={styles.label}>{I18n.t('single_Build_on').capitalize()}</Text>
@@ -158,7 +156,7 @@ const PropertyContent = ({ property, auth, navigatorProp, lang }) => {
           !!propertyType.name && (
           <View>{
             lang !== "en" ? <View style={styles.row}>
-            <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{propertyType.name}</Text>
+            <Text style={[styles.text, {width: width / 3}, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{propertyType.name}</Text>
             <Text style={styles.label}>{I18n.t('single_propType').capitalize()}</Text>
           </View> : <View style={styles.row}>
             <Text style={styles.label}>{I18n.t('single_propType').capitalize()}</Text>
@@ -171,7 +169,7 @@ const PropertyContent = ({ property, auth, navigatorProp, lang }) => {
           propertyLabel.name && (
             <View>{
               lang !== "en" ? <View style={styles.row}>
-              <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{propertyLabel.name}</Text>
+              <Text style={[styles.text, {width: width / 3}, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{propertyLabel.name}</Text>
               <Text style={styles.label}>{I18n.t('single_propLabel').capitalize()}</Text>
             </View> : <View style={styles.row}>
               <Text style={styles.label}>{I18n.t('single_propLabel').capitalize()}</Text>
@@ -184,7 +182,7 @@ const PropertyContent = ({ property, auth, navigatorProp, lang }) => {
           !!propertyStatus.name && (
           <View>{
             lang !== "en" ? <View style={styles.row}>
-            <Text style={[styles.text, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{propertyStatus.name}</Text>
+            <Text style={[styles.text, {width: width / 3}, Platform.OS === "android" && lang !== "en" ? {width: width / 3, textAlign: "right"} : {}]}>{propertyStatus.name}</Text>
             <Text style={styles.label}>{I18n.t('single_propstatus').capitalize()}</Text>
           </View> : <View style={styles.row}>
             <Text style={styles.label}>{I18n.t('single_propstatus').capitalize()}</Text>
@@ -201,7 +199,8 @@ const PropertyContent = ({ property, auth, navigatorProp, lang }) => {
                 return (
                   <View
                     key={item.term_taxonomy_id}
-                    style={[{ flexDirection: 'row', width: '50%', }, lang !== "en" ? {alignItems: 'flex-end', justifyContent: "flex-end",} : {alignItems: 'center', justifyContent: "center",}]}
+                    //style={[{ flexDirection: 'row', width: '50%', }, lang !== "en" ? {alignItems: 'flex-end', justifyContent: "flex-end",} : {alignItems: 'center', justifyContent: "center",}]}
+                    style={[{ flexDirection: 'row', width: '50%', }, {alignItems: 'center', justifyContent: "center",}]}
                   >
                     {
                       lang === "en" &&

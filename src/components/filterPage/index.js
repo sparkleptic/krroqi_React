@@ -313,7 +313,8 @@ class filterPage extends Component {
           "end": yearBuilttEnd
         },
         "district": district.replace(/-/g,' ').toProperCase(),
-        "region": region.replace(/-/g,' ').toProperCase()
+        "region": region.replace(/-/g,' ').toProperCase(),
+        "id": dataUrl.id
       };
 
       tempStoreUrlArr.push(objectPush);

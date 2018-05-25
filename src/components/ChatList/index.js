@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { View, FlatList, Text, TouchableHighlight } from 'react-native';
+import { View, FlatList, Text, TouchableHighlight, Platform } from 'react-native';
 import { PUBLIC_URL, krooqi_URL, backgroundColor } from "../../constants/config";
 import axios from "axios";
 import styles from './styles';
@@ -90,23 +90,23 @@ class ChatList extends Component {
               <View style={styles.mainView}>
                 { 
                   item.email !== null && item.email !== "" && item.email !== undefined && 
-                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Email').toProperCase()} : </Text>{item.email}</Text>
+                  <Text style={[styles.mainText, Platform.OS === "ios" ? {textAlign: "right", justifyContent: "flex-end"} :{} ]} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Email').toProperCase()} : </Text>{item.email}</Text>
                 }
                 { 
                   item.name !== null && item.name !== "" && item.name !== undefined && 
-                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Name').toProperCase()} : </Text>{item.name}</Text>
+                  <Text style={[styles.mainText, Platform.OS === "ios" ? {textAlign: "right", justifyContent: "flex-end"} :{} ]} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Name').toProperCase()} : </Text>{item.name}</Text>
                 }
                 { 
                   item.phone !== null && item.phone !== "" && item.phone !== undefined && 
-                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Phone').toProperCase()} : </Text>{item.phone}</Text>
+                  <Text style={[styles.mainText, Platform.OS === "ios" ? {textAlign: "right", justifyContent: "flex-end"} :{} ]} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Phone').toProperCase()} : </Text>{item.phone}</Text>
                 }
                 { 
                   item.message !== null && item.message !== "" && item.message !== undefined && 
-                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Message').toProperCase()} : </Text>{item.message}</Text>
+                  <Text style={[styles.mainText, Platform.OS === "ios" ? {textAlign: "right", justifyContent: "flex-end"} :{} ]} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Message').toProperCase()} : </Text>{item.message}</Text>
                 }
                 { 
                   item.property_name !== null && item.property_name !== "" && item.property_name !== undefined && 
-                  <Text style={styles.mainText} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Property').toProperCase()} : </Text>{item.property_name}</Text>
+                  <Text style={[styles.mainText, Platform.OS === "ios" ? {textAlign: "right", justifyContent: "flex-end"} :{} ]} numberOfLines={1}> <Text style={styles.boldWords}>{I18n.t('chat_Property').toProperCase()} : </Text>{item.property_name}</Text>
                 }
               </View>
             </TouchableHighlight>

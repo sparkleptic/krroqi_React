@@ -162,4 +162,5 @@ export default {
   chat_Property: 'Property',
   reqInfoMsg: 'Hello, I am interested in',
   sqmWord: 'sq m',
+  inSavedSearchDelete: 'Delete',
 };
