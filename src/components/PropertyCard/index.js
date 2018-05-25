@@ -90,10 +90,13 @@ const PropertyCard = ({
               <Text  style={[styles.subTitle, Platform.OS === "android" && lang !== "en" ? {textAlign: "right"} : {}]}>
                 { 
                   lang === "en" &&
-                  <Icon name="ios-pin" size={15} color='#000' />
-                }   {property.real_address.substr(0, 31)}   { 
+                  <Text>
+                    <Icon name="ios-pin" size={15} color='#000' />    {property.real_address.substr(0, 31)}
+                  </Text>
+                }
+                { 
                   lang !== "en" &&
-                  <Icon name="ios-pin" size={15} color='#000' />
+                  <Text>{property.real_address.substr(0, 31)}    <Icon name="ios-pin" size={15} color='#000' /></Text>
                 }
             </Text> )
             }

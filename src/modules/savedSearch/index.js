@@ -310,12 +310,21 @@ class Favorites extends Component {
           }
         </View>
       </View>
-      <View style={{ marginTop: 10 }}>
+      <View style={{ marginTop: 10, justifyContent: "space-between" }}>
         <TouchableOpacity onPress={() => this.searcheAgain(item)}>
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={{ backgroundColor: backgroundColor, paddingLeft: 15, paddingRight: 15}}>
               <Text style={{ fontSize: 15, padding: 5, color: "#fff", textAlign: 'center' }}>
                 {I18n.t('inSavedSearchSearch').capitalize()}
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.deleteFunc(item)}>
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ backgroundColor: backgroundColor, paddingLeft: 15, paddingRight: 15}}>
+              <Text style={{ fontSize: 15, padding: 5, color: "#fff", textAlign: 'center' }}>
+                Delete
               </Text>
             </View>
           </View>
@@ -344,6 +353,11 @@ class Favorites extends Component {
       longitudeDelta: 25,
     });
     this.props.actions.filteredPropertiesLoadOnSearch(search);
+  }
+
+  deleteFunc = (item) => {
+    console.log(item);
+    console.log(this.props.auth);
   }
 
   render() {

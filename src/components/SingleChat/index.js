@@ -6,6 +6,16 @@ import { View, FlatList, Text, TouchableHighlight } from 'react-native';
 import { krooqi_URL, backgroundColor } from "../../constants/config";
 import axios from "axios";
 import styles from './styles';
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 
 class SingleChat extends Component {
   constructor(props) {
