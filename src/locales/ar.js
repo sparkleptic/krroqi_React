@@ -4,7 +4,7 @@ export default {
     title: 'الصفحة الرئيسية',
   },
   list_results: 'قائمة العقارات',
-  map_results: 'مرحبا',
+  map_results: 'عرض الموقع',
   sort_result: 'رتب',
   save_search: 'إحفظ البحث',
   search_placeholder: 'ابحث عن المدينة أو الولاية أو الرمز البريدي',
@@ -165,4 +165,5 @@ export default {
   chat_Message: 'الرسالة',
   chat_Property: 'عقار',
   reqInfoMsg: "مرحبًا ، أنا مهتم",  
+  sqmWord: 'متر مربع',
 };

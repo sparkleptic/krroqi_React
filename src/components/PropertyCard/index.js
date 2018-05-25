@@ -88,13 +88,25 @@ const PropertyCard = ({
             <View>
             { property.real_address && (
               <Text  style={[styles.subTitle, Platform.OS === "android" && lang !== "en" ? {textAlign: "right"} : {}]}>
-                <Icon name="ios-pin" size={15} color='#000' /> {property.real_address.substr(0, 31)}
+                { 
+                  lang === "en" &&
+                  <Icon name="ios-pin" size={15} color='#000' />
+                }   {property.real_address.substr(0, 31)}   { 
+                  lang !== "en" &&
+                  <Icon name="ios-pin" size={15} color='#000' />
+                }
             </Text> )
             }
             { property.agent &&
               property.agent.exists && (
                 <Text style={[styles.subTitle, Platform.OS === "android" && lang !== "en" ? {textAlign: "right"} : {}]}>
-                  <Icon name="ios-person" size={15} color='#000' /> {property.agent.nickname}
+                { 
+                  lang === "en" &&
+                  <Icon name="ios-person" size={15} color='#000' />
+                }   {property.agent.nickname}   { 
+                  lang !== "en" &&
+                  <Icon name="ios-person" size={15} color='#000' />
+                }                   
                 </Text>
               )
             }
@@ -106,7 +118,7 @@ const PropertyCard = ({
               {!!property.bathroom_num && (
                 <Text style={styles.subHeader}>{I18n.t('baths').toProperCase()}: {property.bathroom_num}</Text>
               )}
-              {!!property.area && <Text style={styles.subHeader}>Sq m: {property.area}</Text>}
+              {!!property.area && <Text style={styles.subHeader}>{I18n.t('sqmWord')}: {property.area}</Text>}
             </View>
             {propertyType && <Text style={styles.subHeader}>{propertyType.name}</Text>}            
             </View>

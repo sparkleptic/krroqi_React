@@ -30,7 +30,7 @@ AsyncStorage.getItem('lang').then((value) => {
     Only allow RTL if we have translations for RTL languages (ie. not fallbacks)
 */
 I18nManager.allowRTL(true);
-I18nManager.forceRTL(false);
+I18nManager.forceRTL(true);
 
 /*
     Set start/end for developer use in non-RTL aware cases,

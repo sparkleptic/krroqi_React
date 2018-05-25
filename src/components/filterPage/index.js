@@ -482,7 +482,7 @@ class filterPage extends Component {
               <Picker.Item
                 key={item}
                 value={`${item}`}
-                label={`${I18n.toNumber(item, { precision: 0 })} Sq m`}
+                label={`${I18n.toNumber(item, { precision: 0 })} ${I18n.t('sqmWord')}`}
               />
             ))}
           </Picker>
@@ -499,7 +499,7 @@ class filterPage extends Component {
               <Picker.Item
                 key={item}
                 value={`${item}`}
-                label={`${I18n.toNumber(item, { precision: 0 })} Sq m`}
+                label={`${I18n.toNumber(item, { precision: 0 })} ${I18n.t('sqmWord')}`}
               />
             ))}
           </Picker>
