@@ -69,7 +69,8 @@ class Favorites extends Component {
         district = "", 
         region = "", 
         propertyTypeKey = "", 
-        propertyTypeValue = "";
+        propertyTypeValue = "",
+        id= "";
       let propertyTypeArr = [];
       
       priceRangeStart = this.getQueryString('min-price', data);
@@ -145,7 +146,8 @@ class Favorites extends Component {
           "end": yearBuilttEnd
         },
         "district": district.replace(/-/g,' ').toProperCase(),
-        "region": region.replace(/-/g,' ').toProperCase()
+        "region": region.replace(/-/g,' ').toProperCase(),
+        "id": dataUrl.id 
       };
 
       tempStoreUrlArr.push(objectPush);
@@ -310,12 +312,21 @@ class Favorites extends Component {
           }
         </View>
       </View>
-      <View style={{ marginTop: 10 }}>
+      <View style={{ marginTop: 10, justifyContent: "space-between", flexDirection: "row" }}>
         <TouchableOpacity onPress={() => this.searcheAgain(item)}>
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={{ backgroundColor: backgroundColor, paddingLeft: 15, paddingRight: 15}}>
               <Text style={{ fontSize: 15, padding: 5, color: "#fff", textAlign: 'center' }}>
                 {I18n.t('inSavedSearchSearch').capitalize()}
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.deleteFunc(item)}>
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ backgroundColor: backgroundColor, paddingLeft: 15, paddingRight: 15}}>
+              <Text style={{ fontSize: 15, padding: 5, color: "#fff", textAlign: 'center' }}>
+                {I18n.t('inSavedSearchDelete').capitalize()}
               </Text>
             </View>
           </View>
@@ -344,6 +355,22 @@ class Favorites extends Component {
       longitudeDelta: 25,
     });
     this.props.actions.filteredPropertiesLoadOnSearch(search);
+  }
+
+  deleteFunc = (item) => {
+    const { auth } = this.state;
+    if (auth.success) {
+    axios
+      .post(`${PUBLIC_URL}deleteSearch`, { "user_id": auth.success.id, "id": item.id })
+      .then((response) => {
+        if (response.data.success) {
+          this.onRefresh();
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+    }
   }
 
   render() {

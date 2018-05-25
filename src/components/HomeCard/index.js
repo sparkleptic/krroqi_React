@@ -130,6 +130,7 @@ class HomeCard extends Component {
       title,
       passProps: {
         category,
+        lang: this.state.langValue,
       },
       navigatorButtons: {
         rightButtons: [

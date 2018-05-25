@@ -2,10 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { View, FlatList, Text, TouchableHighlight } from 'react-native';
+import { View, FlatList, Text, TouchableHighlight, Platform } from 'react-native';
 import { krooqi_URL, backgroundColor } from "../../constants/config";
 import axios from "axios";
 import styles from './styles';
+import I18n from '../../i18n';
+
+String.prototype.capitalize = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+    function($1) { return $1.toUpperCase(); });
+}
 
 class SingleChat extends Component {
   constructor(props) {
@@ -32,23 +42,23 @@ class SingleChat extends Component {
       <View style={styles.mainView}>
           { 
             item.email !== null && item.email !== "" && item.email !== undefined && 
-            <Text style={styles.mainText}><Text style={styles.boldWords}>Email : </Text>{item.email}</Text>
+            <Text style={[styles.mainText, Platform.OS === "ios" ? {textAlign: "right", justifyContent: "flex-end"} :{}]}><Text style={styles.boldWords}>{I18n.t('chat_Email').toProperCase()} : </Text>{item.email}</Text>
           }
           { 
             item.name !== null && item.name !== "" && item.name !== undefined && 
-            <Text style={styles.mainText}><Text style={styles.boldWords}>Name : </Text>{item.name}</Text>
+            <Text style={[styles.mainText, Platform.OS === "ios" ? {textAlign: "right", justifyContent: "flex-end"} :{}]}><Text style={styles.boldWords}>{I18n.t('chat_Name').toProperCase()} : </Text>{item.name}</Text>
           }
           { 
             item.phone !== null && item.phone !== "" && item.phone !== undefined && 
-            <Text style={styles.mainText}><Text style={styles.boldWords}>Phone : </Text>{item.phone}</Text>
+            <Text style={[styles.mainText, Platform.OS === "ios" ? {textAlign: "right", justifyContent: "flex-end"} :{}]}><Text style={styles.boldWords}>{I18n.t('chat_Phone').toProperCase()} : </Text>{item.phone}</Text>
           }
           { 
             item.message !== null && item.message !== "" && item.message !== undefined && 
-            <Text style={styles.mainText}><Text style={styles.boldWords}>Message : </Text>{item.message}</Text>
+            <Text style={[styles.mainText, Platform.OS === "ios" ? {textAlign: "right", justifyContent: "flex-end"} :{}]}><Text style={styles.boldWords}>{I18n.t('chat_Message').toProperCase()} : </Text>{item.message}</Text>
           }
           { 
             item.property_name !== null && item.property_name !== "" && item.property_name !== undefined && 
-            <Text style={styles.mainText}><Text style={styles.boldWords}>Property : </Text>{item.property_name}</Text>
+            <Text style={[styles.mainText, Platform.OS === "ios" ? {textAlign: "right", justifyContent: "flex-end"} :{}]}><Text style={styles.boldWords}>{I18n.t('chat_Property').toProperCase()} : </Text>{item.property_name}</Text>
           }
         </View>
     );
