@@ -167,4 +167,7 @@ export default {
   reqInfoMsg: "مرحبًا ، أنا مهتم",  
   sqmWord: 'متر مربع',
   inSavedSearchDelete: 'حذف',
+  savedSearchDeleteMsg: 'هل أنت واثق ؟ تريد حذف هذا.',  
+  savedSearchDeleteOk: 'نعم فعلا',
+  savedSearchDeleteCancle: 'إلغاء',
 };

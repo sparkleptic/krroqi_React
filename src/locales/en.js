@@ -163,4 +163,7 @@ export default {
   reqInfoMsg: 'Hello, I am interested in',
   sqmWord: 'sq m',
   inSavedSearchDelete: 'Delete',
+  savedSearchDeleteMsg: 'Are you sure ? you want to delete this.',
+  savedSearchDeleteOk: 'Yes',
+  savedSearchDeleteCancle: 'cancel',
 };

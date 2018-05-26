@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { AsyncStorage, View, FlatList, Text, TouchableHighlight, TouchableOpacity, Platform } from 'react-native';
+import { Alert, AsyncStorage, View, FlatList, Text, TouchableHighlight, TouchableOpacity, Platform } from 'react-native';
 import SavedSearchCard from '../../components/SavedSearchCard';
 import * as PropertiesActions from './../../Actions/PropertiesAction';
 import * as commonActions from './../../Actions/commonActions';
@@ -324,7 +324,7 @@ class Favorites extends Component {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.deleteFunc(item)}>
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <View style={{ backgroundColor: backgroundColor, paddingLeft: 15, paddingRight: 15}}>
+            <View style={{ backgroundColor: "red", paddingLeft: 15, paddingRight: 15}}>
               <Text style={{ fontSize: 15, padding: 5, color: "#fff", textAlign: 'center' }}>
                 {I18n.t('inSavedSearchDelete').capitalize()}
               </Text>
@@ -360,16 +360,26 @@ class Favorites extends Component {
   deleteFunc = (item) => {
     const { auth } = this.state;
     if (auth.success) {
-    axios
-      .post(`${PUBLIC_URL}deleteSearch`, { "user_id": auth.success.id, "id": item.id })
-      .then((response) => {
-        if (response.data.success) {
-          this.onRefresh();
-        }
-      })
-      .catch((error) => {
-        console.log(error)
-      });
+      Alert.alert(
+        `${I18n.t('ft_saved_search').capitalize()}`,
+        `${I18n.t('savedSearchDeleteMsg').capitalize()}`,  
+        [
+          {text: `${I18n.t('savedSearchDeleteCancle').capitalize()}`, onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+          {text: `${I18n.t('savedSearchDeleteOk').capitalize()}`, onPress: () => {
+            axios
+            .post(`${PUBLIC_URL}deleteSearch`, { "user_id": auth.success.id, "id": item.id })
+            .then((response) => {
+              if (response.data.success) {
+                this.onRefresh();
+              }
+            })
+            .catch((error) => {
+              console.log(error)
+            });
+          }},
+        ],
+        { cancelable: false }
+      )
     }
   }
 
