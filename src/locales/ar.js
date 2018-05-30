@@ -159,7 +159,7 @@ export default {
   noMsgs: 'لا رسائل',
   ChatMoreMenu: 'رسائل',
   AddedToSavedSearch: 'يضاف إلى حفظ البحث',
-  chat_Email: 'بريد إلكتروني',
+  chat_Email: 'البريد الاكتروني',
   chat_Name: ' الاسم',
   chat_Phone: 'رقم الهاتف',
   chat_Message: 'الرسالة',
