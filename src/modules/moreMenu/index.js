@@ -173,7 +173,10 @@ class More extends Component {
           {!!auth.success && !!auth.success.name && <Text>{auth.success.name}</Text>}
           {!!auth.success && !!auth.success.email && <Text>{auth.success.email}</Text>}
           {
-            !!auth.success && FbMsg && <Text style={{ padding: 15, color: 'red' }}>Your Username {'&'} password have been sent to Email.</Text>
+            !!auth.success && FbMsg && <Text style={{ padding: 10, color: 'red' }}>An email has been sent to your inbox</Text>
+          }
+          {
+            !!auth.success && FbMsg && <Text style={{ padding: 10, color: 'red' }}>تم إرسال بريد إلكتروني إلى صندوق الوارد الخاص بك</Text>
           }
           <View style={styles.buttonContainer}>
             <TouchableHighlight onPress={this.openLogin} underlayColor="white">
