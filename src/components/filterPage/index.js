@@ -188,6 +188,10 @@ class filterPage extends Component {
       "email": auth.success.email,
       "search_url": string1
     }
+
+    console.log("dataSent");
+    console.log(dataSent);
+    
     
     axios
       .post(`${PUBLIC_URL}addSearch`, dataSent)
@@ -248,8 +252,8 @@ class filterPage extends Component {
       squareMeterRangeEnd = this.getQueryString('max-area', data);
       yearBuiltStart = this.getQueryString('min-yrbuilt', data);
       yearBuilttEnd = this.getQueryString('max-yrbuilt', data);
-      district = this.getQueryString('state', data);
-      region = this.getQueryString('location', data);
+      district = this._getDistrict(this.getQueryString('state', data));
+      region = this._getRegion(this.getQueryString('location', data));
 
       let statusForPro = this.getQueryString('status', data);
       let typeProLocal = this.getQueryString('type', data);     
@@ -333,6 +337,26 @@ class filterPage extends Component {
     // return string ? string[1] : null;
     return string ? (string[1]  === undefined || string[1]  === null || string[1]  === "" ? "" : string[1] ) : "";
   };
+
+  _getDistrict = (slug) => {
+    const { apiCity } = this.state;
+    for (let index = 0; index < apiCity.length; index++) {
+      if (slug === apiCity[index].slug) {
+        return apiCity[index].name;
+      }
+    }
+      return slug;
+  }
+
+  _getRegion = (slug) => {
+    const { apiRegion } = this.state;
+    for (let index = 0; index < apiRegion.length; index++) {
+      if (slug === apiRegion[index].slug) {
+        return apiRegion[index].name;
+      }
+    }
+      return slug;
+  }
 
   resetForm() {
     this.setState({ search: {...InitialState.search, propertyStatus: `${I18n.t('proStatusValueRent')}` }, isSavedSearch: false });
@@ -464,8 +488,16 @@ class filterPage extends Component {
   }
 
   selectBranch = (region) => {
-    const { search } = this.state;
-    this.setState({ search: { ...search, region }, branchLo: region, isSavedSearch: false });
+    const { search, apiRegion } = this.state;
+
+    let branchLoRegion = "";
+
+    for (let index = 0; index < apiRegion.length; index++) {
+      if (region === apiRegion[index].slug) {
+        branchLoRegion = apiRegion[index].name;
+      }      
+    }
+    this.setState({ search: { ...search, region }, branchLo: branchLoRegion, isSavedSearch: false });
   }
 
   renderArea() {
@@ -594,7 +626,7 @@ class filterPage extends Component {
           {
             apiRegion.length > 0 && (
               apiRegion.map((city, i) => {
-              return  <Picker.Item key={i} label={city.name} value={city.name} />     
+              return  <Picker.Item key={i} label={city.name} value={city.slug} />     
               })
             )
           }
@@ -610,7 +642,7 @@ class filterPage extends Component {
     const pp_district = `${I18n.t('pp_district').capitalize()}`;
     const pp_city = `${I18n.t('pp_city').capitalize()}`;
 
-    var mapRenderArray = [];
+    let mapRenderArray = [];
 
     if (apiCity.length > 0) {
       if (branchLo !== null && branchLo !== '') {
@@ -636,7 +668,7 @@ class filterPage extends Component {
           {
             mapRenderArray.length > 0 && (
               mapRenderArray.map((district, i) => {
-              return  <Picker.Item key={i} label={district.name} value={district.name} />     
+              return  <Picker.Item key={i} label={district.name} value={district.slug} />     
               })
             )
           }

@@ -81,8 +81,8 @@ class Favorites extends Component {
       squareMeterRangeEnd = this.getQueryString('max-area', data);
       yearBuiltStart = this.getQueryString('min-yrbuilt', data);
       yearBuilttEnd = this.getQueryString('max-yrbuilt', data);
-      region = this.getQueryString('state', data);
-      district = this.getQueryString('location', data);
+      district = this._getDistrict(this.getQueryString('state', data));
+      region = this._getRegion(this.getQueryString('location', data));
 
       let statusForPro = this.getQueryString('status', data);
       let typeProLocal = this.getQueryString('type', data);     
@@ -169,6 +169,26 @@ class Favorites extends Component {
     return string ? (string[1]  === undefined || string[1]  === null || string[1]  === "" ? "" : string[1] ) : "";
   };
 
+  _getDistrict = (slug) => {
+    const { apiCity } = this.state;
+    for (let index = 0; index < apiCity.length; index++) {
+      if (slug === apiCity[index].slug) {
+        return apiCity[index].name;
+      }
+    }
+      return slug;
+  }
+
+  _getRegion = (slug) => {
+    const { apiRegion } = this.state;
+    for (let index = 0; index < apiRegion.length; index++) {
+      if (slug === apiRegion[index].slug) {
+        return apiRegion[index].name;
+      }
+    }
+      return slug;
+  }
+
   componentWillMount() {
     this.props.actions.savedSearchLoad();
     AsyncStorage.getItem('lang').then((value) => {
@@ -178,6 +198,10 @@ class Favorites extends Component {
         this.setState({langValue: value});
       }
     }).done();
+    const { auth } = this.props;
+    if (auth.success) {
+      this.authsuccessFunction(auth);
+    }
   }
 
   componentDidMount() {
@@ -189,6 +213,10 @@ class Favorites extends Component {
         this.setState({langValue: value});
       }
     }).done();
+    const { auth } = this.props;
+    if (auth.success) {
+      this.authsuccessFunction(auth);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -203,6 +231,10 @@ class Favorites extends Component {
         this.setState({langValue: value});
       }
     }).done();
+    const { auth } = this.props;
+    if (auth.success) {
+      this.authsuccessFunction(auth);
+    }
   }
 
   onRefresh() {

@@ -654,8 +654,8 @@ class SearchPage extends Component {
       squareMeterRangeEnd = this.getQueryString('max-area', data);
       yearBuiltStart = this.getQueryString('min-yrbuilt', data);
       yearBuilttEnd = this.getQueryString('max-yrbuilt', data);
-      region = this.getQueryString('state', data);
-      district = this.getQueryString('location', data);
+      district = this._getDistrict(this.getQueryString('state', data));
+      region = this._getRegion(this.getQueryString('location', data));
 
       let statusForPro = this.getQueryString('status', data);
       let typeProLocal = this.getQueryString('type', data);     
@@ -738,6 +738,26 @@ class SearchPage extends Component {
     // return string ? string[1] : null;
     return string ? (string[1]  === undefined || string[1]  === null || string[1]  === "" ? "" : string[1] ) : "";
   };
+
+  _getDistrict = (slug) => {
+    const { apiCity } = this.state;
+    for (let index = 0; index < apiCity.length; index++) {
+      if (slug === apiCity[index].slug) {
+        return apiCity[index].name;
+      }
+    }
+      return slug;
+  }
+
+  _getRegion = (slug) => {
+    const { apiRegion } = this.state;
+    for (let index = 0; index < apiRegion.length; index++) {
+      if (slug === apiRegion[index].slug) {
+        return apiRegion[index].name;
+      }
+    }
+      return slug;
+  }
 
   render() {
     let disableSaveSearch = false;
