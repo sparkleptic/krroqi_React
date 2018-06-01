@@ -252,8 +252,8 @@ class filterPage extends Component {
       squareMeterRangeEnd = this.getQueryString('max-area', data);
       yearBuiltStart = this.getQueryString('min-yrbuilt', data);
       yearBuilttEnd = this.getQueryString('max-yrbuilt', data);
-      district = this._getDistrict(this.getQueryString('state', data));
-      region = this._getRegion(this.getQueryString('location', data));
+      district = this._getRegion(this.getQueryString('state', data));
+      region = this._getDistrict(this.getQueryString('location', data));
 
       let statusForPro = this.getQueryString('status', data);
       let typeProLocal = this.getQueryString('type', data);     
@@ -490,14 +490,14 @@ class filterPage extends Component {
   selectBranch = (region) => {
     const { search, apiRegion } = this.state;
 
-    let branchLoRegion = "";
+    // let branchLoRegion = "";
 
-    for (let index = 0; index < apiRegion.length; index++) {
-      if (region === apiRegion[index].slug) {
-        branchLoRegion = apiRegion[index].name;
-      }      
-    }
-    this.setState({ search: { ...search, region }, branchLo: branchLoRegion, isSavedSearch: false });
+    // for (let index = 0; index < apiRegion.length; index++) {
+    //   if (region === apiRegion[index].slug) {
+    //     branchLoRegion = apiRegion[index].name;
+    //   }      
+    // }
+    this.setState({ search: { ...search, region }, branchLo: region, isSavedSearch: false });
   }
 
   renderArea() {
@@ -648,7 +648,7 @@ class filterPage extends Component {
       if (branchLo !== null && branchLo !== '') {
 
         apiCity.map((district, i) => {
-          if (branchLo !== null && branchLo !== '' && branchLo === district.region) {
+          if (branchLo !== null && branchLo !== '' && branchLo === district.region_slug) {
           mapRenderArray.push(district)
           }
         })

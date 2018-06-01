@@ -695,8 +695,8 @@ class SearchPage extends Component {
       squareMeterRangeEnd = this.getQueryString('max-area', data);
       yearBuiltStart = this.getQueryString('min-yrbuilt', data);
       yearBuilttEnd = this.getQueryString('max-yrbuilt', data);
-      district = this._getDistrict(this.getQueryString('state', data));
-      region = this._getRegion(this.getQueryString('location', data));
+      district = this._getRegion(this.getQueryString('state', data));
+      region = this._getDistrict(this.getQueryString('location', data));
 
       let statusForPro = this.getQueryString('status', data);
       let typeProLocal = this.getQueryString('type', data);     
