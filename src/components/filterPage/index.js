@@ -131,17 +131,17 @@ class filterPage extends Component {
 
     let termId = 0;
     let index = search.propertyStatus;
-    if (index === 33) {
+    if (index === `${I18n.t('proStatusValueRent')}`) {
       termId = 0;
-    } else if (index === 34) {
+    } else if (index === `${I18n.t('proStatusValueSale')}`) {
       termId = 1;
-    } else if (index === 108) {
+    } else if (index === `${I18n.t('proStatusValueFutureDev')}`) {
       termId = 2;
-    } else if (index === 319) {
+    } else if (index === `${I18n.t('proStatusValueNewConst')}`) {
       termId = 3;
-    } else if (index === 217) {
+    } else if (index === `${I18n.t('proStatusValueSold')}`) {
       termId = 4;
-    } else if (index === 218) {
+    } else if (index === `${I18n.t('proStatusValueRented')}`) {
       termId = 5;
     }
 
@@ -225,7 +225,7 @@ class filterPage extends Component {
       
       let data = dataUrl.url;
       
-      let propertyStatus = 33,
+      let propertyStatus = `${I18n.t('proStatusValueRent')}`,
         priceRangeStart = "",
         priceRangeEnd = "", 
         rooms = "", 
@@ -256,39 +256,39 @@ class filterPage extends Component {
 
       propertyTypeValue = typeProLocal.toProperCase();      
 
-      if(statusForPro === "for-rent") {
-          propertyStatus = 33;
+      if(statusForPro === `${I18n.t('proStatusNameRent')}`) {
+          propertyStatus = `${I18n.t('proStatusValueRent')}`;
       }
-      if(statusForPro === "for-sale") {
-          propertyStatus = 34;
+      if(statusForPro === `${I18n.t('proStatusNameSale')}`) {
+          propertyStatus = `${I18n.t('proStatusValueSale')}`;
       }
-      if(statusForPro === "future-developments") {
-          propertyStatus = 108;
+      if(statusForPro === `${I18n.t('proStatusNameFutureDev')}`) {
+          propertyStatus = `${I18n.t('proStatusValueFutureDev')}`;
       }
-      if(statusForPro === "new-construction-2") {
-          propertyStatus = 319;
+      if(statusForPro === `${I18n.t('proStatusNameNewConst')}`) {
+          propertyStatus = `${I18n.t('proStatusValueNewConst')}`;
       }
-      if(statusForPro === "sold") {
-          propertyStatus = 217;
+      if(statusForPro === `${I18n.t('proStatusNameSold')}`) {
+          propertyStatus = `${I18n.t('proStatusValueSold')}`;
       }
-      if(statusForPro === "rented") {
-          propertyStatus = 218;
+      if(statusForPro === `${I18n.t('proStatusNameRented')}`) {
+          propertyStatus = `${I18n.t('proStatusValueRented')}`;
       }
 
-      if(typeProLocal === "apartment") {
-          propertyTypeKey = 13;
+      if(typeProLocal === `${I18n.t('proTypeNameApartment')}`) {
+          propertyTypeKey = `${I18n.t('proTypeValueApartment')}`;
       }
-      if(typeProLocal === "building") {
-          propertyTypeKey = 107;
+      if(typeProLocal === `${I18n.t('proTypeNameBuilding')}`) {
+          propertyTypeKey = `${I18n.t('proTypeValueBuilding')}`;
       }
-      if(typeProLocal === "office") {
-          propertyTypeKey = 221;
+      if(typeProLocal === `${I18n.t('proTypeNameOffice')}`) {
+          propertyTypeKey = `${I18n.t('proTypeValueOffice')}`;
       }
-      if(typeProLocal === "showroom") {
-          propertyTypeKey = 219;
+      if(typeProLocal === `${I18n.t('proTypeNameShowroom')}`) {
+          propertyTypeKey = `${I18n.t('proTypeValueShowroom')}`;
       }
-      if(typeProLocal === "villa") {
-          propertyTypeKey = 89;
+      if(typeProLocal === `${I18n.t('proTypeNameVilla')}`) {
+          propertyTypeKey = `${I18n.t('proTypeValueVilla')}`;
       }
 
       if (propertyTypeKey !== "" && propertyTypeValue !== "") {
@@ -335,7 +335,7 @@ class filterPage extends Component {
   };
 
   resetForm() {
-    this.setState({ search: InitialState.search, isSavedSearch: false });
+    this.setState({ search: {...InitialState.search, propertyStatus: `${I18n.t('proStatusValueRent')}` }, isSavedSearch: false });
   }
 
   searchForm() {
@@ -441,17 +441,17 @@ class filterPage extends Component {
   selectPropertyStatus(index) {
     let termId = 0;
     if (index === 0) {
-      termId = 33;
+      termId = `${I18n.t('proStatusValueRent')}`;
     } else if (index === 1) {
-      termId = 34;
+      termId = `${I18n.t('proStatusValueSale')}`;
     } else if (index === 2) {
-      termId = 108;
+      termId = `${I18n.t('proStatusValueFutureDev')}`;
     } else if (index === 3) {
-      termId = 319;
+      termId = `${I18n.t('proStatusValueNewConst')}`;
     } else if (index === 4) {
-      termId = 217;
+      termId = `${I18n.t('proStatusValueSold')}`;
     } else if (index === 5) {
-      termId = 218;
+      termId = `${I18n.t('proStatusValueRented')}`;
     }
     const { search } = this.state;
     const newVal = { ...search, propertyStatus: termId };
@@ -694,23 +694,23 @@ _convertIntoString = (object1) => {
         if(key1 === "propertyStatus"){
         	let finalpara = "status";
             let value = "";
-          	if(object1[key1] === 33) {
-               value = "for-rent";
+            if(object1[key1] === `${I18n.t('proStatusValueRent')}`) {
+              value = `${I18n.t('proStatusNameRent')}`;
             }
-            if(object1[key1] === 34) {
-               value = "for-sale";
+            if(object1[key1] === `${I18n.t('proStatusValueSale')}`) {
+              value = `${I18n.t('proStatusNameSale')}`;
             }
-            if(object1[key1] === 108) {
-               value = "future-developments";
+            if(object1[key1] === `${I18n.t('proStatusValueFutureDev')}`) {
+              value = `${I18n.t('proStatusNameFutureDev')}`;
             }
-            if(object1[key1] === 319) {
-               value = "new-construction-2";
+            if(object1[key1] === `${I18n.t('proStatusValueNewConst')}`) {
+              value = `${I18n.t('proStatusNameNewConst')}`;
             }
-            if(object1[key1] === 217) {
-               value = "sold";
+            if(object1[key1] === `${I18n.t('proStatusValueSold')}`) {
+              value = `${I18n.t('proStatusNameSold')}`;
             }
-            if(object1[key1] === 218) {
-               value = "rented";
+            if(object1[key1] === `${I18n.t('proStatusValueRented')}`) {
+              value = `${I18n.t('proStatusNameRented')}`;
             }
             string1 = string1 + `&${finalpara}=${value}`;
         }

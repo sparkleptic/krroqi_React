@@ -158,7 +158,7 @@ const mapStateToProps = (state) => {
   const favorites = state.favorites.success || [];
   let propertyStatus = state.propertyStatus.success || [];
   const propertyTypes = state.propertyTypes.success || [];
-  propertyStatus = propertyStatus.filter(item => item.term_id === 33 || item.term_id === 34 || item.term_id === 108);
+  propertyStatus = propertyStatus.filter(item => item.term_id === `${I18n.t('proStatusValueRent')}` || item.term_id === `${I18n.t('proStatusValueSale')}` || item.term_id === `${I18n.t('proStatusValueFutureDev')}` || item.term_id === `${I18n.t('proStatusValueNewConst')}` || item.term_id === `${I18n.t('proStatusValueSold')}` || item.term_id === `${I18n.t('proStatusValueRented')}`);
   return {
     filteredProperties: state.filteredProperties,
     savedSearch: state.savedSearch,

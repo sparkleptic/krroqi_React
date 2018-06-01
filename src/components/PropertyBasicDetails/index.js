@@ -27,7 +27,7 @@ String.prototype.toProperCase = function() {
     function($1) { return $1.toUpperCase(); });
 }
 
-var typeProperty = [
+var _typeProperty = [
   {
     type: 'Apartment',
     value: '13',
@@ -104,6 +104,11 @@ class PropertyBasicDetails extends Component {
 
   propertyTypeFunc() {
     const { propertyTypeLo } = this.state;
+    const { propertyTypes } = this.props;
+    const typeProperty = propertyTypes.map(item => ({
+      type: item.term_id,
+      value: item.name,
+    }));
     return (
       <View>
         <Picker mode="dropdown" selectedValue={propertyTypeLo} onValueChange={this.selectpropertyType}>
@@ -211,6 +216,7 @@ class PropertyBasicDetails extends Component {
       yearBuild,
       screen_4,
     } = this.props.propertyPost;
+
     return (
       <View style={styles.container}>
         <View style={styles.mainViewHead}><Text style={styles.mainViewHeadText}>{I18n.t('ppt_basic').toProperCase()} </Text></View>
@@ -326,6 +332,7 @@ PropertyBasicDetails.propTypes = {};
 function mapStateToProps (state) {
   return {
     propertyPost: state.propertyPost,
+    propertyTypes: state.propertyTypes,
   }
 }
 
