@@ -81,7 +81,7 @@ class filterPage extends Component {
   }
 
   componentDidMount() {
-    AsyncStorage.getItem('lang').then((value) => {
+  AsyncStorage.getItem('lang').then((value) => {
 
       let lang = 'en';
       if(value == null){

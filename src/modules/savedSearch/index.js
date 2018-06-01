@@ -27,6 +27,8 @@ class Favorites extends Component {
       isRefeshing: false,
       dummyDataArr: [],
       langValue: 'en',
+      apiRegion: [],
+      apiCity: [],
     };
     this.onRefresh = this.onRefresh.bind(this);
     this.pushDetail = this.pushDetail.bind(this);
@@ -207,12 +209,34 @@ class Favorites extends Component {
   componentDidMount() {
     this.props.actions.savedSearchLoad();
     AsyncStorage.getItem('lang').then((value) => {
+      let lang = 'en';
       if(value == null){
-        
+        lang = 'en';
       }else{
         this.setState({langValue: value});
+        lang = value;
       }
+      axios
+        .get(`${PUBLIC_URL}getRegions/${lang}`)
+        .then((response) => {
+          this.setState({ apiRegion: response.data })
+          // alert(JSON.stringify(response));
+        })
+        .catch((error) => {
+          // do nothing
+        });
+  
+      axios
+        .get(`${PUBLIC_URL}getCities/${lang}`)
+        .then((response) => {
+          this.setState({ apiCity: response.data })
+        })
+        .catch((error) => {
+          // do nothing
+        });
     }).done();
+
+      
     const { auth } = this.props;
     if (auth.success) {
       this.authsuccessFunction(auth);
@@ -222,7 +246,9 @@ class Favorites extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth && JSON.stringify(this.state.auth) !== JSON.stringify(nextProps.auth)) {
       this.setState({ auth: nextProps.auth });
-      nextProps.auth.success && this.authsuccessFunction(nextProps.auth);      
+      nextProps.auth.success && this.authsuccessFunction(nextProps.auth); 
+      console.log("nextProps.auth")     
+      console.log(nextProps.auth)     
     }
     AsyncStorage.getItem('lang').then((value) => {
       if(value == null){
