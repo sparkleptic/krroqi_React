@@ -67,6 +67,8 @@ class SearchPage extends Component {
       savedPara: false,
       disableSaveSearchPara: true,
       clusterlo: [],
+      apiRegion: [],
+      apiCity: [],
       searchDataBlank: {
       "propertyStatus": `${I18n.t('proStatusValueRent')}`,
       "priceRange": {
@@ -120,6 +122,45 @@ class SearchPage extends Component {
   }
 
   componentDidMount() {
+    
+    AsyncStorage.getItem('lang').then((value) => {
+
+      let lang = 'en';
+      if(value == null){
+        lang = 'en';
+      }else{
+        lang = value;
+      }
+
+      axios
+        .get(`${PUBLIC_URL}getRegions/${lang}`)
+        .then((response) => {
+          this.setState({ apiRegion: response.data })
+          // alert(JSON.stringify(response));
+        })
+        .catch((error) => {
+          // do nothing
+        });
+
+      axios
+        .get(`${PUBLIC_URL}getCities/${lang}`)
+        .then((response) => {
+          this.setState({ apiCity: response.data })
+        })
+        .catch((error) => {
+          // do nothing
+        });
+
+      }).done();
+      AsyncStorage.getItem('searchParaKrooqi').then((value) => {
+        if(value == null){
+          // do nothing
+        }else{
+          this.setState({ search: JSON.parse(value) })
+        }        
+      }).done();
+  
+
     let navigatorOptions = {};
     if (Platform.OS === 'android' && Platform.Version === 23) {
       navigatorOptions = {
@@ -654,8 +695,8 @@ class SearchPage extends Component {
       squareMeterRangeEnd = this.getQueryString('max-area', data);
       yearBuiltStart = this.getQueryString('min-yrbuilt', data);
       yearBuilttEnd = this.getQueryString('max-yrbuilt', data);
-      district = this._getDistrict(this.getQueryString('state', data));
-      region = this._getRegion(this.getQueryString('location', data));
+      district = this._getRegion(this.getQueryString('state', data));
+      region = this._getDistrict(this.getQueryString('location', data));
 
       let statusForPro = this.getQueryString('status', data);
       let typeProLocal = this.getQueryString('type', data);     
