@@ -167,15 +167,22 @@ export function propertyStatusLoad() {
 
 export function propertyTypesLoad() {
   return (dispatch) => {
-    dispatch(propertyTypesLoadRequest());
-    return axios
-      .get(`${config.PUBLIC_URL}getTypes`)
-      .then((response) => {
-        dispatch(propertyTypesLoadSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(propertyTypesLoadFail(error));
-      });
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        lang = 'en';
+      }else{
+        lang = value;
+      }
+      dispatch(propertyTypesLoadRequest());
+      return axios
+        .get(`${config.PUBLIC_URL}getTypes/${lang}`)
+        .then((response) => {
+          dispatch(propertyTypesLoadSuccess(response.data));
+        })
+        .catch((error) => {
+          dispatch(propertyTypesLoadFail(error));
+        });
+    }).done();
   };
 }
 

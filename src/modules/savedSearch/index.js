@@ -57,7 +57,7 @@ class Favorites extends Component {
       
       let data = dataUrl.url;
       
-      let propertyStatus = 33,
+      let propertyStatus = `${I18n.t('proStatusValueRent')}`,
         priceRangeStart = "",
         priceRangeEnd = "", 
         rooms = "", 
@@ -81,47 +81,47 @@ class Favorites extends Component {
       squareMeterRangeEnd = this.getQueryString('max-area', data);
       yearBuiltStart = this.getQueryString('min-yrbuilt', data);
       yearBuilttEnd = this.getQueryString('max-yrbuilt', data);
-      region = this.getQueryString('state', data);
-      district = this.getQueryString('location', data);
+      district = this._getDistrict(this.getQueryString('state', data));
+      region = this._getRegion(this.getQueryString('location', data));
 
       let statusForPro = this.getQueryString('status', data);
       let typeProLocal = this.getQueryString('type', data);     
 
       propertyTypeValue = typeProLocal.toProperCase();      
 
-      if(statusForPro === "for-rent") {
-          propertyStatus = 33;
+      if(statusForPro === `${I18n.t('proStatusNameRent')}`) {
+          propertyStatus = `${I18n.t('proStatusValueRent')}`;
       }
-      if(statusForPro === "for-sale") {
-          propertyStatus = 34;
+      if(statusForPro === `${I18n.t('proStatusNameSale')}`) {
+          propertyStatus = `${I18n.t('proStatusValueSale')}`;
       }
-      if(statusForPro === "future-developments") {
-          propertyStatus = 108;
+      if(statusForPro === `${I18n.t('proStatusNameFutureDev')}`) {
+          propertyStatus = `${I18n.t('proStatusValueFutureDev')}`;
       }
-      if(statusForPro === "new-construction-2") {
-          propertyStatus = 319;
+      if(statusForPro === `${I18n.t('proStatusNameNewConst')}`) {
+          propertyStatus = `${I18n.t('proStatusValueNewConst')}`;
       }
-      if(statusForPro === "sold") {
-          propertyStatus = 217;
+      if(statusForPro === `${I18n.t('proStatusNameSold')}`) {
+          propertyStatus = `${I18n.t('proStatusValueSold')}`;
       }
-      if(statusForPro === "rented") {
-          propertyStatus = 218;
+      if(statusForPro === `${I18n.t('proStatusNameRented')}`) {
+          propertyStatus = `${I18n.t('proStatusValueRented')}`;
       }
 
-      if(typeProLocal === "apartment") {
-          propertyTypeKey = 13;
+      if(typeProLocal === `${I18n.t('proTypeNameApartment')}`) {
+          propertyTypeKey = `${I18n.t('proTypeValueApartment')}`;
       }
-      if(typeProLocal === "building") {
-          propertyTypeKey = 107;
+      if(typeProLocal === `${I18n.t('proTypeNameBuilding')}`) {
+          propertyTypeKey = `${I18n.t('proTypeValueBuilding')}`;
       }
-      if(typeProLocal === "office") {
-          propertyTypeKey = 221;
+      if(typeProLocal === `${I18n.t('proTypeNameOffice')}`) {
+          propertyTypeKey = `${I18n.t('proTypeValueOffice')}`;
       }
-      if(typeProLocal === "showroom") {
-          propertyTypeKey = 219;
+      if(typeProLocal === `${I18n.t('proTypeNameShowroom')}`) {
+          propertyTypeKey = `${I18n.t('proTypeValueShowroom')}`;
       }
-      if(typeProLocal === "villa") {
-          propertyTypeKey = 89;
+      if(typeProLocal === `${I18n.t('proTypeNameVilla')}`) {
+          propertyTypeKey = `${I18n.t('proTypeValueVilla')}`;
       }
 
       if (propertyTypeKey !== "" && propertyTypeValue !== "") {
@@ -169,6 +169,26 @@ class Favorites extends Component {
     return string ? (string[1]  === undefined || string[1]  === null || string[1]  === "" ? "" : string[1] ) : "";
   };
 
+  _getDistrict = (slug) => {
+    const { apiCity } = this.state;
+    for (let index = 0; index < apiCity.length; index++) {
+      if (slug === apiCity[index].slug) {
+        return apiCity[index].name;
+      }
+    }
+      return slug;
+  }
+
+  _getRegion = (slug) => {
+    const { apiRegion } = this.state;
+    for (let index = 0; index < apiRegion.length; index++) {
+      if (slug === apiRegion[index].slug) {
+        return apiRegion[index].name;
+      }
+    }
+      return slug;
+  }
+
   componentWillMount() {
     this.props.actions.savedSearchLoad();
     AsyncStorage.getItem('lang').then((value) => {
@@ -178,6 +198,10 @@ class Favorites extends Component {
         this.setState({langValue: value});
       }
     }).done();
+    const { auth } = this.props;
+    if (auth.success) {
+      this.authsuccessFunction(auth);
+    }
   }
 
   componentDidMount() {
@@ -189,6 +213,10 @@ class Favorites extends Component {
         this.setState({langValue: value});
       }
     }).done();
+    const { auth } = this.props;
+    if (auth.success) {
+      this.authsuccessFunction(auth);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -203,6 +231,10 @@ class Favorites extends Component {
         this.setState({langValue: value});
       }
     }).done();
+    const { auth } = this.props;
+    if (auth.success) {
+      this.authsuccessFunction(auth);
+    }
   }
 
   onRefresh() {
@@ -251,22 +283,22 @@ class Favorites extends Component {
 
     let value = "";
     if (item.propertyStatus !== "") {
-      if(item.propertyStatus === 33) {
+      if(item.propertyStatus === `${I18n.t('proStatusValueRent')}`) {
           value = `${I18n.t('pp_for_rent').toProperCase()}`;
       }
-      if(item.propertyStatus === 34) {
+      if(item.propertyStatus === `${I18n.t('proStatusValueSale')}`) {
           value = `${I18n.t('pp_for_sale').toProperCase()}`;
       }
-      if(item.propertyStatus === 108) {
+      if(item.propertyStatus === `${I18n.t('proStatusValueFutureDev')}`) {
           value = `${I18n.t('pp_for_development').toProperCase()}`;
       }
-      if(item.propertyStatus === 319) {
+      if(item.propertyStatus === `${I18n.t('proStatusValueNewConst')}`) {
           value = `${I18n.t('pp_for_construction').toProperCase()}`;
       }
-      if(item.propertyStatus === 217) {
+      if(item.propertyStatus === `${I18n.t('proStatusValueSold')}`) {
           value = `${I18n.t('pp_for_sold').toProperCase()}`;
       }
-      if(item.propertyStatus === 218) {
+      if(item.propertyStatus === `${I18n.t('proStatusValueRented')}`) {
           value = `${I18n.t('pp_for_rented').toProperCase()}`;
       }
     }

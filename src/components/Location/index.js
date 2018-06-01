@@ -64,7 +64,7 @@ class Location extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      propertyStatus: '33',
+      propertyStatus: `${I18n.t('proStatusValueRent')}`,
       propertyTypeLo: 0,
       branchLo: '',
       regionLo: '',
@@ -155,17 +155,17 @@ class Location extends Component {
   selectPropertyStatus(index) {
     let termId = 0;
     if (index === 0) {
-      termId = 33;
+      termId = `${I18n.t('proStatusValueRent')}`;
     } else if (index === 1) {
-      termId = 34;
+      termId = `${I18n.t('proStatusValueSale')}`;
     } else if (index === 2) {
-      termId = 108;
+      termId = `${I18n.t('proStatusValueFutureDev')}`;
     } else if (index === 3) {
-      termId = 319;
+      termId = `${I18n.t('proStatusValueNewConst')}`;
     } else if (index === 4) {
-      termId = 217;
+      termId = `${I18n.t('proStatusValueSold')}`;
     } else if (index === 5) {
-      termId = 218;
+      termId = `${I18n.t('proStatusValueRented')}`;
     }
     this.setState({ propertyStatus: termId, propertyTypeLo: index });
     this.props.updatePropertyFor(termId)

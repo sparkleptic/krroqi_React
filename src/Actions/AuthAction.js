@@ -53,26 +53,34 @@ export function login(data) {
 }
 
 export function register(data) {
+  let lang = 'en'
   return (dispatch) => {
-    dispatch(authRequest());
-    return axios
-      .post(`${config.PUBLIC_URL}register`, data)
-      .then((response) => {
-        const userData = {
-          id: response.data.id,
-          type: response.data.type,
-          is_new: response.data.is_new,
-          email: data.email,
-          name: data.name,
-          image: data.imageUrl,
-        };
+    AsyncStorage.getItem('lang').then((value) => {
+      if(value == null){
+        lang = 'en';
+      }else{
+        lang = value;
+      }
+      dispatch(authRequest());
+      return axios      
+        .post(`${config.PUBLIC_URL}register`, {...data, lang})
+        .then((response) => {
+          const userData = {
+            id: response.data.id,
+            type: response.data.type,
+            is_new: response.data.is_new,
+            email: data.email,
+            name: data.name,
+            image: data.imageUrl,
+          };
 
-        AsyncStorage.setItem(config.USER_DATA, JSON.stringify(userData));        
+      AsyncStorage.setItem(config.USER_DATA, JSON.stringify(userData));        
         dispatch(authSuccess(userData));
       })
       .catch((error) => {
         dispatch(authFail(error));
       });
+    }).done();
   };
 }
 export function logout() {

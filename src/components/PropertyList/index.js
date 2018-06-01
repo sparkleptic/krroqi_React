@@ -26,7 +26,7 @@ class PropertyList extends Component {
     this.state = {
       error: false,
       searchDataBlank: {
-      "propertyStatus": 33,
+      "propertyStatus": `${I18n.t('proStatusValueRent')}`,
       "priceRange": {
         "start": "",
         "end": ""
@@ -200,6 +200,7 @@ class PropertyList extends Component {
               isFavorite={favorites.some(x => x.ID === item.ID)}
               onCardPress={this.pushDetail}
               onLikePress={this.onLikePress}
+              lang={this.props.lang}
               fullWidth
             />
           )}
@@ -220,6 +221,7 @@ PropertyList.propTypes = {
   propertiesByCategory: PropTypes.object.isRequired,
   favorites: PropTypes.array.isRequired,
   auth: PropTypes.object.isRequired,
+  lang: PropTypes.string,
 };
 
 function mapStateToProps(state) {
@@ -231,7 +233,7 @@ function mapStateToProps(state) {
     const favorites = state.favorites.success || [];
     const propertyTypes = state.propertyTypes.success || [];
     let propertyStatus = state.propertyStatus.success || [];
-    propertyStatus = propertyStatus.filter(item => item.term_id === 33 || item.term_id === 34 || item.term_id === 108);
+    propertyStatus = propertyStatus.filter(item => item.term_id === `${I18n.t('proStatusValueRent')}` || item.term_id === `${I18n.t('proStatusValueSale')}` || item.term_id === `${I18n.t('proStatusValueFutureDev')}` || item.term_id === `${I18n.t('proStatusValueNewConst')}` || item.term_id === `${I18n.t('proStatusValueSold')}` || item.term_id === `${I18n.t('proStatusValueRented')}`);
 
   return {
     propertiesByCategory: state.propertiesByCategory,
